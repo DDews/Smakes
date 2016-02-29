@@ -1,0 +1,26 @@
+/* CSS declarations go here */
+body {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#round {
+    border-radius: 5px;
+    background: #66bbff;
+    padding: 5px;
+}
+.title, .logout, .center {
+    text-align: center;
+    color: #f9f9f9;
+}
+.messages, .right {
+    color: #f9f9f9;
+    text-align: right;
+}
+#error,#pmerror {
+    color: #f9f9f9;
+}
+a {
+    color: #efeef2;
+    font-weight: bold;
+}
+.g-recaptcha div { margin-left: auto; margin-right: auto;}

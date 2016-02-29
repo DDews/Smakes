@@ -1,0 +1,36 @@
+<template name="pmPage">
+        {{#if currentUser}}
+            <div id="round">
+                <span class="title"><h2>{{target}}</h2></span>
+                <p class="right"><a href="#" class="replypm">Reply</a></p>
+                <div id="pmerror"></div>
+                {{#if showpmreply}}
+                    <form class="pmForm">
+                        <input type="text" name="subject" placeholder="subject" />
+                        <textarea rows="4" cols="50" name="message">
+                        </textarea>
+                        <input type="submit" name="submit" value="Send" />
+                    </form>
+                {{/if}}
+            </div>
+            {{#each post}}
+                <div id="round">
+                <p class="right">
+                From: <b>{{from}}</b>
+                    {{myDate createdAt}}</p>
+                    <span class="title">
+                    <br>
+                    Subject: {{subject}}
+                    <br>
+                    Message: <br>{{message}}
+                </span>
+                </div>
+            {{/each}}
+        {{else}}
+            <div id="round">
+            <span class="title">
+                You must be logged in.
+            </span>
+            </div>
+        {{/if}}
+</template>

@@ -1,0 +1,20 @@
+<template name="login">
+    <div>
+        <div id="error"></div>
+        <form class="loginForm">
+        <input type="text" name="username" placeholder="username" />
+        <input type="password" name="password" placeholder="password" />
+        {{#if form}}
+                <input type="password" name="password2" placeholder="retype password" />{{> reCAPTCHA}}
+                <input type="submit" name="submit" value="register" />
+        {{else}}
+                <input type="submit" name="submit" value="login" />
+        {{/if}}
+            {{#if form}}
+                <br><a href="#" class="login">login</a>
+                {{else}}
+                <br><a href="#" class="register">register</a>
+            {{/if}}
+            </form>
+    </div>
+</template>

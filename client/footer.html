@@ -1,0 +1,9 @@
+<template name="footer">
+    <div id="round">
+        {{#if currentUser}}
+            <p class="logout"><a href="#" class="logout">Logout</a></p>
+        {{else}}
+        {{> login}}
+        {{/if}}
+    </div>
+</template>

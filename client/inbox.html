@@ -1,0 +1,37 @@
+<template name="inbox">
+    {{#if currentUser}}
+        <div id="round">
+            <p class="right"><a href="#" class="sendpm">New Message</a></p>
+            <div id="pmerror"></div>
+        {{#if showpm}}
+            <form class="loginForm">
+                <input type="text" name="to" placeholder="username to send to" />
+                <input type="text" name="subject" placeholder="subject" />
+                        <textarea rows="4" cols="50" name="message">
+                        </textarea>
+                <input type="submit" name="submit" value="Send" />
+            </form>
+            {{/if}}
+        </div>
+        {{#each message}}
+            <div id="round">
+                <p class="right">
+                {{#if isFrom from}}To: <b>{{to}}</b>
+                {{else}}From: <b>{{from}}</b>
+                {{/if}}
+                    {{myDate createdAt}}
+                    </p>
+                    <br>
+                <p class="center">
+                    {{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a>
+                </p>
+            </div>
+        {{/each}}
+    {{else}}
+        <div id="round">
+            <span class="title">
+                You must be logged in.
+            </span>
+        </div>
+    {{/if}}
+</template>
