@@ -25,7 +25,7 @@
                 {{#each message}}
                 <tr>
                     <td>{{isTo from to}}</td>
-                    <td>{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></td>
+                    <td>{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></td>
                     <td>{{numPosts messages}}</td>
                     <td>
                         From: <b>{{isFrom messages}}</b>
@@ -35,6 +35,9 @@
                 </tr>
                 {{/each}}
             </table>
+            {{#if zeroPosts messages}}
+            <p class="center">No threads found.</p>
+            {{/if}}
         </div>
         {{else}}
             <div id="round">

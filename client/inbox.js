@@ -30,6 +30,12 @@ Template['inbox'].helpers({
     isTo: function(from, to) {
         if (from == Meteor.user().username) return to;
         return from;
+    },
+    locked: function(showTo) {
+        return showTo.length <= 1;
+    },
+    zeroPosts: function(messages) {
+        return !messages;
     }
 });
 Template.inbox.events({

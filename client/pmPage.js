@@ -44,8 +44,13 @@ Template['pmPage'].helpers({
     deleted: function(user, id) {
         var thread = Messages.findOne({_id: '' + this});
         if (!thread) return null;
-        console.log(!_.contains(thread.showTo,user));
         return !_.contains(thread.showTo,user);
+    },
+    getSubject: function(subject) {
+        var id = '' + Router.current().params._id;
+        var array = Messages.findOne({_id: id});
+        if (!array) return null;
+        return subject ? subject : 'Re: ' + array.subject;
     }
 
 });
