@@ -81,6 +81,13 @@ a {
     text-align: left;
     text-transform: uppercase;
 }
+.views {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
 .topiclist {
     display: block;
     list-style-position: outside;
@@ -126,6 +133,13 @@ dt {
     color: white;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
+}
+.locked {
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
 }
 .small {
     color: white;

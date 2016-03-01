@@ -25,7 +25,7 @@ Template['inbox'].helpers({
         return dformat;
     },
     numPosts: function(messages) {
-        return messages.length;
+        return messages.length - 1;
     },
     isTo: function(from, to) {
         if (from == Meteor.user().username) return to;
@@ -56,5 +56,16 @@ Template.inbox.events({
         var showpm = Session.get("showpm");
         if (showpm) Session.set("showpm",false);
         else Session.set("showpm",true);
+    },
+    'click .deletePM': function(event) {
+        event.preventDefault();
+        var thread_id = event.currentTarget.id;
+        Meteor.call("deleteMessage",thread_id, function(error, result) {
+            if (error) {
+                alert(error.reason);
+            } else {
+                console.log("success!");
+            }
+        });
     }
 });

@@ -66,6 +66,7 @@ Meteor.methods({
     sendPMReply: function(id, subject, message) {
         if (!message) throw new Meteor.Error(422,"Error: Your message is emtpy");
         var msg = Messages.findOne({_id: id});
+        if (msg.showTo.length == 1) throw new Meteor.Error(422, "Error: This thread is locked.");
         var array = msg.messages;
         array.push({
             _id: array.length,
@@ -96,35 +97,35 @@ Meteor.methods({
         if (!_.contains(array,Meteor.user().username)) {
             return;
         }
-        if (array[0] == Meteor.user().username) {
-            array = [];
+        if (_.contains(array,Meteor.user().username)) {
+            array = _.without(array,Meteor.user().username);
         } else {
             return;
         }
         Messages.update(id,{ $set: { unread: array}});
     },
     deleteMessage: function(id) {
-        var array = Messages.find({_id: id});
+        var array = Messages.findOne({_id: id});
         if (!array) throw new Meteor.Error(422,"Error: message not found");
         array = array.showTo;
-        if (array == []) throw new Meteor.Error(422,"Error: already deleted.");
-        var remainder = array[0];
-        if (remainder == Meteor.user().usernameId && array.length > 1) remainder = array[1];
-        else if (array.length <= 1) {
+        if (array == [] || !_.contains(array,Meteor.user().username)) throw new Meteor.Error(422,"Error: already deleted.");
+        array = _.without(array,Meteor.user().username);
+        if (array.length <= 0) {
             Messages.remove(id);
             return;
         }
-        Messages.update(id,{ $set: { showTo: [remainder]}});
+        Messages.update(id,{ $set: { showTo: array}});
     },
     editPM: function(id,post_id,msg) {
         var thispost = Messages.findOne({_id: id});
         if (!this) throw new Meteor.Error(422,"Error: thread " + id + "does not exist");
         var array = thispost.messages;
-        if (post_id <= 0 || post_id >= array.length) throw new Meteor.Error(422, "Error: post does not exist");
+        if (post_id < 0 || post_id >= array.length) throw new Meteor.Error(422, "Error: post does not exist");
         var post = array[post_id];
         post.message = msg;
         post.modified = new Date();
         post.edited = true;
+        if (post.from != Meteor.user().username) throw new Meteor.Error(422, "Error: not authorized to edit someone else's post");
         array[post_id] = post;
         Messages.update(id, { $set: { messages: array} });
         array = thispost.unread;

@@ -20,6 +20,7 @@
                     <td class="list-inner">Thread</td>
                     <td class="list-inner">Replies</td>
                     <td class="list-inner">Last Post</td>
+                    <td></td>
                 </tr>
                 {{#each message}}
                 <tr>
@@ -30,6 +31,7 @@
                         From: <b>{{isFrom messages}}</b>
                         {{myDate createdAt}}
                     </td>
+                    <td><a href="#" class="deletePM" id="{{_id}}">delete</a></td>
                 </tr>
                 {{/each}}
             </table>

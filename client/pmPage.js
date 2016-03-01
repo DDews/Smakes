@@ -36,7 +36,18 @@ Template['pmPage'].helpers({
     },
     isEditable: function(_id) {
         return Session.get("editable") == _id;
+    },
+    exists: function(_id) {
+        if (!Messages.findOne({_id: ''+this})) return false;
+        return true;
+    },
+    deleted: function(user, id) {
+        var thread = Messages.findOne({_id: '' + this});
+        if (!thread) return null;
+        console.log(!_.contains(thread.showTo,user));
+        return !_.contains(thread.showTo,user);
     }
+
 });
 Template.pmPage.events({
     'submit form': function(event) {
