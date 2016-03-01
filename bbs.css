@@ -1,7 +1,10 @@
 /* CSS declarations go here */
 body {
-    margin-left: 10px;
-    margin-right: 10px;
+    color: white;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-left: 14px;
+    margin-right: 14px;
 }
 #round {
     border-radius: 5px;
@@ -21,6 +24,116 @@ body {
 }
 a {
     color: #efeef2;
-    font-weight: bold;
 }
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
+.forumbg {
+    color: white;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-top-width: 0px;
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-top: 0px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    text-align: left;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    background-color: #28afb8;
+    word-wrap: break-word;
+    list-style-type: none;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+.inner {
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    display: block;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    text-align: left;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    list-style-type: none;
+}
+.list-inner {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+}
+.topiclist {
+    display: block;
+    list-style-position: outside;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    list-style-type: none;
+}
+.header {
+    display: inline;
+    list-style-type: none;
+    list-style-position: outside;
+    word-wrap: break-word;
+}
+ul {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+dt {
+    display: inline;
+}
+.icon {
+    display: inline;
+}
+.posts, .views, .lastpost {
+    width: 95px;
+    padding-top: 2px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    list-style-type: none;
+    list-style-position: outside;
+    line-height: 14px;
+    float: left;
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.post {
+    color: white;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.small {
+    color: white;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.editedSmall {
+    color: black;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}

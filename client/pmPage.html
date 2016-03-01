@@ -1,36 +1,52 @@
 <template name="pmPage">
         {{#if currentUser}}
-            <div id="round">
-                <span class="title"><h2>{{target}}</h2></span>
-                <p class="right"><a href="#" class="replypm">Reply</a></p>
-                <div id="pmerror"></div>
-                {{#if showpmreply}}
-                    <form class="pmForm">
-                        <input type="text" name="subject" placeholder="subject" />
-                        <textarea rows="4" cols="50" name="message">
-                        </textarea>
-                        <input type="submit" name="submit" value="Send" />
-                    </form>
-                {{/if}}
-            </div>
-            {{#each post}}
+            <div class="forumbg">
                 <div id="round">
-                <p class="right">
-                From: <b>{{from}}</b>
-                    {{myDate createdAt}}</p>
-                    <span class="title">
-                    <br>
-                    Subject: {{subject}}
-                    <br>
-                    Message: <br>{{message}}
+                    <span class="title"><h2>{{target}}</h2></span>
+                    <p class="right"><a href="#" class="replypm">Reply</a></p>
+                    <div id="pmerror"></div>
+                    {{#if showpmreply}}
+                        <form class="pmForm">
+                            <input type="text" name="subject" placeholder="subject" />
+                            <textarea rows="4" cols="50" name="message"></textarea>
+                            <input type="submit" name="submit" value="Send" />
+                        </form>
+                    {{/if}}
+                    <table style="width:100%">
+                        {{#each post}}
+                            <tr style="background-color: {{postColor _id}}">
+                                <td class="post" style="width:80%">
+                                    <p>
+                                        <h3>{{subject}}</h3>
+                                        <span class="small">From: <b>{{from}}</b> {{myDate createdAt}}</span>
+                                    </p>
+                                    <p>
+                                        <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}{{message}}{{/if}}
+                                        {{#if edited}}
+                                            <p class="editedSmall">edited by {{from}} on {{myDate modified}}</p>
+                                        {{/if}}
+                                        </span>
+                                    </p>
+                                </td>
+                                <td style="width:20%">
+                                    <span class="small">
+                                        {{from}}
+                                        <br>
+                                        {{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}
+                                    </span>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </table>
+                </div>
+            </div>
+        {{else}}
+            <div class="forumbg">
+                <div id="round">
+                <span class="title">
+                    You must be logged in.
                 </span>
                 </div>
-            {{/each}}
-        {{else}}
-            <div id="round">
-            <span class="title">
-                You must be logged in.
-            </span>
             </div>
         {{/if}}
 </template>

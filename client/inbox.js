@@ -8,8 +8,9 @@ Template['inbox'].helpers({
     showpm: function () {
         return Session.get("showpm");
     },
-    isFrom: function (from) {
-        return Meteor.user().username == from;
+    isFrom: function (messages) {
+        var post = _.last(messages)
+        return post.from;
     },
     marked: function (unread) {
        return _.contains(unread,Meteor.user().username)
@@ -22,6 +23,13 @@ Template['inbox'].helpers({
                     d.getMinutes().padLeft(),
                     d.getSeconds().padLeft()].join(':');
         return dformat;
+    },
+    numPosts: function(messages) {
+        return messages.length;
+    },
+    isTo: function(from, to) {
+        if (from == Meteor.user().username) return to;
+        return from;
     }
 });
 Template.inbox.events({

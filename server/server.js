@@ -115,5 +115,28 @@ Meteor.methods({
             return;
         }
         Messages.update(id,{ $set: { showTo: [remainder]}});
+    },
+    editPM: function(id,post_id,msg) {
+        var thispost = Messages.findOne({_id: id});
+        if (!this) throw new Meteor.Error(422,"Error: thread " + id + "does not exist");
+        var array = thispost.messages;
+        if (post_id <= 0 || post_id >= array.length) throw new Meteor.Error(422, "Error: post does not exist");
+        var post = array[post_id];
+        post.message = msg;
+        post.modified = new Date();
+        post.edited = true;
+        array[post_id] = post;
+        Messages.update(id, { $set: { messages: array} });
+        array = thispost.unread;
+        var user = Meteor.user().username;
+        if (msg.to == user) user = thispost.from;
+        else user = thispost.to;
+        if (_.contains(array,user)) {
+            return;
+        }
+        else {
+            array.push(user);
+            Messages.update(id,{$set: { unread: array}});
+        }
     }
 });

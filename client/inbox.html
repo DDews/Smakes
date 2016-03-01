@@ -1,37 +1,45 @@
 <template name="inbox">
-    {{#if currentUser}}
-        <div id="round">
-            <p class="right"><a href="#" class="sendpm">New Message</a></p>
-            <div id="pmerror"></div>
-        {{#if showpm}}
-            <form class="loginForm">
-                <input type="text" name="to" placeholder="username to send to" />
-                <input type="text" name="subject" placeholder="subject" />
-                        <textarea rows="4" cols="50" name="message">
-                        </textarea>
-                <input type="submit" name="submit" value="Send" />
-            </form>
-            {{/if}}
-        </div>
-        {{#each message}}
+    <div class="forumbg">
+        {{#if currentUser}}
             <div id="round">
-                <p class="right">
-                {{#if isFrom from}}To: <b>{{to}}</b>
-                {{else}}From: <b>{{from}}</b>
-                {{/if}}
-                    {{myDate createdAt}}
-                    </p>
-                    <br>
-                <p class="center">
-                    {{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a>
-                </p>
+                <p class="right"><a href="#" class="sendpm">New Message</a></p>
+                <div id="pmerror"></div>
+            {{#if showpm}}
+                <form class="loginForm">
+                    <input type="text" name="to" placeholder="username to send to" />
+                    <input type="text" name="subject" placeholder="subject" />
+                            <textarea rows="4" cols="50" name="message"></textarea>
+                    <input type="submit" name="submit" value="Send" />
+                </form>
+            {{/if}}
             </div>
-        {{/each}}
-    {{else}}
         <div id="round">
-            <span class="title">
-                You must be logged in.
-            </span>
+            <table style="width:100%">
+                <tr>
+                    <td class="list-inner">User</td>
+                    <td class="list-inner">Thread</td>
+                    <td class="list-inner">Replies</td>
+                    <td class="list-inner">Last Post</td>
+                </tr>
+                {{#each message}}
+                <tr>
+                    <td>{{isTo from to}}</td>
+                    <td>{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></td>
+                    <td>{{numPosts messages}}</td>
+                    <td>
+                        From: <b>{{isFrom messages}}</b>
+                        {{myDate createdAt}}
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
         </div>
-    {{/if}}
+        {{else}}
+            <div id="round">
+                <span class="title">
+                    You must be logged in.
+                </span>
+            </div>
+        {{/if}}
+    </div>
 </template>
