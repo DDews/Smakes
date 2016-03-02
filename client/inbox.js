@@ -15,6 +15,17 @@ Template['inbox'].helpers({
     marked: function (unread) {
        return _.contains(unread,Meteor.user().username)
     },
+    lastDate: function(messages) {
+        var post = _.last(messages);
+        var d = post.createdAt;
+        dformat = [(d.getMonth()+1).padLeft(),
+                d.getDate().padLeft(),
+                d.getFullYear()].join('/') +' ' +
+            [d.getHours().padLeft(),
+                d.getMinutes().padLeft(),
+                d.getSeconds().padLeft()].join(':');
+        return dformat;
+    },
     myDate: function (d) {
             dformat = [(d.getMonth()+1).padLeft(),
                     d.getDate().padLeft(),
@@ -35,7 +46,7 @@ Template['inbox'].helpers({
         return showTo.length <= 1;
     },
     zeroPosts: function(messages) {
-        return !messages;
+        return Messages.find().fetch().length == 0;
     }
 });
 Template.inbox.events({
@@ -69,8 +80,6 @@ Template.inbox.events({
         Meteor.call("deleteMessage",thread_id, function(error, result) {
             if (error) {
                 alert(error.reason);
-            } else {
-                console.log("success!");
             }
         });
     }

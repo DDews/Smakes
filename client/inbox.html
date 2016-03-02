@@ -1,49 +1,47 @@
 <template name="inbox">
     <div class="forumbg">
         {{#if currentUser}}
-            <div id="round">
+            <div class="round row">
                 <p class="right"><a href="#" class="sendpm">New Message</a></p>
-                <div id="pmerror"></div>
+                <div class="col s12" id="pmerror"></div>
             {{#if showpm}}
                 <form class="loginForm">
                     <input type="text" name="to" placeholder="username to send to" />
                     <input type="text" name="subject" placeholder="subject" />
                             <textarea rows="4" cols="50" name="message"></textarea>
-                    <input type="submit" name="submit" value="Send" />
+                    <input type="submit" name="submit" class="buttoncolor" value="Send" />
                 </form>
             {{/if}}
             </div>
-        <div id="round">
-            <table style="width:100%">
-                <tr>
-                    <td class="list-inner">User</td>
-                    <td class="list-inner">Thread</td>
-                    <td class="list-inner">Replies</td>
-                    <td class="list-inner">Last Post</td>
-                    <td></td>
-                </tr>
-                {{#each message}}
-                <tr>
-                    <td>{{isTo from to}}</td>
-                    <td>{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></td>
-                    <td>{{numPosts messages}}</td>
-                    <td>
-                        From: <b>{{isFrom messages}}</b>
-                        {{myDate createdAt}}
-                    </td>
-                    <td><a href="#" class="deletePM" id="{{_id}}">delete</a></td>
-                </tr>
-                {{/each}}
-            </table>
-            {{#if zeroPosts messages}}
-            <p class="center">No threads found.</p>
-            {{/if}}
+        <div class="row">
+                <div class="col s2 list-inner">User</div>
+                <div class="col s3 list-inner">Thread</div>
+                <div class="col s2 views">Replies</div>
+                <div class="col s4 list-inner">Last Post</div>
+                <div class="col s1"></div>
         </div>
+        <div class="row">
+                {{#each message}}
+                <div class="col s2">{{isTo from to}}</div>
+                <div class="col s3">{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></div>
+                <div class="col s2 center">{{numPosts messages}}</div>
+                <div class="col s4">
+                    From: <b>{{isFrom messages}}</b>
+                    {{lastDate messages}}
+                </div>
+                <div class="col s1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
+                {{/each}}
+            </div>
+            {{#if zeroPosts messages}}
+                <div class="row s12">
+                    <p class="center">No threads found.</p>
+                </div>
+            {{/if}}
         {{else}}
-            <div id="round">
-                <span class="title">
+            <div class="round row s12">
+                <p class="title center">
                     You must be logged in.
-                </span>
+                </p>
             </div>
         {{/if}}
     </div>

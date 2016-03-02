@@ -20,3 +20,4 @@ iron:router
 accounts-password
 altapp:recaptcha
 ejson
+materialize:materialize

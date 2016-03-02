@@ -1,7 +1,7 @@
 <template name="footer">
-    <div id="round">
+    <div class="round col s12">
         {{#if currentUser}}
-            <p class="logout"><a href="#" class="logout">Logout</a></p>
+            <p style="text-align: center"><a href="#" class="logout">Logout</a></p>
         {{else}}
         {{> login}}
         {{/if}}

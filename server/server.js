@@ -38,8 +38,10 @@ Meteor.methods({
     },
     sendPM: function(messageTo, subject, message) {
         if (messageTo == Meteor.user().usernameId) throw new Meteor.Error(422,"Error: cannot send messages to self");
-        if (!Meteor.users.findOne({username: messageTo})) throw new Meteor.Error(422,"Error: username doesn't exist");
+        var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
+        if (!messageTo) throw new Meteor.Error(422,"Error: username doesn't exist");
         if(!message) throw new Meteor.Error(422,"Error: message is empty");
+        var messageTo = messageTo.username;
         Messages.insert(
             {
                 to: messageTo,

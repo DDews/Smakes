@@ -6,9 +6,9 @@
         <input type="password" name="password" placeholder="password" />
         {{#if form}}
                 <input type="password" name="password2" placeholder="retype password" />{{> reCAPTCHA}}
-                <input type="submit" name="submit" value="register" />
+                <input type="submit" class="buttoncolor" name="submit" value="register" />
         {{else}}
-                <input type="submit" name="submit" value="login" />
+                <input type="submit" class="buttoncolor" name="submit" value="login" />
         {{/if}}
             {{#if form}}
                 <br><a href="#" class="login">login</a>

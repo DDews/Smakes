@@ -14,8 +14,8 @@ Template['pmPage'].helpers({
         Meteor.call('markAsRead','' + this);
         return name;
     },
-    showpmreply: function () {
-        return Session.get("showpmreply");
+    showpmreply: function (position) {
+        return Session.get("showpmreply") == position;
     },
     myDate: function (d) {
         dformat = [(d.getMonth()+1).padLeft(),
@@ -57,27 +57,30 @@ Template['pmPage'].helpers({
 Template.pmPage.events({
     'submit form': function(event) {
         event.preventDefault();
+        var submit = $('[name=submit]')[0];
+        submit.disabled = true;
         var message = $('[name=message]').val();
         var subject = $('[name=subject]').val();
         Meteor.call('sendPMReply','' + this,subject,message,function(error, result) {
 
             if (error) {
                 $("#pmerror").html(error.reason);
+                submit.disabled = false;
                 return;
             } else {
                 $('[name=subject]').val('');
                 $('[name=message]').val('');
                 Session.set("showpmreply",false);
-                console.log('success!');
                 $("#pmerror").html('');
+                submit.disabled = false;
             }
         });
     },
     'click .replypm': function(event){
         event.preventDefault();
-        var showpmreply = Session.get("showpmreply");
-        if (showpmreply) Session.set("showpmreply",false);
-        else Session.set("showpmreply",true);
+        var toggle = Session.get("showpmreply");
+        if (toggle != "top") Session.set("showpmreply",'top');
+        else Session.set("showpmreply",null);
     },
     'click .edit': function(event){
         event.preventDefault();
@@ -85,19 +88,38 @@ Template.pmPage.events({
         if (num == Session.get("editable")) Session.set("editable",null);
         else Session.set("editable",+event.currentTarget.name);
     },
+    'click .bottomReply': function(event) {
+        var toggle = Session.get("showpmreply");
+        if (toggle != "bottom") Session.set("showpmreply",'bottom');
+        else Session.set("showpmreply",null);
+    },
+    'click .deletePM': function(event) {
+      event.preventDefault();
+        var thread_id = '' + Router.current().params._id;
+        Meteor.call("deleteMessage",thread_id, function(error, result) {
+            if (error) {
+                alert(error.reason);
+            }
+        });
+        Router.go("/inbox");
+    },
     'click .submitEdit': function(event){
         event.preventDefault();
+        var submit = $('[name=sendedit]')[0];
+        submit.disabled = true;
         var post_id = +event.currentTarget.id
         var msg = $("[name=editMessage]").val();
         var id = '' + Router.current().params._id;
         Meteor.call("editPM",id,post_id,msg, function(error, result) {
             if (error) {
+                submit.disabled = false;
                 $("#editError").html(error.reason);
                 return;
             }
             else {
+                submit.disabled = false;
                 Session.set("editable",null);
             }
         });
-    }
+    },
 });
