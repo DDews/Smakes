@@ -2,9 +2,84 @@
  * Created by Dan on 2/28/2016.
  */
 Template['pmPage'].helpers({
+    correctPage: function () {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        return page <= Math.ceil(data.messages.length / 10);
+    },
+    needFirst: function () {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page != 1;
+    },
+    needLast: function() {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        return page != Math.ceil(data.messages.length / 10);
+    },
+    threadID: function () {
+      return '' + Router.current().params._id;
+    },
+    needBefore: function(num) {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page - num > 1;
+    },
+    needAfter: function(num) {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        return page + num < Math.ceil(data.messages.length / 10);
+    },
+    pageNumber: function() {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page;
+    },
+    pageBefore: function(num) {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page - num;
+    },
+    pageAfter: function(num) {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page + num;
+    },
+    lastPage: function() {
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        return Math.ceil(data.messages.length / 10);
+    },
+    needFirstElipsis: function() {
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page - 2 > 2;
+    },
+    needSecondElipsis: function() {
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        return page + 2 < Math.ceil(data.messages.length / 10) - 1;
+    },
     post: function () {
         var data = Messages.findOne({_id: '' + this});
-        return data && data.messages;
+        var messages = data && data.messages;
+        var page = +Router.current().params.page;
+        page = page ? page : 1;
+        page -= 1;
+        var index = page * 10;
+        messages = messages.slice(index,index + 10);
+        return messages;
+    },
+    page: function() {
+        var page = +Router.current().params.page;
+        return page ? page : 0;
+    },
+    pages: function() {
+        var messages = Messages.findOne({_id: '' + Router.current().params._id});
+        return Math.ceil(messages / 10);
     },
     target: function () {
         var data = Messages.findOne({_id: '' + this});
@@ -31,8 +106,8 @@ Template['pmPage'].helpers({
     },
     postColor: function(_id) {
         var even = _id % 2;
-        if (even) return '#40a9ae';
-        return '#4DCFD4';
+        if (even) return 'postOne';
+        return 'postTwo';
     },
     isEditable: function(_id) {
         return Session.get("editable") == _id;
@@ -58,6 +133,7 @@ Template.pmPage.events({
     'submit form': function(event) {
         event.preventDefault();
         var submit = $('[name=submit]')[0];
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
         submit.disabled = true;
         var message = $('[name=message]').val();
         var subject = $('[name=subject]').val();
@@ -73,6 +149,9 @@ Template.pmPage.events({
                 Session.set("showpmreply",false);
                 $("#pmerror").html('');
                 submit.disabled = false;
+                var page = +Router.current().params.page;
+                page = page ? page : 1;
+                if (Math.ceil((data.messages.length + 1) / 10) > page) Router.go("/inbox/" + Router.current().params._id + "/" + Math.ceil((data.messages.length + 1) / 10));
             }
         });
     },
@@ -95,6 +174,7 @@ Template.pmPage.events({
     },
     'click .deletePM': function(event) {
       event.preventDefault();
+        if (!confirm('Are you sure you want to delete this thread?')) return;
         var thread_id = '' + Router.current().params._id;
         Meteor.call("deleteMessage",thread_id, function(error, result) {
             if (error) {

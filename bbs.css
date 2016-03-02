@@ -1,4 +1,24 @@
 /* CSS declarations go here */
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: white;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white;
+}
+:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+    color: white;
+}
+textarea {
+    border-color: white;
+}
 body {
     color: white;
     font-family: Verdana, Helvetica, Arial, sans-serif;
@@ -8,12 +28,18 @@ body {
 }
 .round {
     border-radius: 5px;
-    background: #48c0c5;
+    background: #000000;
     padding: 5px;
 }
 .title, .logout, .center {
     text-align: center;
     color: #f9f9f9;
+}
+.numposts {
+    text-align: right;
+    color: black;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 .messages, .right {
     color: #f9f9f9;
@@ -26,8 +52,25 @@ a {
     color: #efeef2;
     text-decoration: underline;
 }
+.small {
+    text-align: center;
+    font-size: 10px;
+}
+.pageListing {
+    color: black;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
 a:hover {
-    color: #282828;
+    color: #48c0c5;
+    text-decoration: none;
+}
+.pages {
+    color: black;
+    text-decoration: underline;
+}
+.pages:hover {
+    color: #28afb8;
     text-decoration: none;
 }
 .messagebox {
@@ -57,11 +100,17 @@ a:hover {
     text-align: left;
     vertical-align: baseline;
     word-wrap: break-word;
-    background-color: #28afb8;
+    background-color: #161616;
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
     font-size: 14px;
+}
+.postOne {
+    background-color: #292929;
+}
+.postTwo {
+    background-color: #414141;
 }
 .inner {
     border-bottom-width: 0px;
@@ -151,6 +200,8 @@ dt {
     text-transform: uppercase;
 }
 .small {
+    text-align: left;
+    line-height: 10px;
     color: white;
     font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;

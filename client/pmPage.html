@@ -1,59 +1,91 @@
 <template name="pmPage">
         {{#if currentUser}}
             {{#if exists _id}}
-                <div class="forumbg row s12">
-                    <div class="col s12">
-                        <div class="row">
-                            <span class="title"><h2>{{target}}</h2></span>
-                            {{#if deleted target}}<p class="locked">This thread is locked. {{target}} has deleted it. Click <a href="#" class="deletePM">delete</a> to delete.</p>
-                            {{else}}<p class="right"><a href="#" class="deletePM">Delete</a>   <a href="#" class="replypm" name="reply">Reply</a></p>
-                            {{/if}}
-                            <div id="pmerror" class="col s12"></div>
-                            {{#if showpmreply 'top'}}
+                {{#if correctPage}}
+                    <div class="row">
+                        <div class="right col s4 pageListing">
+                            <img src="/pages.gif" width="10" height="10">
+                            {{#if needFirst}}<a class="pages" href="/inbox/{{threadID}}/1">1</a>{{/if}}
+                            {{#if needFirstElipsis}}...{{/if}}
+                            {{#if needBefore 2}}<a class="pages" href="/inbox/{{threadID}}/{{pageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                            {{#if needBefore 1}}<a class="pages" href="/inbox/{{threadID}}/{{pageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                            {{pageNumber}}
+                            {{#if needAfter 1}}<a class="pages" href="/inbox/{{threadID}}/{{pageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                            {{#if needAfter 2}}<a class="pages" href="/inbox/{{threadID}}/{{pageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                            {{#if needSecondElipsis}}...{{/if}}
+                            {{#if needLast}}<a class="pages" href="/inbox/{{threadID}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
+                        </div>
+                    </div>
+                    <div class="forumbg row s12">
+                        <div class="col s12">
+                            <div class="row">
+                                <span class="title"><h2>{{target}}</h2></span>
+                                {{#if deleted target}}<p class="locked">This thread is locked. {{target}} has deleted it. Click <a href="#" class="deletePM">delete</a> to delete.</p>
+                                {{else}}<p class="right"><a href="#" class="deletePM">Delete</a>   <a href="#" class="replypm" name="reply">Reply</a></p>
+                                {{/if}}
+                                <div id="pmerror" class="col s12"></div>
+                                {{#if showpmreply 'top'}}
+                                    <form class="pmForm">
+                                        <input type="text" name="subject" placeholder="subject" />
+                                        <textarea class="messagebox" name="message"></textarea>
+                                        <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                    </form>
+                                {{/if}}
+                            </div>
+                            {{#each post}}
+                                <div class="row {{postColor _id}}">
+                                    <div class="col s9">
+                                        <p>
+                                            <h4>{{getSubject subject}}</h4>
+                                            <span class="small">From: <b>{{from}}</b> {{myDate createdAt}}</span>
+                                        </p>
+                                        <p>
+                                            <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{message}}</pre>{{/if}}
+                                            {{#if edited}}
+                                                <p class="editedSmall">edited by {{from}} on {{myDate modified}}</p>
+                                            {{/if}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="col s3 right">
+                                        <span class="small">
+                                            {{from}}
+                                            <br>
+                                            {{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}
+                                        </span>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                        {{#if deleted target}}
+                        <div class="row"><p class="right"><a href="#" id="deletePM">delete</a></p></div>{{else}}<div class="row"><p class="right"><a href="#" class="deletePM">Delete</a>  <a href="#reply" class="bottomReply">Reply</a></p>
+                            {{#if showpmreply 'bottom'}}
                                 <form class="pmForm">
                                     <input type="text" name="subject" placeholder="subject" />
-                                    <textarea class="messagebox" name="message"></textarea>
+                                    <textarea class="messagebox"  name="message"></textarea>
                                     <input type="submit" class="buttoncolor" name="submit" value="Send" />
                                 </form>
                             {{/if}}
-                        </div>
-                        {{#each post}}
-                            <div class="row" style="background-color: {{postColor _id}}">
-                                <div class="col s9">
-                                    <p>
-                                        <h4>{{getSubject subject}}</h4>
-                                        <span class="small">From: <b>{{from}}</b> {{myDate createdAt}}</span>
-                                    </p>
-                                    <p>
-                                        <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{message}}</pre>{{/if}}
-                                        {{#if edited}}
-                                            <p class="editedSmall">edited by {{from}} on {{myDate modified}}</p>
-                                        {{/if}}
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class="col s3 right">
-                                    <span class="small">
-                                        {{from}}
-                                        <br>
-                                        {{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}
-                                    </span>
-                                </div>
                             </div>
-                        {{/each}}
-                    </div>
-                    {{#if deleted target}}
-                    <div class="row"><p class="right"><a href="#" id="deletePM">delete</a></p></div>{{else}}<div class="row"><p class="right"><a href="#" class="deletePM">Delete</a>  <a href="#reply" class="bottomReply">Reply</a></p>
-                        {{#if showpmreply 'bottom'}}
-                            <form class="pmForm">
-                                <input type="text" name="subject" placeholder="subject" />
-                                <textarea class="messagebox"  name="message"></textarea>
-                                <input type="submit" class="buttoncolor" name="sendedit" value="Send" />
-                            </form>
                         {{/if}}
+                    </div>
+                    <div class="row">
+                        <div class="right col s4 pageListing">
+                            <img src="/pages.gif" width="10" height="10">
+                            {{#if needFirst}}<a class="pages" href="/inbox/{{threadID}}/1">1</a>{{/if}}
+                            {{#if needFirstElipsis}}...{{/if}}
+                            {{#if needBefore 2}}<a class="pages" href="/inbox/{{threadID}}/{{pageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                            {{#if needBefore 1}}<a class="pages" href="/inbox/{{threadID}}/{{pageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                            {{pageNumber}}
+                            {{#if needAfter 1}}<a class="pages" href="/inbox/{{threadID}}/{{pageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                            {{#if needAfter 2}}<a class="pages" href="/inbox/{{threadID}}/{{pageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                            {{#if needSecondElipsis}}...{{/if}}
+                            {{#if needLast}}<a class="pages" href="/inbox/{{threadID}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
                         </div>
-                    {{/if}}
-                </div>
+                    </div>
+                {{else}}
+                    <div class="forumbg"><div id="round" style="text-align:center"><p>Page number out of index</p><p>Click <a href="/inbox/{{threadID}}/{{lastPage}}">here</a> to go back to the thread</p></div></div>
+                {{/if}}
             {{else}}
             <div class="forumbg"><div id="round" style="text-align:center">Thread does not exist</div></div>
             {{/if}}

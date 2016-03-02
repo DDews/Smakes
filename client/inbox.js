@@ -2,6 +2,9 @@
  * Created by Dan on 2/27/2016.
  */
 Template['inbox'].helpers({
+    lastPost: function(messages) {
+        return Math.ceil(messages.length / 10);
+    },
     message: function () {
         return Messages.find();
     },
