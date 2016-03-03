@@ -9,6 +9,9 @@ Meteor.publish("messages", function() {
         ]
     })
 });
+Meteor.publish("usernames", function() {
+   return Meteor.users.find({},{fields: {'username': 1}})
+});
 Accounts.validateNewUser(function (user) {
     var matches = user.username.match(/[a-zA-Z][a-zA-Z0-9]*/);
     if (user.username && matches != null && matches.length <= 1)
@@ -37,7 +40,7 @@ Meteor.methods({
         }
     },
     sendPM: function(messageTo, subject, message) {
-        if (messageTo == Meteor.user().usernameId) throw new Meteor.Error(422,"Error: cannot send messages to self");
+        if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
         var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
         if (!messageTo) throw new Meteor.Error(422,"Error: username doesn't exist");
         if(!message) throw new Meteor.Error(422,"Error: message is empty");

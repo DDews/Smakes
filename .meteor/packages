@@ -21,3 +21,4 @@ accounts-password
 altapp:recaptcha
 ejson
 materialize:materialize
+sergeyt:typeahead

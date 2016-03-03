@@ -2,6 +2,11 @@
  * Created by Dan on 2/27/2016.
  */
 Template['inbox'].helpers({
+    usernames: function() {
+        return Meteor.users.find().fetch().map(function(it) {
+            return it.username;
+        });
+    },
     lastPost: function(messages) {
         return Math.ceil(messages.length / 10);
     },
