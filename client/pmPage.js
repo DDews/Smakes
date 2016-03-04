@@ -201,5 +201,5 @@ Template.pmPage.events({
                 Session.set("editable",null);
             }
         });
-    },
+    }
 });

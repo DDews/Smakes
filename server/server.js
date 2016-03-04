@@ -191,6 +191,25 @@ Meteor.methods({
                 });
             });
     },
+    postReply: function(topicId, threadId, subject, message) {
+        if (!Topics.findOne({_id: topicId})) throw new Meteor.Error(422,"Error: you are in a deleted topic");
+        if (!Threads.findOne({_id: threadId})) throw new Meteor.Error(422,"Error: thread does not exist");
+        if (!message) throw new Meteor.Error(422,"Error: message is empty");
+        if (!subject) subject = 'Re: ' + Posts.findOne({threadId: threadId},{sort: {createdAt: 1}}).subject;
+        if (!Meteor.user().username) throw new Meteor.Error(422,"Error: you must be logged in");
+        Posts.insert({
+            threadId: threadId,
+            topicId: topicId,
+            subject: subject,
+            from: Meteor.user().username,
+            createdAt: new Date(),
+            editedBy: null,
+            modified: null,
+            post: message,
+            likes: [],
+            dislikes: [],
+        });
+    },
     sendPM: function(messageTo, subject, message) {
         if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
         var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
@@ -276,12 +295,36 @@ Meteor.methods({
         }
         Messages.update(id,{ $set: { showTo: array}});
     },
+    editPost: function(postId,message) {
+        var post = Posts.findOne({_id: postId});
+        if (!post) throw new Meteor.Error(422,"Error: post does not exist");
+        var poster = post.from;
+        var user = Meteor.user();
+        user = user && user.username;
+        var admin = Userinfo.findOne({username: user});
+        admin = admin && admin.admin;
+        var topic = Topics.findOne({topicId: post.topicId});
+        topic = topic && topic.moderators;
+        if ((_.contains(topic,user)) || (admin) || Meteor.user().username == poster) {
+            Posts.update(postId,{$set: { post: message} });
+            Posts.update(postId,{$set: { editedBy: Meteor.user().username}});
+            Posts.update(postId,{$set: { modified: new Date()}});
+        } else {
+            throw new Meteor.Error(422,"Error: not authorized");
+        }
+    },
+    increaseView: function(threadId) {
+        if (!Threads.findOne({_id: threadId})) return;
+        views = Threads.findOne({_id: threadId}).views + 1;
+        Threads.update(threadId,{$set: { views: views}});
+    },
     editPM: function(id,post_id,msg) {
         if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         var thispost = Messages.findOne({_id: id});
-        if (!this) throw new Meteor.Error(422,"Error: thread " + id + "does not exist");
-        var array = thispost.messages;
+        if (!thispost) throw new Meteor.Error(422,"Error: thread " + id + "does not exist");
+        var array = thispost && thispost.messages;
         if (post_id < 0 || post_id >= array.length) throw new Meteor.Error(422, "Error: post does not exist");
+        if (!array) throw new Meteor.Error(422,"Error: thread not found");
         var post = array[post_id];
         post.message = msg;
         post.modified = new Date();

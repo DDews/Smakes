@@ -55,7 +55,7 @@ Template['thread'].helpers({
         return Math.ceil(data / 20);
     },
     lastPost: function(id) {
-        return Math.ceil(Posts.find({threadId: id}).count());
+        return Math.ceil(Posts.find({threadId: id}).count() / 10);
     },
     isFrom: function(id) {
         var posts = Posts.find({threadId: id}).fetch();

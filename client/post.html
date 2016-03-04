@@ -1,0 +1,95 @@
+<template name="post">
+    <div class="container">
+        <div class="row short">
+            {{#if correctPage}}
+                <div class="right col s4 pageListing">
+                    <img src="/pages.gif" width="10" height="10">
+                    {{#if needFirst}}<a class="pages" href="/posts/{{threadId}}/1">1</a>{{/if}}
+                    {{#if needFirstElipsis}}...{{/if}}
+                    {{#if needBefore 2}}<a class="pages" href="/posts/{{threadId}}/{{pageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                    {{#if needBefore 1}}<a class="pages" href="/posts/{{threadId}}/{{pageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                    {{pageNumber}}
+                    {{#if needAfter 1}}<a class="pages" href="/posts/{{threadId}}/{{pageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                    {{#if needAfter 2}}<a class="pages" href="/posts/{{threadId}}/{{pageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                    {{#if needSecondElipsis}}...{{/if}}
+                    {{#if needLast}}<a class="pages" href="/posts/{{threadId}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
+                </div>
+            {{/if}}
+        </div>
+        <div class="forumbg row">
+            {{#if correctPage}}
+                <div class="round row">
+                    <p class="right"><a href="#" class="replytop">Reply</a></p>
+                    <div class="col s12" id="error"></div>
+                    {{#if showpmreply 'top'}}
+                        <form class="pmForm">
+                            <input type="text" name="subject" placeholder="subject" />
+                            <textarea class="messagebox" name="message"></textarea>
+                            <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                        </form>
+                    {{/if}}
+                </div>
+                {{#each message}}
+                    <div class="row {{toggle}}">
+                        <div class="col s9">
+                            <p>
+                            <p class="subjectText">{{subject}}</p>
+                            <span class="small">From: <b>{{from}}</b> {{myDate createdAt}}</span>
+                            </p>
+                        <p>
+                        <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{post}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{post}}</pre>{{/if}}
+                            {{#if editedBy}}
+                                <p class="editedSmall">edited by {{editedBy}} on {{myDate modified}}</p>
+                            {{/if}}
+                            </span>
+                            </p>
+                        </div>
+                        <div class="col s3 right">
+                            <span class="small">
+                                {{from}}
+                                <br>
+                                {{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}
+                            </span>
+                        </div>
+                    </div>
+                {{/each}}
+                {{#if zeroPosts}}
+                    <div class="row s12">
+                        <p class="center">No posts found.</p>
+                    </div>
+                {{/if}}
+                <div class="round row">
+                    <p class="right"><a href="#" class="replybottom">Reply</a></p>
+                    <div class="col s12" id="error"></div>
+                    {{#if showpmreply 'bottom'}}
+                        <form class="pmForm">
+                            <input type="text" name="subject" placeholder="subject" />
+                            <textarea class="messagebox"  name="message"></textarea>
+                            <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                        </form>
+                    {{/if}}
+                </div>
+            {{else}}
+            <div class="row s12">
+                <p class="center">Incorrect page number. Click <a href="/posts/{{threadId}}/{{lastPage}}">here</a> to the last page.</p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="row short">
+            {{#if correctPage}}
+                <div class="right col s4 pageListing">
+                    <img src="/pages.gif" width="10" height="10">
+                    {{#if needFirst}}<a class="pages" href="/posts/{{threadId}}/1">1</a>{{/if}}
+                    {{#if needFirstElipsis}}...{{/if}}
+                    {{#if needBefore 2}}<a class="pages" href="/posts/{{threadId}}/{{pageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                    {{#if needBefore 1}}<a class="pages" href="/posts/{{threadId}}/{{pageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                    {{pageNumber}}
+                    {{#if needAfter 1}}<a class="pages" href="/posts/{{threadId}}/{{pageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                    {{#if needAfter 2}}<a class="pages" href="/posts/{{threadId}}/{{pageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                    {{#if needSecondElipsis}}...{{/if}}
+                    {{#if needLast}}<a class="pages" href="/posts/{{threadId}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</template>
