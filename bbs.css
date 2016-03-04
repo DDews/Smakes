@@ -75,7 +75,7 @@ a:hover {
 }
 .messagebox {
     width:100%;
-    height:6rem;
+    height:6rpx;
 }
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
 .forumbg {
@@ -94,8 +94,8 @@ a:hover {
     margin-right: -5px;
     margin-top: 0px;
     padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
     padding-top: 5px;
     text-align: left;
     vertical-align: baseline;
@@ -193,7 +193,7 @@ dt {
     font-family: Arial, Helvetica, sans-serif;
 }
 .locked {
-    color: black;
+    color: #b0b0b0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
     text-align: center;
@@ -205,11 +205,32 @@ dt {
     color: white;
     font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 .editedSmall {
-    color: black;
+    color: #a0837b;
     font-size: 10px;
     font-family: Arial, Helvetica, sans-serif;
+}
+.subject {
+    line-height: 10px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.subjectText {
+    color: white;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+.middle {
+    line-height: 20px;
 }
 .nolock {
     opacity: 0;
@@ -218,4 +239,7 @@ dt {
 .buttoncolor {
     color: black;
     float: right;
+}
+.short {
+    margin-bottom: 2px;
 }

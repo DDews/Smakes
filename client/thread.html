@@ -1,0 +1,70 @@
+<template name="thread">
+    <div class="container">
+        <div class="row short">
+            <div class="right col s4 pageListing">
+                <img src="/pages.gif" width="10" height="10">
+                {{#if needFirst}}<a class="pages" href="/topic/{{topicID}}/1">1</a>{{/if}}
+                {{#if needFirstElipsis}}...{{/if}}
+                {{#if needBefore 2}}<a class="pages" href="/topic/{{topicID}}/{{pageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                {{#if needBefore 1}}<a class="pages" href="/topic/{{topicID}}/{{pageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                {{pageNumber}}
+                {{#if needAfter 1}}<a class="pages" href="/topic/{{topicID}}/{{pageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                {{#if needAfter 2}}<a class="pages" href="/topic/{{topicID}}/{{pageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                {{#if needSecondElipsis}}...{{/if}}
+                {{#if needLast}}<a class="pages" href="/topic/{{topicID}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
+            </div>
+        </div>
+        <div class="forumbg row">
+            <div class="round row">
+                <p class="right"><a href="#" class="newThread">New Thread</a></p>
+                <div class="col s12" id="error"></div>
+                {{#if showpm}}
+                    <form class="loginForm">
+                        <input type="text" name="subject" placeholder="subject" />
+                        <textarea rows="4" cols="50" name="message"></textarea>
+                        <input type="submit" name="submit" class="buttoncolor" value="Send" />
+                    </form>
+                {{/if}}
+            </div>
+            <div class="row short">
+                <div class="col s4 list-inner">Thread</div>
+                <div class="col s2 views">Replies</div>
+                <div class="col s2 views">Views</div>
+                <div class="col s4 list-inner">Last Post</div>
+            </div>
+            {{#each thread}}
+            <div class="row short round {{toggle}}">
+                    <div class="col s4">
+                        <div class="row short"><p class="subject">{{#if locked}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{locked}} locked it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}<a href="/posts/{{_id}}">{{subject}}</a></p>
+                        <p class="small"><img src="locked.png" height="10" width="10" class="nolock">by: {{from}} » {{myDate createdAt}}</p></div>
+                    </div>
+                    <div class="col s2 center"><p class="middle">{{numReplies _id}}</p></div>
+                    <div class="col s2 center"><p class="middle">{{views}}</p></div>
+                    <div class="col s4">
+                        <div class="row short"><p class="subject"><a href="/posts/{{_id}}/{{lastPost _id}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom _id}}</b> <span class="small">{{lastDate _id}}</span></p>
+                        </div>
+                    </div>
+            </div>
+            {{/each}}
+            {{#if zeroThreads}}
+                <div class="row s12">
+                    <p class="center">No threads found.</p>
+                </div>
+            {{/if}}
+        </div>
+        <div class="row short">
+            <div class="right col s4 pageListing">
+                <img src="/pages.gif" width="10" height="10">
+                {{#if needFirst}}<a class="pages" href="/topic/{{topicID}}/1">1</a>{{/if}}
+                {{#if needFirstElipsis}}...{{/if}}
+                {{#if needBefore 2}}<a class="pages" href="/topic/{{topicID}}/{{pageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                {{#if needBefore 1}}<a class="pages" href="/topic/{{topicID}}/{{pageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                {{pageNumber}}
+                {{#if needAfter 1}}<a class="pages" href="/topic/{{topicID}}/{{pageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                {{#if needAfter 2}}<a class="pages" href="/topic/{{topicID}}/{{pageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                {{#if needSecondElipsis}}...{{/if}}
+                {{#if needLast}}<a class="pages" href="/topic/{{topicID}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
+            </div>
+        </div>
+    </div>
+</template>

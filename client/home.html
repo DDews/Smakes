@@ -1,5 +1,43 @@
 <template name="home">
-    <div>
-        default screen
+    <div class="forumbg row">
+        {{#if isAdmin}}<div class="round row">
+            <p class="right"><a href="#" class="newTopic">New Topic</a></p>
+            <div class="col s12" id="error"></div>
+            {{#if showpm}}
+                <form class="loginForm">
+                    <input type="text" name="topic" placeholder="topic name" />
+                    <input type="text" name="subject" placeholder="subject" />
+                    <input type="submit" name="submit" class="buttoncolor" value="Create" />
+                </form>
+            {{/if}}
+        </div>
+        {{/if}}
+        <div class="row">
+            <div class="col s4 list-inner">Topic</div>
+            <div class="col s2 views">Threads</div>
+            <div class="col s2 views">Posts</div>
+            <div class="col s4 list-inner">Last Post</div>
+        </div>
+            {{#each record}}
+            <div class="row">
+                <div class="col s4">
+                    <div class="row"><p class="subject"><a href="/topic/{{_id}}">{{topic}}</a></p>
+                        <p class="small">{{subject}}</p></div>
+                </div>
+                <div class="col s2 center">{{threadNumber _id}}</div>
+                <div class="col s2 center">{{numPosts _id}}</div>
+                <div class="col s4">
+                    <div class="row">
+                        <p class="subject"><a href="/posts/{{lastThreadId _id}}/{{lastThreadPageNumber _id}}">{{lastThread _id}}</a></p>
+                        <p class="small">by {{lastThreadUsername _id}} {{lastThreadDate _id}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        {{#if zeroTopics}}
+            <div class="row s12">
+                <p class="center">No topics found.</p>
+            </div>
+        {{/if}}
     </div>
 </template>

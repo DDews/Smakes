@@ -185,7 +185,7 @@ Template.pmPage.events({
     },
     'click .submitEdit': function(event){
         event.preventDefault();
-        var submit = $('[name=sendedit]')[0];
+        var submit = $('[name=submitEdit]')[0];
         submit.disabled = true;
         var post_id = +event.currentTarget.id
         var msg = $("[name=editMessage]").val();

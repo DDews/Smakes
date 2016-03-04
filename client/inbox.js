@@ -57,6 +57,9 @@ Template['inbox'].helpers({
         return Messages.find().fetch().length == 0;
     }
 });
+Template.inbox.rendered = function() {
+    Meteor.typeahead.inject();
+};
 Template.inbox.events({
     'submit form': function() {
         event.preventDefault();
@@ -81,6 +84,7 @@ Template.inbox.events({
         var showpm = Session.get("showpm");
         if (showpm) Session.set("showpm",false);
         else Session.set("showpm",true);
+        Meteor.typeahead.inject();
     },
     'click .deletePM': function(event) {
         event.preventDefault();

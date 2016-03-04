@@ -16,7 +16,7 @@
                             {{#if needLast}}<a class="pages" href="/inbox/{{threadID}}/{{lastPage}}">{{lastPage}}</a>{{/if}}
                         </div>
                     </div>
-                    <div class="forumbg row s12">
+                    <div class="forumbg row">
                         <div class="col s12">
                             <div class="row">
                                 <span class="title"><h2>{{target}}</h2></span>
@@ -36,11 +36,11 @@
                                 <div class="row {{postColor _id}}">
                                     <div class="col s9">
                                         <p>
-                                            <h4>{{getSubject subject}}</h4>
+                                            <p class="subjectText">{{getSubject subject}}</p>
                                             <span class="small">From: <b>{{from}}</b> {{myDate createdAt}}</span>
                                         </p>
                                         <p>
-                                            <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{message}}</pre>{{/if}}
+                                            <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{message}}</pre>{{/if}}
                                             {{#if edited}}
                                                 <p class="editedSmall">edited by {{from}} on {{myDate modified}}</p>
                                             {{/if}}
@@ -58,7 +58,7 @@
                             {{/each}}
                         </div>
                         {{#if deleted target}}
-                        <div class="row"><p class="right"><a href="#" id="deletePM">delete</a></p></div>{{else}}<div class="row"><p class="right"><a href="#" class="deletePM">Delete</a>  <a href="#reply" class="bottomReply">Reply</a></p>
+                        <div class="row"><p class="right"><a href="#" class="deletePM">delete</a></p></div>{{else}}<div class="row"><p class="right"><a href="#" class="deletePM">Delete</a>  <a href="#reply" class="bottomReply">Reply</a></p>
                             {{#if showpmreply 'bottom'}}
                                 <form class="pmForm">
                                     <input type="text" name="subject" placeholder="subject" />

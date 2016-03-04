@@ -1,5 +1,5 @@
 <template name="inbox">
-    <div class="forumbg">
+    <div class="forumbg row">
         {{#if currentUser}}
             <div class="round row">
                 <p class="right"><a href="#" class="sendpm">New Message</a></p>
@@ -10,6 +10,7 @@
                     <input type="text" name="subject" placeholder="subject" />
                             <textarea rows="4" cols="50" name="message"></textarea>
                     <input type="submit" name="submit" class="buttoncolor" value="Send" />
+                    <script>Meteor.typeahead.inject();</script>
                 </form>
             {{/if}}
             </div>
@@ -20,18 +21,18 @@
                 <div class="col s4 list-inner">Last Post</div>
                 <div class="col s1"></div>
         </div>
-        <div class="row">
                 {{#each message}}
-                <div class="col s2">{{isTo from to}}</div>
-                <div class="col s3">{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></div>
-                <div class="col s2 center">{{numPosts messages}}</div>
-                <div class="col s4">
-                    <div class="row"><a href="/inbox/{{_id}}/{{lastPost messages}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom messages}}</b>
-                    <p class="small">{{lastDate messages}}</p></div>
+                <div class="row">
+                    <div class="col s2">{{isTo from to}}</div>
+                    <div class="col s3">{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox\{{_id}}">{{subject}}</a></div>
+                    <div class="col s2 center">{{numPosts messages}}</div>
+                    <div class="col s4">
+                        <div class="row"><p class="small"><a href="/inbox/{{_id}}/{{lastPost messages}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom messages}}</b></p>
+                        <p class="small">{{lastDate messages}}</p></div>
+                    </div>
+                    <div class="col s1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
                 </div>
-                <div class="col s1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
                 {{/each}}
-            </div>
             {{#if zeroPosts messages}}
                 <div class="row s12">
                     <p class="center">No threads found.</p>

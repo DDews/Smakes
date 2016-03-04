@@ -12,6 +12,18 @@ Meteor.publish("messages", function() {
 Meteor.publish("usernames", function() {
    return Meteor.users.find({},{fields: {'username': 1}})
 });
+Meteor.publish("userinfo", function() {
+   return Userinfo.find();
+});
+Meteor.publish("topics", function() {
+    return Topics.find();
+})
+Meteor.publish("threads", function() {
+    return Threads.find();
+});
+Meteor.publish("posts", function() {
+    return Posts.find();
+});
 Accounts.validateNewUser(function (user) {
     var matches = user.username.match(/[a-zA-Z][a-zA-Z0-9]*/);
     if (user.username && matches != null && matches.length <= 1)
@@ -22,6 +34,22 @@ Meteor.startup(function() {
     reCAPTCHA.config({
         privatekey: '6LctbBkTAAAAAD2KnAh9vOiLS0JKM-coZFYV9l4X'
     });
+    if (!Meteor.users.findOne({username: 'admin'})) {
+        Accounts.createUser({
+            password: 'moondied',
+            username: 'admin',
+            admin: true,
+            createdAt: new Date(),
+        });
+        Userinfo.insert(
+            {
+                username: 'admin',
+                admin: true,
+                posts: 0,
+                points: 0
+            }
+        );
+    }
 });
 Meteor.methods({
     formSubmissionMethod: function(username, password, captchaData) {
@@ -37,13 +65,138 @@ Meteor.methods({
                 username: username,
                 createdAt: new Date(),
             });
+            if (!Userinfo.findOne({username: RegExp('^' + username + '$',"i")})) Userinfo.insert(
+                {
+                    username: username,
+                    admin: false,
+                    posts: 0,
+                    points: 0
+                }
+            );
         }
+    },
+    createTopic: function(topic, subject) {
+        var username = Meteor.user().username;
+        var isAdmin = Userinfo.findOne({username: username});
+        var isAdmin = isAdmin && isAdmin.admin;
+        if (!isAdmin) throw new Meteor.Error(422,"Error: unauthorized");
+        if (!topic) throw new Meteor.Error(422,"Error: topic is empty");
+        var exists = Topics.findOne({topic: RegExp('^' + topic + '$',"i")});
+        if (exists) throw new Meteor.Error(422, "Error: topic already exists");
+        var topicId;
+        Topics.insert(
+            {
+                topic: topic,
+                subject: subject,
+                moderators: [],
+                thread: [{
+                    from: Meteor.user().username,
+                    createdAt: new Date(),
+                    subject: 'Testing the board',
+                    locked: false,
+                    post: [{
+                        from: Meteor.user().username,
+                        createdAt: new Date(),
+                        subject: 'Testing the board',
+                        editedBy: '',
+                        modified: null,
+                        post: "Just testing the board. Don't be alarmed.",
+                        likes: []
+                    }]
+                }]
+            },
+            function(err,docsInserted){
+                var topicId = docsInserted;
+                Threads.insert({
+                    topicId: topicId,
+                    from: Meteor.user().username,
+                    createdAt: new Date(),
+                    subject: 'Testing the board',
+                    views: 0,
+                    locked: null
+                },
+                function(err, docsInserted) {
+                    var _id = docsInserted;
+                    Posts.insert({
+                        threadId: _id,
+                        topicId: topicId,
+                        subject: 'Testing the board',
+                        from: Meteor.user().username,
+                        createdAt: new Date(),
+                        editedBy: null,
+                        modified: null,
+                        post: "Just teseting the board. Don't be alarmed",
+                        likes: [],
+                        dislikes: []
+                    });
+                });
+            });
+    },
+    makeThreads: function(topicId) {
+        var i;
+        for(i = 0; i < 120; i++) {
+            var random = Math.random().toString(36).substring(7);
+            Threads.insert({
+                    topicId: topicId,
+                    from: Meteor.user().username,
+                    createdAt: new Date(),
+                    subject: random,
+                    views: 0,
+                    locked: null
+                },
+                function (err, docsInserted) {
+                    var _id = docsInserted;
+                    Posts.insert({
+                        threadId: _id,
+                        topicId: topicId,
+                        subject: random,
+                        from: Meteor.user().username,
+                        createdAt: new Date(),
+                        editedBy: null,
+                        modified: null,
+                        post: "this is computer generated",
+                        likes: [],
+                        dislikes: [],
+                    });
+                });
+        }
+    },
+    newThread: function(topicId, subject, message) {
+        var topic = Topics.findOne({_id: topicId});
+        if (!topic) throw new Meteor.Error(422,"Error: topic doesn't exist");
+        if (!subject) throw new Meteor.Error(422,"Error: subject is empty");
+        if (!message) throw new Meteor.Error(422,"Error: message is empty");
+        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
+        Threads.insert({
+                topicId: topicId,
+                from: Meteor.user().username,
+                createdAt: new Date(),
+                subject: subject,
+                views: 0,
+                locked: null
+            },
+            function(err, docsInserted) {
+                var _id = docsInserted;
+                Posts.insert({
+                    threadId: _id,
+                    topicId: topicId,
+                    subject: subject,
+                    from: Meteor.user().username,
+                    createdAt: new Date(),
+                    editedBy: null,
+                    modified: null,
+                    post: message,
+                    likes: [],
+                    dislikes: [],
+                });
+            });
     },
     sendPM: function(messageTo, subject, message) {
         if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
         var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
         if (!messageTo) throw new Meteor.Error(422,"Error: username doesn't exist");
         if(!message) throw new Meteor.Error(422,"Error: message is empty");
+        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         var messageTo = messageTo.username;
         Messages.insert(
             {
@@ -73,6 +226,7 @@ Meteor.methods({
         var msg = Messages.findOne({_id: id});
         if (msg.showTo.length == 1) throw new Meteor.Error(422, "Error: This thread is locked.");
         var array = msg.messages;
+        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         array.push({
             _id: array.length,
             from: Meteor.user().username,
@@ -110,6 +264,7 @@ Meteor.methods({
         Messages.update(id,{ $set: { unread: array}});
     },
     deleteMessage: function(id) {
+        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         var array = Messages.findOne({_id: id});
         if (!array) throw new Meteor.Error(422,"Error: message not found");
         array = array.showTo;
@@ -122,6 +277,7 @@ Meteor.methods({
         Messages.update(id,{ $set: { showTo: array}});
     },
     editPM: function(id,post_id,msg) {
+        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         var thispost = Messages.findOne({_id: id});
         if (!this) throw new Meteor.Error(422,"Error: thread " + id + "does not exist");
         var array = thispost.messages;
