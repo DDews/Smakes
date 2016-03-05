@@ -7,8 +7,8 @@ Meteor.startup(function() {
     });
 });
 Template.login.events({
-    'submit form': function() {
-        event.preventDefault();
+    'submit form': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];
         submit.disabled = true;
         var login = Session.get("form");
@@ -29,7 +29,7 @@ Template.login.events({
             if (password != password2) {
                 $("#error").html("Passwords do not match.");
                 submit.disabled = false;
-                return;
+                return false;
             }
             var captchaData = grecaptcha.getResponse();
             Meteor.call('formSubmissionMethod',username, password, captchaData, function(error, result) {
@@ -41,7 +41,7 @@ Template.login.events({
                         $("#error").html('You must complete the reCAPTCHA.');
                     else $("#error").html('There was an error: ' + error.reason);
                     submit.disabled = false;
-                    return;
+                    return false;
                 } else {
                     Meteor.loginWithPassword(username, password, function (error) {
                         submit.disabled = false;
@@ -56,17 +56,20 @@ Template.login.events({
                     submit.disabled = false;
                 }
             });
+            return false;
         }
     },
     'click .login': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         $("#error").html('');
         Session.set("form",false);
+        return false;
     },
     'click .register': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         $("#error").html('');
         Session.set("form",true);
+        return false;
     }
 })
 Template['login'].helpers({

@@ -63,7 +63,11 @@ Template['post'].helpers({
         var admin = Userinfo.findOne({username: user});
         admin = admin && admin.admin;
         if (admin) return true;
-        var topic = Topics.findOne({topicId: id});
+        var threadId = '' + Router.current().params._id;
+        var thread = Threads.findOne({_id: threadId});
+        if (!thread) return null;
+        var topicId = thread.topicId;
+        var topic = Topics.findOne({_id: topicId});
         topic = topic && topic.moderators;
         if (_.contains(topic,user)) return true;
         return Meteor.user().username == id;
@@ -119,6 +123,43 @@ Template['post'].helpers({
     },
     showpmreply: function(position) {
         return Session.get("showpmreply") == position;
+    },
+    getPosts: function(name) {
+        var info = Userinfo.findOne({username: name});
+        var posts = info && info.posts;
+        return posts;
+    },
+    notLocked: function() {
+        var threadId = '' + Router.current().params._id;
+        var thread = Threads.findOne({_id: threadId});
+        var locked = thread && thread.locked;
+        return !locked;
+    },
+    isLocked: function () {
+        var threadId = '' + Router.current().params._id;
+        var thread = Threads.findOne({_id: threadId});
+        var locked = thread && thread.locked;
+        return locked;
+    },
+    shouldAdmin: function(username) {
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return false;
+        return userinfo.admin;
+    },
+    shouldMod: function(username) {
+        var threadId = '' + Router.current().params._id;
+        var thread = Threads.findOne({_id: threadId});
+        if (!thread) return false;
+        var topicId = thread.topicId;
+        var topic = Topics.findOne({_id: topicId});
+        if (!topic) return false;
+        return _.contains(topic.moderators,username);
+    },
+    threadExists: function() {
+        var threadId = '' + Router.current().params._id;
+        var thread = Threads.findOne({_id: threadId});
+        if (!thread) return false;
+        return true;
     }
 });
 Template.post.rendered = function() {
@@ -129,7 +170,7 @@ Template.post.rendered = function() {
 };
 Template.post.events({
     'submit form': function(event) {
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];
         var threadId = '' + Router.current().params._id;
         var data = Posts.findOne({threadId: threadId},{sort: {createdAt: 1}});
@@ -155,26 +196,30 @@ Template.post.events({
                 if (Math.ceil((data + 1) / 10) > page) Router.go("/posts/" + Router.current().params._id + "/" + Math.ceil((data + 1) / 10));
             }
         });
+        return false;
     },
     'click .replytop': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var toggle = Session.get("showpmreply");
         if (toggle != "top") Session.set("showpmreply",'top');
         else Session.set("showpmreply",null);
+        return false;
     },
     'click .edit': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var id = event.currentTarget.name;
         if (id == Session.get("editable")) Session.set("editable",null);
         else Session.set("editable",id);
+        return false;
     },
     'click .replybottom': function(event) {
         var toggle = Session.get("showpmreply");
         if (toggle != "bottom") Session.set("showpmreply",'bottom');
         else Session.set("showpmreply",null);
+        return false;
     },
     'click .deletePM': function(event) {
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         if (!confirm('Are you sure you want to delete this thread?')) return;
         var thread_id = '' + Router.current().params._id;
         Meteor.call("deleteMessage",thread_id, function(error, result) {
@@ -183,23 +228,25 @@ Template.post.events({
             }
         });
         Router.go("/inbox");
+        return false;
     },
     'click .submitEdit': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var submit = $('[name=submitEdit]')[0];
         submit.disabled = true;
-        var post_id = event.currentTarget.id
+        var post_id = event.currentTarget.id;
         var msg = $("[name=editMessage]").val();
         Meteor.call("editPost",post_id,msg, function(error, result) {
             if (error) {
                 submit.disabled = false;
                 $("#editError").html(error.reason);
-                return;
+                return false;
             }
             else {
                 submit.disabled = false;
                 Session.set("editable",null);
             }
-        });
+        })
+        return false;
     }
 });

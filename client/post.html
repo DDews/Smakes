@@ -18,38 +18,53 @@
         </div>
         <div class="forumbg row">
             {{#if correctPage}}
-                <div class="round row">
-                    <p class="right"><a href="#" class="replytop">Reply</a></p>
-                    <div class="col s12" id="error"></div>
-                    {{#if showpmreply 'top'}}
-                        <form class="pmForm">
-                            <input type="text" name="subject" placeholder="subject" />
-                            <textarea class="messagebox" name="message"></textarea>
-                            <input type="submit" class="buttoncolor" name="submit" value="Send" />
-                        </form>
+                {{#if currentUser}}
+                    {{#if notLocked}}
+                        <div class="round row">
+                            <p class="right"><a href="#" class="replytop">Reply</a></p>
+                            <div class="col s12" id="error"></div>
+                            {{#if showpmreply 'top'}}
+                                <form class="pmForm">
+                                    <input type="text" name="subject" placeholder="subject" />
+                                    <textarea class="messagebox" name="message"></textarea>
+                                    <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                </form>
+                                <script>$('[name=subject]').focus();</script>
+                            {{/if}}
+                        </div>
+                    {{else}}
+                        <div class="round row">
+                            <p class="locked">This thread is locked. {{isLocked}} has locked it.</p>
+                        </div>
                     {{/if}}
-                </div>
+                {{/if}}
                 {{#each message}}
                     <div class="row {{toggle}}">
                         <div class="col s9">
                             <p>
                             <p class="subjectText">{{subject}}</p>
-                            <span class="small">From: <b>{{from}}</b> {{myDate createdAt}}</span>
+                            <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
                             </p>
                         <p>
                         <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{post}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{post}}</pre>{{/if}}
                             {{#if editedBy}}
-                                <p class="editedSmall">edited by {{editedBy}} on {{myDate modified}}</p>
+                                <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{editedBy}}">{{editedBy}}</a> on {{myDate modified}}</p>
                             {{/if}}
                             </span>
                             </p>
                         </div>
                         <div class="col s3 right">
-                            <span class="small">
-                                {{from}}
-                                <br>
-                                {{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}
-                            </span>
+                            <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
+                            {{#if shouldAdmin from}}
+                                <div class="admin">Administrator</div>
+                            {{else}}
+                                {{#if shouldMod from}}
+                                    <div class="moderator">Moderator</div>
+                                {{/if}}
+                            {{/if}}
+                            <br>
+                            <div class="right-align info">posts: {{getPosts from}}</div>
+                            <div class="right-align info">{{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}</div>
                         </div>
                     </div>
                 {{/each}}
@@ -58,21 +73,32 @@
                         <p class="center">No posts found.</p>
                     </div>
                 {{/if}}
-                <div class="round row">
-                    <p class="right"><a href="#" class="replybottom">Reply</a></p>
-                    <div class="col s12" id="error"></div>
-                    {{#if showpmreply 'bottom'}}
-                        <form class="pmForm">
-                            <input type="text" name="subject" placeholder="subject" />
-                            <textarea class="messagebox"  name="message"></textarea>
-                            <input type="submit" class="buttoncolor" name="submit" value="Send" />
-                        </form>
+                {{#if currentUser}}
+                    {{#if notLocked}}
+                        <div class="round row">
+                            <p class="right"><a href="#" class="replybottom">Reply</a></p>
+                            <div class="col s12" id="error"></div>
+                            {{#if showpmreply 'bottom'}}
+                                <form class="pmForm">
+                                    <input type="text" name="subject" placeholder="subject" />
+                                    <textarea class="messagebox"  name="message"></textarea>
+                                    <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                </form>
+                                <script>$('[name=subject]').focus();</script>
+                            {{/if}}
+                        </div>
                     {{/if}}
-                </div>
+                {{/if}}
             {{else}}
-            <div class="row s12">
-                <p class="center">Incorrect page number. Click <a href="/posts/{{threadId}}/{{lastPage}}">here</a> to the last page.</p>
-            </div>
+                {{#if threadExists}}
+                    <div class="row s12">
+                        <p class="center">Incorrect page number. Click <a href="/posts/{{threadId}}/{{lastPage}}">here</a> to the last page.</p>
+                    </div>
+                {{else}}
+                    <div class="row s12">
+                    <p class="center">Thread doesn't exist.</p>
+                    </div>
+                {{/if}}
             {{/if}}
         </div>
         <div class="row short">

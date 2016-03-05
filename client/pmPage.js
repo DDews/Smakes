@@ -64,7 +64,7 @@ Template['pmPage'].helpers({
         return page + 2 < Math.ceil(data.messages.length / 10) - 1;
     },
     post: function () {
-        var data = Messages.findOne({_id: '' + this});
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
         var messages = data && data.messages;
         var page = +Router.current().params.page;
         page = page ? page : 1;
@@ -82,11 +82,11 @@ Template['pmPage'].helpers({
         return Math.ceil(messages / 10);
     },
     target: function () {
-        var data = Messages.findOne({_id: '' + this});
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
         if (data == null) return null;
         var name = data.to;
         if (data.to == Meteor.user().username) name = data.from;
-        Meteor.call('markAsRead','' + this);
+        Meteor.call('markAsRead','' + Router.current().params._id);
         return name;
     },
     showpmreply: function (position) {
@@ -113,11 +113,11 @@ Template['pmPage'].helpers({
         return Session.get("editable") == _id;
     },
     exists: function(_id) {
-        if (!Messages.findOne({_id: ''+this})) return false;
+        if (!Messages.findOne({_id: '' + Router.current().params._id})) return false;
         return true;
     },
     deleted: function(user, id) {
-        var thread = Messages.findOne({_id: '' + this});
+        var thread = Messages.findOne({_id: '' + Router.current().params._id});
         if (!thread) return null;
         return !_.contains(thread.showTo,user);
     },
@@ -131,13 +131,13 @@ Template['pmPage'].helpers({
 });
 Template.pmPage.events({
     'submit form': function(event) {
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];
         var data = Messages.findOne({_id: '' + Router.current().params._id});
         submit.disabled = true;
         var message = $('[name=message]').val();
         var subject = $('[name=subject]').val();
-        Meteor.call('sendPMReply','' + this,subject,message,function(error, result) {
+        Meteor.call('sendPMReply','' + Router.current().params._id,subject,message,function(error, result) {
 
             if (error) {
                 $("#pmerror").html(error.reason);
@@ -154,26 +154,30 @@ Template.pmPage.events({
                 if (Math.ceil((data.messages.length + 1) / 10) > page) Router.go("/inbox/" + Router.current().params._id + "/" + Math.ceil((data.messages.length + 1) / 10));
             }
         });
+        return false;
     },
     'click .replypm': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var toggle = Session.get("showpmreply");
         if (toggle != "top") Session.set("showpmreply",'top');
         else Session.set("showpmreply",null);
+        return false;
     },
     'click .edit': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var num = +event.currentTarget.name;
         if (num == Session.get("editable")) Session.set("editable",null);
         else Session.set("editable",+event.currentTarget.name);
+        return false;
     },
     'click .bottomReply': function(event) {
         var toggle = Session.get("showpmreply");
         if (toggle != "bottom") Session.set("showpmreply",'bottom');
         else Session.set("showpmreply",null);
+        return false;
     },
     'click .deletePM': function(event) {
-      event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         if (!confirm('Are you sure you want to delete this thread?')) return;
         var thread_id = '' + Router.current().params._id;
         Meteor.call("deleteMessage",thread_id, function(error, result) {
@@ -182,12 +186,13 @@ Template.pmPage.events({
             }
         });
         Router.go("/inbox");
+        return false;
     },
     'click .submitEdit': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var submit = $('[name=submitEdit]')[0];
         submit.disabled = true;
-        var post_id = +event.currentTarget.id
+        var post_id = +event.currentTarget.id;
         var msg = $("[name=editMessage]").val();
         var id = '' + Router.current().params._id;
         Meteor.call("editPM",id,post_id,msg, function(error, result) {
@@ -201,5 +206,6 @@ Template.pmPage.events({
                 Session.set("editable",null);
             }
         });
+        return false;
     }
 });

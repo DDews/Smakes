@@ -63,7 +63,7 @@ Template['thread'].helpers({
         return post && post.from;
     },
     thread: function () {
-        var data = Threads.find({topicId: '' + Router.current().params._id},{sort: {createdAt: -1}}).fetch();
+        var data = Threads.find({topicId: '' + Router.current().params._id},{sort: {modified: -1}}).fetch();
         var page = +Router.current().params.page;
         page = page ? page : 1;
         page -= 1;
@@ -120,11 +120,31 @@ Template['thread'].helpers({
         }
         _toggle = true;
         return 'postTwo';
+    },
+    hasPriveledges: function() {
+        var user = Meteor.user();
+        user = user && user.username;
+        if (!user) return false;
+        var admin = Userinfo.findOne({username: user});
+        admin = admin && admin.admin;
+        if (admin) return true;
+        var topic = '' + Router.current().params._id;
+        topic = Topics.findOne({_id: topic});
+        var moderators = topic && topic.moderators;
+        if (_.contains(moderators,Meteor.user().username)) return true;
+        return false;
+    },
+    isAdmin: function() {
+        var user = Meteor.user();
+        user = user && user.username;
+        if (!user) return false;
+        var admin = Userinfo.findOne({username: user});
+        return admin && admin.admin;
     }
 });
 Template.thread.events({
-    'submit form': function() {
-        event.preventDefault();
+    'submit form': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
         var message = $('[name=message]').val();
         var submit = $('[name=submit]')[0];
         var subject = $('[name=subject]').val();
@@ -134,7 +154,7 @@ Template.thread.events({
             if (error) {
                 $("#error").html(error.reason);
                 submit.disabled = false;
-                return;
+                return false;
             } else {
                 $('[name=message]').val('');
                 $('[name=subject]').val('');
@@ -143,12 +163,27 @@ Template.thread.events({
                 submit.disabled = false;
             }
         });
+        return false;
     },
     'click .newThread': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var showpm = Session.get("showpm");
         if (showpm) Session.set("showpm",false);
         else Session.set("showpm",true);
         Meteor.typeahead.inject();
+        return false;
+    },
+    'click .lock': function(event){
+        if (event && event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        Meteor.call('lockThread',id);
+        return false;
+    },
+    'click .delete': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        if (!confirm('Are you sure you want to delete this thread?')) return;
+        Meteor.call('deleteThread',id);
+        return false;
     }
 });

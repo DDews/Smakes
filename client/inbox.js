@@ -2,6 +2,9 @@
  * Created by Dan on 2/27/2016.
  */
 Template['inbox'].helpers({
+    usernameProvided: function() {
+        return Router.current().params.username;
+    },
     usernames: function() {
         return Meteor.users.find().fetch().map(function(it) {
             return it.username;
@@ -14,6 +17,7 @@ Template['inbox'].helpers({
         return Messages.find();
     },
     showpm: function () {
+        if (Router.current().params.username) return true;
         return Session.get("showpm");
     },
     isFrom: function (messages) {
@@ -61,8 +65,8 @@ Template.inbox.rendered = function() {
     Meteor.typeahead.inject();
 };
 Template.inbox.events({
-    'submit form': function() {
-        event.preventDefault();
+    'submit form': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
         var username = $('[name=to]').val();
         var message = $('[name=message]').val();
         var subject = $('[name=subject]').val();
@@ -70,7 +74,7 @@ Template.inbox.events({
 
             if (error) {
                 $("#pmerror").html(error.reason);
-                return;
+                return false;
             } else {
                 $('[name=to]').val('');
                 $('[name=message]').val('');
@@ -78,21 +82,24 @@ Template.inbox.events({
                 $("#pmerror").html('');
             }
         });
+        return false;
     },
     'click .sendpm': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var showpm = Session.get("showpm");
         if (showpm) Session.set("showpm",false);
         else Session.set("showpm",true);
         Meteor.typeahead.inject();
+        return false;
     },
     'click .deletePM': function(event) {
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         var thread_id = event.currentTarget.id;
         Meteor.call("deleteMessage",thread_id, function(error, result) {
             if (error) {
                 alert(error.reason);
             }
         });
+        return false;
     }
 });
