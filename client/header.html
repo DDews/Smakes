@@ -25,8 +25,15 @@
                 <a href="/profile/{{isProfile}}">{{isProfile}}'s Profile</a>
             {{/if}}
         </p>
+			
             {{#if currentUser}}
-            <p class="messages">{{getUsername}}: <a href="/cp">Control Panel</a> <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)</p>
+            <p class="messages">{{getUsername}}: 
+				<a href="/game">[AFK RPG]</a>
+				<a href="/cp">Control Panel</a> 
+				<a href="/inbox">Inbox</a> 
+				(<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)
+			</p>
+			
             {{/if}}
         </div>
     </div>
