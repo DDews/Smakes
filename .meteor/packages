@@ -20,5 +20,5 @@ iron:router
 accounts-password
 altapp:recaptcha
 ejson
-nemo64:bootstrap
-less
+materialize:materialize
+sergeyt:typeahead

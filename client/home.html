@@ -1,5 +1,51 @@
 <template name="home">
-    <div>
-        default screen
+    <div class="container">
+        <div class="forumbg row">
+            {{#if isAdmin}}<div class="round row">
+                <p class="right"><a href="#" class="newTopic">New Topic</a></p>
+                <div class="col s12" id="error"></div>
+                {{#if showpm}}
+                    <form class="loginForm">
+                        <input type="text" name="topic" placeholder="topic name" />
+                        <input type="text" name="subject" placeholder="subject" />
+                        <input type="submit" name="submit" class="buttoncolor" value="Create" />
+                    </form>
+                    <script>$('[name=topic]').focus();</script>
+                {{/if}}
+            </div>
+            {{/if}}
+            <div class="row">
+                <div class="col s12 m4 list-inner">Topic</div>
+                <div class="col m2 hide-on-small-only views">Threads</div>
+                <div class="col m2 hide-on-small-only views">Posts</div>
+                <div class="col m4 list-inner hide-on-small-only">Last Post</div>
+            </div>
+                {{#each record}}
+                <div class="row">
+                    <div class="col s12 m4">
+                        <div class="row"><p class="subject"><a href="/topic/{{_id}}">{{topic}}</a></p>
+                            <p class="smallsubject">{{subject}}</p>
+                            <div class="hide-on-med-and-up">
+                                <p class="smallsubject">Threads: <b>{{threadNumber _id}}</b></p>
+                            </div>
+                            {{#if isAdmin}}<p class="small"><a href="/editTopic/{{_id}}">edit</a></p>{{/if}}
+                        </div>
+                    </div>
+                    <div class="col m2 hide-on-small-only center">{{threadNumber _id}}</div>
+                    <div class="col m2 hide-on-small-only center">{{numPosts _id}}</div>
+                    <div class="col m4 hide-on-small-only">
+                        <div class="row">
+                            <p class="subject"><a href="/posts/{{lastThreadId _id}}/{{lastThreadPageNumber _id}}">{{lastThread _id}}</a></p>
+                            <p class="smallsubject">{{#if threadsExist _id}}by {{/if}}<a class="username" href="/profile/{{lastThreadUsername _id}}">{{lastThreadUsername _id}}</a> {{lastThreadDate _id}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            {{#if zeroTopics}}
+                <div class="row s12">15
+                    <p class="center">No topics found.</p>
+                </div>
+            {{/if}}
+        </div>
     </div>
 </template>

@@ -8,6 +8,7 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.7/web.browser/post.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.7/web.browser/fastclick.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/geojson-utils/1.0.4/web.browser/geojson-utils.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/sergeyt_typeahead/0.11.1_8/web.browser/index.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/geojson-utils/1.0.4/web.browser/pre.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/geojson-utils/1.0.4/web.browser/post.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/altapp_recaptcha/2.0.0/web.browser/packages/altapp_recaptcha.js" />
@@ -52,6 +53,8 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/route.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/compiler.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/url.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/materialize_materialize/0.97.5/web.browser/dist/css/materialize.css" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/materialize_materialize/0.97.5/web.browser/dist/js/materialize.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/jquery/1.11.4/web.browser/jquery.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/jquery/1.11.4/web.browser/post.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/launch-screen/1.0.4/web.browser/default-behavior.js" />
@@ -103,14 +106,12 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/npm-bcrypt/0.7.8_2/web.browser/packages/npm-bcrypt.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/session/1.1.1/web.browser/session.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/rate-limit/1.0.0/web.browser/rate-limit.js" />
-        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/nemo64_bootstrap/3.3.5_2/web.browser/packages/nemo64_bootstrap.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars/1.0.7/web.browser/spacebars-runtime.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/callback-hook/1.0.4/web.browser/hook.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/sha/1.0.4/web.browser/sha256.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/react.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/check/1.1.0/web.browser/match.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/compiler.js" />
-        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/nemo64_bootstrap-data/3.3.5/web.browser/packages/nemo64_bootstrap-data.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/templatetag.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/srp/1.0.4/web.browser/srp.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/codegen.js" />
@@ -135,6 +136,7 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/tracker/1.0.9/web.browser/tracker.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/method_invocation.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/namespace.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/sergeyt_typeahead/0.11.1_8/web.browser/typeahead.bundle.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/utils.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/heartbeat.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/underscore/1.0.4/web.browser/underscore.js" />
@@ -159,6 +161,7 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.7/web.browser/post.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.7/web.browser/fastclick.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/geojson-utils/1.0.4/web.browser/geojson-utils.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/sergeyt_typeahead/0.11.1_8/web.browser/index.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/geojson-utils/1.0.4/web.browser/pre.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/geojson-utils/1.0.4/web.browser/post.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/altapp_recaptcha/2.0.0/web.browser/packages/altapp_recaptcha.js" />
@@ -203,6 +206,8 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/route.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/compiler.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/url.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/materialize_materialize/0.97.5/web.browser/dist/css/materialize.css" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/materialize_materialize/0.97.5/web.browser/dist/js/materialize.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/jquery/1.11.4/web.browser/jquery.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/jquery/1.11.4/web.browser/post.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/launch-screen/1.0.4/web.browser/default-behavior.js" />
@@ -254,14 +259,12 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/npm-bcrypt/0.7.8_2/web.browser/packages/npm-bcrypt.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/session/1.1.1/web.browser/session.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/rate-limit/1.0.0/web.browser/rate-limit.js" />
-      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/nemo64_bootstrap/3.3.5_2/web.browser/packages/nemo64_bootstrap.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars/1.0.7/web.browser/spacebars-runtime.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/callback-hook/1.0.4/web.browser/hook.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/sha/1.0.4/web.browser/sha256.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/react.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/check/1.1.0/web.browser/match.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/compiler.js" />
-      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/nemo64_bootstrap-data/3.3.5/web.browser/packages/nemo64_bootstrap-data.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/templatetag.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/srp/1.0.4/web.browser/srp.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/spacebars-compiler/1.0.7/web.browser/codegen.js" />
@@ -286,6 +289,7 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/tracker/1.0.9/web.browser/tracker.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/method_invocation.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/namespace.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/sergeyt_typeahead/0.11.1_8/web.browser/typeahead.bundle.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/utils.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ddp-common/1.2.2/web.browser/heartbeat.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/underscore/1.0.4/web.browser/underscore.js" />

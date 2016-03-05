@@ -1,16 +1,52 @@
 /* CSS declarations go here */
-body {
-    margin-left: 10px;
-    margin-right: 10px;
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #bababa;
 }
-#round {
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #bababa;
+    opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #bababa;
+    opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #bababa;
+}
+:placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+    color: #bababa;
+}
+textarea {
+    border-color: #bababa;
+}
+body {
+    color: white;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+.round {
     border-radius: 5px;
-    background: #66bbff;
+    background: #000000;
     padding: 5px;
 }
 .title, .logout, .center {
     text-align: center;
     color: #f9f9f9;
+}
+pre {
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;
+}
+.numposts {
+    text-align: right;
+    color: black;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
 }
 .messages, .right {
     color: #f9f9f9;
@@ -19,8 +55,322 @@ body {
 #error,#pmerror {
     color: #f9f9f9;
 }
+.pageListing {
+    color: black;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
 a {
     color: #efeef2;
+    text-decoration: underline;
+}
+a:hover {
+    color: #48c0c5;
+    text-decoration: none;
+}
+.alarm {
+    color: #c04037;
+    text-decoration: none;
+}
+.alarm:hover {
+    color: #fe5345;
+    text-decoration: none;
+}
+.normal {
+    color: #efeef2;
+    text-decoration: underline;
+}
+.normal:hover {
+    color: #48c0c5;
+    text-decoration: none;
+}
+.username {
+    color: #efeef2;
     font-weight: bold;
+    text-decoration: none;
+}
+.username:hover {
+    color: #48c0c5;
+    font-weight: bold;
+    text-decoration: none;
+}
+.editedusername {
+    color: #a0837b;
+    font-weight: bold;
+    text-decoration: none;
+}
+.editedusername:hover {
+    color: #efeef2;
+    font-weight: bold;
+    text-decoration: none;
+}
+.topic {
+    color: black;
+    text-decoration: underline;
+}
+.topic:hover {
+    color: red;
+    text-decoration: none;
+}
+.pages {
+    color: black;
+    text-decoration: underline;
+}
+.pages:hover {
+    color: #28afb8;
+    text-decoration: none;
+}
+.messagebox {
+    width:100%;
+    height:6rpx;
 }
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
+.roundbg {
+    border-radius: 5px;
+    background: #000000;
+    padding: 5px;
+    color: white;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-top-width: 0px;
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-top: 0px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    text-align: left;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    background-color: #161616;
+    word-wrap: break-word;
+    list-style-type: none;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+.forumbg {
+    color: white;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-top-width: 0px;
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-left: -5px;
+    margin-right: -5px;
+    margin-top: 0px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    text-align: left;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    background-color: #161616;
+    word-wrap: break-word;
+    list-style-type: none;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+.postOne {
+    background-color: #292929;
+}
+.postTwo {
+    background-color: #414141;
+}
+.inner {
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    display: block;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    text-align: left;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    list-style-type: none;
+}
+.list-inner {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: left;
+    text-transform: uppercase;
+}
+.views {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+.topiclist {
+    display: block;
+    list-style-position: outside;
+    vertical-align: baseline;
+    word-wrap: break-word;
+    list-style-type: none;
+}
+.header {
+    display: inline;
+    list-style-type: none;
+    list-style-position: outside;
+    word-wrap: break-word;
+}
+ul {
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+dt {
+    display: inline;
+}
+.icon {
+    display: inline;
+}
+.posts, .views, .lastpost {
+    width: 95px;
+    padding-top: 2px;
+    margin-top: 2px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    vertical-align: baseline;
+    list-style-type: none;
+    list-style-position: outside;
+    line-height: 14px;
+    float: left;
+    color: white;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.post {
+    color: white;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.locked {
+    color: #b0b0b0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+}
+.small {
+    text-align: left;
+    line-height: 10px;
+    color: white;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.smallsubject {
+    text-align: left;
+    line-height: 10px;
+    color: #c0c0be;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.info {
+    line-height: 10px;
+    color: white;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.editedSmall {
+    color: #a0837b;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.subject {
+    line-height: 14px;
+    margin-top: 4px;
+    margin-bottom: 2px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.submitEdit {
+    color: black;
+}
+.subjectText {
+    color: white;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+.middle {
+    line-height: 20px;
+}
+.nolock {
+    opacity: 0;
+    filter: alpha(opacity=0); /* For IE8 and earlier */
+}
+.bottom {
+    vertical-align: bottom;
+    display: flex;
+    text-align: center;
+}
+.hidetext {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.smallwidth {
+    width: 500px;
+}
+
+.buttoncolor {
+    color: black;
+    float: right;
+}
+.admin {
+    color: #9e7869;
+    font-size: 10px;
+}
+.moderator {
+    color: #9b9e46;
+    font-size: 10px;
+}
+.buttonbig {
+    color: black;
+    float: right;
+}
+.short {
+    margin-bottom: 2px;
+}
+.submit {
+
+}

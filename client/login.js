@@ -7,14 +7,17 @@ Meteor.startup(function() {
     });
 });
 Template.login.events({
-    'submit form': function() {
-        event.preventDefault();
+    'submit form': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var submit = $('[name=submit]')[0];
+        submit.disabled = true;
         var login = Session.get("form");
         var username = $('[name=username]').val();
         var password = $('[name=password]').val();
         if (!login) {
             Meteor.loginWithPassword(username, password, function (error) {
-                if (error) $("#error").html('wtf: ' + error.reason);
+                submit.disabled = false;
+                if (error) $("#error").html(error.reason);
                 else {
                     Meteor.subscribe("messages");
                 }
@@ -24,8 +27,9 @@ Template.login.events({
         } else {
             var password2 = $('[name=password2]').val();
             if (password != password2) {
-                alert("Passwords do not match.");
-                return;
+                $("#error").html("Passwords do not match.");
+                submit.disabled = false;
+                return false;
             }
             var captchaData = grecaptcha.getResponse();
             Meteor.call('formSubmissionMethod',username, password, captchaData, function(error, result) {
@@ -36,9 +40,11 @@ Template.login.events({
                     if (error.reason == "missing-input-response")
                         $("#error").html('You must complete the reCAPTCHA.');
                     else $("#error").html('There was an error: ' + error.reason);
-                    return;
+                    submit.disabled = false;
+                    return false;
                 } else {
                     Meteor.loginWithPassword(username, password, function (error) {
+                        submit.disabled = false;
                         if (error) $("#error").html(error.reason);
                     });
                     Meteor.subscribe("messages");
@@ -46,21 +52,24 @@ Template.login.events({
                     $('[name=password]').val('');
                     $('[name=password2]').val('');
                     Session.set("form",false);
-                    console.log('success!');
                     $("#error").html('');
+                    submit.disabled = false;
                 }
             });
+            return false;
         }
     },
     'click .login': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         $("#error").html('');
         Session.set("form",false);
+        return false;
     },
     'click .register': function(event){
-        event.preventDefault();
+        if (event && event.preventDefault) event.preventDefault();
         $("#error").html('');
         Session.set("form",true);
+        return false;
     }
 })
 Template['login'].helpers({

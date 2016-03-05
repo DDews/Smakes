@@ -1,8 +1,33 @@
 <template name="header">
-    <div id="round">
-    <p class="title"><a href="/">Board index</a></p>
-        {{#if currentUser}}
-        <p class="messages"><a href="/inbox">Inbox</a> (<a href="/inbox">{{unread}}</a>)</p>
-        {{/if}}
+    <div class="container">
+        <div class="roundbg col s12">
+        <p class="title"><a href="/">Board index</a>
+            {{#if isThread}}
+                >
+                <a href="/topic/{{topicId}}">{{getTopicName}}</a>
+                >
+                <a href="/posts/{{id}}">{{threadName}}</a>
+            {{/if}}
+            {{#if isTopic}}
+                >
+                <a href="/topic/{{id}}">{{topicName}}</a>
+            {{/if}}
+            {{#if isInbox}}
+                >
+                <a href="/inbox">Inbox</a> {{#if messageName}}> <a href="/inbox/{{id}}">{{messageName}}</a>{{/if}}
+            {{/if}}
+            {{#if isCP}}
+                >
+                <a href="/cp">Control Panel</a>
+            {{/if}}
+            {{#if isProfile}}
+                >
+                <a href="/profile/{{isProfile}}">{{isProfile}}'s Profile</a>
+            {{/if}}
+        </p>
+            {{#if currentUser}}
+            <p class="messages">{{getUsername}}: <a href="/cp">Control Panel</a> <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)</p>
+            {{/if}}
+        </div>
     </div>
 </template>
