@@ -477,10 +477,17 @@ Meteor.methods({
         likes.push(Meteor.user().username);
         Posts.update(postId,{$set:{likes: likes}});
         var userinfo = Userinfo.findOne({username: poster});
+        var totalKarma = userinfo.totalKarma;
         var wallet = userinfo.wallet;
-        if (!wallet) Userinfo.update(userinfo._id, {$set:{wallet:{karma:1, gold:100}}})
+        if (!wallet) {
+            Userinfo.update(userinfo._id, {$set:{wallet:{karma:1, gold:100}}});
+            Userinfo.update(userinfo._id, {$set:{totalKarma: 1}});
+        }
         else {
+            if (!totalKarma) totalKarma = 0;
+            totalKarma += 1;
             wallet.karma += 1;
+            Userinfo.update(userinfo._id, {$set: {totalKarma: totalKarma}});
             Userinfo.update(userinfo._id, {$set: {wallet: wallet}});
         }
     },
@@ -488,6 +495,8 @@ Meteor.methods({
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
         var post = Posts.findOne({_id: postId});
         if (!post) throw new Meteor.Error(422,"Post not found");
+        var poster = post.from;
+        if (poster == Meteor.user().username) throw new Meteor.Error(422,"You cannot dislike your own post");
         var likes = post.likes;
         var dislikes = post.dislikes;
         if (_.contains(likes,Meteor.user().username)) throw new Meteor.Error(422,"User already liked this post");
