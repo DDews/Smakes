@@ -1,7 +1,23 @@
 <template name="find">
     <div class="container">
+        <div class="row short">
+        {{#if correctPage}}
+            <div class="right col s4 pageListing">
+                <img src="/pages.gif" width="10" height="10">
+                {{#if needFirst}}<a class="pages" href="{{linkToPage 1}}">1</a>{{/if}}
+                {{#if needFirstElipsis}}...{{/if}}
+                {{#if needBefore 2}}<a class="pages" href="{{linkPageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                {{#if needBefore 1}}<a class="pages" href="{{linkPageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                {{pageNumber}}
+                {{#if needAfter 1}}<a class="pages" href="{{linkPageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                {{#if needAfter 2}}<a class="pages" href="{{linkPageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                {{#if needSecondElipsis}}...{{/if}}
+                {{#if needLast}}<a class="pages" href="{{linkLastPage}}">{{lastPage}}</a>{{/if}}
+            </div>
+        {{/if}}
+        </div>
         <div class="forumbg row">
-            Found {{numposts}} matches
+            Found {{numposts}} matches <a href="{{linkToPage 2}}">2</a>
             {{#each record}}
                 <div class="row {{toggle}}">
                     <div class="col s9">
@@ -37,6 +53,22 @@
                     </div>
                 </div>
             {{/each}}
+        </div>
+        <div class="row short">
+            {{#if correctPage}}
+                <div class="right col s4 pageListing">
+                    <img src="/pages.gif" width="10" height="10">
+                    {{#if needFirst}}<a class="pages" href="{{linkToPage 1}}">1</a>{{/if}}
+                    {{#if needFirstElipsis}}...{{/if}}
+                    {{#if needBefore 2}}<a class="pages" href="{{linkPageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+                    {{#if needBefore 1}}<a class="pages" href="{{linkPageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+                    {{pageNumber}}
+                    {{#if needAfter 1}}<a class="pages" href="{{linkPageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+                    {{#if needAfter 2}}<a class="pages" href="{{linkPageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+                    {{#if needSecondElipsis}}...{{/if}}
+                    {{#if needLast}}<a class="pages" href="{{linkLastPage}}">{{lastPage}}</a>{{/if}}
+                </div>
+            {{/if}}
         </div>
     </div>
 </template>

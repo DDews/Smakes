@@ -2,6 +2,18 @@
  * Created by Dan on 3/5/2016.
  */
 var _toggle = false;
+var getPageUrl = function(num) {
+    var keywords = '&keywords=' + encodeURIComponent(Router.current().params.query.keywords);
+    var regexoption = '&regexoption=' + Router.current().params.query.regexoption;
+    var author = '&author=' + encodeURIComponent(Router.current().params.query.author);
+    var within = '&within=' + Router.current().params.query.within;
+    var sortby = '&sortby=' + Router.current().params.query.sortby;
+    var sortorder = '&sortorder=' + Router.current().params.query.sortorder;
+    var forum = '&forum=' + Router.current().params.query.forum;
+    var page = '&page=' + num;
+    var url = '/find?' + keywords + regexoption + author + within + sortby + sortorder + forum + page;
+    return url;
+}
 Template['find'].helpers({
     toggle: function() {
         if (_toggle) {
@@ -72,6 +84,93 @@ Template['find'].helpers({
     },
     numposts: function() {
         return Session.get("numposts");
+    },
+    linkToPage: function(num) {
+        var url = getPageUrl(num);
+        return url;
+    },
+    linkPageBefore: function(num) {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        var url = getPageUrl(page - num);
+    },
+    linkPageAfter: function(num) {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        var url = getPageUrl(page + num);
+    },
+    linkLastPage: function() {
+        var data = +Session.get("numposts");
+        return getPageUrl(Math.ceil(data / 10));
+    },
+    pageBefore: function(num) {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page - num;
+    },
+    needFirstElipsis: function() {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page - 2 > 2;
+    },
+    needSecondElipsis: function() {
+        var data = +Session.get("numposts");
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page + 2 < Math.ceil(data / 10) - 1;
+    },
+    lastPage: function() {
+        var data = +Session.get("numposts");
+        return Math.ceil(data / 10);
+    },
+    needFirst: function () {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page != 1;
+    },
+    needLast: function() {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        var data = +Session.get("numposts");
+        return page != Math.ceil(data / 10);
+    },
+    needBefore: function(num) {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page - num > 1;
+    },
+    needAfter: function(num) {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        var data = +Session.get("numposts");
+        return page + num < Math.ceil(data / 10);
+    },
+    pageAfter: function(num) {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page + num;
+    },
+    pageNumber: function() {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page;
+    },
+    correctPage: function () {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        var data = +Session.get("numposts");
+        return page <= Math.ceil(data / 10);
+    },
+    needFirst: function () {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        return page != 1;
+    },
+    needLast: function() {
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        var data = +Session.get("numposts");
+        return page != Math.ceil(data / 10);
     },
     record: function () {
         var keywords = '' + Router.current().params.query.keywords;
@@ -274,6 +373,11 @@ Template['find'].helpers({
         var count = query.count();
         if (!count) count = 0;
         Session.set("numposts",count);
-        return query;
+        var page = +Router.current().params.query.page;
+        page = page ? page : 1;
+        page -= 1;
+        var index = page * 10;
+        var messages = query.fetch().slice(index,index + 10);
+        return messages;
     }
 });
