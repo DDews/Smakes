@@ -1,38 +1,40 @@
 <template name="editTopic">
-    <div class="forumbg row">
-        {{#if isAdmin}}
-            {{#if badId}}
+    <div class="container">
+        <div class="forumbg row">
+            {{#if isAdmin}}
+                {{#if badId}}
+                    <div class="round row s12">
+                        <p class="title center">
+                            Topic not found.
+                        </p>
+                    </div>
+                {{else}}
+                    <p class="center">{{topicName}} Moderators:</p>
+                    <div class="row center"><div id="error"></div></div>
+                    <div class="row center"><div class="hidetext col s4">. </div><div class="center col s4"><p class="bottom center"><input type="text" class="form-control typeahead" data-source="usernames" autocomplete="off" spellcheck="off" name="username" placeholder="username" /><input type="submit" name="add" class="buttonbig" value="Add" /><script>Meteor.typeahead.inject(); $('[name=username]').focus();</script></p></div></div>
+                    <div class="round row {{toggle}}">
+                    {{#each moderator}}
+                        <div class="card blue-grey darken-1 col s4">
+                            <div class="card-content white-text">
+                                <span class="card-title">{{this}}</span>
+                            </div>
+                            <div class="card-action">
+                                <p><a href="#" class="delete" id="{{this}}">Remove</a></p>
+                                <p>{{#if notAdmin this}}<a href="#" class="promote" id="{{this}}">Promote to admin</a>
+                                {{else}}<a href="#" class="demote" id="{{this}}">Demote from admin</a>
+                                {{/if}}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                    </div>
+                {{/if}}
+            {{else}}
                 <div class="round row s12">
                     <p class="title center">
-                        Topic not found.
+                        You must be an admin.
                     </p>
                 </div>
-            {{else}}
-                <p class="center">{{topicName}} Moderators:</p>
-                <div class="row center"><div id="error"></div></div>
-                <div class="row center"><div class="hidetext col s4">. </div><div class="center col s4"><p class="bottom center"><input type="text" class="form-control typeahead" data-source="usernames" autocomplete="off" spellcheck="off" name="username" placeholder="username" /><input type="submit" name="add" class="buttonbig" value="Add" /><script>Meteor.typeahead.inject(); $('[name=username]').focus();</script></p></div></div>
-                <div class="round row {{toggle}}">
-                {{#each moderator}}
-                    <div class="card blue-grey darken-1 col s4">
-                        <div class="card-content white-text">
-                            <span class="card-title">{{this}}</span>
-                        </div>
-                        <div class="card-action">
-                            <p><a href="#" class="delete" id="{{this}}">Remove</a></p>
-                            <p>{{#if notAdmin this}}<a href="#" class="promote" id="{{this}}">Promote to admin</a>
-                            {{else}}<a href="#" class="demote" id="{{this}}">Demote from admin</a>
-                            {{/if}}</p>
-                        </div>
-                    </div>
-                {{/each}}
-                </div>
             {{/if}}
-        {{else}}
-            <div class="round row s12">
-                <p class="title center">
-                    You must be an admin.
-                </p>
-            </div>
-        {{/if}}
-    </div>
+        </div>
+        </div>
 </template>

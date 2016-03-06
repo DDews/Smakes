@@ -180,6 +180,9 @@ Template['post'].helpers({
         var user = Userinfo.findOne({username: username});
         if (!user) return null;
         return user.signature;
+    },
+    urlify: function(message) {
+        return urlify(message);
     }
 
 });

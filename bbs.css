@@ -331,6 +331,10 @@ dt {
     clear: left;
     font-size: 10px;
 }
+.maximage {
+    max-width: 400px;
+    max-height: 400px;
+}
 .likes {
     line-height: 14px;
     color: white;
