@@ -42,7 +42,7 @@
                                             <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
                                         </p>
                                         <p>
-                                            <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{message}}</pre>{{/if}}
+                                            <span class="message">{{#if isEditable _id}}<textarea rows="4" cols="50" name="editMessage" id="{{_id}}">{{message}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<pre>{{{urlify message}}}</pre>{{/if}}
                                             {{#if edited}}
                                                 <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{from}}">{{from}}</a> on {{myDate modified}}</p>
                                             {{/if}}

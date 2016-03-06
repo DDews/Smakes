@@ -126,6 +126,9 @@ Template['pmPage'].helpers({
         var array = Messages.findOne({_id: id});
         if (!array) return null;
         return subject ? subject : 'Re: ' + array.subject;
+    },
+    urlify: function(message) {
+        return urlify(message);
     }
 
 });
