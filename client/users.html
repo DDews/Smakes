@@ -1,0 +1,19 @@
+<template name="users">
+    <div class="container">
+        <div class="forumbg row">
+            <div class="row center">
+                <div class="col s6 center">
+                    <a href="#" class="sortKarma">Sort by Total Karma</a>
+                </div>
+                <div class="col s6 center">
+                    <a href="#" class="sortName">Sort by Username</a>
+                </div>
+            </div>
+            <div class="collection">
+            {{#each person}}
+                <a href="/profile/{{username}}" class="collection-item">{{username}}<span class="badge">{{getKarma username}} karma</span></a>
+            {{/each}}
+            </div>
+        </div>
+    </div>
+</template>

@@ -43,6 +43,12 @@ Template['header'].helpers({
                 return true;
             }
         },
+        isSearch: function() {
+            return Session.get("nav") == "search";
+        },
+        isUsers: function() {
+            return Session.get("nav") == "users";
+        },
         isCP: function() {
             return Session.get("nav") == 'control panel';
         },

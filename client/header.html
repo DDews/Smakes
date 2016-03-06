@@ -24,12 +24,20 @@
                 >
                 <a href="/profile/{{isProfile}}">{{isProfile}}'s Profile</a>
             {{/if}}
+            {{#if isSearch}}
+                >
+                <a href="/search">Search</a>
+            {{/if}}
+            {{#if isUsers}}
+                >
+                <a href="/users">User List</a>
+            {{/if}}
         </p>
 			
             {{#if currentUser}}
                 <div class="row">
                     <div class="col s5">
-                        <p class="messsages"><a href="/search">Search</a></p>
+                        <p class="messsages"><a href="/search">Search</a> <a href="/users">User List</a></p>
                     </div>
                     <div class="col s7">
                         <p class="messages">{{getUsername}}: 
