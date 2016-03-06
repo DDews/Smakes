@@ -68,8 +68,8 @@ Meteor.methods({
                 username: username,
                 createdAt: new Date(),
             });
-            if (!Userinfo.findOne({username: RegExp('^' + username + '$',"i")})) Userinfo.insert(
-                {
+            if (!Userinfo.findOne({username: RegExp('^' + username + '$',"i")})) {
+				Userinfo.insert({
                     username: username,
                     admin: false,
                     posts: 0,
@@ -78,8 +78,8 @@ Meteor.methods({
 						karma: 0,
 						gold: 100,
 					},
-                }
-            );
+                });
+			}
         }
     },
     createTopic: function(topic, subject) {

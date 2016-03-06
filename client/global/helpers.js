@@ -29,3 +29,17 @@ Handlebars.registerHelper('currentUserWallet', () => {
 	
 	return wallet.toPairRay();
 })
+
+
+Handlebars.registerHelper('healthbar', (val, max, color) => {
+	if (!max) { max = 1.0; }
+	var fill = Math.floor(val / max * 100);
+	if (!color) { color = "green"; }
+	
+	var bar = '<div class="progress ' + color + ' lighten-3">'
+	bar += '<div class="determinate ' + color + '" style="width:' + fill + '%"></div>'
+	bar += '</div>'
+	
+	return bar;
+})
+
