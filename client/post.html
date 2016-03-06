@@ -62,6 +62,7 @@
                                     <div class="moderator">Moderator</div>
                                 {{/if}}
                             {{/if}}
+                            <div class="right-align likes"><a href="#" class="like" id="{{_id}}"><img src="/like.png" width="14" height="14"></a>{{getLikes _id}}<a href="#" class="dislike" id="{{_id}}"><img src="/dislike.png" width="14" height="14"></a>{{getDislikes _id}}</div>
                             <br>
                             <div class="right-align info">posts: {{getPosts from}}</div>
                             <div class="right-align info">{{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}</div>

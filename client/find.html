@@ -43,6 +43,7 @@
                             {{/if}}
                         {{/if}}
                         <div class="right-align info">
+                            <div class="right-align likes"><img src="/like.png" width="14" height="14">{{getLikes _id}}<img src="/dislike.png" width="14" height="14">{{getDislikes _id}}</div>
                             <p class="right-align info">posts: {{getPosts from}}</p>
                             <br>
                             <p class="right-align info">Forum: <a href="/topic/{{topicId}}">{{topicName topicId}}</a></p>
