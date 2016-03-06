@@ -32,9 +32,27 @@
                         <p class="messsages"><a href="/search">Search</a></p>
                     </div>
                     <div class="col s7">
-                        <p class="messages">{{getUsername}}: <a href="/game">[AFK RPG]</a><a href="/cp">Control Panel</a> <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)</p>
+                        <p class="messages">{{getUsername}}: 
+							<a href="/game">[AFK RPG]</a>
+							<a href="/cp">Control Panel</a>
+							<a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)
+						</p>
                     </div>
                 </div>
+				<div class="row blue-grey darken-3">
+					<div class="col s1 chip blue-grey darken-3 white-text">Wallet</div>
+					{{#if currentUserWalletExists}}
+						{{#each currentUserWallet}}
+							<div class="col s2 blue-grey chip darken-4">
+								<span class="yellow-text">
+									{{key}}:<span class="white-text">{{value}}</span>
+								</span>
+							</div>
+						{{/each}}
+					{{else}}
+						Please wait... Generating wallet...
+					{{/if}}
+				</div>
             {{else}}
             <div class="row">
                 <div class="col s12">

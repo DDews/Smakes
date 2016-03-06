@@ -288,6 +288,17 @@ dt {
     margin-right: 0px;
     margin-left: 0px;
 }
+.smallcenter {
+    text-align: center;
+    line-height: 10px;
+    color: white;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
 .smallsubject {
     text-align: left;
     line-height: 10px;
