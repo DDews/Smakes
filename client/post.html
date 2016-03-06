@@ -28,6 +28,7 @@
                                     <input type="text" name="subject" placeholder="subject" />
                                     <textarea class="messagebox" name="message"></textarea>
                                     <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                    <script>if (_quote) $('[name=message]').val(_quote); _quote = '';</script>
                                 </form>
                                 <script>$('[name=subject]').focus();</script>
                             {{/if}}
@@ -42,7 +43,7 @@
                     <div class="row {{toggle}}">
                         <div class="col s9">
                             <p>
-                            <p class="subjectText">{{subject}}</p>
+                            <div class="subjectText">{{subject}} <ul class="post-buttons right"><li><a href="#" class="quote" id="{{_id}}"><img src="/quote.png"></a></li></ul></div>
                             <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
                             </p>
                         <p>
@@ -83,8 +84,9 @@
                                 <div class="col s12" id="error"></div>
                                 <form class="pmForm">
                                     <input type="text" name="subject" placeholder="subject" />
-                                    <textarea class="messagebox"  name="message"></textarea>
+                                    <textarea class="messagebox" name="message"></textarea>
                                     <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                    <script>if (_quote) $('[name=message]').val(_quote); _quote = '';</script>
                                 </form>
                                 <script>$('[name=subject]').focus();</script>
                             {{/if}}
