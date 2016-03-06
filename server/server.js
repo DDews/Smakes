@@ -73,7 +73,11 @@ Meteor.methods({
                     username: username,
                     admin: false,
                     posts: 0,
-                    points: 0
+					totalKarma: 0,
+					wallet: {
+						karma: 0,
+						gold: 100,
+					},
                 }
             );
         }
@@ -438,6 +442,28 @@ Meteor.methods({
         var userId = user._id;
         Userinfo.update(userId,{$set:{admin: false}});
     },
+	newWallet: function(username) {
+		if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
+		var user = Userinfo.findOne({username: RegExp('^' + username + '$',"i")});
+		
+		if (!user) throw new Meteor.Error(422,"User not found");
+		
+		var userId = user._id;
+		var requester = Meteor.user().username;
+		if (requester != username) throw new Meteor.Error(422,"Don't be a jerk!");
+		
+		if (user.wallet) {
+			console.log("User has wallet!");
+			console.log(user.wallet);
+			return;
+		}
+		console.log("User matches!");
+		
+		
+		Userinfo.update(userId, {$set:{wallet:{karma:0, gold:100}}})
+		
+		console.log("user updated with 'wallet'");
+	},
     likePost: function(postId) {
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
         var post = Posts.findOne({_id: postId});

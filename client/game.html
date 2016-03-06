@@ -2,6 +2,8 @@
 	<div class="container">
 		<div class="forumbg row">
 			<div class="col s12" id="error"></div>
+			{{#if currentUser}}
+			
 			{{#if gameDataExists }}
 				UR MOM
 			{{else}}
@@ -28,6 +30,10 @@
 					
 				</div>
 			</div>
+			{{/if}}
+			
+			{{else}}
+			<div class="title center">You must be logged in.</div>
 			{{/if}}
 			
 		</div>
