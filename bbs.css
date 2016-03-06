@@ -288,6 +288,9 @@ dt {
     margin-right: 0px;
     margin-left: 0px;
 }
+.nowrap {
+	word-wrap: normal;
+}
 .smallcenter {
     text-align: center;
     line-height: 10px;
