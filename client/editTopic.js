@@ -30,7 +30,6 @@ Template['editTopic'].helpers({
         return topic && topic.topic;
     },
     notAdmin: function(username) {
-        username = username[0];
         var userinfo = Userinfo.findOne({username: username});
         if (!userinfo) return null;
         return userinfo.admin != true;
