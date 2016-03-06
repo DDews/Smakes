@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/editTopic.html" afterPath="$PROJECT_DIR$/client/editTopic.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/editTopic.js" afterPath="$PROJECT_DIR$/client/editTopic.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,12 +33,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editTopic.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="editTopic.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/editTopic.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67042255">
-              <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editTopic.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/editTopic.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.8031496">
+              <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#38#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,7 +90,6 @@
         <option value="$USER_HOME$/AppData/Local/.meteor/packages/materialize_materialize/0.97.5/web.browser/dist/css/materialize.css" />
         <option value="$PROJECT_DIR$/client/login.js" />
         <option value="$PROJECT_DIR$/client/home.js" />
-        <option value="$PROJECT_DIR$/client/editTopic.js" />
         <option value="$PROJECT_DIR$/client/controlpanel.js" />
         <option value="$PROJECT_DIR$/client/profile.js" />
         <option value="$PROJECT_DIR$/client/inbox.js" />
@@ -107,6 +118,7 @@
         <option value="$PROJECT_DIR$/client/find.js" />
         <option value="$PROJECT_DIR$/client/find.html" />
         <option value="$PROJECT_DIR$/client/editTopic.html" />
+        <option value="$PROJECT_DIR$/client/editTopic.js" />
       </list>
     </option>
   </component>
@@ -787,21 +799,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/editTopic.js">
+    <entry file="file://$PROJECT_DIR$/client/editTopic.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.855643">
-          <caret line="72" column="21" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/editTopic.html">
+    <entry file="file://$PROJECT_DIR$/client/editTopic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67042255">
-          <caret line="23" column="39" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="39" />
-          <folding />
+        <state vertical-scroll-proportion="0.8031496">
+          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
