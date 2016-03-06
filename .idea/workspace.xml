@@ -2,23 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/find.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/find.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/search.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/selectTopic.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/selectTopic.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/game.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/game.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/game/data.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/game/unit.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/game/util.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/header.html" afterPath="$PROJECT_DIR$/client/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/header.js" afterPath="$PROJECT_DIR$/client/header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/home.html" afterPath="$PROJECT_DIR$/client/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/pmPage.html" afterPath="$PROJECT_DIR$/client/pmPage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/pmPage.js" afterPath="$PROJECT_DIR$/client/pmPage.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/post.html" afterPath="$PROJECT_DIR$/client/post.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/post.js" afterPath="$PROJECT_DIR$/client/post.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/search.html" afterPath="$PROJECT_DIR$/client/search.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/thread.js" afterPath="$PROJECT_DIR$/client/thread.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/utilities.js" afterPath="$PROJECT_DIR$/lib/utilities.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,21 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="bbs.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bbs.css">
+      <file leaf-file-name="header.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.7454543">
-              <caret line="339" column="18" selection-start-line="339" selection-start-column="18" selection-end-line="339" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/home.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.5323944">
-              <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+            <state vertical-scroll-proportion="1.2394366">
+              <caret line="40" column="33" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -120,9 +102,9 @@
         <option value="$PROJECT_DIR$/client/search.html" />
         <option value="$PROJECT_DIR$/client/find.js" />
         <option value="$PROJECT_DIR$/client/find.html" />
-        <option value="$PROJECT_DIR$/client/header.html" />
         <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/client/home.html" />
+        <option value="$PROJECT_DIR$/client/header.html" />
       </list>
     </option>
   </component>
@@ -763,14 +745,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/header.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8079096">
-          <caret line="41" column="10" selection-start-line="41" selection-start-column="10" selection-end-line="41" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/search.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0084746">
@@ -805,18 +779,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5323944">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bbs.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.7454543">
+        <state vertical-scroll-proportion="0.8006135">
           <caret line="339" column="18" selection-start-line="339" selection-start-column="18" selection-end-line="339" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/home.html">
+    <entry file="file://$PROJECT_DIR$/client/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5323944">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        <state vertical-scroll-proportion="1.2394366">
+          <caret line="40" column="33" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
           <folding />
         </state>
       </provider>
