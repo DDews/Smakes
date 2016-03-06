@@ -13,6 +13,10 @@ var badchars = ["̀","́","̂","̃","̄","̅","̆","̇","̈","̉","̊","̋","̌"
 var isZalgo = function(string) {
     return string.match(RegExp(badchars.join('|')));
 }
+var isHTML = function(string) {
+    var array = string.match(/^(?:<(\w+)(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)>[^<>]*<\/\1+\s*>|<\w+(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/>|<!--.*?-->|[^<>]+)*$/);
+    return array[1];
+}
 Meteor.publish("usernames", function() {
    return Meteor.users.find({},{fields: {'username': 1}})
 });
@@ -84,7 +88,8 @@ Meteor.methods({
     },
     createTopic: function(topic, subject) {
         var username = Meteor.user() && Meteor.user().username;
-        if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected");
+        if (isZalgo(topic)) throw new Meteor.Error(422,"Error: Zalgo text detected");
+        if (isHTML(topic) || isHTML(subject)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
         var isAdmin = Userinfo.findOne({username: username});
         var isAdmin = isAdmin && isAdmin.admin;
@@ -102,6 +107,7 @@ Meteor.methods({
     },
     newThread: function(topicId, subject, message) {
         var topic = Topics.findOne({_id: topicId});
+        if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!topic) throw new Meteor.Error(422,"Error: topic doesn't exist");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!subject) throw new Meteor.Error(422,"Error: subject is empty");
@@ -143,7 +149,8 @@ Meteor.methods({
     },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
-        //if (isZalgo(subject) || isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
+        if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
+        if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
         if (!Topics.findOne({_id: topicId})) throw new Meteor.Error(422,"Error: you are in a deleted topic");
         var thread = Threads.findOne({_id: threadId});
@@ -177,6 +184,7 @@ Meteor.methods({
         Userinfo.update(userid,{$set:{posts: posts}});
     },
     sendPM: function(messageTo, subject, message) {
+        if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
         var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -208,6 +216,7 @@ Meteor.methods({
         );
     },
     sendPMReply: function(id, subject, message) {
+        if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!message) throw new Meteor.Error(422,"Error: Your message is emtpy");
         //if (isZalgo(subject) || isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         var msg = Messages.findOne({_id: id});
@@ -269,6 +278,7 @@ Meteor.methods({
         Messages.update(id,{ $set: { showTo: array}});
     },
     editPost: function(postId,message) {
+        if (isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         var username = Meteor.user() && Meteor.user().username;
         //if (isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
@@ -317,6 +327,7 @@ Meteor.methods({
         Threads.update(threadId,{$set: { views: views}});
     },
     editPM: function(id,post_id,msg) {
+        if (isHTML(msg)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(msg)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         var username = Meteor.user() && Meteor.user().username;
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
@@ -380,6 +391,7 @@ Meteor.methods({
     },
     setSignature: function(signature, password) {
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
+        if (isHTML(signature)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(signature)) throw new Meteor.Error(422, "Zalgo text not allowed.");
         var user = Meteor.user();
         var password = {digest: password, algorithm: 'sha-256'};
