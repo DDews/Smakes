@@ -171,6 +171,16 @@ Template['post'].helpers({
         if (!post) return 0;
         return post.dislikes.length;
     },
+    signatureExists: function(username) {
+        var user = Userinfo.findOne({username: username});
+        if (!user) return false;
+        if (user.signature) return true;
+    },
+    signature: function(username) {
+        var user = Userinfo.findOne({username: username});
+        if (!user) return null;
+        return user.signature;
+    }
 
 });
 Template.post.rendered = function() {

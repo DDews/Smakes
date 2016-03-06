@@ -182,6 +182,23 @@ Template['find'].helpers({
         if (!post) return 0;
         return post.dislikes.length;
     },
+    abbreviate: function(message) {
+        var keywords = '' + Router.current().params.query.keywords;
+        var regexoption = '' + Router.current().params.query.regexoption;
+        var index = message.regexIndexOf(RegExp(keywords,regexoption),0);
+        index -= 100;
+        if (index < 0) index = 0;
+        var length = message.length;
+        var output = message.substring(index,index + 200);
+        if (index + 200 < length) output += '...';
+        if (index > 0) output = '...' + output;
+        var found = output.match(RegExp(keywords,regexoption));
+        var match = found[0];
+        return output.replace(RegExp(keywords,regexoption),"<span class='highlight'>" + match + "</span>");
+    },
+    keywords: function() {
+        return '/' + Router.current().params.query.keywords + '/';
+    },
     record: function () {
         var keywords = '' + Router.current().params.query.keywords;
         var regexoption = '' + Router.current().params.query.regexoption;
@@ -191,195 +208,33 @@ Template['find'].helpers({
         var sortorder = +Router.current().params.query.sortorder;
         var forum = '' + Router.current().params.query.forum;
         var query;
-        if (author) {
-            if (within == 'all') {
-                if (sortby == 'createdAt') query = Posts.find(
-                    {
-                        from: RegExp(author, "i"),
-                        topicId: RegExp(forum),
-                        $or: [
-                            {subject: RegExp(keywords, regexoption)},
-                            {post: RegExp(keywords, regexoption)}
-                        ]
-                    },
-                    {
-                        sort: {createdAt: sortorder}
-                    });
-                if (sortby == 'subject') query = Posts.find(
-                    {
-                        from: RegExp(author, "i"),
-                        topicId: RegExp(forum),
-                        $or: [
-                            {subject: RegExp(keywords, regexoption)},
-                            {post: RegExp(keywords, regexoption)}
-                        ]
-                    },
-                    {
-                        sort: {subject: sortorder}
-                    });
-                if (sortby == 'from') query = Posts.find(
-                    {
-                        from: RegExp(author, "i"),
-                        topicId: RegExp(forum),
-                        $or: [
-                            {subject: RegExp(keywords, regexoption)},
-                            {post: RegExp(keywords, regexoption)}
-                        ]
-                    },
-                    {
-                        sort: {from: sortorder}
-                    });
-            } else {
-                if (within == 'subject') {
-                    if (sortby == 'createdAt') query = Posts.find(
-                        {
-                            from: RegExp(author, "i"),
-                            topicId: RegExp(forum),
-                            subject: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {createdAt: sortorder}
-                        });
-                    if (sortby == 'subject') query = Posts.find(
-                        {
-                            from: RegExp(author, "i"),
-                            topicId: RegExp(forum),
-                            subject: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {subject: sortorder}
-                        });
-                    if (sortby == 'from') query = Posts.find(
-                        {
-                            from: RegExp(author, "i"),
-                            topicId: RegExp(forum),
-                            subject: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {from: sortorder}
-                        });
-                }
-                if (within == 'message') {
-                    if (sortby == 'createdAt') query = Posts.find(
-                        {
-                            from: RegExp(author, "i"),
-                            topicId: RegExp(forum),
-                            post: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {createdAt: sortorder}
-                        });
-                    if (sortby == 'subject') query = Posts.find(
-                        {
-                            from: RegExp(author, "i"),
-                            topicId: RegExp(forum),
-                            post: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {subject: sortorder}
-                        });
-                    if (sortby == 'from') query = Posts.find(
-                        {
-                            from: RegExp(author, "i"),
-                            topicId: RegExp(forum),
-                            post: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {from: sortorder}
-                        });
-                }
-            }
-        }
-        else {
-            if (within == 'all') {
-                if (sortby == 'createdAt') query = Posts.find(
-                    {
-                        topicId: RegExp(forum),
-                        $or: [
-                            {subject: RegExp(keywords, regexoption)},
-                            {post: RegExp(keywords, regexoption)}
-                        ]
-                    },
-                    {
-                        sort: {createdAt: sortorder}
-                    });
-                if (sortby == 'subject') query = Posts.find(
-                    {
-                        topicId: RegExp(forum),
-                        $or: [
-                            {subject: RegExp(keywords, regexoption)},
-                            {post: RegExp(keywords, regexoption)}
-                        ]
-                    },
-                    {
-                        sort: {subject: sortorder}
-                    });
-                if (sortby == 'from') query = Posts.find(
-                    {
-                        topicId: RegExp(forum),
-                        $or: [
-                            {subject: RegExp(keywords, regexoption)},
-                            {post: RegExp(keywords, regexoption)}
-                        ]
-                    },
-                    {
-                        sort: {from: sortorder}
-                    });
-            } else {
-                if (within == 'subject') {
-                    if (sortby == 'createdAt') query = Posts.find(
-                        {
-                            topicId: RegExp(forum),
-                            subject: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {createdAt: sortorder}
-                        });
-                    if (sortby == 'subject') query = Posts.find(
-                        {
-                            topicId: RegExp(forum),
-                            subject: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {subject: sortorder}
-                        });
-                    if (sortby == 'from') query = Posts.find(
-                        {
-                            topicId: RegExp(forum),
-                            subject: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {from: sortorder}
-                        });
-                }
-                if (within == 'message') {
-                    if (sortby == 'createdAt') query = Posts.find(
-                        {
-                            topicId: RegExp(forum),
-                            post: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {createdAt: sortorder}
-                        });
-                    if (sortby == 'subject') query = Posts.find(
-                        {
-                            topicId: RegExp(forum),
-                            post: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {subject: sortorder}
-                        });
-                    if (sortby == 'from') query = Posts.find(
-                        {
-                            topicId: RegExp(forum),
-                            post: RegExp(keywords, regexoption)
-                        },
-                        {
-                            sort: {from: sortorder}
-                        });
-                }
-            }
-        }
+        var sort;
+        if (sortby == 'createdAt') sort = { sort: {createdAt: sortorder}};
+        else if (sortby == 'subject') sort = { sort: {subject: sortorder}};
+        else sort = { sort: {from: sortorder}};
+        var search;
+        if (within == 'all') search = {
+            from: RegExp(author, "i"),
+            topicId: RegExp(forum),
+            $or: [
+                {subject: RegExp(keywords, regexoption)},
+                {post: RegExp(keywords, regexoption)}
+            ]
+        };
+        else if (within == 'subject') search = {
+            from: RegExp(author, "i"),
+            topicId: RegExp(forum),
+            subject: RegExp(keywords, regexoption)
+        };
+        else search = {
+                from: RegExp(author, "i"),
+                topicId: RegExp(forum),
+                post: RegExp(keywords, regexoption)
+            };
+        query = Posts.find(
+            search,
+            sort
+        );
         var count = query.count();
         if (!count) count = 0;
         Session.set("numposts",count);
