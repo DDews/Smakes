@@ -320,6 +320,16 @@ dt {
     margin-right: 0px;
     margin-left: 0px;
 }
+.likes {
+    line-height: 14px;
+    color: white;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
 .editedSmall {
     color: #a0837b;
     font-size: 10px;
