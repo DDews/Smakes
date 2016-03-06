@@ -6,15 +6,19 @@
 			
 			{{#if gameInfoExists }}
 				{{#if inCombat}}
-					IN COMBAT
+					{{startCombatLoop}}
+					<div class="col s12 center deep-orange darken-4 red-text text-lighten-3">IN COMBAT</div>
+					{{#each combatInfoUnits}}
+						{{{combatCard this}}}
+					{{/each}}
 				{{else}}
-					NOT IN COMBAT
+					<div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
 					{{> regiondropdown }}
+					{{#each gameInfoUnits}}
+						{{{menuCard this}}}
+					{{/each}}
 				{{/if}}
 				<div class="row">
-					{{#each gameInfoUnits}}
-						{{{unitCard this}}}
-					{{/each}}
 				</div>
 			{{else}}
 			<div class="card blue-grey darken-4">
