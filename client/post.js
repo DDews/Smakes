@@ -2,6 +2,7 @@
  * Created by Dan on 3/3/2016.
  */
 var _toggle = false;
+_quote = '';
 Template['post'].helpers({
     threadId: function() {
       return '' + Router.current().params._id;
@@ -183,7 +184,11 @@ Template['post'].helpers({
     },
     urlify: function(message) {
         message = bbcodify(message);
-        console.log(message);
+        var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
+        while (message.match(matching)) {
+            message = message.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
+            console.log(message);
+        }
         return urlify(message);
     }
 
@@ -268,6 +273,18 @@ Template.post.events({
         if (event && event.preventDefault) event.preventDefault();
         var post_id = event.currentTarget.id;
         Meteor.call("dislikePost",post_id);
+        return false;
+    },
+    'click .quote': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        var post_id = event.currentTarget.id;
+        var post = Posts.findOne({_id: post_id});
+        if (!post) return false;
+        var poster = post.from;
+        var msg = post.post;
+        _quote = '[quote="' + poster + '"]' + msg + '[/quote]';
+        $('[name=message]').val(_quote);
+        if (!Session.get("showpmreply")) Session.set("showpmreply","bottom");
         return false;
     },
     'click .submitEdit': function(event){
