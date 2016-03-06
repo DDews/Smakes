@@ -96,7 +96,13 @@ function vitalContentNoText(unit, vital, color, mvital) {
 	
 	return healthbar(val, mval, color);
 }
-Handlebars.registerHelper('unitCard', (unit) => {
+
+Handlebars.registerHelper('unitCard', (_id) => {
+	var unit = Unitinfo.find(_id).fetch()[0];
+	console.log(unit);
+	console.log("unit: " + _id);
+	
+	console.log(Unitinfo.find().count())
 	
 	var card = '<div class="col s12 m6 l3 card blue-grey darken-4">'
 	card += '<div class="card-content white-text">'
