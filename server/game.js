@@ -1,9 +1,9 @@
 
 Meteor.publish("gamedata", function() {
-	console.log(this.userId);
+	console.log("User id for gamedata: " + this.userId);
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username
-	console.log("gamedata for : " +username);
+	console.log("gamedata for : " + username + "\n" + Gameinfo.find({username: username}).count() );
 	
 	return Gameinfo.find( { username: username } );
 	
@@ -11,10 +11,10 @@ Meteor.publish("gamedata", function() {
 
 
 Meteor.publish("unitinfo", function() {
-	console.log(this.userId);
+	console.log("User id for unitinfo: " + this.userId);
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username
-	console.log("unitinfo for : " +username);
+	console.log("unitinfo for : " + username + "\n" + Unitinfo.find({username: username}).count() );
 	
 	return Unitinfo.find( { username: username } );
 	
@@ -22,10 +22,10 @@ Meteor.publish("unitinfo", function() {
 
 
 Meteor.publish("combatinfo", function() {
-	console.log(this.userId);
+	console.log("User id for combatinfo: " + this.userId);
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username
-	console.log("combatinfo for : " + username);
+	console.log("combatinfo for : " + username + "\n" + Combatinfo.find({username: username}).count() );
 	
 	return Combatinfo.find( { username: username } );
 	
@@ -34,7 +34,7 @@ Meteor.publish("combatinfo", function() {
 Meteor.methods({
 	newGame: (data) => {
 		
-		console.log("dickbutts");
+		console.log("new game started");
 		var username = Meteor.user() && Meteor.user().username;
 		
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -49,7 +49,7 @@ Meteor.methods({
 		
 		dbupdate(unit);
 		
-		console.log(unit);
+		//console.log(unit);
 		
 		var gamedata = {
 			username: username,
@@ -60,7 +60,7 @@ Meteor.methods({
 		};
 		dbinsert("Gameinfo", gamedata)
 		
-		console.log(gamedata);
+		console.log("Gameinfo\n" + gamedata);
 		
 	},
 	
@@ -87,20 +87,26 @@ Meteor.methods({
 		gamedata.units.each(
 			(id) => { 
 				var u = dbget("Unitinfo", id);
-				u.fullHeal(); units.push(u); 
+				u.fullHeal(); 
+				units.push(u); 
 		} );
 		console.log("units added!");	
-		var size = 1 + Random.range(regionData.min, regionData.max) * .5;
-		size.times((s) => { units.push(Monster(enemies.choose(), 1, 0)); })
+		var size = 1 + Random.range(regionData.min, regionData.max) * .25;
+		size.times((s) => { 
+			var mon = Monster(enemies.choose(), 1, 0)
+			units.push(mon); 
+			mon.username = username;
+			dbupdate(mon);
+			console.log("Generated " + mon.name + " the " + mon.race + " : in combat with : " + mon.username);
+		});
 		console.log("monsters generated!");
 		
-		var combat = new Combat(units);
-		
-		gamedata.combat = combat;
-		combat.username = username;
-		console.log(combat);
+		var combat = new Combat(units, username);
+		gamedata.combat = combat._id;
 		dbupdate(gamedata);
 		
+		console.log("Combatinfo: " + combat);
+		console.log("Gameinfo: " + gamedata);
 		console.log("saved!");	
 		
 		

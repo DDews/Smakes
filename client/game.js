@@ -1,3 +1,7 @@
+inCombat = function() {
+	var data = Gameinfo.findOne();
+	return data && data.combat != null;
+}
 
 
 Template['game'].helpers({
@@ -8,15 +12,36 @@ Template['game'].helpers({
 	},
 	gameInfoUnits: function() {
 		var data = Gameinfo.findOne();
-		console.log(data)
+		console.log("gameInfoUnits: " + data)
 		return data ? data.units : null;
 	},
 	findUnit: function(s) {
 		return Unitinfo.findOne(s);	
 	},
-	inCombat: function() {
+	inCombat:  function() {
 		var data = Gameinfo.findOne();
-		return data.combat != null;
+		return data && data.combat != null;
+	},
+	startCombatLoop: function() {
+		var ticks = 0;
+		var units = Unitinfo.find().fetch();
+		var intervalId = setInterval(() => {
+			//console.log("tick-"+intervalId+"-"+ticks);
+			ticks += 1;
+			units.each((u)=> {
+				u.combatUpdate(.1)
+				var wid = "" + (100 * u.percentage("timer", "timeout")) + "%";
+				//console.log("unit " + u._id + " update: " + wid);
+				$("#"+u._id+"timer").width(wid);
+			})
+			
+			//if (ticks > 10) { clearInterval(intervalId); }
+		}, 100);
+	},
+	combatInfoUnits: function() {
+		var data = Combatinfo.findOne();
+		console.log("combatInfoUnits: " + data)
+		return data ? data.combatants : null;
 	},
 	generateName: japaneseName,
 });
@@ -44,10 +69,14 @@ Template.game.events({
 		console.log(data);
 		
 		
-		
-		
-		
 		Meteor.call('startCombat', data)
 		return false;
 	}
 });
+
+Template.game.onRendered( function() {
+	
+	
+	//console.log("fuck " + inCombat() + " " +  Gameinfo.find().count());
+	
+})
