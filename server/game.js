@@ -9,7 +9,7 @@ Meteor.publish("gamedata", () => {
 
 
 Meteor.methods({
-	newGame: () => {
+	newGame: (data) => {
 		console.log("dickbutts");
 		var username = Meteor.user() && Meteor.user().username;
 		
@@ -18,7 +18,10 @@ Meteor.methods({
 		}
 		
 		var unit = new Unit();
+		unit.name = data.name;
+		unit.job = data.job;
 		
+		console.log(unit);
 		
 	}
 		
