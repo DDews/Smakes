@@ -182,6 +182,8 @@ Template['post'].helpers({
         return user.signature;
     },
     urlify: function(message) {
+        message = bbcodify(message);
+        console.log(message);
         return urlify(message);
     }
 

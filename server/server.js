@@ -102,6 +102,7 @@ Meteor.methods({
             {
                 topic: topic,
                 subject: subject,
+                createdAt: new Date(),
                 moderators: []
             });
     },
