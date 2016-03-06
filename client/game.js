@@ -61,5 +61,10 @@ Template['game'].helpers({
 });
 
 Template.game.events({
-	
+	'click #newGame': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		alert("Gay")
+		
+		return false
+	}
 });
