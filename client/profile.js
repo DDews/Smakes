@@ -39,9 +39,11 @@ Template['profile'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         return userinfo && userinfo.posts;
     },
-    points: function() {
+    totalKarma: function() {
         var username = Router.current().params.username;
         var userinfo = Userinfo.findOne({username: username});
-        return userinfo && userinfo.points;
+        console.log(userinfo);
+        if (userinfo && userinfo.totalKarma) return userinfo.totalKarma;
+        return 0;
     }
 });
