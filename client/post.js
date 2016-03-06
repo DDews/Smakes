@@ -200,6 +200,7 @@ Template.post.events({
     },
     'click .replytop': function(event){
         if (event && event.preventDefault) event.preventDefault();
+        $("#error").html('');
         var toggle = Session.get("showpmreply");
         if (toggle != "top") Session.set("showpmreply",'top');
         else Session.set("showpmreply",null);
@@ -213,6 +214,7 @@ Template.post.events({
         return false;
     },
     'click .replybottom': function(event) {
+        $("#error").html('');
         var toggle = Session.get("showpmreply");
         if (toggle != "bottom") Session.set("showpmreply",'bottom');
         else Session.set("showpmreply",null);

@@ -1,60 +1,69 @@
 <template name="search">
     <div class="container">
         <div class="forumbg row">
-            <div class="row">
-                <div class="col s5">
-                    Regex search:
-                </div>
-                <div class="col s7">
-                    <input type="text" name="keywords" placeholder="^example$" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s5">
-                    Regex options:
-                </div>
-                <div class="col s7">
-                    <p><input type="radio" class="with-gap" name="regexoption" id="insensitive" value="insensitive" checked="checked"><label for="insensitive">Case Insensitive</label></p>
-                    <p><input type="radio" class="with-gap" name="regexoption" id="sensitive" value="sensitive"><label for="sensitive">Case Sensitive</label></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s5">
-                    Search by author:
-                </div>
-                <div class="col s7">
-                    <input type="text" name="author" placeholder="Author username" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s5">
-                    Search within:
-                </div>
-                <div class="col s7">
-                    <p><input type="radio" class="with-gap" name="within" id="all" value="all" checked="checked"><label for="all">Subject and message</label></p>
-                    <p><input type="radio" class="with-gap" name="within" id="subject" value="subject"><label for="subject">Subject only</label></p>
-                    <p><input type="radio" class="with-gap" name="within" id="message" value="message"><label for="message">Message only</label></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s5">
-                    Sort results by:
-                </div>
-                <div class="col s7">
-                    <div class="input-field col s12">
-                        <select name="sortby">
-                            <option value="posttime">Post time</option>
-                            <option value="subject">Subject</option>
-                            <option value="author">Author</option>
-                        </select>
-                        <script>$('[name=sortby]').material_select();</script>
+            <form method="get" action="/find" data-focus="keywords">
+                <div class="row">
+                    <div class="col s5">
+                        Regex search:
                     </div>
-                    <input type="radio" class="with-gap" name="sortorder" id="sortorder" value="ascending" checked="checked"><label for="sortorder">Ascending</label>
-                    <input type="radio" class="with-gap" name="sortorder" id="sortorder2" value="descending"><label for="sortorder2">Descending</label>
+                    <div class="col s7">
+                        <input type="text" name="keywords" placeholder="^example$" />
+                    </div>
                 </div>
-            </div>
-            <p class="right"><div id="error"></div><input type="submit" name="submit" class="right btn waves-effect waves-light" value="Search" /></p>
-
+                <div class="row">
+                    <div class="col s5">
+                        Regex options:
+                    </div>
+                    <div class="col s7">
+                        <p><input type="radio" class="with-gap" name="regexoption" id="insensitive" value="i" checked="checked"><label for="insensitive">Case Insensitive</label></p>
+                        <p><input type="radio" class="with-gap" name="regexoption" id="sensitive" value=""><label for="sensitive">Case Sensitive</label></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s5">
+                        Search by author:
+                    </div>
+                    <div class="col s7">
+                        <input type="text" name="author" placeholder="Author username" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s5">
+                        Search in forum:
+                    </div>
+                    <div class="col s7">
+                        {{> selectTopic}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s5">
+                        Search within:
+                    </div>
+                    <div class="col s7">
+                        <p><input type="radio" class="with-gap" name="within" id="all" value="all" checked="checked"><label for="all">Subject and message</label></p>
+                        <p><input type="radio" class="with-gap" name="within" id="subject" value="subject"><label for="subject">Subject only</label></p>
+                        <p><input type="radio" class="with-gap" name="within" id="message" value="message"><label for="message">Message only</label></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s5">
+                        Sort results by:
+                    </div>
+                    <div class="col s7">
+                        <div class="input-field col s12">
+                            <select name="sortby">
+                                <option value="createdAt">Post time</option>
+                                <option value="subject">Subject</option>
+                                <option value="from">Author</option>
+                            </select>
+                            <script>$('[name=sortby]').material_select();</script>
+                        </div>
+                        <input type="radio" class="with-gap" name="sortorder" id="sortorder" value="-1" checked="checked"><label for="sortorder">Ascending</label>
+                        <input type="radio" class="with-gap" name="sortorder" id="sortorder2" value="1"><label for="sortorder2">Descending</label>
+                    </div>
+                </div>
+                <p class="right"><div id="error"></div><input type="submit" name="submit" class="right btn waves-effect waves-light" value="Search" /></p>
+            </form>
         </div>
     </div>
 </template>

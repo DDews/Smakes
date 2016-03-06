@@ -26,7 +26,20 @@
             {{/if}}
         </p>
             {{#if currentUser}}
-            <p class="messages">{{getUsername}}: <a href="/cp">Control Panel</a> <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)</p>
+                <div class="row">
+                    <div class="col s5">
+                        <p class="messsages"><a href="/search">Search</a></p>
+                    </div>
+                    <div class="col s7">
+                        <p class="messages">{{getUsername}}: <a href="/cp">Control Panel</a> <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)</p>
+                    </div>
+                </div>
+            {{else}}
+            <div class="row">
+                <div class="col s12">
+                    <p class="messsages"><a href="/search">Search</a></p>
+                </div>
+            </div>
             {{/if}}
         </div>
     </div>

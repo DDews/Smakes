@@ -24,8 +24,8 @@
                                 {{#if deleted target}}<p class="locked">This thread is locked. {{target}} has deleted it. Click <a href="#" class="deletePM">delete</a> to delete.</p>
                                 {{else}}<p class="right"><a href="#" class="deletePM">Delete</a>   <a href="#" class="replypm" name="reply">Reply</a></p>
                                 {{/if}}
-                                <div id="pmerror" class="col s12"></div>
                                 {{#if showpmreply 'top'}}
+                                    <div id="pmerror" class="col s12"></div>
                                     <form class="pmForm">
                                         <input type="text" name="subject" placeholder="subject" />
                                         <textarea class="messagebox" name="message"></textarea>
@@ -62,6 +62,7 @@
                         {{#if deleted target}}
                         <div class="row"><p class="right"><a href="#" class="deletePM">delete</a></p></div>{{else}}<div class="row"><p class="right"><a href="#" class="deletePM">Delete</a>  <a href="#reply" class="bottomReply">Reply</a></p>
                             {{#if showpmreply 'bottom'}}
+                                <div id="pmerror" class="col s12"></div>
                                 <form class="pmForm">
                                     <input type="text" name="subject" placeholder="subject" />
                                     <textarea class="messagebox"  name="message"></textarea>
