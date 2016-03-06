@@ -6,7 +6,7 @@ Template['home'].helpers({
         return Threads.find({topicId: id}).count() != 0;
     },
     record: function() {
-        return Topics.find();
+        return Topics.find({},{sort:{createdAt: 1}});
     },
     zeroTopics: function() {
         return Topics.find().count() == 0;
