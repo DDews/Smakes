@@ -161,6 +161,7 @@ Template.thread.events({
                 Session.set("showpm",false);
                 $("#error").html('');
                 submit.disabled = false;
+                Router.go('/posts/' + result);
             }
         });
         return false;

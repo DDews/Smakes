@@ -114,6 +114,7 @@ Meteor.methods({
         if (!message) throw new Meteor.Error(422,"Error: message is empty");
         var username = Meteor.user() && Meteor.user().username;
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var _id;
         Threads.insert({
                 topicId: topicId,
                 from: Meteor.user().username,
@@ -124,7 +125,7 @@ Meteor.methods({
                 locked: null
             },
             function(err, docsInserted) {
-                var _id = docsInserted;
+                _id = docsInserted;
                 Posts.insert({
                     threadId: _id,
                     topicId: topicId,
@@ -146,6 +147,7 @@ Meteor.methods({
         userid = userid && userid._id;
         if (!userid) return;
         Userinfo.update(userid,{$set:{posts: posts}});
+        return _id;
     },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
