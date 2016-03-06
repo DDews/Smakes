@@ -159,6 +159,7 @@ Template.pmPage.events({
     'click .replypm': function(event){
         if (event && event.preventDefault) event.preventDefault();
         var toggle = Session.get("showpmreply");
+        $('#pmerror').html('');
         if (toggle != "top") Session.set("showpmreply",'top');
         else Session.set("showpmreply",null);
         return false;
@@ -172,6 +173,7 @@ Template.pmPage.events({
     },
     'click .bottomReply': function(event) {
         var toggle = Session.get("showpmreply");
+        $('#pmerror').html('');
         if (toggle != "bottom") Session.set("showpmreply",'bottom');
         else Session.set("showpmreply",null);
         return false;

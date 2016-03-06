@@ -1,0 +1,10 @@
+<template name="selectTopic">
+    <div class="input-field col s12">
+        <select name="forum">
+            <option value="">All</option>
+            {{#each record}}
+                <option value="{{_id}}">{{topic}}</option>
+            {{/each}}
+        </select>
+    </div>
+</template>

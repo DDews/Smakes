@@ -4,6 +4,7 @@
 Template['header'].helpers({
         isProfile: function () {
             var data = Session.get("nav");
+            if (data == undefined) return null;
             if (!data instanceof Array) return null;
             if (data[0] == "profile") return data[1];
             else return null;
@@ -20,17 +21,20 @@ Template['header'].helpers({
         },
         isInbox: function() {
             var inbox = Session.get("nav");
+            if (inbox == undefined) return false;
             if (inbox instanceof Array) inbox = inbox[0];
             return inbox == 'inbox';
         },
         isTopic: function() {
             var topic = Session.get("nav");
+            if (topic == undefined) return false;
             if (!topic instanceof Array) topic = Session.get("nav");
             else { topic = topic[0]; id = Session.get("nav")[1]; }
             return topic == 'topic';
         },
         isThread: function() {
             var thread = Session.get("nav");
+            if (thread == undefined) return false;
             var istrue = thread;
             if (!thread instanceof Array) thread = Session.get("nav");
             else thread = thread[0];

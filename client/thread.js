@@ -167,6 +167,7 @@ Template.thread.events({
     },
     'click .newThread': function(event){
         if (event && event.preventDefault) event.preventDefault();
+        $("#error").html('');
         var showpm = Session.get("showpm");
         if (showpm) Session.set("showpm",false);
         else Session.set("showpm",true);

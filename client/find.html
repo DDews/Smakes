@@ -1,0 +1,42 @@
+<template name="find">
+    <div class="container">
+        <div class="forumbg row">
+            Found {{numposts}} matches
+            {{#each record}}
+                <div class="row {{toggle}}">
+                    <div class="col s9">
+                        <p>
+                        <p class="subjectText">{{subject}}</p>
+                        <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
+                        </p>
+                    <p>
+                    <span class="message"><pre>{{post}}</pre>
+                        {{#if editedBy}}
+                            <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{editedBy}}">{{editedBy}}</a> on {{myDate modified}}</p>
+                        {{/if}}
+                        </span>
+                        </p>
+                    </div>
+                    <div class="col s3 right">
+                        <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
+                        {{#if shouldAdmin from}}
+                            <div class="admin">Administrator</div>
+                        {{else}}
+                            {{#if shouldMod from threadId}}
+                                <div class="moderator">Moderator</div>
+                            {{/if}}
+                        {{/if}}
+                        <div class="right-align info">
+                            <p class="right-align info">posts: {{getPosts from}}</p>
+                            <br>
+                            <p class="right-align info">Forum: <a href="/topic/{{topicId}}">{{topicName topicId}}</a></p>
+                            <p class="right-align info">Topic: <a href="/posts/{{threadId}}">{{threadName threadId}}</a></p>
+                            <p class="right-align info">Replies: <b>{{threadReplies threadId}}</b></p>
+                            <p class="right-align info">Views: <b>{{threadViews threadId}}</b></p>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
