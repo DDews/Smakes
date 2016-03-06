@@ -329,6 +329,7 @@ dt {
 .signature {
     border-top: 1px solid #787972;
     clear: left;
+    font-size: 10px;
 }
 .likes {
     line-height: 14px;
