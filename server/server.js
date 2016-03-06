@@ -453,16 +453,11 @@ Meteor.methods({
 		if (requester != username) throw new Meteor.Error(422,"Don't be a jerk!");
 		
 		if (user.wallet) {
-			console.log("User has wallet!");
-			console.log(user.wallet);
 			return;
 		}
-		console.log("User matches!");
-		
 		
 		Userinfo.update(userId, {$set:{wallet:{karma:0, gold:100}}})
 		
-		console.log("user updated with 'wallet'");
 	},
     likePost: function(postId) {
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
