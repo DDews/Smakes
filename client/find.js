@@ -172,6 +172,16 @@ Template['find'].helpers({
         var data = +Session.get("numposts");
         return page != Math.ceil(data / 10);
     },
+    getLikes: function(id) {
+        var post = Posts.findOne({_id: id});
+        if (!post) return 0;
+        return post.likes.length;
+    },
+    getDislikes: function(id) {
+        var post = Posts.findOne({_id: id});
+        if (!post) return 0;
+        return post.dislikes.length;
+    },
     record: function () {
         var keywords = '' + Router.current().params.query.keywords;
         var regexoption = '' + Router.current().params.query.regexoption;

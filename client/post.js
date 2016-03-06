@@ -160,7 +160,18 @@ Template['post'].helpers({
         var thread = Threads.findOne({_id: threadId});
         if (!thread) return false;
         return true;
-    }
+    },
+    getLikes: function(id) {
+        var post = Posts.findOne({_id: id});
+        if (!post) return 0;
+        return post.likes.length;
+    },
+    getDislikes: function(id) {
+        var post = Posts.findOne({_id: id});
+        if (!post) return 0;
+        return post.dislikes.length;
+    },
+
 });
 Template.post.rendered = function() {
     threadId = Router.current().params._id;
@@ -230,6 +241,18 @@ Template.post.events({
             }
         });
         Router.go("/inbox");
+        return false;
+    },
+    'click .like': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var post_id = event.currentTarget.id;
+        Meteor.call("likePost",post_id);
+        return false;
+    },
+    'click .dislike': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var post_id = event.currentTarget.id;
+        Meteor.call("dislikePost",post_id);
         return false;
     },
     'click .submitEdit': function(event){

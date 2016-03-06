@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/editTopic.js" afterPath="$PROJECT_DIR$/client/editTopic.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/find.html" afterPath="$PROJECT_DIR$/client/find.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/find.js" afterPath="$PROJECT_DIR$/client/find.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/post.html" afterPath="$PROJECT_DIR$/client/post.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/post.js" afterPath="$PROJECT_DIR$/client/post.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,31 +28,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="post.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/post.html">
+      <file leaf-file-name="find.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/find.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.9636364">
-              <caret line="65" column="75" selection-start-line="65" selection-start-column="75" selection-end-line="65" selection-end-column="75" />
+            <state vertical-scroll-proportion="-6.1538463">
+              <caret line="45" column="59" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editTopic.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/editTopic.html">
+      <file leaf-file-name="find.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/find.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.807693">
-              <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.9107612">
+              <caret line="183" column="6" selection-start-line="183" selection-start-column="6" selection-end-line="183" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="editTopic.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/editTopic.js">
+      <file leaf-file-name="post.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/post.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8031496">
-              <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="163" column="4" selection-start-line="163" selection-start-column="4" selection-end-line="172" selection-end-column="6" />
               <folding>
                 <element signature="e#0#38#0" expanded="false" />
               </folding>
@@ -93,7 +98,6 @@
         <option value="$PROJECT_DIR$/client/controlpanel.js" />
         <option value="$PROJECT_DIR$/client/profile.js" />
         <option value="$PROJECT_DIR$/client/inbox.js" />
-        <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/thread.html" />
         <option value="$PROJECT_DIR$/client/footer.html" />
         <option value="$PROJECT_DIR$/client/inbox.html" />
@@ -104,21 +108,22 @@
         <option value="$PROJECT_DIR$/client/pmPage.js" />
         <option value="$PROJECT_DIR$/client/pmPage.html" />
         <option value="$PROJECT_DIR$/client/thread.js" />
-        <option value="$PROJECT_DIR$/client/post.html" />
-        <option value="$PROJECT_DIR$/client/post.js" />
         <option value="$PROJECT_DIR$/client/header.js" />
         <option value="$PROJECT_DIR$/client/selectTopic.html" />
         <option value="$PROJECT_DIR$/client/search.js" />
         <option value="$PROJECT_DIR$/client/selectTopic.js" />
         <option value="$PROJECT_DIR$/lib/router.js" />
         <option value="$PROJECT_DIR$/client/search.html" />
-        <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/client/home.html" />
         <option value="$PROJECT_DIR$/client/header.html" />
-        <option value="$PROJECT_DIR$/client/find.js" />
-        <option value="$PROJECT_DIR$/client/find.html" />
         <option value="$PROJECT_DIR$/client/editTopic.html" />
         <option value="$PROJECT_DIR$/client/editTopic.js" />
+        <option value="$PROJECT_DIR$/bbs.css" />
+        <option value="$PROJECT_DIR$/client/post.html" />
+        <option value="$PROJECT_DIR$/client/post.js" />
+        <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/client/find.html" />
+        <option value="$PROJECT_DIR$/client/find.js" />
       </list>
     </option>
   </component>
@@ -725,34 +730,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.0603676">
-          <caret line="11" column="40" selection-start-line="11" selection-start-column="40" selection-end-line="11" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.5323944">
           <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bbs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8006135">
-          <caret line="339" column="18" selection-start-line="339" selection-start-column="18" selection-end-line="339" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/find.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.346154">
-          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -765,44 +746,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/find.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9107612">
-          <caret line="103" column="48" selection-start-line="103" selection-start-column="48" selection-end-line="103" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/selectTopic.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/post.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9636364">
-          <caret line="65" column="75" selection-start-line="65" selection-start-column="75" selection-end-line="65" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/post.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.22309712">
-          <caret line="57" column="36" selection-start-line="57" selection-start-column="36" selection-end-line="57" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#38#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/editTopic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
-          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -814,6 +761,64 @@
           <folding>
             <element signature="e#0#38#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/editTopic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7183099">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bbs.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.7636364">
+          <caret line="314" column="17" selection-start-line="314" selection-start-column="17" selection-end-line="314" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6225352">
+          <caret line="64" column="28" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="278" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6430446">
+          <caret line="458" column="44" selection-start-line="458" selection-start-column="44" selection-end-line="458" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/find.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.1538463">
+          <caret line="45" column="59" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/post.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="163" column="4" selection-start-line="163" selection-start-column="4" selection-end-line="172" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#38#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/find.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9107612">
+          <caret line="183" column="6" selection-start-line="183" selection-start-column="6" selection-end-line="183" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
