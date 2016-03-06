@@ -465,10 +465,19 @@ Meteor.methods({
         if (!post) throw new Meteor.Error(422,"Post not found");
         var likes = post.likes;
         var dislikes = post.dislikes;
+        var poster = post.from;
+        if (poster == Meteor.user().username) throw new Meteor.Error(422,"You cannot like your own post");
         if (_.contains(likes,Meteor.user().username)) throw new Meteor.Error(422,"User already liked this post");
         if (_.contains(dislikes,Meteor.user().username)) throw new Meteor.Error(422,"User already dislikes this post");
         likes.push(Meteor.user().username);
         Posts.update(postId,{$set:{likes: likes}});
+        var userinfo = Userinfo.findOne({username: poster});
+        var wallet = userinfo.wallet;
+        if (!wallet) Userinfo.update(userinfo._id, {$set:{wallet:{karma:1, gold:100}}})
+        else {
+            wallet.karma += 1;
+            Userinfo.update(userinfo._id, {$set: {wallet: wallet}});
+        }
     },
     dislikePost: function(postId) {
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
