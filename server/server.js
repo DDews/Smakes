@@ -36,7 +36,7 @@ Accounts.validateNewUser(function (user) {
 });
 Meteor.startup(function() {
     reCAPTCHA.config({
-        privatekey: '6LctbBkTAAAAAD2KnAh9vOiLS0JKM-coZFYV9l4X'
+        privatekey: '6LcPHRoTAAAAAMa7ccTuIuaV8jU3XahqTTnwuDrd'
     });
     if (!Meteor.users.findOne({username: 'admin'})) {
         Accounts.createUser({
