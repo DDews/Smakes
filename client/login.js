@@ -3,7 +3,7 @@
  */
 Meteor.startup(function() {
     reCAPTCHA.config({
-        publickey: '6LctbBkTAAAAAAA94uRh_4woHAOZbmADPWO8YAbh'
+        publickey: '6LcPHRoTAAAAAI9TDcVoK9Y3YQA97k53yqVOEJ5t'
     });
 });
 Template.login.events({
