@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/thread.html" afterPath="$PROJECT_DIR$/client/thread.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/thread.js" afterPath="$PROJECT_DIR$/client/thread.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="bbs.iws" />
@@ -25,33 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="thread.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/thread.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1923075">
-              <caret line="41" column="360" selection-start-line="41" selection-start-column="360" selection-end-line="41" selection-end-column="360" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="thread.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/thread.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8559322">
-              <caret line="146" column="81" selection-start-line="146" selection-start-column="81" selection-end-line="146" selection-end-column="81" />
-              <folding>
-                <element signature="e#0#38#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="178" column="52" selection-start-line="178" selection-start-column="26" selection-end-line="178" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.5151515">
+              <caret line="380" column="178" selection-start-line="380" selection-start-column="178" selection-end-line="380" selection-end-column="178" />
               <folding />
             </state>
           </provider>
@@ -122,9 +98,9 @@
         <option value="$PROJECT_DIR$/client/find.js" />
         <option value="$PROJECT_DIR$/client/controlpanel.html" />
         <option value="$PROJECT_DIR$/client/controlpanel.js" />
-        <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/thread.html" />
         <option value="$PROJECT_DIR$/client/thread.js" />
+        <option value="$PROJECT_DIR$/server/server.js" />
       </list>
     </option>
   </component>
@@ -372,7 +348,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="10" width="1346" height="728" extended-state="1" />
+    <frame x="0" y="10" width="1346" height="728" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962406" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -803,22 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/thread.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075">
-          <caret line="41" column="360" selection-start-line="41" selection-start-column="360" selection-end-line="41" selection-end-column="360" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="178" column="52" selection-start-line="178" selection-start-column="26" selection-end-line="178" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/thread.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8559322">
@@ -826,6 +786,22 @@
           <folding>
             <element signature="e#0#38#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/thread.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33156028">
+          <caret line="41" column="360" selection-start-line="41" selection-start-column="360" selection-end-line="41" selection-end-column="360" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5151515">
+          <caret line="380" column="178" selection-start-line="380" selection-start-column="178" selection-end-line="380" selection-end-column="178" />
+          <folding />
         </state>
       </provider>
     </entry>
