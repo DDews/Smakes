@@ -148,7 +148,7 @@ Meteor.methods({
 		if (Math.abs(now - lastTime - timeMilis) > 40 || sendTime - now > 40) {
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
-			console.log("elapseTime: elapsing " + time + "s")
+			//console.log("elapseTime: elapsing " + time + "s")
 			combatinfo.combatants.each((id) => {
 				var unit = dbget("Unitinfo", id);
 				
@@ -198,14 +198,15 @@ Meteor.methods({
 					
 				
 				combatinfo.cleanUpCombat();
-				
 				var mons = spawnMonsters(regionData, combatinfo.combo);
 				combatinfo.startNewBattle(mons);
 				
 				dbupdate(combatinfo);
 				dbupdate(userinfo);
+				
 				combatinfo.lastTime = now;
 			} else {
+				
 				combatinfo.cleanUpCombat();
 				combatinfo.endCombat();
 				
