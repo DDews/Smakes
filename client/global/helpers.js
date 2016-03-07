@@ -112,7 +112,10 @@ Handlebars.registerHelper('combatCard', (_id) => {
 	//console.log("unit: " + _id);
 	//console.log(Unitinfo.find().count())
 	
-	var card = '<div class="col s12 m6 l3 card blue-grey darken-4" id="' + _id + '">'
+	var color = unit.team == 'player' ? "blue-grey" : "brown";
+	
+	
+	var card = '<div class="col s12 m6 l3 card ' + color + ' darken-4" id="' + _id + '">'
 	card += '<div class="card-content white-text">'
 	card += '<span class="card-title">' + unit.name + '</span>'
 	card += br + header(unit) + br + br;
