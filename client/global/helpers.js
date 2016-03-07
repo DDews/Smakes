@@ -1,3 +1,13 @@
+var reg = {}
+reg.helpers = function(fmap) {
+	fmap.each((name, func) => {
+		Handlebars.registerHelper(name, func);
+	});
+}
+reg.helpers({
+	
+});
+
 Handlebars.registerHelper('currentUserWalletExists', () => {
 	var username = Meteor.user();
 	username = username && username.username;
