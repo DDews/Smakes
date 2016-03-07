@@ -182,6 +182,13 @@ Template['find'].helpers({
         if (!post) return 0;
         return post.dislikes.length;
     },
+    abbSubject: function(subject) {
+        var keywords = '' + Router.current().params.query.keywords;
+        var regexoption = '' + Router.current().params.query.regexoption;
+        var output = subject;
+        output = output.replace(RegExp('(' + keywords + ')',regexoption + 'g'), '<span class="highlight">$1</span>');
+        return output;
+    },
     abbreviate: function(message) {
         var keywords = '' + Router.current().params.query.keywords;
         var regexoption = '' + Router.current().params.query.regexoption;
@@ -192,9 +199,16 @@ Template['find'].helpers({
         var output = message.substring(index,index + 200);
         if (index + 200 < length) output += '...';
         if (index > 0) output = '...' + output;
-        var found = output.match(RegExp(keywords,regexoption));
-        var match = found[0];
-        return output.replace(RegExp(keywords,regexoption),"<span class='highlight'>" + match + "</span>");
+        output = output.replace(RegExp('(' + keywords + ')',regexoption + 'g'), '<span class="highlight">$1</span>');
+        output = bbcodify(output);
+        var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
+        console.log("output: " + output);
+        while (output.match(matching)) {
+            output = output.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
+            console.log("pass: " + output);
+        }
+        output = urlify(output);
+        return output;
     },
     keywords: function() {
         return '/' + Router.current().params.query.keywords + '/';
