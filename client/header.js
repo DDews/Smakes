@@ -95,8 +95,3 @@ Template['header'].helpers({
         }
     }
 );
-Template.header.events({
-    'click .damage': function() {
-        showDamage($('.damage'),Math.floor(Random.range(1,100)),"red");
-    }
-});

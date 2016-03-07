@@ -127,7 +127,7 @@ a:hover {
     height:8rem;
 }
 body {
-    overflow: hidden;
+    background-color: #666b4e;
 }
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
 .roundbg {
