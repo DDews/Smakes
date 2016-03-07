@@ -180,14 +180,21 @@ Template['post'].helpers({
     signature: function(username) {
         var user = Userinfo.findOne({username: username});
         if (!user) return null;
-        return user.signature;
-    },
-    urlify: function(message) {
+        message = user.signature;
+        message = message.replace(RegExp("<","g"),"&lt;").replace(RegExp(">","g"),"&gt;");
         message = bbcodify(message);
         var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
         while (message.match(matching)) {
             message = message.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
-            console.log(message);
+        }
+        return message;
+    },
+    urlify: function(message) {
+        message = message.replace(RegExp("<","g"),"&lt;").replace(RegExp(">","g"),"&gt;");
+        message = bbcodify(message);
+        var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
+        while (message.match(matching)) {
+            message = message.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
         }
         return urlify(message);
     }
