@@ -2,7 +2,7 @@
  * Created by Dan on 3/5/2016.
  */
 var _toggle = false;
-var getPageUrl = function(num) {
+getPageUrl = function(num) {
     var keywords = '&keywords=' + encodeURIComponent(Router.current().params.query.keywords);
     var regexoption = '&regexoption=' + Router.current().params.query.regexoption;
     var author = '&author=' + encodeURIComponent(Router.current().params.query.author);
@@ -92,12 +92,12 @@ Template['find'].helpers({
     linkPageBefore: function(num) {
         var page = +Router.current().params.query.page;
         page = page ? page : 1;
-        var url = getPageUrl(page - num);
+        return getPageUrl(page - num);
     },
     linkPageAfter: function(num) {
         var page = +Router.current().params.query.page;
         page = page ? page : 1;
-        var url = getPageUrl(page + num);
+        return getPageUrl(page + num);
     },
     linkLastPage: function() {
         var data = +Session.get("numposts");
