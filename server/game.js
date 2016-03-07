@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Published data for game
 
 Meteor.publish("gamedata", function() {
 	console.log("User id for gamedata: " + this.userId);
@@ -30,6 +34,27 @@ Meteor.publish("combatinfo", function() {
 	return Combatinfo.find( { username: username } );
 	
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Extra helper functions for serverside game logic
+spawnMonsters = function(regionData, combo) {
+	var size = 1 + Random.range(regionData.min, regionData.max) * .25;
+	var units = [];
+	var enemies = regionData.enemies;
+		
+	size.times((s) => { 
+		var mon = Monster(enemies.choose(), 1, combo)
+		units.push(mon); 
+	});
+	return units;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
 	newGame: (data) => {
@@ -65,52 +90,109 @@ Meteor.methods({
 	},
 	
 	startCombat: (data) => {
-		console.log("combat is starting!");	
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
-		console.log("user found!");	
 		var gamedata = Gameinfo.findOne({username: username});
 		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
-		console.log("gamedata found!");	
-		var userinfo = Userinfo.findOne({username: username});
-		console.log("userinfo found!");	
+		//var userinfo = Userinfo.findOne({username: username});
 		
 		var region = data.region;
 		var regionData = areaData[region];
-		console.log("region found!");	
 		if (!regionData) { throw new Meteor.Error(422, "Error: Unknown region " + region); }
-		var enemies = regionData.enemies;
 		
 		
 		var units = []
 		
-		gamedata.units.each(
-			(id) => { 
+		gamedata.units.each( (id) => { 
 				var u = dbget("Unitinfo", id);
 				u.fullHeal(); 
 				units.push(u); 
 		} );
-		console.log("units added!");	
-		var size = 1 + Random.range(regionData.min, regionData.max) * .25;
-		size.times((s) => { 
-			var mon = Monster(enemies.choose(), 1, 0)
-			units.push(mon); 
-			mon.username = username;
-			dbupdate(mon);
-			console.log("Generated " + mon.name + " the " + mon.race + " : in combat with : " + mon.username);
-		});
-		console.log("monsters generated!");
 		
-		var combat = new Combat(units, username);
+		//console.log("units added!");	
+		var mons = spawnMonsters(regionData, 0);
+		mons.each( (mon) => { 
+			mon.username = username;
+			units.push(mon); 
+			dbupdate(mon);
+		} );
+		
+		var combat = new Combat(units, username, region);
 		gamedata.combat = combat._id;
+		
 		dbupdate(gamedata);
 		
-		console.log("Combatinfo: " + combat);
-		console.log("Gameinfo: " + gamedata);
-		console.log("saved!");	
-		
-		
-		
 	},
+	
+	elapseTime: function(data) {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var combatinfo = Combatinfo.findOne({username: username});
+		if (!combatinfo) { throw new Meteor.Error(422, "Error: You must be in combat");}
+		
+		var time = data.time;
+		var timeMilis = time * 1000;
+		var sendTime = data.sendTime;
+		
+		var now = (new Date()).getTime();
+		var lastTime = combatinfo.lastTime;
+		
+		combatinfo.rebuildCombatantLists();
+		
+		if (Math.abs(now - lastTime - timeMilis) > 40 || sendTime - now > 40) {
+			console.log("elapseTime: potential cheating detected, ignoring!")
+		} else {
+			console.log("elapseTime: elapsing " + time + "s")
+			combatinfo.combatants.each((id) => {
+				var unit = dbget("Unitinfo", id);
+				
+				if (unit) {
+					unit.combatUpdate(time, combatinfo);
+					
+					
+				} else {
+					console.log("elapseTime: could not find unit " + id);
+				}
+				
+				
+			})
+			
+		}
+			
+		
+		var winner = combatinfo.winningTeam();
+		//console.log("winner: " + winner)
+		if (winner) {
+			if (winner == 'player') {
+				var region = combatinfo.region;
+				console.log("Spawning next thing in Region : " + region)
+				var regionData = areaData[region];
+				combatinfo.combo += 1;
+				var mons = spawnMonsters(regionData, combatinfo.combo);
+				combatinfo.cleanUpCombat();
+				combatinfo.startNewBattle(mons);
+				dbupdate(combatinfo);
+				combatinfo.lastTime = now;
+			} else {
+				combatinfo.cleanUpCombat();
+				combatinfo.endCombat();
+				
+			}
+			
+			
+		} else {
+		
+			combatinfo.lastTime = now;
+			dbupdate(combatinfo);
+		}
+		
+		
+		
+	}
+		
+		
+		
 		
 });

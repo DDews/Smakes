@@ -5,11 +5,67 @@
 			{{#if currentUser}}
 			
 			{{#if gameInfoExists }}
+				{{#if paused}}
+					<button class="red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
+				{{else}}
+					<button class="green darken-4 white-text" id="pause" value="pause">pause</button>
+				{{/if}}
 				{{#if inCombat}}
 					{{startCombatLoop}}
 					<div class="col s12 center deep-orange darken-4 red-text text-lighten-3">IN COMBAT</div>
+					
+					<div class="col s12 center">
+						<label for="combatlog" class="orange-text">Combat Log</label>
+						<textarea id="combatlog" class="validate left" rows="8" style="height:8em;resize: vertical;"></textarea>
+					</div>
+					{{fillCombatMessages}}
 					{{#each combatInfoUnits}}
-						{{{combatCard this}}}
+						<div class="col s12 m6 l3 card {{cardColor this}} darken-4" id="{this}">
+							<div class="card-content white-text">
+								<span class="card-title">{{cardName this}}</span>
+								<br /> {{cardHeader this}} <br /> <br />
+								
+								{{#if isPlayer this}}
+									<div class="small">{{unitVitalHp this}}</div>
+									<div class="progress green lighten-3">
+										<div class="determinate green" id="{{this}}hp" style="width:{{unitPercentHp this}}%"></div>
+									</div>
+									<div class="small">{{unitVitalMp this}}</div>
+									<div class="progress blue lighten-3">
+										<div class="determinate blue" id="{{this}}mp" style="width:{{unitPercentMp this}}%"></div>
+									</div>
+									<div class="small">{{unitVitalSp this}}</div>
+									<div class="progress red lighten-3">
+										<div class="determinate red" id="{{this}}sp" style="width:{{unitPercentSp this}}%"></div>
+									</div>
+									<div class="small">{{unitVitalExp this}}</div>
+									<div class="progress purple lighten-3">
+										<div class="determinate purple" id="{{this}}exp" style="width:{{unitPercentExp this}}%"></div>
+									</div>
+									
+								{{else}}
+									<div class="small">{{unitVitalHp this}}</div>
+									<div class="progress green lighten-3">
+										<div class="determinate green" id="{{this}}hp" style="width:{{unitPercentHp this}}%"></div>
+									</div>
+									<div class="progress blue lighten-3">
+										<div class="determinate blue" id="{{this}}mp" style="width:{{unitPercentMp this}}%"></div>
+									</div>
+									<div class="progress red lighten-3">
+										<div class="determinate red" id="{{this}}sp" style="width:{{unitPercentSp this}}%"></div>
+									</div>
+								{{/if}}
+								
+								<div class="progress yellow lighten-3">
+									<div class="determinate orange darken-3" id="{{this}}timer" style="width:{{unitPercentTimer this}}%"></div>
+								</div>
+							</div>
+							<div class="card-action">
+								Abilities <br /> [Attack]
+							</div>
+							
+						</div>
+						
 					{{/each}}
 				{{else}}
 					<div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
