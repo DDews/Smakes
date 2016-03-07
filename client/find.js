@@ -186,6 +186,7 @@ Template['find'].helpers({
         var keywords = '' + Router.current().params.query.keywords;
         var regexoption = '' + Router.current().params.query.regexoption;
         var output = subject;
+        //output = output.replace(RegExp("<","g"),"&lt;").replace(RegExp(">","g"),"&gt;");
         output = output.replace(RegExp('(' + keywords + ')',regexoption + 'g'), '<span class="highlight">$1</span>');
         return output;
     },
@@ -197,12 +198,14 @@ Template['find'].helpers({
         if (index < 0) index = 0;
         var length = message.length;
         var output = message.substring(index,index + 200);
+        output = output.replace(RegExp("<","g"),"&lt;").replace(RegExp(">","g"),"&gt;");
         if (index + 200 < length) output += '...';
         if (index > 0) output = '...' + output;
-        output = output.replace(RegExp('(' + keywords + ')',regexoption + 'g'), '<span class="highlight">$1</span>');
+        if (keywords != '') {
+            output = output.replace(RegExp('(' + keywords + ')', regexoption + 'g'), '<span class="highlight">$1</span>');
+        }
         output = bbcodify(output);
         var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
-        console.log("output: " + output);
         while (output.match(matching)) {
             output = output.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
             console.log("pass: " + output);

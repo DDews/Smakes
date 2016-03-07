@@ -9,6 +9,13 @@ Template['controlpanel'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         if (!userinfo) return null;
         return userinfo.signature;
+    },
+    isAdmin: function() {
+        var user = Meteor.user();
+        var username = user && user.username;
+        if (!username) return false;;
+        var userinfo = Userinfo.findOne({username: username});
+        return userinfo && userinfo.admin;
     }
 });
 Template.controlpanel.events({
@@ -59,6 +66,11 @@ Template.controlpanel.events({
             }
         }
         submit.disabled = false;
+        return false;
+    },
+    'click .dropGameDB': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        Meteor.call("dropGameDB");
         return false;
     }
 });
