@@ -18,6 +18,9 @@ var isHTML = function(string) {
     if (array) return array[1];
     return false;
 }
+var isWhitespace = function(string) {
+    return !string.replace(/\s/g, '').length
+}
 Meteor.publish("usernames", function() {
    return Meteor.users.find({},{fields: {'username': 1}})
 });
@@ -109,6 +112,7 @@ Meteor.methods({
     },
     newThread: function(topicId, subject, message) {
         var topic = Topics.findOne({_id: topicId});
+        if (isWhitespace(subject) || isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!topic) throw new Meteor.Error(422,"Error: topic doesn't exist");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -153,6 +157,7 @@ Meteor.methods({
     },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
+        if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
@@ -188,6 +193,7 @@ Meteor.methods({
         Userinfo.update(userid,{$set:{posts: posts}});
     },
     sendPM: function(messageTo, subject, message) {
+        if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
         var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
@@ -220,6 +226,7 @@ Meteor.methods({
         );
     },
     sendPMReply: function(id, subject, message) {
+        if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!message) throw new Meteor.Error(422,"Error: Your message is emtpy");
         //if (isZalgo(subject) || isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -282,6 +289,7 @@ Meteor.methods({
         Messages.update(id,{ $set: { showTo: array}});
     },
     editPost: function(postId,message) {
+        if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         if (isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         var username = Meteor.user() && Meteor.user().username;
         //if (isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -331,6 +339,7 @@ Meteor.methods({
         Threads.update(threadId,{$set: { views: views}});
     },
     editPM: function(id,post_id,msg) {
+        if (isWhitespace(msg)) throw new Meteor.Error(422,"Error: cannot be only whitespace");
         if (isHTML(msg)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(msg)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         var username = Meteor.user() && Meteor.user().username;
