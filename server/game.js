@@ -131,6 +131,10 @@ Meteor.methods({
 		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
 		var combatinfo = Combatinfo.findOne({username: username});
 		if (!combatinfo) { throw new Meteor.Error(422, "Error: You must be in combat");}
+		var userinfo = Userinfo.findOne({username: username})
+		if (!userinfo._collection) {
+			userinfo._collection = "Userinfo";
+		}
 		
 		var time = data.time;
 		var timeMilis = time * 1000;
@@ -144,7 +148,7 @@ Meteor.methods({
 		if (Math.abs(now - lastTime - timeMilis) > 40 || sendTime - now > 40) {
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
-			console.log("elapseTime: elapsing " + time + "s")
+			//console.log("elapseTime: elapsing " + time + "s")
 			combatinfo.combatants.each((id) => {
 				var unit = dbget("Unitinfo", id);
 				
@@ -170,12 +174,39 @@ Meteor.methods({
 				console.log("Spawning next thing in Region : " + region)
 				var regionData = areaData[region];
 				combatinfo.combo += 1;
-				var mons = spawnMonsters(regionData, combatinfo.combo);
+				//userinfo.kills += 
+				var goldDrop = 0;
+				var expDrop = 0;
+				combatinfo.combatants.each((id) => {
+					var unit = dbget("Unitinfo", id);
+					
+					if (unit.team != 'player') {
+						goldDrop += unit.exp * Random.value();
+						expDrop += unit.exp;
+					}
+				})
+				
+				userinfo.wallet.gold = Math.floor(userinfo.wallet.gold + goldDrop);
+				console.log("dropped " + goldDrop + " golds");
+				
+				gamedata.units.each((id) => {
+					var unit = dbget("Unitinfo", id);
+					
+					unit.giveExp(expDrop);
+					
+				})
+					
+				
 				combatinfo.cleanUpCombat();
+				var mons = spawnMonsters(regionData, combatinfo.combo);
 				combatinfo.startNewBattle(mons);
+				
 				dbupdate(combatinfo);
+				dbupdate(userinfo);
+				
 				combatinfo.lastTime = now;
 			} else {
+				
 				combatinfo.cleanUpCombat();
 				combatinfo.endCombat();
 				

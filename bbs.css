@@ -26,6 +26,23 @@ body {
     margin-left: 14px;
     margin-right: 14px;
 }
+.pbig{
+	height: 12px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	
+}
+.ptext{
+	position: relative;
+	top: 11px;
+	left: 5px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	font-weight: bold;
+	z-index: 2;
+}
 .round {
     border-radius: 5px;
     background: #000000;
@@ -126,6 +143,7 @@ a:hover {
     width:100%;
     height:8rem;
 }
+
 body {
     background-color: #666b4e;
 }
