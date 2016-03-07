@@ -14,8 +14,9 @@ var isZalgo = function(string) {
     return string.match(RegExp(badchars.join('|')));
 }
 var isHTML = function(string) {
-    var array = string.match(/^(?:<(\w+)(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)>[^<>]*<\/\1+\s*>|<\w+(?:(?:\s+\w+(?:\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/>|<!--.*?-->|[^<>]+)*$/);
-    return array[1];
+    var array = string.match(/(<|>)/);
+    if (array) return array[1];
+    return false;
 }
 Meteor.publish("usernames", function() {
    return Meteor.users.find({},{fields: {'username': 1}})
