@@ -145,7 +145,7 @@ Meteor.methods({
 		
 		combatinfo.rebuildCombatantLists();
 		
-		if (Math.abs(now - lastTime - timeMilis) > 40 || sendTime - now > 40) {
+		if (Math.abs(now - lastTime - timeMilis) > 40) {
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
 			//console.log("elapseTime: elapsing " + time + "s")
