@@ -155,6 +155,56 @@ Meteor.methods({
         Userinfo.update(userid,{$set:{posts: posts}});
         return _id;
     },
+    newSticky: function(topicId, subject, message) {
+        var topic = Topics.findOne({_id: topicId});
+        if (isWhitespace(subject) || isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
+        //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
+        if (!topic) throw new Meteor.Error(422,"Error: topic doesn't exist");
+        if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
+        if (!subject) throw new Meteor.Error(422,"Error: subject is empty");
+        if (!message) throw new Meteor.Error(422,"Error: message is empty");
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var admin = Userinfo.findOne({username: username});
+        admin = admin && admin.admin;
+        topic = Topics.findOne({_id: topicId});
+        var moderators = topic && topic.moderators;
+        if (!(_.contains(moderators,Meteor.user().username) || admin)) throw new Meteor.Error(422,"Error: not authorized");
+        var _id;
+        Threads.insert({
+                topicId: topicId,
+                from: Meteor.user().username,
+                createdAt: new Date(),
+                subject: subject,
+                modified: new Date(8640000000000000),
+                views: 0,
+                locked: null
+            },
+            function(err, docsInserted) {
+                _id = docsInserted;
+                Posts.insert({
+                    threadId: _id,
+                    topicId: topicId,
+                    subject: subject,
+                    from: Meteor.user().username,
+                    createdAt: new Date(),
+                    editedBy: null,
+                    modified: null,
+                    post: message,
+                    likes: [],
+                    dislikes: [],
+                });
+            });
+        var posts = Userinfo.findOne({username: Meteor.user().username});
+        posts = posts && posts.posts;
+        if (posts == undefined) return;
+        posts += 1;
+        var userid = Userinfo.findOne({username: Meteor.user().username});
+        userid = userid && userid._id;
+        if (!userid) return;
+        Userinfo.update(userid,{$set:{posts: posts}});
+        return _id;
+    },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
@@ -182,7 +232,8 @@ Meteor.methods({
             likes: [],
             dislikes: [],
         });
-        Threads.update(threadId,{ $set: { modified: new Date()}});
+        var thread = Threads.findOne({_id: threadId});
+        if (thread.modified.getTime() != new Date(8640000000000000).getTime()) Threads.update(threadId,{ $set: { modified: new Date()}});
         var posts = Userinfo.findOne({username: Meteor.user().username});
         posts = posts && posts.posts;
         if (posts == undefined) return;

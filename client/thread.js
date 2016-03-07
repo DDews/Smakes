@@ -140,6 +140,11 @@ Template['thread'].helpers({
         if (!user) return false;
         var admin = Userinfo.findOne({username: user});
         return admin && admin.admin;
+    },
+    isSticky: function(id) {
+        var thread = Threads.findOne({_id: id});
+        if (!thread) return false;
+        return thread.modified.getTime() == new Date(8640000000000000).getTime();
     }
 });
 Template.thread.events({
@@ -148,8 +153,9 @@ Template.thread.events({
         var message = $('[name=message]').val();
         var submit = $('[name=submit]')[0];
         var subject = $('[name=subject]').val();
+        var sticky = $('input[name=sticky]:checked').length > 0
         submit.disabled = true;
-        Meteor.call('newThread','' + Router.current().params._id,subject,message,function(error, result) {
+        if (!sticky) Meteor.call('newThread','' + Router.current().params._id,subject,message,function(error, result) {
 
             if (error) {
                 $("#error").html(error.reason);
@@ -164,6 +170,23 @@ Template.thread.events({
                 Router.go('/posts/' + result);
             }
         });
+        else {
+            Meteor.call('newSticky','' + Router.current().params._id,subject,message,function(error, result) {
+
+                if (error) {
+                    $("#error").html(error.reason);
+                    submit.disabled = false;
+                    return false;
+                } else {
+                    $('[name=message]').val('');
+                    $('[name=subject]').val('');
+                    Session.set("showpm",false);
+                    $("#error").html('');
+                    submit.disabled = false;
+                    Router.go('/posts/' + result);
+                }
+            });
+        }
         return false;
     },
     'click .newThread': function(event){
