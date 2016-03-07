@@ -377,6 +377,9 @@ Meteor.methods({
         var topic = Topics.findOne({_id: post.topicId});
         topic = topic && topic.moderators;
         if ((_.contains(topic,user)) || (admin) || Meteor.user().username == poster) {
+            if (!(_.contains(topic,user) || admin)) {
+                if (post.editedBy && post.editedBy != Meteor.user().username) throw new Meteor.Error(422,"Error: You cannot edit your post. A moderator or admin has edited it.");
+            }
             Posts.update(postId,{$set: { post: message} });
             Posts.update(postId,{$set: { editedBy: Meteor.user().username}});
             Posts.update(postId,{$set: { modified: new Date()}});
