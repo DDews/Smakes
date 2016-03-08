@@ -112,7 +112,7 @@ var statNames = {
 	meva: "Aegis",
 	aspd: "Speed",
 	cspd: "Recast",
-	crit: "Critical Rate",
+	crit: "Crit Rate",
 	resi: "Resilience",
 	rhp: "Health Recovery",
 	rmp: "Mana Recovery",

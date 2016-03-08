@@ -22,9 +22,9 @@ textarea {
 body {
     color: white;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
-    margin-left: 1.4rem;
-    margin-right: 1.4rem;
+    font-size: 1.2rem;
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
 }
 .pbig{
 	height: 1.2rem;
@@ -63,7 +63,7 @@ pre {
     text-align: right;
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 .messages, .right {
     color: #f9f9f9;
@@ -107,7 +107,7 @@ pre {
 .pageListing {
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 a {
     color: #efeef2;
@@ -177,6 +177,9 @@ a:hover {
 body {
     background-color: #666b4e;
 }
+.stattext {
+    font-size: 1rem;
+}
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
 .roundbg {
     border-radius: 0.5rem;
@@ -191,7 +194,7 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: .4rem;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -207,7 +210,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 .forumbg {
     color: white;
@@ -219,7 +222,7 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: .4rem;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -235,7 +238,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 .postOne {
     background-color: #292929;
@@ -249,7 +252,7 @@ body {
     border-top-width: 0px;
     display: block;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -311,16 +314,16 @@ dt {
     vertical-align: baseline;
     list-style-type: none;
     list-style-position: outside;
-    line-height: 1.4rem;
+    line-height: 1.2rem;
     float: left;
     color: white;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 .post {
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 .locked {
@@ -405,9 +408,9 @@ dt {
     border-left: 0.5rem solid #efeef2;
 }
 .likes {
-    line-height: 1.4rem;
+    line-height: 1.2rem;
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -420,14 +423,14 @@ dt {
     font-family: Arial, Helvetica, sans-serif;
 }
 .subject {
-    line-height: 1.4rem;
+    line-height: 1.2rem;
     margin-top: .4rem;
     margin-bottom: .2rem;
     margin-right: 0px;
     margin-left: 0px;
 }
 .homesubject {
-    line-height: 1.4rem;
+    line-height: 1.2rem;
     margin-top: .4rem;
     margin-bottom: .2rem;
     margin-right: 0px;
@@ -449,7 +452,7 @@ dt {
 }
 .subjectText {
     color: white;
-    font-size: 20.5rem;
+    font-size: 2.5rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: .2rem;
     margin-top: .2rem;
@@ -495,5 +498,5 @@ dt {
     margin-bottom: .2rem;
 }
 .chiptext {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }
