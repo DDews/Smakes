@@ -92,6 +92,21 @@ Template['header'].helpers({
         },
         getUsername: function() {
             return Meteor.user() && Meteor.user().username;
+        },
+        isGame: function() {
+            return Session.get("nav") == "game";
+        },
+        isUnit: function() {
+            var session = Session.get("nav");
+            if (!session instanceof Array) return null;
+            if (session[0] == "unit") return session[1];
+            return null;
+        },
+        isNotGame: function() {
+            var session = Session.get("nav");
+            if (session == "game") return false;
+            if (session instanceof Array && session[0] == "unit") return false;
+            return true;
         }
     }
 );

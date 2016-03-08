@@ -31,26 +31,26 @@
                 </div>
             {{/if}}
             <div class="row short">
-                <div class="col s12 m4 list-inner">Thread</div>
-                <div class="col m2 hide-on-small-only views">Replies</div>
-                <div class="col m2 hide-on-small-only views">Views</div>
-                <div class="col m4 hide-on-small-only list-inner">Last Post</div>
+                <div class="col m12 m4 list-inner">Thread</div>
+                <div class="col l2 hide-on-med-and-down views">Replies</div>
+                <div class="col l2 hide-on-med-and-down views">Views</div>
+                <div class="col l4 hide-on-med-and-down list-inner">Last Post</div>
             </div>
             {{#each thread}}
             <div class="row short round {{toggle}}">
-                    <div class="col s12 m4">
+                    <div class="col m12 l4">
                         <div class="row short"><p class="subject">{{#if locked}}<img src="/locked.png" height="10" width="10" title="This thread is locked. {{locked}} locked it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if isSticky _id}}<img src="/sticky.png" height="10" width="10" title="This thread is stickied.">{{/if}}<a href="/posts/{{_id}}">{{subject}}</a></p>
-                        <p class="small hide-on-small-only"><img src="/locked.png" height="10" width="10" class="nolock">by: <a class="username" href="/profile/{{from}}">{{from}}</a> » {{myDate createdAt}}</p>
-                        <div class="hide-on-med-and-up">
+                        <p class="small hide-on-med-and-down"><img src="/locked.png" height="10" width="10" class="nolock">by: <a class="username" href="/profile/{{from}}">{{from}}</a> » {{myDate createdAt}}</p>
+                        <div class="hide-on-large-only">
                             <p class="small"><img src="/locked.png" height="10" width="10" class="nolock">{{#if isSticky _id}}<img src="/sticky.png" height="10" width="10" title="This thread is stickied.">{{/if}}<a href="/posts/{{_id}}/{{lastPost _id}}"><img title="Jump to last page" src="/lastpost.gif"></a>last post by <a class="username" href="/profile/{{isFrom _id}}">{{isFrom _id}}</a> {{lastDate _id}}</p>
                             <p class="small"><img src="/locked.png" height="10" width="10" class="nolock">Replies: <b>{{numReplies _id}}</b></p>
                         </div>
                         {{#if hasPriveledges}}<p class="small"><img src="/locked.png" height="10" width="10" class="nolock"><a href="#" id="{{_id}}" class="lock">lock</a> <a href="#" id="{{_id}}" class="makeSticky">sticky</a>{{#if isAdmin}} <a href="#" id="{{_id}}" class="delete">delete</a>{{/if}}</p>{{/if}}
                         </div>
                     </div>
-                    <div class="col m2 hide-on-small-only center"><p class="middle">{{numReplies _id}}</p></div>
-                    <div class="col m2 hide-on-small-only center"><p class="middle">{{views}}</p></div>
-                    <div class="col m4 hide-on-small-only">
+                    <div class="col l2 hide-on-med-and-down center"><p class="middle">{{numReplies _id}}</p></div>
+                    <div class="col l2 hide-on-med-and-down center"><p class="middle">{{views}}</p></div>
+                    <div class="col l4 hide-on-med-and-down">
                         <div class="row short"><p class="subject"><a href="/posts/{{_id}}/{{lastPost _id}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <a class="username" href="/profile/{{isFrom _id}}">{{isFrom _id}}</a></p><p class="small">{{lastDate _id}}</p>
                         </div>
                     </div>
