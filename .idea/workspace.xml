@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/home.html" afterPath="$PROJECT_DIR$/client/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/home.js" afterPath="$PROJECT_DIR$/client/home.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/thread.html" afterPath="$PROJECT_DIR$/client/thread.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/thread.js" afterPath="$PROJECT_DIR$/client/thread.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
-    </list>
+    <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="" />
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
