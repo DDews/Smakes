@@ -22,20 +22,20 @@ textarea {
 body {
     color: white;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    margin-left: 14px;
-    margin-right: 14px;
+    font-size: 1.4rem;
+    margin-left: 1.4rem;
+    margin-right: 1.4rem;
 }
 .pbig{
-	height: 12px;
+	height: 1.2rem;
 	margin-bottom: 0px;
 	margin-top: 0px;
 	
 }
 .ptext{
 	position: relative;
-	top: 11px;
-	left: 5px;
+	top: 1.1rem;
+	left: 0.5rem;
 	margin-bottom: 0px;
 	margin-top: 0px;
 	padding-bottom: 0px;
@@ -44,9 +44,9 @@ body {
 	z-index: 2;
 }
 .round {
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background: #000000;
-    padding: 5px;
+    padding: 0.5rem;
 }
 .title, .logout, .center {
     text-align: center;
@@ -63,7 +63,7 @@ pre {
     text-align: right;
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
 }
 .messages, .right {
     color: #f9f9f9;
@@ -107,7 +107,7 @@ pre {
 .pageListing {
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
 }
 a {
     color: #efeef2;
@@ -179,9 +179,9 @@ body {
 }
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
 .roundbg {
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background: #000000;
-    padding: 5px;
+    padding: 0.5rem;
     color: white;
     border-bottom-left-radius: 7px;
     border-bottom-right-radius: 7px;
@@ -191,15 +191,15 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 14px;
-    margin-bottom: 4px;
-    margin-left: -5px;
-    margin-right: -5px;
+    font-size: 1.4rem;
+    margin-bottom: .4rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
     margin-top: 0px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 5px;
+    padding-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
     text-align: left;
     vertical-align: baseline;
     word-wrap: break-word;
@@ -207,7 +207,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
 }
 .forumbg {
     color: white;
@@ -219,15 +219,15 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 14px;
-    margin-bottom: 4px;
-    margin-left: -5px;
-    margin-right: -5px;
+    font-size: 1.4rem;
+    margin-bottom: .4rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
     margin-top: 0px;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 5px;
+    padding-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
     text-align: left;
     vertical-align: baseline;
     word-wrap: break-word;
@@ -235,7 +235,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
 }
 .postOne {
     background-color: #292929;
@@ -249,7 +249,7 @@ body {
     border-top-width: 0px;
     display: block;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
     margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -303,24 +303,24 @@ dt {
     display: inline;
 }
 .posts, .views, .lastpost {
-    width: 95px;
-    padding-top: 2px;
-    margin-top: 2px;
-    margin-bottom: 4px;
+    width: 90.5rem;
+    padding-top: .2rem;
+    margin-top: .2rem;
+    margin-bottom: .4rem;
     text-transform: uppercase;
     vertical-align: baseline;
     list-style-type: none;
     list-style-position: outside;
-    line-height: 14px;
+    line-height: 1.4rem;
     float: left;
     color: white;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 1.4rem;
 }
 .post {
     color: white;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 .locked {
@@ -332,9 +332,9 @@ dt {
 }
 .small {
     text-align: left;
-    line-height: 10px;
+    line-height: 1rem;
     color: white;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -346,9 +346,9 @@ dt {
 }
 .smallcenter {
     text-align: center;
-    line-height: 10px;
+    line-height: 1rem;
     color: white;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -357,9 +357,9 @@ dt {
 }
 .smallsubject {
     text-align: left;
-    line-height: 10px;
+    line-height: 1rem;
     color: #c0c0be;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -367,9 +367,9 @@ dt {
     margin-left: 0px;
 }
 .info {
-    line-height: 10px;
+    line-height: 1rem;
     color: white;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -382,11 +382,11 @@ dt {
 .signature {
     border-top: 1px solid #787972;
     clear: left;
-    font-size: 10px;
+    font-size: 1rem;
 }
 .maximage {
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 40rem;
+    max-height: 40rem;
 }
 .un {
     text-decoration: underline;
@@ -402,12 +402,12 @@ dt {
     background-color: #666b4e;
     margin: 20px 0;
     padding-left: 1.5rem;
-    border-left: 5px solid #efeef2;
+    border-left: 0.5rem solid #efeef2;
 }
 .likes {
-    line-height: 14px;
+    line-height: 1.4rem;
     color: white;
-    font-size: 14px;
+    font-size: 1.4rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -416,28 +416,28 @@ dt {
 }
 .editedSmall {
     color: #a0837b;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 .subject {
-    line-height: 14px;
-    margin-top: 4px;
-    margin-bottom: 2px;
+    line-height: 1.4rem;
+    margin-top: .4rem;
+    margin-bottom: .2rem;
     margin-right: 0px;
     margin-left: 0px;
 }
 .homesubject {
-    line-height: 14px;
-    margin-top: 4px;
-    margin-bottom: 2px;
+    line-height: 1.4rem;
+    margin-top: .4rem;
+    margin-bottom: .2rem;
     margin-right: 0px;
     margin-left: 8px;
 }
 .homesmallsubject {
     text-align: left;
-    line-height: 10px;
+    line-height: 1rem;
     color: #c0c0be;
-    font-size: 10px;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -449,10 +449,10 @@ dt {
 }
 .subjectText {
     color: white;
-    font-size: 25px;
+    font-size: 20.5rem;
     font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 2px;
-    margin-top: 2px;
+    margin-bottom: .2rem;
+    margin-top: .2rem;
 }
 .middle {
     line-height: 20px;
@@ -481,20 +481,19 @@ dt {
 }
 .admin {
     color: #9e7869;
-    font-size: 10px;
+    font-size: 1rem;
 }
 .moderator {
     color: #9b9e46;
-    font-size: 10px;
+    font-size: 1rem;
 }
 .buttonbig {
     color: black;
     float: right;
 }
 .short {
-    margin-bottom: 2px;
+    margin-bottom: .2rem;
 }
-.submit {
-
+.chiptext {
+    font-size: 1.3rem;
 }
-
