@@ -6,6 +6,8 @@ inCombat = function() {
 _pause = false;
 _inCombat = false;
 
+_turnsDone = {};
+
 
 Template.game.helpers({
 	gameInfoExists: function() {
@@ -46,13 +48,39 @@ Template.game.helpers({
 				var data = {}
 				data.time = .2;
 				data.sendTime = (new Date()).getTime();
-
-				Meteor.call("elapseTime", data);
+				
+				var combatinfo = Combatinfo.findOne();
+				if (combatinfo) {
+					combatinfo.hits.each((hit) => {
+						if (!_turnsDone[hit.turn]) {
+							_turnsDone[hit.turn] = ticks;
+							//console.log("handled messages for turn " + ticks)
+							
+							hit.each((_id, data) => {
+								if (_id != "turn") {
+									//console.log(_id);
+									//console.log(data);
+									var elem = $("#"+_id+"img");
+									//console.log(elem)
+									
+									showDamage(elem, data.text, data.color, data.bgimg)
+								}
+							})
+							
+						}
+					})
+					Meteor.call("elapseTime", data);
+				} else {
+					clearInterval(intervalId);
+					_inCombat = false;
+				}
+				
 
 				if (Router.current().route.getName() != 'game') {
 					clearInterval(intervalId);
 					_inCombat = false;
 				}
+				
 			}
 		}, 200); //Interval length
 		

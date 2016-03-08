@@ -147,6 +147,11 @@ Meteor.methods({
 		var now = (new Date()).getTime();
 		var lastTime = combatinfo.lastTime;
 		
+		var currentTurn = now;
+		combatinfo.currentTurn = currentTurn;
+		var messages = {turn: currentTurn};
+		
+		if (combatinfo.hits.unshift(messages) > 3) { combatinfo.hits.pop(); }
 		combatinfo.rebuildCombatantLists();
 		
 		if (Math.abs(now - lastTime - timeMilis) > 40) {

@@ -1,7 +1,8 @@
 <template name="unitcard">
 	<div class="col s12 m6 l3 card {{unitColor id}} darken-4" id="{id}">
 		<div class="card-image">
-			<img src="{{unitPose id}}">
+			<img id="{{id}}img" src="{{unitPose id}}">
+			
 		</div>
 		<div class="card-content white-text">
 			<span class="card-title unitCardName">{{unitName id}}</span>
