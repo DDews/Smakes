@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/header.html" afterPath="$PROJECT_DIR$/client/header.html" />
     </list>
     <ignored path="bbs.iws" />
@@ -27,63 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="router.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="unit.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/unit.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.615385">
-              <caret line="81" column="63" selection-start-line="81" selection-start-column="63" selection-end-line="81" selection-end-column="63" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="unit.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/unit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="header.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/header.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.24147727">
-              <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.4346591">
+              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="helpers.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/global/helpers.js">
+      <file leaf-file-name="bbs.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bbs.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.344828">
-              <caret line="220" column="60" selection-start-line="220" selection-start-column="48" selection-end-line="220" selection-end-column="60" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="data.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/game/data.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.153846">
+              <caret line="57" column="21" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -155,8 +111,8 @@
         <option value="$PROJECT_DIR$/client/global/helpers.js" />
         <option value="$PROJECT_DIR$/client/game/unit.html" />
         <option value="$PROJECT_DIR$/client/game/unit.js" />
-        <option value="$PROJECT_DIR$/client/header.html" />
         <option value="$PROJECT_DIR$/bbs.css" />
+        <option value="$PROJECT_DIR$/client/header.html" />
       </list>
     </option>
   </component>
@@ -440,7 +396,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="10" width="1346" height="728" extended-state="0" />
+    <frame x="0" y="10" width="1346" height="728" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962406" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -491,13 +447,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/nemo64_bootstrap-data/3.3.5/web.browser/packages/nemo64_bootstrap-data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bbs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -779,14 +728,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2910053">
-          <caret line="161" column="3" selection-start-line="161" selection-start-column="3" selection-end-line="161" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/utilities.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -835,22 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/game/data.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/global/helpers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-23.344828">
@@ -858,14 +783,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/unit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.615385">
-          <caret line="81" column="63" selection-start-line="81" selection-start-column="63" selection-end-line="81" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -877,18 +794,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/game/data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.174603">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/unit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.4488636">
+          <caret line="81" column="63" selection-start-line="81" selection-start-column="63" selection-end-line="81" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6851852">
+          <caret line="133" column="41" selection-start-line="133" selection-start-column="41" selection-end-line="133" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5978836">
+          <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bbs.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2260062">
-          <caret line="111" column="3" selection-start-line="111" selection-start-column="3" selection-end-line="111" selection-end-column="3" />
+        <state vertical-scroll-proportion="-11.153846">
+          <caret line="57" column="21" selection-start-line="57" selection-start-column="21" selection-end-line="57" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/header.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.24147727">
-          <caret line="49" column="37" selection-start-line="49" selection-start-column="37" selection-end-line="49" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.4346591">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
           <folding />
         </state>
       </provider>
