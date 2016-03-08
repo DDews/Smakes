@@ -132,7 +132,12 @@ unSuffix = function(str) {
 	return str;
 }
 
-var tooltipFor = function(thing) { return tooltips[unSuffix(thing)]; }
+var tooltipFor = function(thing) { 
+	if (isString(thing)) {
+		return tooltips[unSuffix(thing)]; 
+	}
+	return "THING IS NOT STRING";
+}
 	
 var vitalColor = function(vital) { return vitalColors[vital]; }
 
@@ -188,6 +193,27 @@ var unitColor = function(id) {
 	return unit.dead() ? "enemyDead" : "enemyAlive" ;
 }
 
+var unitPose = function(id) {
+	var unit = getUnit(id);
+	//console.log(unit);
+	if (unit.dead()) { return unit.poses["ded"]; }
+	var cpose = unit.cpose;
+	if (cpose == 'normal' && unit.hp / unit.mhp < .25) {
+		return unit.poses["lowHP"]
+	}
+	
+	return unit.poses[cpose];
+}
+
+
+var unitPoseStyle = function(id) {
+	var unit = getUnit(id);
+	
+	if (unit.dead()) { return "blendDarkRed"; }
+	if (unit.hp / unit.mhp < .25) { return "blendRed"}
+	return "";
+}
+
 var statName = function(stat) { return statNames[unSuffix(stat)]; }
 	
 Handlebars.registerHelper('statName', statName);
@@ -197,6 +223,8 @@ Handlebars.registerHelper('baseStats', ()=>{return statCalcData.baseStats;});
 Handlebars.registerHelper('combatStats', ()=>{return statCalcData.combatStats;});
 
 Handlebars.registerHelper('tooltipFor', tooltipFor);
+Handlebars.registerHelper('unitPose', unitPose);
+Handlebars.registerHelper('unitPoseStyle', unitPoseStyle);
 
 
 Handlebars.registerHelper('ownerName', ownerName);
