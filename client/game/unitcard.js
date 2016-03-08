@@ -16,12 +16,12 @@ Template.unitcard.helpers({
 	},
 	cardColor: function(id) { 
 		var unit = Unitinfo.findOne(id);
-		if (!unit) { return "purple"; }
+		if (!unit) { return "unknownUnit"; }
 		var team = unit.team;
 		if (team == 'player') { 
-			return unit.dead() ? "blue-grey" : "blue" 
+			return unit.dead() ? "playerDead" : "playerAlive" 
 		}
-		return unit.dead() ? "brown" : "deep-orange" ;
+		return unit.dead() ? "enemyDead" : "enemyAlive" ;
 	},
 	cardHeader: function(id) { 
 		var unit = Unitinfo.findOne(id);
@@ -47,11 +47,13 @@ Template.unitcard.helpers({
 	unitPercentExp: function(id) {	
 		var unit = Unitinfo.findOne(id);
 		if (!unit) { return .5; }
+		if (unit.team != 'player') { return 0; }
 		return Math.floor(unit.exp / unit.tnl * 100);
 	},
 	unitPercentTimer: function(id) {	
 		var unit = Unitinfo.findOne(id);
 		if (!unit) { return .5; }
+		if (unit.dead()) { return 0; }
 		return Math.floor(unit.timer / unit.timeout * 100);
 	},
 	unitVitalHp: function(id) {	
@@ -72,6 +74,7 @@ Template.unitcard.helpers({
 	unitVitalExp: function(id) {	
 		var unit = Unitinfo.findOne(id);
 		if (!unit) { return "exp: 50/100"; }
+		if (unit.team != 'player') { return "exp: " + Math.floor(unit.exp); }
 		return "exp: " + Math.floor(unit.exp) + " / " + unit.tnl;
 	},
 })
