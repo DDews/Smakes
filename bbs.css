@@ -69,8 +69,38 @@ pre {
     color: #f9f9f9;
     text-align: right;
 }
+
+.playerAlive {
+	background-color: #115533;
+}
+.playerDead {
+	background-color: #062211;
+}
+.enemyAlive {
+	background-color: #551133;
+}
+.enemyDead {
+	background-color: #220611;
+}
+.unknownUnit {
+	background-color: #331155;
+}
+
+.blendRed {
+	background-color: #AA3333;
+	background-blend-mode: multiply;
+}
+
+.blendDarkRed {
+	background-color: #662222;
+	background-blend-mode: multiply;
+}
+
 #error,#pmerror {
     color: #f9f9f9;
+}
+.unitCardName {
+	font-size: 14pt !important;
 }
 
 

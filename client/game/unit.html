@@ -1,0 +1,93 @@
+<template name="unit">
+	<div class="container">
+		<div class="col s12" id="error"></div>
+		<div class="forumbg row">
+			<div class="row blue-grey darken-3">
+				<div class="col s12 blue-grey darken-3 unitCardName">
+					<span class="">{{unitName id}}</span> | 
+					<span class="small green-text text-lighten-3">{{unitHeader id}}</span> |
+					<span class="small red-text text-lighten-3">
+						Currently employed by <a href="/profile/{{ownerName id}}">{{ownerName id}}</a>
+					</span>
+				</div>
+				<div class="col s12">
+					{{#if unitInCombat id}}
+						<div class="chip red darken-4 red-text text-lighten-3">In Combat</div>
+					{{else}}
+						<div class="chip green darken-4 green-text text-lighten-3">Idle</div>
+					{{/if}}
+				</div>
+					
+				<div class="col s12 card blue-grey darken-4">
+					<div class="card-content white-text">
+						<span class="red-text text-lighten-5">Vitals</span>
+					
+						<div class="row">
+							<div class="small ptext green-text text-darken-4">{{vital id 'hp' }}</div>
+							<div class="progress pbig green lighten-5">
+								<div class="determinate green lighten-3" id="{{id}}hp" style="width:{{percent id 'hp'}}%"></div>
+							</div>
+							{{#if isPlayer id}}
+								<div class="small ptext indigo-text text-darken-4">{{vital id 'mp'}}</div>
+							{{else}}
+								<div class="small ptext indigo-text text-darken-4">mp: {{percent id 'mp'}}%</div>
+							{{/if}}
+							<div class="progress pbig indigo lighten-5">
+								<div class="determinate indigo lighten-3" id="{{id}}mp" style="width:{{percent id 'mp'}}%"></div>
+							</div>
+
+							{{#if isPlayer id}}
+								<div class="small ptext red-text text-darken-4">{{vital id 'sp'}}</div>
+							{{else}}
+								<div class="small ptext red-text text-darken-4">sp: {{percent id 'sp'}}%</div>
+							{{/if}}
+							<div class="progress pbig red lighten-5">
+								<div class="determinate red lighten-3" id="{{id}}sp" style="width:{{percent id 'sp'}}%"></div>
+							</div>
+							
+							<div class="small ptext purple-text text-darken-4">{{vital2 id 'exp' 'tnl'}}</div>
+							<div class="progress pbig purple lighten-5">
+								<div class="determinate purple lighten-3" id="{{id}}exp" style="width:{{percent2 id 'exp' 'tnl'}}%"></div>
+							</div>
+						</div>
+					
+						<span class="red-text text-lighten-5">Base Stats</span>
+						<div class="row">
+							{{#each stat in baseStats}}
+								<div class="col s4 tooltipped blue-grey darken-3 center z-depth-2" 
+							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
+									<span class="left">{{statName stat}}</span>
+									<span class="right">{{getStat stat}}</span>
+								</div>
+							{{/each}}
+						</div>
+						
+						<span class="red-text text-lighten-5">Intermediate Stats</span>
+						<div class="row">
+							{{#each stat in auxStats}}
+								<div class="col s4 tooltipped blue-grey darken-3 center z-depth-2" 
+							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
+									<span class="left">{{statName stat}}</span>
+									<span class="right">{{getStat stat}}</span>
+								</div>
+							{{/each}}
+						</div>
+						
+						<span class="red-text text-lighten-5">Combat Stats</span>
+						<div class="row">
+							{{#each stat in displayStats}}
+								<div class="col s3 tooltipped blue-grey darken-3 center z-depth-2" 
+							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
+									<span class="left">{{statName stat}}</span>
+									<span class="right">{{getStat stat}}</span>
+								</div>
+							{{/each}}
+						</div>
+					 </div>
+				</div>
+				
+				
+			</div>
+		</div>
+	</div>
+</template>

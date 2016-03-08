@@ -1,13 +1,20 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Failed shortcut for registration of helpers.... laaaame....
 var reg = {}
 reg.helpers = function(fmap) {
 	fmap.each((name, func) => {
 		Handlebars.registerHelper(name, func);
 	});
 }
-reg.helpers({
-	
-});
+reg.helpers({}); //this didn't work out as expected:
+//TBD - research why...
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//
 Handlebars.registerHelper('currentUserWalletExists', () => {
 	var username = Meteor.user();
 	username = username && username.username;
@@ -40,146 +47,195 @@ Handlebars.registerHelper('currentUserWallet', () => {
 	return wallet.toPairRay();
 })
 
-function div(clas, content, style, id) { 
-	var sty = " ";
-	var i = " ";
-	var c = ' class="' + clas + '"';
-	
-	if (style) { sty += 'style="' + style+ '"'; }
-	if (id) { i += 'id="' + id + '"'; }
-	return '<div' + c + i + sty + '">' + content + '</div>';
-}
-function span(clas, content) { 
-	return '<span class="' + clas + '">' + content + '</span>' 
-}
-
-var br = "<br />"
-
-var progressBack = "progress lighten-3 "
-var progressFront = "determinate "
-
 function unCamelCase(string) {
 	return string.replace(/[A-Z]/g, function(x) { return " " + x; }).capitalize();
 }
 
-Handlebars.registerHelper('unCamelCase', unCamelCase)
 
-Handlebars.registerHelper('healthbar', (val, max, color, fillId) => {
-	if (!max) { max = 1.0; }
-	var fill = Math.floor(val / max * 100);
-	if (!color) { color = "green"; }
-	
-	return div(progressBack + color, 
-			   div(progressFront + color, "", "width: " + fill + "%", fillId)
-			  );
-	
-})
+Handlebars.registerHelper('unCamelCase', unCamelCase);
+Handlebars.registerHelper('regions', () => { return areaData.toPairRay(); });
 
-Handlebars.registerHelper('regions', () => { return areaData.toPairRay(); })
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Global Unit helpers...
 
+var vitalColors = {
+	hp:"green",
+	mp:"indigo",
+	sp:"red",
+}
 
-Handlebars.registerHelper('regionDropdown', () => {
-	var str = '<div class="input-field col s12"><select name="area">'
-	areaData.each((name, data) => {
-		str += '<option value="' + name + '">' + name + '</option>'
-	});
-	str += '</select>'
-	str += '</div>' + br + "urmomolololoollol"
-	
+var tooltips = {
+	str: "Strength.\nPure brute force.",
+	vit: "Vitality.\nBecome the wall.",
+	dex: "Dexterity.\nDeft, accurate, skillful.",
+	agi: "Agility.\nGotta go fast.",
+	int: "Intelligence.\nI am SMRT, I mean SMART.",
+	wis: "Wisdom.\nUnderstanding the flow.",
+	patk: "Base physical power",
+	pacc: "Physical chance to hit",
+	pdef: "Reduction to physical damage taken",
+	peva: "Chance to dodge physical attacks",
+	matk: "Base magical power",
+	macc: "Magical chance to hit",
+	mdef: "Reduction to magical damage taken",
+	meva: "Chance to dodge magical attacks",
+	aspd: "Rate of attacks",
+	cspd: "Bonus to cooldown speed",
+	crit: "Chance to deal extra damage per attack",
+	resi: "Chance to reduce critical damage taken",
+	rhp: "HP recovered per second",
+	rmp: "MP recovered per second",
+	rsp: "SP recovered per second",
+	armor: "Boosts Defense",
+	shell: "Boosts Ward",
+	tough: "Boosts Resilience",
+	rflex: "Boosts Evasion",
+	intut: "Boosts Aegis",
+	sight: "Boosts Critical Rate",
+}
+var statNames = {
+	str: "STR",
+	vit: "VIT",
+	dex: "DEX",
+	agi: "AGI",
+	int: "INT",
+	wis: "WIS",
+	patk: "Attack",
+	pacc: "Accuracy",
+	pdef: "Defense",
+	peva: "Evasion",
+	matk: "Magic",
+	macc: "Aim",
+	mdef: "Ward",
+	meva: "Aegis",
+	aspd: "Speed",
+	cspd: "Recast",
+	crit: "Critical Rate",
+	resi: "Resilience",
+	rhp: "Health Recovery",
+	rmp: "Mana Recovery",
+	rsp: "Spirit Recovery",
+	armor: "Armor",
+	shell: "Shell",
+	tough: "Toughness",
+	rflex: "Reflex",
+	intut: "Intuition",
+	sight: "Sight",
+}
+
+unSuffix = function(str) {
+	if (str.suffix("%") || str.suffix("#")) {
+		return str.substring(0, str.length-1); 
+	}
 	return str;
-})
+}
 
+var tooltipFor = function(thing) { 
+	if (isString(thing)) {
+		return tooltips[unSuffix(thing)]; 
+	}
+	return "THING IS NOT STRING";
+}
+	
+var vitalColor = function(vital) { return vitalColors[vital]; }
 
-function vitalContent(unit, vital, color, mvital) {
-	var healthbar = Blaze._globalHelpers['healthbar']
-	mvital = (mvital || "m" + vital);
-	var mval = unit[mvital];
-	var val = unit.has(vital) ? unit[vital] : mval * .5;
-	
-	var str = div("small", vital + ": " + Math.floor(val) + " / " + Math.floor(mval));
-	str += healthbar(val, mval, color, unit._id+vital);
-	
+var getUnit = function(id) { return Unitinfo.findOne(id); }
+
+var unitInCombat = function(id) {
+	var unit = getUnit(id);
+	return unit.combat;
+}
+
+var combat = function(id) { return getUnit(id).combat; }
+
+var unitName = function(id) { return getUnit(id).name; }
+var unitStat = function(id, stat) { return getUnit(id)[stat]; }
+var ownerName = function(id) { return getUnit(id).username; }
+var isPlayer = function(id) { 
+	var unit = getUnit(id);
+	if (!unit) { return false; }
+	return unit.team == 'player';
+}
+
+var unitPercent2 = function(id, vital, cap) {
+	var unit = getUnit(id);
+	return Math.floor(unit[vital] / unit[cap] * 100);
+}
+var unitPercent = function(id, vital) {
+	var cap = "m"+vital;
+	var unit = getUnit(id);
+	return Math.floor(unit[vital] / unit[cap] * 100);
+}
+var unitVital2 = function(id, vital, cap) {
+	var unit = getUnit(id);
+	return vital + ": " + Math.floor(unit[vital]) + " / " + unit[cap];
+}
+var unitVital = function(id, vital) {
+	var cap = "m"+vital;
+	var unit = getUnit(id);
+	return vital + ": " + Math.floor(unit[vital]) + " / " + unit[cap];
+}
+var unitHeader = function(id) { 
+	var unit = getUnit(id);
+	if (!unit) { return "NO UNIT TO MAKE HEADER"; }
+	var str = "lv. " + unit.level + " " + unit.race + " " + unit.job + " (" + unit.team + ")";
 	return str;
 }
-function vitalContentNoText(unit, vital, color, mvital) {
-	var healthbar = Blaze._globalHelpers['healthbar']
-	mvital = (mvital || "m" + vital);
-	var mval = unit[mvital];
-	var val = unit.has(vital) ? unit[vital] : mval * .5;
-	
-	return healthbar(val, mval, color, unit._id+vital);
+var unitColor = function(id) { 
+	var unit = getUnit(id);
+	if (!unit) { return "unknownUnit"; }
+	var team = unit.team;
+	if (team == 'player') { 
+		return unit.dead() ? "playerDead" : "playerAlive" 
+	}
+	return unit.dead() ? "enemyDead" : "enemyAlive" ;
 }
 
-function header(unit) {
-	return "lv. " + unit.level + " " + unit.race + " " + unit.job + " (" + unit.team + ")";
-}
-
-Handlebars.registerHelper('combatCard', (_id) => {
-	var unit = Unitinfo.findOne(_id);
-	console.log(unit);
-	if (!unit) { return _id; }
-	
-	//console.log("unit: " + _id);
-	//console.log(Unitinfo.find().count())
-	
-	var color = unit.team == 'player' ? "blue-grey" : "brown";
-	
-	
-	var card = '<div class="col s12 m6 l3 card ' + color + ' darken-4" id="' + _id + '">'
-	card += '<div class="card-content white-text">'
-	card += '<span class="card-title">' + unit.name + '</span>'
-	card += br + header(unit) + br + br;
-	
-	if (unit.team === 'player') {
-		card += vitalContent(unit, "hp", "green")
-		card += vitalContent(unit, "mp", "blue")
-		card += vitalContent(unit, "sp", "red")
-		card += vitalContent(unit, "exp", "purple", "tnl")
-	} else {
-		card += vitalContent(unit, "hp", "green")
-		card += vitalContentNoText(unit, "mp", "blue")
-		card += vitalContentNoText(unit, "sp", "red")
-		
+var unitPose = function(id) {
+	var unit = getUnit(id);
+	//console.log(unit);
+	if (unit.dead()) { return unit.poses["ded"]; }
+	var cpose = unit.cpose;
+	if (cpose == 'normal' && unit.hp / unit.mhp < .25) {
+		return unit.poses["lowHP"]
 	}
 	
-	card += vitalContentNoText(unit, "timer", "cyan", "timeout")
-	
-	card += '</div>'
-	card += '<div class="card-action">'
-	card += "Abilities" + br + "[Attack]"
-	card += '</div>'
-	
-	card += '</div>'
-	
-	return card;
-})
+	return unit.poses[cpose];
+}
 
-Handlebars.registerHelper('menuCard', (_id) => {
-	var unit = Unitinfo.find(_id).fetch()[0];
-	//console.log(unit);
-	//console.log("unit: " + _id);
+
+var unitPoseStyle = function(id) {
+	var unit = getUnit(id);
 	
-	//console.log(Unitinfo.find().count())
+	if (unit.dead()) { return "blendDarkRed"; }
+	if (unit.hp / unit.mhp < .25) { return "blendRed"}
+	return "";
+}
+
+var statName = function(stat) { return statNames[unSuffix(stat)]; }
 	
-	var card = '<div class="col s12 m6 l3 card blue-grey darken-4">'
-	card += '<div class="card-content white-text">'
-	card += '<span class="card-title">' + unit.name + '</span>'
-	card += br + header(unit) + br + br;
-	
-	card += vitalContent(unit, "hp", "green")
-	card += vitalContent(unit, "mp", "blue")
-	card += vitalContent(unit, "sp", "red")
-	card += vitalContent(unit, "exp", "purple", "tnl")
-	card += vitalContentNoText(unit, "timer", "cyan", "timeout")
-	
-	card += '</div>'
-	
-	card += '<div class="card-action">'
-	card += "Equip Info"
-	
-	card += '</div>'
-	
-	card += '</div>'
-	
-	return card;
-})
+Handlebars.registerHelper('statName', statName);
+Handlebars.registerHelper('vitalColor', vitalColor);
+Handlebars.registerHelper('vitals', ()=>{return statCalcData.vitals;});
+Handlebars.registerHelper('baseStats', ()=>{return statCalcData.baseStats;});
+Handlebars.registerHelper('combatStats', ()=>{return statCalcData.combatStats;});
+
+Handlebars.registerHelper('tooltipFor', tooltipFor);
+Handlebars.registerHelper('unitPose', unitPose);
+Handlebars.registerHelper('unitPoseStyle', unitPoseStyle);
+
+
+Handlebars.registerHelper('ownerName', ownerName);
+Handlebars.registerHelper('unitStat', unitStat);
+Handlebars.registerHelper('combat', combat);
+Handlebars.registerHelper('percent', unitPercent);
+Handlebars.registerHelper('percent2', unitPercent2);
+Handlebars.registerHelper('vital', unitVital);
+Handlebars.registerHelper('vital2', unitVital2);
+Handlebars.registerHelper('unitName', unitName);
+Handlebars.registerHelper('unitHeader', unitHeader);
+Handlebars.registerHelper('unitColor', unitColor);
+Handlebars.registerHelper('unitInCombat', unitInCombat);
+Handlebars.registerHelper('isPlayer', isPlayer);
