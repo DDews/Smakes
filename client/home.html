@@ -28,7 +28,7 @@
                             <div class="hide-on-med-and-up">
                                 <p class="smallsubject">Threads: <b>{{threadNumber _id}}</b></p>
                             </div>
-                            {{#if isAdmin}}<p class="small"><a href="/editTopic/{{_id}}">edit</a></p>{{/if}}
+                            {{#if isAdmin}}<p class="small"><a href="/editTopic/{{_id}}">edit</a> <a href="#" id="{{_id}}" class="delete">delete</a></p>{{/if}}
                         </div>
                     </div>
                     <div class="col m2 hide-on-small-only center">{{threadNumber _id}}</div>

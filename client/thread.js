@@ -210,5 +210,11 @@ Template.thread.events({
         if (!confirm('Are you sure you want to delete this thread?')) return;
         Meteor.call('deleteThread',id);
         return false;
+    },
+    'click .makeSticky': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        Meteor.call('makeSticky',id);
+        return false;
     }
 });
