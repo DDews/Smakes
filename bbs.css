@@ -53,6 +53,10 @@ pre {
     color: #f9f9f9;
     text-align: right;
 }
+.search {
+    color: #f9f9f9;
+    text-align: left;
+}
 
 .playerAlive {
 	background-color: #115533;
