@@ -438,6 +438,27 @@ Meteor.methods({
             Threads.update(id,{$set:{locked: locked}});
         }
     },
+    makeSticky: function(id) {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return;
+        var admin = Userinfo.findOne({username: username});
+        admin = admin && admin.admin;
+        var thread = Threads.findOne({_id: id});
+        var topicId = thread && thread.topicId;
+        var locked = thread.locked;
+        topic = Topics.findOne({_id: topicId});
+        var moderators = topic && topic.moderators;
+        if (locked) locked = null;
+        else locked = Meteor.user().username;
+        if (_.contains(moderators,Meteor.user().username) || admin) {
+            var threadTime = thread.modified;
+            if (threadTime.getTime() == new Date(8640000000000000).getTime()) {
+                var post = Posts.findOne({threadId: id},{sort: {createdAt: -1}});
+                Threads.update(id,{$set:{modified: post.createdAt }});
+            }
+            else Threads.update(id,{$set:{modified: new Date(8640000000000000)}});
+        }
+    },
     deleteThread: function(id) {
         var username = Meteor.user() && Meteor.user().username;
         if (!username) return;
@@ -455,6 +476,17 @@ Meteor.methods({
         if (_.contains(moderators,Meteor.user().username) || admin) {
             Threads.remove(id);
         }*/
+    },
+    deleteTopic: function(id) {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return;
+        var admin = Userinfo.findOne({username: username});
+        admin = admin && admin.admin;
+        if (admin) {
+            Topics.remove(id);
+            Posts.remove({topicId: id});
+            Threads.remove({topicId: id});
+        }
     },
     setSignature: function(signature, password) {
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
