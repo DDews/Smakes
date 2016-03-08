@@ -26,23 +26,7 @@ body {
     margin-left: 1.2rem;
     margin-right: 1.2rem;
 }
-.pbig{
-	height: 1.2rem;
-	margin-bottom: 0px;
-	margin-top: 0px;
-	
-}
-.ptext{
-	position: relative;
-	top: 1.1rem;
-	left: 0.5rem;
-	margin-bottom: 0px;
-	margin-top: 0px;
-	padding-bottom: 0px;
-	padding-top: 0px;
-	font-weight: bold;
-	z-index: 2;
-}
+
 .round {
     border-radius: 0.5rem;
     background: #000000;
@@ -85,6 +69,35 @@ pre {
 .unknownUnit {
 	background-color: #331155;
 }
+.combatLog {
+	font-size: .7rem;
+}
+
+.unitHeader {
+	font-size: .7rem;
+}
+.unitCardName {
+	font-size: 1.2rem !important;
+}
+
+.pbig{
+	height: .8rem;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+.ptext{
+	position: relative;
+	top: .85rem;
+	left: 0.5rem;
+	font-size: .65rem;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	font-weight: bold;
+	z-index: 2;
+}
+
 
 .blendRed {
 	background-color: #AA3333;
@@ -98,9 +111,6 @@ pre {
 
 #error,#pmerror {
     color: #f9f9f9;
-}
-.unitCardName {
-	font-size: 14pt !important;
 }
 
 
