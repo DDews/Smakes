@@ -45,7 +45,7 @@
                             <p class="small"><img src="/locked.png" height="10" width="10" class="nolock">{{#if isSticky _id}}<img src="/sticky.png" height="10" width="10" title="This thread is stickied.">{{/if}}<a href="/posts/{{_id}}/{{lastPost _id}}"><img title="Jump to last page" src="/lastpost.gif"></a>last post by <a class="username" href="/profile/{{isFrom _id}}">{{isFrom _id}}</a> {{lastDate _id}}</p>
                             <p class="small"><img src="/locked.png" height="10" width="10" class="nolock">Replies: <b>{{numReplies _id}}</b></p>
                         </div>
-                        {{#if hasPriveledges}}<p class="small"><img src="/locked.png" height="10" width="10" class="nolock"><a href="#" id="{{_id}}" class="lock">lock</a>{{#if isAdmin}} <a href="#" id="{{_id}}" class="delete">delete</a>{{/if}}</p>{{/if}}
+                        {{#if hasPriveledges}}<p class="small"><img src="/locked.png" height="10" width="10" class="nolock"><a href="#" id="{{_id}}" class="lock">lock</a> <a href="#" id="{{_id}}" class="makeSticky">sticky</a>{{#if isAdmin}} <a href="#" id="{{_id}}" class="delete">delete</a>{{/if}}</p>{{/if}}
                         </div>
                     </div>
                     <div class="col m2 hide-on-small-only center"><p class="middle">{{numReplies _id}}</p></div>

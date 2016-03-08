@@ -88,5 +88,11 @@ Template.home.events({
         if (showpm) Session.set("showpm",false);
         else Session.set("showpm",true);
         return false;
+    },
+    'click .delete': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        if (confirm("Are you sure you want to delete this topic?")) Meteor.call("deleteTopic",id);
+        return false;
     }
 });
