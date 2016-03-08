@@ -160,10 +160,3 @@ Template.game.events({
 		
 	}
 });
-
-Template.game.onRendered( function() {
-	
-	
-	//console.log("fuck " + inCombat() + " " +  Gameinfo.find().count());
-	
-})
