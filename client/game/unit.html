@@ -23,29 +23,29 @@
 						<span class="red-text text-lighten-5">Vitals</span>
 					
 						<div class="row">
-							<div class="small ptext green-text text-darken-4">{{vital id 'hp' }}</div>
+							<div class="ptext green-text text-darken-4">{{vital id 'hp' }}</div>
 							<div class="progress pbig green lighten-5">
 								<div class="determinate green lighten-3" id="{{id}}hp" style="width:{{percent id 'hp'}}%"></div>
 							</div>
 							{{#if isPlayer id}}
-								<div class="small ptext indigo-text text-darken-4">{{vital id 'mp'}}</div>
+								<div class="ptext indigo-text text-darken-4">{{vital id 'mp'}}</div>
 							{{else}}
-								<div class="small ptext indigo-text text-darken-4">mp: {{percent id 'mp'}}%</div>
+								<div class="ptext indigo-text text-darken-4">mp: {{percent id 'mp'}}%</div>
 							{{/if}}
 							<div class="progress pbig indigo lighten-5">
 								<div class="determinate indigo lighten-3" id="{{id}}mp" style="width:{{percent id 'mp'}}%"></div>
 							</div>
 
 							{{#if isPlayer id}}
-								<div class="small ptext red-text text-darken-4">{{vital id 'sp'}}</div>
+								<div class="ptext red-text text-darken-4">{{vital id 'sp'}}</div>
 							{{else}}
-								<div class="small ptext red-text text-darken-4">sp: {{percent id 'sp'}}%</div>
+								<div class="ptext red-text text-darken-4">sp: {{percent id 'sp'}}%</div>
 							{{/if}}
 							<div class="progress pbig red lighten-5">
 								<div class="determinate red lighten-3" id="{{id}}sp" style="width:{{percent id 'sp'}}%"></div>
 							</div>
 							
-							<div class="small ptext purple-text text-darken-4">{{vital2 id 'exp' 'tnl'}}</div>
+							<div class="ptext purple-text text-darken-4">{{vital2 id 'exp' 'tnl'}}</div>
 							<div class="progress pbig purple lighten-5">
 								<div class="determinate purple lighten-3" id="{{id}}exp" style="width:{{percent2 id 'exp' 'tnl'}}%"></div>
 							</div>
