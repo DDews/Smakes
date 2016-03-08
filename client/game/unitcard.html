@@ -1,52 +1,59 @@
 <template name="unitcard">
-	<div class="col s12 m6 l3 card {{cardColor id}} darken-4" id="{id}">
+	<div class="col s12 m6 l3 card {{unitColor id}} darken-4" id="{id}">
 		<div class="card-content white-text">
-			<span class="card-title unitCardName">{{cardName id}}</span>
-			<div class="small">{{cardHeader id}}</div>
+			<span class="card-title unitCardName">{{unitName id}}</span>
+			<div class="small">{{unitHeader id}}</div>
 
 			<div class="row">
-				<div class="small ptext green-text text-darken-4">{{unitVitalHp id}}</div>
+				<div class="small ptext green-text text-darken-4">{{vital id 'hp' }}</div>
 				<div class="progress pbig green lighten-5">
-					<div class="determinate green lighten-3" id="{{id}}hp" style="width:{{unitPercentHp id}}%"></div>
+					<div class="determinate green lighten-3" id="{{id}}hp" style="width:{{percent id 'hp'}}%"></div>
 				</div>
 				{{#if isPlayer id}}
-					<div class="small ptext indigo-text text-darken-4">{{unitVitalMp id}}</div>
+					<div class="small ptext indigo-text text-darken-4">{{vital id 'mp'}}</div>
 				{{else}}
-					<div class="small ptext indigo-text text-darken-4">mp: {{unitPercentMp id}}%</div>
+					<div class="small ptext indigo-text text-darken-4">mp: {{percent id 'mp'}}%</div>
 				{{/if}}
 				<div class="progress pbig indigo lighten-5">
-					<div class="determinate indigo lighten-3" id="{{id}}mp" style="width:{{unitPercentMp id}}%"></div>
+					<div class="determinate indigo lighten-3" id="{{id}}mp" style="width:{{percent id 'mp'}}%"></div>
 				</div>
 				
 				{{#if isPlayer id}}
-					<div class="small ptext red-text text-darken-4">{{unitVitalSp id}}</div>
+					<div class="small ptext red-text text-darken-4">{{vital id 'sp'}}</div>
 				{{else}}
-					<div class="small ptext red-text text-darken-4">sp: {{unitPercentSp id}}%</div>
+					<div class="small ptext red-text text-darken-4">sp: {{percent id 'sp'}}%</div>
 				{{/if}}
 				<div class="progress pbig red lighten-5">
-					<div class="determinate red lighten-3" id="{{id}}sp" style="width:{{unitPercentSp id}}%"></div>
+					<div class="determinate red lighten-3" id="{{id}}sp" style="width:{{percent id 'sp'}}%"></div>
 				</div>
 				
 				{{#if isPlayer id}}
-					<div class="small ptext purple-text text-darken-4">{{unitVitalExp id}}</div>
+					<div class="small ptext purple-text text-darken-4">{{vital2 id 'exp' 'tnl'}}</div>
+					<div class="progress pbig purple lighten-5">
+						<div class="determinate purple lighten-3" id="{{id}}exp" style="width:{{percent2 id 'exp' 'tnl'}}%"></div>
+					</div>
 				{{else}}
 					<div class="small ptext purple-text text-darken-4">--</div>
+					<div class="progress pbig purple lighten-5">
+						<div class="determinate purple lighten-3" id="{{id}}exp" style="width:0%"></div>
+					</div>
 				{{/if}}
 				
-				<div class="progress pbig purple lighten-5">
-					<div class="determinate purple lighten-3" id="{{id}}exp" style="width:{{unitPercentExp id}}%"></div>
-				</div>
-				{{#if inCombat}}
+				{{#if unitInCombat id}}
 					<div class="small ptext orange-text text-darken-4">Action Meter</div>
 					<div class="progress pbig yellow lighten-5">
-						<div class="determinate orange lighten-3" id="{{id}}timer" style="width:{{unitPercentTimer id}}%"></div>
+						<div class="determinate orange lighten-3" id="{{id}}timer" style="width:{{percent2 id 'timer' 'timeout'}}%"></div>
 					</div>
 				{{/if}}
 				
 			</div>
 		</div>
 		<div class="card-action">
-			Abilities <br /> [Attack] <br /> [no u]
+			{{#if unitInCombat id}}
+				Abilities <br /> [Attack]
+			{{else}}
+				<a href="/game/unit/{{id}}">Info</a>
+			{{/if}}
 		</div>
 
 	</div>

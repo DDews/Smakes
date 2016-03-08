@@ -6,35 +6,30 @@ inCombat = function() {
 _pause = false;
 _inCombat = false;
 
-Template.game.helpers({
-	gameInfoUnits: function() {
-		var data = Gameinfo.findOne();
-		//console.log("gameInfoUnits: " + data)
-		return data ? data.units : null;
-	},
 
-	combatInfoUnits: function() {
-		var data = Combatinfo.findOne();
-		//console.log("combatInfoUnits: " + data)
-		return data ? data.combatants : null;
-	},
-	
+Template.game.helpers({
 	gameInfoExists: function() {
 		var data = Gameinfo.findOne();
 		if (data) { return true; }
 		return false;
 	},
-	combatRound: function() {
-		var data = Combatinfo.findOne();
-		return data && (1+data.combo);
-		
+	gameInfoUnits: function() {
+		var data = Gameinfo.findOne();
+		//console.log("gameInfoUnits: " + data)
+		return data ? data.units : null;
 	},
-	findUnit: function(s) {
-		return Unitinfo.findOne(s);	
+	combatInfoUnits: function() {
+		var data = Combatinfo.findOne();
+		//console.log("combatInfoUnits: " + data)
+		return data ? data.combatants : null;
 	},
 	inCombat:  function() {
 		var data = Gameinfo.findOne();
 		return data && data.combat != null;
+	},
+	combatRound: function() {
+		var data = Combatinfo.findOne();
+		return data && (1+data.combo);
 	},
 	paused: function() {
 		return _pause;
@@ -47,24 +42,20 @@ Template.game.helpers({
 		var intervalId = setInterval(() => {
 			_inCombat = true;
 			if (!_pause) {
-				//console.log("tick-"+intervalId+"-"+ticks);
 				ticks += 1;
 				var data = {}
 				data.time = .2;
 				data.sendTime = (new Date()).getTime();
-				
-				Meteor.call("elapseTime", data);
-				//console.log("elapsing .2s " + ticks);
 
-				//console.log(Router.current().route.getName());
+				Meteor.call("elapseTime", data);
+
 				if (Router.current().route.getName() != 'game') {
 					clearInterval(intervalId);
 					_inCombat = false;
 				}
-
-				//if (ticks > 10) { clearInterval(intervalId); }
 			}
-		}, 200);
+		}, 200); //Interval length
+		
 	},
 	
 	combatMessages: function() {
