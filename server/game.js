@@ -4,32 +4,36 @@
 //Published data for game
 
 Meteor.publish("gamedata", function() {
-	console.log("User id for gamedata: " + this.userId);
+	//console.log("User id for gamedata: " + this.userId);
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username
-	console.log("gamedata for : " + username + "\n" + Gameinfo.find({username: username}).count() );
+	console.log("gamedatas for " + username + " : " + Gameinfo.find({username: username}).count() );
 	
 	return Gameinfo.find( { username: username } );
 	
 });
 
+	
 
 Meteor.publish("unitinfo", function() {
-	console.log("User id for unitinfo: " + this.userId);
+	//console.log("User id for unitinfo: " + this.userId);
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username
-	console.log("unitinfo for : " + username + "\n" + Unitinfo.find({username: username}).count() );
+	console.log("unitinfos for " + username + " : " + Unitinfo.find({username: username}).count() );
 	
 	return Unitinfo.find( { username: username } );
 	
 });
 
+Meteor.publish("allunits", function() {
+	return Unitinfo.find();
+})
 
 Meteor.publish("combatinfo", function() {
-	console.log("User id for combatinfo: " + this.userId);
+	//console.log("User id for combatinfo: " + this.userId);
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username
-	console.log("combatinfo for : " + username + "\n" + Combatinfo.find({username: username}).count() );
+	console.log("combatinfos for " + username + " : " + Combatinfo.find({username: username}).count() );
 	
 	return Combatinfo.find( { username: username } );
 	

@@ -1,10 +1,10 @@
 Template.regiondropdown.rendered = function(){
 	$("[name=region]").material_select();
-	console.log("Rendered");
+	console.log("Dropdown Rendered");
 	
 }
 Template.regiondropdown.onRendered(function() {
 	$("[name=region]").material_select();
-	console.log("onRendered");
+	console.log("Dropdown onRendered");
 	
 })
