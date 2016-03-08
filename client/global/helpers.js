@@ -93,7 +93,7 @@ var tooltips = {
 	tough: "Boosts Resilience",
 	rflex: "Boosts Evasion",
 	intut: "Boosts Aegis",
-	sight: "Boosts Critical Rate",
+	sight: "Boosts Crit Rate",
 }
 var statNames = {
 	str: "STR",
@@ -114,9 +114,9 @@ var statNames = {
 	cspd: "Recast",
 	crit: "Crit Rate",
 	resi: "Resilience",
-	rhp: "Health Recovery",
-	rmp: "Mana Recovery",
-	rsp: "Spirit Recovery",
+	rhp: "Hp Rec",
+	rmp: "Mp Rec",
+	rsp: "Sp Rec",
 	armor: "Armor",
 	shell: "Shell",
 	tough: "Toughness",

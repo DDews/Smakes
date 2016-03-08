@@ -54,7 +54,7 @@
 						<span class="red-text text-lighten-5">Base Stats</span>
 						<div class="row">
 							{{#each stat in baseStats}}
-								<div class="col s4 tooltipped blue-grey darken-3 center z-depth-2" 
+								<div class="col s6 m4 l2 tooltipped blue-grey darken-3 center z-depth-2" 
 							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
 									<span class="left stattext">{{statName stat}}</span>
 									<span class="right stattext">{{getStat stat}}</span>
@@ -76,7 +76,7 @@
 						<span class="red-text text-lighten-5">Combat Stats</span>
 						<div class="row">
 							{{#each stat in displayStats}}
-								<div class="col s3 tooltipped blue-grey darken-3 center z-depth-2" 
+								<div class="col s6 tooltipped blue-grey darken-3 center z-depth-2" 
 							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
 									<span class="left stattext">{{statName stat}}</span>
 									<span class="right stattext">{{getStat stat}}</span>

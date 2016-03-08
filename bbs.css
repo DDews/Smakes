@@ -85,6 +85,9 @@ pre {
 .unknownUnit {
 	background-color: #331155;
 }
+.combatLog {
+	font-size: .6rem;
+}
 
 .blendRed {
 	background-color: #AA3333;
