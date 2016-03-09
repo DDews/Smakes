@@ -127,7 +127,28 @@ Meteor.methods({
 		dbupdate(gamedata);
 		
 	},
-	
+	runAway: function() {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var combatinfo = Combatinfo.findOne({username: username});
+		if (!combatinfo) { throw new Meteor.Error(422, "Error: You must be in combat");}
+		var userinfo = Userinfo.findOne({username: username})
+		if (!userinfo._collection) {
+			userinfo._collection = "Userinfo";
+		}
+		
+		combatinfo.run = true;
+		dbupdate(combatinfo);
+		
+		//Remove non-player units
+		//combatinfo.cleanUpCombat();
+		//Remove combat object
+		//combatinfo.endcombat();
+		
+		
+	},
 	elapseTime: function(data) {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -140,8 +161,7 @@ Meteor.methods({
 			userinfo._collection = "Userinfo";
 		}
 		
-		var time = data.time;
-		var timeMilis = time * 1000;
+		var timeMilis = 200;
 		var sendTime = data.sendTime;
 		
 		var now = (new Date()).getTime();
@@ -157,12 +177,11 @@ Meteor.methods({
 		if (Math.abs(now - lastTime - timeMilis) > 40) {
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
-			//console.log("elapseTime: elapsing " + time + "s")
 			combatinfo.combatants.each((id) => {
 				var unit = dbget("Unitinfo", id);
 				
 				if (unit) {
-					unit.combatUpdate(time, combatinfo);
+					unit.combatUpdate(.2, combatinfo);
 					
 					
 				} else {
@@ -173,7 +192,7 @@ Meteor.methods({
 			})
 			
 		}
-			
+		
 		
 		var winner = combatinfo.winningTeam();
 		//console.log("winner: " + winner)
