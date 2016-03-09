@@ -1,115 +1,113 @@
 <template name="header">
-    <div class="container">
-        <div class="roundbg col s12">
-        <p class="title"><a href="/">Board index</a>
-            {{#if isGame}}
-                >
-                <a href="/game">Ryuusei RPG</a>
-            {{/if}}
-            {{#if isUnit}}
-                >
-                <a href="/game">Ryuusei RPG</a>
-                >
-                <a href="/game/unit/{{isUnit}}">View Unit</a>
-            {{/if}}
-            {{#if isThread}}
-                >
-                <a href="/topic/{{topicId}}">{{getTopicName}}</a>
-                >
-                <a href="/posts/{{id}}">{{threadName}}</a>
-            {{/if}}
-            {{#if isTopic}}
-                >
-                <a href="/topic/{{id}}">{{topicName}}</a>
-            {{/if}}
-            {{#if isInbox}}
-                >
-                <a href="/inbox">Inbox</a> {{#if messageName}}> <a href="/inbox/{{id}}">{{messageName}}</a>{{/if}}
-            {{/if}}
-            {{#if isSubscriptions}}
-                >
-                <a href="/subscriptions">Subscriptions</a>
-            {{/if}}
-            {{#if isCP}}
-                >
-                <a href="/cp">Control Panel</a>
-            {{/if}}
-            {{#if isProfile}}
-                >
-                <a href="/profile/{{isProfile}}">{{isProfile}}'s Profile</a>
-            {{/if}}
-            {{#if isSearch}}
-                >
-                <a href="/search">Search</a>
-            {{/if}}
-            {{#if isUsers}}
-                >
-                <a href="/users">User List</a>
-            {{/if}}
-        </p>
-			{{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{/if}}
-            {{#if currentUser}}
-                <div class="row">
-                    <div class="col s5">
-                        <p class="search"><a href="/search">Search</a> <a href="/users">User List</a></p>
-                    </div>
-                    <div class="col s7">
-                        <p class="messages">{{getUsername}}:
-							<a href="/cp">Control Panel</a>
-							<a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)
-						</p>
-                    </div>
-                </div>
-				<div class="row blue-grey darken-3">
-					<div class="chiptext col s3 m2 l1 chip blue-grey darken-3 white-text nowrap">Wallet</div>
-					{{#if currentUserWalletExists}}
-						{{#each currentUserWallet}}
-							<div class="chiptext col s4 m3 l2 blue-grey chip darken-4">
-								<span class="yellow-text">
-									{{key}}:<span class="white-text">{{value}}</span>
-								</span>
-							</div>
-						{{/each}}
-					{{else}}
-						Please wait... Generating wallet...
-					{{/if}}
-                    <a class='right dropdown-button btn col s4 subscriptions' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
-                    <ul id='dropdown2' class='dropdown-content'>
-                        {{#if followedThreads}}
-                            {{#each followedThread}}
-                                <li><a href="/posts/{{key}}/{{lastPost key}}">{{followedThreadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
-                            {{/each}}
-                        {{else}}
-                            <li><a href="/subscriptions">No threads</a></li>
-                        {{/if}}
-                        <li class="divider"></li>
-                        {{#if followedAuthors}}
-                            {{#each followedAuthor}}
-                                <li><a href="/find?keywords=&regexoption=i&author={{key}}&forum=&within=all&sortby=createdAt&sortorder=-1&">{{key}}<span class="{{ifNewAuthor key}}badge">{{newAuthorPosts key}}</span></a></li>
-                            {{/each}}
-                        {{else}}
-                            <li><a href="/subscriptions">No authors</a></li>
-                        {{/if}}
-                    </ul>
-                    <script> $('.dropdown-button').dropdown({
-                                inDuration: 300,
-                                outDuration: 225,
-                                constrain_width: true, // Does not change width of dropdown to that of the activator
-                                hover: true, // Activate on hover
-                                gutter: 0, // Spacing from edge
-                                belowOrigin: true, // Displays dropdown below the button
-                                alignment: 'left' // Displays dropdown with edge aligned to the left of button
-                            }
-                    );</script>
-				</div>
-            {{else}}
+    <div class="roundbg col s12">
+    <p class="title"><a href="/">Board index</a>
+        {{#if isGame}}
+            >
+            <a href="/game">Ryuusei RPG</a>
+        {{/if}}
+        {{#if isUnit}}
+            >
+            <a href="/game">Ryuusei RPG</a>
+            >
+            <a href="/game/unit/{{isUnit}}">View Unit</a>
+        {{/if}}
+        {{#if isThread}}
+            >
+            <a href="/topic/{{topicId}}">{{getTopicName}}</a>
+            >
+            <a href="/posts/{{id}}">{{threadName}}</a>
+        {{/if}}
+        {{#if isTopic}}
+            >
+            <a href="/topic/{{id}}">{{topicName}}</a>
+        {{/if}}
+        {{#if isInbox}}
+            >
+            <a href="/inbox">Inbox</a> {{#if messageName}}> <a href="/inbox/{{id}}">{{messageName}}</a>{{/if}}
+        {{/if}}
+        {{#if isSubscriptions}}
+            >
+            <a href="/subscriptions">Subscriptions</a>
+        {{/if}}
+        {{#if isCP}}
+            >
+            <a href="/cp">Control Panel</a>
+        {{/if}}
+        {{#if isProfile}}
+            >
+            <a href="/profile/{{isProfile}}">{{isProfile}}'s Profile</a>
+        {{/if}}
+        {{#if isSearch}}
+            >
+            <a href="/search">Search</a>
+        {{/if}}
+        {{#if isUsers}}
+            >
+            <a href="/users">User List</a>
+        {{/if}}
+    </p>
+        {{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{/if}}
+        {{#if currentUser}}
             <div class="row">
-                <div class="col s12">
-                    <p class="messages"><a href="/search">Search</a></p>
+                <div class="col s5">
+                    <p class="search"><a href="/search">Search</a> <a href="/users">User List</a></p>
+                </div>
+                <div class="col s7">
+                    <p class="messages">{{getUsername}}:
+                        <a href="/cp">Control Panel</a>
+                        <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)
+                    </p>
                 </div>
             </div>
-			
-            {{/if}}
+            <div class="row blue-grey darken-3">
+                <div class="chiptext col s3 m2 l1 chip blue-grey darken-3 white-text nowrap">Wallet</div>
+                {{#if currentUserWalletExists}}
+                    {{#each currentUserWallet}}
+                        <div class="chiptext col s4 m3 l2 blue-grey chip darken-4">
+                            <span class="yellow-text">
+                                {{key}}:<span class="white-text">{{value}}</span>
+                            </span>
+                        </div>
+                    {{/each}}
+                {{else}}
+                    Please wait... Generating wallet...
+                {{/if}}
+                <a class='right dropdown-button btn col s4 subscriptions' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
+                <ul id='dropdown2' class='dropdown-content'>
+                    {{#if followedThreads}}
+                        {{#each followedThread}}
+                            <li><a href="/posts/{{key}}/{{lastPost key}}">{{followedThreadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
+                        {{/each}}
+                    {{else}}
+                        <li><a href="/subscriptions">No threads</a></li>
+                    {{/if}}
+                    <li class="divider"></li>
+                    {{#if followedAuthors}}
+                        {{#each followedAuthor}}
+                            <li><a href="/find?keywords=&regexoption=i&author={{key}}&forum=&within=all&sortby=createdAt&sortorder=-1&">{{key}}<span class="{{ifNewAuthor key}}badge">{{newAuthorPosts key}}</span></a></li>
+                        {{/each}}
+                    {{else}}
+                        <li><a href="/subscriptions">No authors</a></li>
+                    {{/if}}
+                </ul>
+                <script> $('.dropdown-button').dropdown({
+                            inDuration: 300,
+                            outDuration: 225,
+                            constrain_width: true, // Does not change width of dropdown to that of the activator
+                            hover: true, // Activate on hover
+                            gutter: 0, // Spacing from edge
+                            belowOrigin: true, // Displays dropdown below the button
+                            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                        }
+                );</script>
+            </div>
+        {{else}}
+        <div class="row">
+            <div class="col s12">
+                <p class="messages"><a href="/search">Search</a></p>
+            </div>
         </div>
+
+        {{/if}}
     </div>
 </template>
