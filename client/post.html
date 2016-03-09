@@ -21,7 +21,7 @@
                 {{#if currentUser}}
                     {{#if notLocked}}
                         <div class="round row">
-                            <p class="right"><a href="#" class="replytop">Reply</a></p>
+                            <p class="right"><a href="#" class="track" id="{{threadId}}">{{follow}} Thread</a> <a href="#" class="replytop">Reply</a></p>
                             {{#if showpmreply 'top'}}
                                 <div class="col s12" id="error"></div>
                                 <form class="pmForm">
@@ -79,7 +79,7 @@
                 {{#if currentUser}}
                     {{#if notLocked}}
                         <div class="round row">
-                            <p class="right"><a href="#" class="replybottom">Reply</a></p>
+                            <p class="right"><a href="#" class="track" id="{{threadId}}">{{follow}} Thread</a> <a href="#" class="replybottom">Reply</a></p>
                             {{#if showpmreply 'bottom'}}
                                 <div class="col s12" id="error"></div>
                                 <form class="pmForm">

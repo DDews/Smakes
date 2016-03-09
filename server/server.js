@@ -207,6 +207,7 @@ Meteor.methods({
     },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
+        console.log("wtF");
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -619,5 +620,26 @@ Meteor.methods({
         Combatinfo.remove({});
         Gameinfo.remove({});
         console.log("Game database cleared");
+    },
+    track: function(threadId) {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var username = Meteor.user().username;
+        var userinfo = Userinfo.findOne({username: username});
+        var tracked = userinfo.track || {};
+        if (tracked.has(threadId)) delete tracked[threadId];
+        else tracked[threadId] = Posts.find({threadId: threadId}).count();
+        console.log(tracked);
+        Userinfo.update(userinfo._id,{$set:{track: tracked}});
+    },
+    countViewed: function(threadId) {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var username = Meteor.user().username;
+        var userinfo = Userinfo.findOne({username: username});
+        var tracked = userinfo.track || {};
+        if (!tracked.has(threadId)) return;
+        tracked[threadId] = Posts.find({threadId: threadId}).count();
+        if (tracked.has(threadId)) {
+            Userinfo.update(userinfo._id,{$set:{track: tracked}});
+        }
     }
 });

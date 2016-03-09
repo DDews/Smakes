@@ -57,7 +57,6 @@ pre {
     color: #f9f9f9;
     text-align: left;
 }
-
 .playerAlive {
 	background-color: #115533;
 }
@@ -453,7 +452,7 @@ dt {
 .homesmallsubject {
     text-align: left;
     line-height: 1rem;
-    color: #c0c0be;
+    color: #b3b3b1;
     font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;

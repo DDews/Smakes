@@ -197,6 +197,15 @@ Template['post'].helpers({
             message = message.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
         }
         return urlify(message);
+    },
+    follow: function() {
+        var threadId = '' + Router.current().params._id;
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return "Follow";
+        var userinfo = Userinfo.findOne({username: username});
+        var tracked = userinfo.track || {};
+        if (tracked.has(threadId)) return "Unfollow"
+        return "Follow";
     }
 
 });
@@ -205,6 +214,7 @@ Template.post.rendered = function() {
     if (!threadId) return;
     if (!Threads.findOne({_id: threadId})) return;
     Meteor.call("increaseView",threadId);
+    Meteor.call("countViewed",threadId);
 };
 Template.post.events({
     'submit form': function(event) {
@@ -311,6 +321,14 @@ Template.post.events({
                 Session.set("editable",null);
             }
         })
+        return false;
+    },
+    'click .track': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var threadId = '' + Router.current().params._id;
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return false;
+        Meteor.call("track",threadId);
         return false;
     }
 });

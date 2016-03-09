@@ -69,6 +69,22 @@
 					{{else}}
 						Please wait... Generating wallet...
 					{{/if}}
+                    <a class='right dropdown-button btn' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
+                    <ul id='dropdown2' class='dropdown-content'>
+                        {{#each followedThread}}
+                            <li><a href="/posts/{{key}}">{{threadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
+                        {{/each}}
+                    </ul>
+                    <script> $('.dropdown-button').dropdown({
+                                inDuration: 300,
+                                outDuration: 225,
+                                constrain_width: true, // Does not change width of dropdown to that of the activator
+                                hover: true, // Activate on hover
+                                gutter: 0, // Spacing from edge
+                                belowOrigin: true, // Displays dropdown below the button
+                                alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                            }
+                    );</script>
 				</div>
             {{else}}
             <div class="row">
