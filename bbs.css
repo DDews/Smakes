@@ -22,9 +22,9 @@ textarea {
 body {
     color: white;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
-    margin-left: 1.2rem;
-    margin-right: 1.2rem;
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .round {
@@ -47,7 +47,7 @@ pre {
     text-align: right;
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .messages, .right {
     color: #f9f9f9;
@@ -80,7 +80,7 @@ pre {
 	font-size: .7rem;
 }
 .unitCardName {
-	font-size: 1.2rem !important;
+	font-size: 1rem !important;
 }
 
 .pbig{
@@ -120,7 +120,7 @@ pre {
 .pageListing {
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 a {
     color: #efeef2;
@@ -207,7 +207,7 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: .4rem;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -223,7 +223,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .forumbg {
     color: white;
@@ -235,7 +235,7 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: .4rem;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -251,7 +251,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .postOne {
     background-color: #292929;
@@ -265,7 +265,7 @@ body {
     border-top-width: 0px;
     display: block;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -327,16 +327,16 @@ dt {
     vertical-align: baseline;
     list-style-type: none;
     list-style-position: outside;
-    line-height: 1.2rem;
+    line-height: 1rem;
     float: left;
     color: white;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .post {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 .locked {
@@ -421,9 +421,9 @@ dt {
     border-left: 0.5rem solid #efeef2;
 }
 .likes {
-    line-height: 1.2rem;
+    line-height: 1rem;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -436,14 +436,14 @@ dt {
     font-family: Arial, Helvetica, sans-serif;
 }
 .subject {
-    line-height: 1.2rem;
+    line-height: 1rem;
     margin-top: .4rem;
     margin-bottom: .2rem;
     margin-right: 0px;
     margin-left: 0px;
 }
 .homesubject {
-    line-height: 1.2rem;
+    line-height: 1rem;
     margin-top: .4rem;
     margin-bottom: .2rem;
     margin-right: 0px;
@@ -451,9 +451,9 @@ dt {
 }
 .homesmallsubject {
     text-align: left;
-    line-height: 1rem;
+    line-height: .8rem;
     color: #b3b3b1;
-    font-size: 1rem;
+    font-size: .8rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -461,6 +461,8 @@ dt {
     margin-left: 8px;
 }
 .subscriptions {
+    height: 32px;
+    line-height: 32px;
     text-align: center;
 }
 .submitEdit {

@@ -1,36 +1,34 @@
 <template name="profile">
-    <div class="container">
-        <div class="forumbg row">
-            {{#if userExists}}
-                <div class="center">
-                <h1>{{username}}</h1>
-                <p class="subject"><a href="/pm/{{username}}">Start Private Conversation</a></p>
-                </div>
-                <div class="section">
-                    <h5>Posts</h5>
-                    <p>{{posts}}</p>
-                </div>
-                <div class="section">
-                    <h5>Total karma:</h5>
-                    <p>{{totalKarma}}</p>
-                </div>
-                {{#if isAdmin}}
-                    <h5>Administator</h5>
-                {{else}}
-                    {{#if isMod}}
-                        <h5>Moderator of</h5>
-                        {{#each modof}}
-                            <div class="chip"><a class="topic" href="/topic/{{getId this}}">{{this}}</a></div>
-                        {{/each}}
-                    {{/if}}
-                {{/if}}
+    <div class="forumbg row">
+        {{#if userExists}}
+            <div class="center">
+            <h1>{{username}}</h1>
+            <p class="subject"><a href="/pm/{{username}}">Start Private Conversation</a></p>
+            </div>
+            <div class="section">
+                <h5>Posts</h5>
+                <p>{{posts}}</p>
+            </div>
+            <div class="section">
+                <h5>Total karma:</h5>
+                <p>{{totalKarma}}</p>
+            </div>
+            {{#if isAdmin}}
+                <h5>Administator</h5>
             {{else}}
-                <div class="round row s12">
-                    <p class="title center">
-                        User not found.
-                    </p>
-                </div>
+                {{#if isMod}}
+                    <h5>Moderator of</h5>
+                    {{#each modof}}
+                        <div class="chip"><a class="topic" href="/topic/{{getId this}}">{{this}}</a></div>
+                    {{/each}}
+                {{/if}}
             {{/if}}
-        </div>
+        {{else}}
+            <div class="round row s12">
+                <p class="title center">
+                    User not found.
+                </p>
+            </div>
+        {{/if}}
     </div>
 </template>

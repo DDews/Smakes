@@ -1,51 +1,49 @@
 <template name="inbox">
-    <div class="container">
-        <div class="forumbg row">
-            {{#if currentUser}}
-                <div class="round row">
-                    <p class="right"><a href="#" class="sendpm">New Message</a></p>
-                    <div class="col s12" id="pmerror"></div>
-                {{#if showpm}}
-                    <form class="pmForm">
-                        <input type="text" class="form-control typeahead" data-source="usernames" autocomplete="off" spellcheck="off" name="to" placeholder="username to send to" />
-                        <input type="text" name="subject" placeholder="subject" />
-                                <textarea rows="4" cols="50" name="message"></textarea>
-                        <input type="submit" name="submit" class="buttoncolor" value="Send" />
-                        <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); }</script>
-                    </form>
-                {{/if}}
-                </div>
-            <div class="row">
-                    <div class="col s2 list-inner">User</div>
-                    <div class="col s3 list-inner">Thread</div>
-                    <div class="col s2 views">Replies</div>
-                    <div class="col s4 list-inner">Last Post</div>
-                    <div class="col s1"></div>
+    <div class="forumbg row">
+        {{#if currentUser}}
+            <div class="round row">
+                <p class="right"><a href="#" class="sendpm">New Message</a></p>
+                <div class="col s12" id="pmerror"></div>
+            {{#if showpm}}
+                <form class="pmForm">
+                    <input type="text" class="form-control typeahead" data-source="usernames" autocomplete="off" spellcheck="off" name="to" placeholder="username to send to" />
+                    <input type="text" name="subject" placeholder="subject" />
+                            <textarea rows="4" cols="50" name="message"></textarea>
+                    <input type="submit" name="submit" class="buttoncolor" value="Send" />
+                    <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); }</script>
+                </form>
+            {{/if}}
             </div>
-                    {{#each message}}
-                    <div class="row">
-                        <div class="col s2">{{isTo from to}}</div>
-                        <div class="col s3">{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox/{{_id}}">{{subject}}</a></div>
-                        <div class="col s2 center">{{numPosts messages}}</div>
-                        <div class="col s4">
-                            <div class="row"><p class="small"><a href="/inbox/{{_id}}/{{lastPost messages}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom messages}}</b></p>
-                            <p class="small">{{lastDate messages}}</p></div>
-                        </div>
-                        <div class="col s1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
+        <div class="row">
+                <div class="col s2 list-inner">User</div>
+                <div class="col s3 list-inner">Thread</div>
+                <div class="col s2 views">Replies</div>
+                <div class="col s4 list-inner">Last Post</div>
+                <div class="col s1"></div>
+        </div>
+                {{#each message}}
+                <div class="row">
+                    <div class="col s2">{{isTo from to}}</div>
+                    <div class="col s3">{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox/{{_id}}">{{subject}}</a></div>
+                    <div class="col s2 center">{{numPosts messages}}</div>
+                    <div class="col s4">
+                        <div class="row"><p class="small"><a href="/inbox/{{_id}}/{{lastPost messages}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom messages}}</b></p>
+                        <p class="small">{{lastDate messages}}</p></div>
                     </div>
-                    {{/each}}
-                {{#if zeroPosts messages}}
-                    <div class="row s12">
-                        <p class="center">No threads found.</p>
-                    </div>
-                {{/if}}
-            {{else}}
-                <div class="round row s12">
-                    <p class="title center">
-                        You must be logged in.
-                    </p>
+                    <div class="col s1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
+                </div>
+                {{/each}}
+            {{#if zeroPosts messages}}
+                <div class="row s12">
+                    <p class="center">No threads found.</p>
                 </div>
             {{/if}}
-        </div>
+        {{else}}
+            <div class="round row s12">
+                <p class="title center">
+                    You must be logged in.
+                </p>
+            </div>
+        {{/if}}
     </div>
 </template>

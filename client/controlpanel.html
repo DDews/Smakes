@@ -1,57 +1,55 @@
 <template name="controlpanel">
-    <div class="container">
-        <div class="forumbg row">
-            {{#if currentUser}}
-                {{#if isAdmin}}
-                    <div class="row center">
-                        <a href="#" class="dropGameDB">Reset Game Database</a>
-                    </div>
-                {{/if}}
-                <div class="row">
-                    <div class="col s6 center"><a href="/cp">Control Panel</a></div>
-                    <div class="col s6 center"><a href="/subscriptions">Subscriptions</a></div>
-                </div>
-                <div class="row">
-                    <div class="col s5">
-                        Signature:
-                    </div>
-                    <div class="col s7">
-                        <textarea rows="4" cols="50" name="signature">{{getSignature}}</textarea>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s5">
-                        New Password:
-                    </div>
-                    <div class="col s7">
-                        <input type="password" name="newpassword" placeholder="new password" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s5">
-                        Confirm Password:
-                    </div>
-                    <div class="col s7">
-                        <input type="password" name="newpassword2" placeholder="confirm password" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s5">
-                        Current Password:
-                    </div>
-                    <div class="col s7">
-                        <input type="password" name="password" placeholder="current password" />
-                    </div>
-                </div>
-                <p class="right"><div id="error"></div><input type="submit" name="submit" class="buttoncolor" value="Update" /></p>
-
-            {{else}}
-                <div class="round row s12">
-                    <p class="title center">
-                        You must be logged in.
-                    </p>
+    <div class="forumbg row">
+        {{#if currentUser}}
+            {{#if isAdmin}}
+                <div class="row center">
+                    <a href="#" class="dropGameDB">Reset Game Database</a>
                 </div>
             {{/if}}
-        </div>
+            <div class="row">
+                <div class="col s6 center"><a href="/cp">Control Panel</a></div>
+                <div class="col s6 center"><a href="/subscriptions">Subscriptions</a></div>
+            </div>
+            <div class="row">
+                <div class="col s5">
+                    Signature:
+                </div>
+                <div class="col s7">
+                    <textarea rows="4" cols="50" name="signature">{{getSignature}}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s5">
+                    New Password:
+                </div>
+                <div class="col s7">
+                    <input type="password" name="newpassword" placeholder="new password" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s5">
+                    Confirm Password:
+                </div>
+                <div class="col s7">
+                    <input type="password" name="newpassword2" placeholder="confirm password" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s5">
+                    Current Password:
+                </div>
+                <div class="col s7">
+                    <input type="password" name="password" placeholder="current password" />
+                </div>
+            </div>
+            <p class="right"><div id="error"></div><input type="submit" name="submit" class="buttoncolor" value="Update" /></p>
+
+        {{else}}
+            <div class="round row s12">
+                <p class="title center">
+                    You must be logged in.
+                </p>
+            </div>
+        {{/if}}
     </div>
 </template>
