@@ -147,7 +147,6 @@ Template.game.events({
 		Meteor.call('startCombat', data)
 		return false;
 	},
-	
 	'click #pause': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
 		
@@ -166,5 +165,13 @@ Template.game.events({
 		})
 		
 		
+	},
+	'click #run': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		
+		Meteor.call('runAway');
+		
+		
 	}
+	
 });
