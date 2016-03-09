@@ -145,12 +145,16 @@ var getUnit = function(id) { return Unitinfo.findOne(id); }
 
 var unitInCombat = function(id) {
 	var unit = getUnit(id);
-	return unit.combat;
+	return unit && unit.combat;
 }
 
 var combat = function(id) { return getUnit(id).combat; }
 
-var unitName = function(id) { return getUnit(id).name; }
+var unitName = function(id) { 
+	var unit = getUnit(id);
+	if (!unit) { return ""; }
+	return getUnit(id).name; 
+}
 var unitStat = function(id, stat) { return getUnit(id)[stat]; }
 var ownerName = function(id) { return getUnit(id).username; }
 var isPlayer = function(id) { 
@@ -161,31 +165,37 @@ var isPlayer = function(id) {
 
 var unitPercent2 = function(id, vital, cap) {
 	var unit = getUnit(id);
+	if (!unit) { return 0; }
 	return Math.floor(unit[vital] / unit[cap] * 100);
 }
 var unitPercent = function(id, vital) {
-	var cap = "m"+vital;
 	var unit = getUnit(id);
+	if (!unit) { return 0; }
+	var cap = "m"+vital;
 	return Math.floor(unit[vital] / unit[cap] * 100);
 }
 var unitVital2 = function(id, vital, cap) {
 	var unit = getUnit(id);
+	if (!unit) { return 0; }
 	return vital + ": " + Math.floor(unit[vital]) + " / " + unit[cap];
 }
 var unitVital = function(id, vital) {
-	var cap = "m"+vital;
 	var unit = getUnit(id);
+	if (!unit) { return 0; }
+	var cap = "m"+vital;
 	return vital + ": " + Math.floor(unit[vital]) + " / " + unit[cap];
 }
 var unitHeader = function(id) { 
 	var unit = getUnit(id);
 	if (!unit) { return "NO UNIT TO MAKE HEADER"; }
+	
 	var str = "lv. " + unit.level + " " + unit.race + " " + unit.job + " (" + unit.team + ")";
 	return str;
 }
 var unitColor = function(id) { 
 	var unit = getUnit(id);
 	if (!unit) { return "unknownUnit"; }
+	
 	var team = unit.team;
 	if (team == 'player') { 
 		return unit.dead() ? "playerDead" : "playerAlive" 
@@ -195,7 +205,8 @@ var unitColor = function(id) {
 
 var unitPose = function(id) {
 	var unit = getUnit(id);
-	//console.log(unit);
+	if (!unit) { return ""; }
+	
 	if (unit.dead()) { return unit.poses["ded"]; }
 	var cpose = unit.cpose;
 	if (cpose == 'normal' && unit.hp / unit.mhp < .25) {
@@ -208,6 +219,7 @@ var unitPose = function(id) {
 
 var unitPoseStyle = function(id) {
 	var unit = getUnit(id);
+	if (!unit) { return ""; }
 	
 	if (unit.dead()) { return "blendDarkRed"; }
 	if (unit.hp / unit.mhp < .25) { return "blendRed"}
