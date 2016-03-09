@@ -6,6 +6,8 @@ inCombat = function() {
 _pause = false;
 _inCombat = false;
 
+_turnsDone = {};
+
 
 Template.game.helpers({
 	gameInfoExists: function() {
@@ -36,7 +38,11 @@ Template.game.helpers({
 	},
 	
 	startCombatLoop: function() {
-		if (_inCombat) { return; }
+		if (_inCombat) { 
+			console.log("combatAlreadyRunning")
+			return;
+		}
+		
 		var ticks = 0;
 		
 		var intervalId = setInterval(() => {
@@ -46,13 +52,39 @@ Template.game.helpers({
 				var data = {}
 				data.time = .2;
 				data.sendTime = (new Date()).getTime();
-
-				Meteor.call("elapseTime", data);
+				
+				var combatinfo = Combatinfo.findOne();
+				if (combatinfo) {
+					combatinfo.hits.each((hit) => {
+						if (!_turnsDone[hit.turn]) {
+							_turnsDone[hit.turn] = ticks;
+							//console.log("handled messages for turn " + ticks)
+							
+							hit.each((_id, data) => {
+								if (_id != "turn") {
+									//console.log(_id);
+									//console.log(data);
+									var elem = $("#"+_id+"img");
+									//console.log(elem)
+									
+									showDamage(elem, data.text, data.color, data.bgimg)
+								}
+							})
+							
+						}
+					})
+					Meteor.call("elapseTime", data);
+				} else {
+					clearInterval(intervalId);
+					_inCombat = false;
+				}
+				
 
 				if (Router.current().route.getName() != 'game') {
 					clearInterval(intervalId);
 					_inCombat = false;
 				}
+				
 			}
 		}, 200); //Interval length
 		
@@ -70,17 +102,21 @@ Template.game.helpers({
 		else { msgs = data.combatlog || ["no messages"]; }
 		var txt = $("#combatlog");
 		
-		var msg = "";
-		var len = msgs.length;
-		var i = 0;
-		msgs.each((m)=>{
-			msg += m + ((i < len-1) ? "\n" : "");
-			i += 1;
-			
-		});
-		
-		txt.text(msg)
-		txt.scrollTop(txt[0].scrollHeight)
+		if (txt) {
+			var msg = "";
+			var len = msgs.length;
+			var i = 0;
+			msgs.each((m)=>{
+				msg += m + ((i < len-1) ? "\n" : "");
+				i += 1;
+
+			});
+
+			txt.text(msg)
+			if (txt[0]) {
+				txt.scrollTop(txt[0].scrollHeight)
+			}
+		}
 	},
 	generateName: japaneseName,
 });
@@ -111,7 +147,6 @@ Template.game.events({
 		Meteor.call('startCombat', data)
 		return false;
 	},
-	
 	'click #pause': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
 		
@@ -130,12 +165,13 @@ Template.game.events({
 		})
 		
 		
+	},
+	'click #run': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		
+		Meteor.call('runAway');
+		
+		
 	}
+	
 });
-
-Template.game.onRendered( function() {
-	
-	
-	//console.log("fuck " + inCombat() + " " +  Gameinfo.find().count());
-	
-})

@@ -1,8 +1,8 @@
-var getID = function() { return location.href.split('/').pop(); }
+var getID = function() { return Router.current().params._id;  }
 
 var getUnit = function() {
 	var id = getID();
-	return Unitinfo.findOne(id);
+	return Unitinfo.findOne({_id: id});
 }
 
 var displayStats = [

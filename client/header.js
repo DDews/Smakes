@@ -92,6 +92,63 @@ Template['header'].helpers({
         },
         getUsername: function() {
             return Meteor.user() && Meteor.user().username;
+        },
+        isGame: function() {
+            return Session.get("nav") == "game";
+        },
+        isUnit: function() {
+            var session = Session.get("nav");
+            if (!session instanceof Array) return null;
+            if (session[0] == "unit") return session[1];
+            return null;
+        },
+        isNotGame: function() {
+            var session = Session.get("nav");
+            if (session == "game") return false;
+            if (session instanceof Array && session[0] == "unit") return false;
+            return true;
+        },
+        numNewFollowed: function() {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return "0 new";
+            var userinfo = Userinfo.findOne({username: username});
+            if (!userinfo) return "0 new";
+            var tracked = userinfo.track || {};
+            var num = 0;
+            var posts;
+            tracked.each(function(thread,count) {
+                    posts = Posts.find({threadId: thread}).count();
+                    if (tracked.has(thread) && posts > tracked[thread]) num += 1;
+                }
+            );
+            return '' + num + " new";
+        },
+        followedThread: function() {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return "0 new";
+            var userinfo = Userinfo.findOne({username: username});
+            if (!userinfo) return null;
+            var tracked = userinfo.track || {};
+            return tracked.toPairRay();
+        },
+        ifNew: function(threadId) {
+            var posts = Posts.find({threadId: threadId}).count();
+            var userinfo = Userinfo.findOne({username: Meteor.user().username});
+            if (!userinfo) return null;
+            var tracked = userinfo.track;
+            if (posts > tracked[threadId]) return "new ";
+            return null;
+        },
+        newPosts: function(threadId) {
+            var posts = Posts.find({threadId: threadId}).count();
+            var userinfo = Userinfo.findOne({username: Meteor.user().username});
+            var tracked = userinfo.track;
+            return posts - tracked[threadId];
+        },
+        threadName: function(threadId) {
+            var thread = Threads.findOne({_id: threadId});
+            if (!thread) return null;
+            return thread.subject + " ";
         }
     }
 );

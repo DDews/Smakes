@@ -2,6 +2,16 @@
     <div class="container">
         <div class="roundbg col s12">
         <p class="title"><a href="/">Board index</a>
+            {{#if isGame}}
+                >
+                <a href="/game">Ryuusei RPG</a>
+            {{/if}}
+            {{#if isUnit}}
+                >
+                <a href="/game">Ryuusei RPG</a>
+                >
+                <a href="/game/unit/{{isUnit}}">View Unit</a>
+            {{/if}}
             {{#if isThread}}
                 >
                 <a href="/topic/{{topicId}}">{{getTopicName}}</a>
@@ -33,25 +43,24 @@
                 <a href="/users">User List</a>
             {{/if}}
         </p>
-			
+			{{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{/if}}
             {{#if currentUser}}
                 <div class="row">
                     <div class="col s5">
-                        <p class="messsages"><a href="/search">Search</a> <a href="/users">User List</a></p>
+                        <p class="search"><a href="/search">Search</a> <a href="/users">User List</a></p>
                     </div>
                     <div class="col s7">
-                        <p class="messages">{{getUsername}}: 
-							<a href="/game">[AFK RPG]</a>
+                        <p class="messages">{{getUsername}}:
 							<a href="/cp">Control Panel</a>
 							<a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)
 						</p>
                     </div>
                 </div>
 				<div class="row blue-grey darken-3">
-					<div class="col s3 m2 l1 chip blue-grey darken-3 white-text nowrap">Wallet</div>
+					<div class="chiptext col s3 m2 l1 chip blue-grey darken-3 white-text nowrap">Wallet</div>
 					{{#if currentUserWalletExists}}
 						{{#each currentUserWallet}}
-							<div class="col s4 m3 l2 blue-grey chip darken-4">
+							<div class="chiptext col s4 m3 l2 blue-grey chip darken-4">
 								<span class="yellow-text">
 									{{key}}:<span class="white-text">{{value}}</span>
 								</span>
@@ -60,6 +69,22 @@
 					{{else}}
 						Please wait... Generating wallet...
 					{{/if}}
+                    <a class='right dropdown-button btn' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
+                    <ul id='dropdown2' class='dropdown-content'>
+                        {{#each followedThread}}
+                            <li><a href="/posts/{{key}}">{{threadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
+                        {{/each}}
+                    </ul>
+                    <script> $('.dropdown-button').dropdown({
+                                inDuration: 300,
+                                outDuration: 225,
+                                constrain_width: true, // Does not change width of dropdown to that of the activator
+                                hover: true, // Activate on hover
+                                gutter: 0, // Spacing from edge
+                                belowOrigin: true, // Displays dropdown below the button
+                                alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                            }
+                    );</script>
 				</div>
             {{else}}
             <div class="row">
