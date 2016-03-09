@@ -26,6 +26,10 @@
                 >
                 <a href="/inbox">Inbox</a> {{#if messageName}}> <a href="/inbox/{{id}}">{{messageName}}</a>{{/if}}
             {{/if}}
+            {{#if isSubscriptions}}
+                >
+                <a href="/subscriptions">Subscriptions</a>
+            {{/if}}
             {{#if isCP}}
                 >
                 <a href="/cp">Control Panel</a>
@@ -69,11 +73,23 @@
 					{{else}}
 						Please wait... Generating wallet...
 					{{/if}}
-                    <a class='right dropdown-button btn' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
+                    <a class='right dropdown-button btn col s4 subscriptions' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
                     <ul id='dropdown2' class='dropdown-content'>
-                        {{#each followedThread}}
-                            <li><a href="/posts/{{key}}">{{threadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
-                        {{/each}}
+                        {{#if followedThreads}}
+                            {{#each followedThread}}
+                                <li><a href="/posts/{{key}}/{{lastPost key}}">{{followedThreadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
+                            {{/each}}
+                        {{else}}
+                            <li><a href="/subscriptions">No threads</a></li>
+                        {{/if}}
+                        <li class="divider"></li>
+                        {{#if followedAuthors}}
+                            {{#each followedAuthor}}
+                                <li><a href="/find?keywords=&regexoption=i&author={{key}}&forum=&within=all&sortby=createdAt&sortorder=-1&">{{key}}<span class="{{ifNewAuthor key}}badge">{{newAuthorPosts key}}</span></a></li>
+                            {{/each}}
+                        {{else}}
+                            <li><a href="/subscriptions">No authors</a></li>
+                        {{/if}}
                     </ul>
                     <script> $('.dropdown-button').dropdown({
                                 inDuration: 300,

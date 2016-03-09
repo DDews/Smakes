@@ -216,6 +216,16 @@ Template['find'].helpers({
     keywords: function() {
         return '/' + Router.current().params.query.keywords + '/';
     },
+    countFollowed: function(author, postId) {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return;
+        var authors = userinfo.authors || {};
+        if (authors.hasOwnProperty(author)) {
+            if (_.contains(authors[author],postId)) Meteor.call("viewedFollow",author,postId);
+        }
+    },
     record: function () {
         var keywords = '' + Router.current().params.query.keywords;
         var regexoption = '' + Router.current().params.query.regexoption;
