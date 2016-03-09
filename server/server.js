@@ -63,6 +63,41 @@ Meteor.startup(function() {
         );
     }
 });
+updateSubscriptions = function(author, postId) {
+    var users = Userinfo.find().fetch();
+    var x = 0;
+    var authors;
+    var value;
+    for (x = 0; x < users.length; x++) {
+        authors = users[x].authors || {};
+        if (authors.has(author)) {
+            value = authors[author];
+            value.push(postId);
+            authors[author] = value;
+            Userinfo.update(users[x]._id,{$set:{authors: authors}});
+        }
+    }
+}
+cleanSubscriptions = function() {
+    var users = Userinfo.find().fetch();
+    var x = 0;
+    var authors;
+    for (x = 0; x < users.length; x++) {
+        console.log(users[x].username);
+        authors = users[x].authors || {};
+        authors.each(function(author,posts) {
+            var y = 0;
+            var output = posts;
+            for (y = 0; y < posts.length; y++) {
+                if (!Posts.findOne({_id: posts[y]})) {
+                    output = _.without(output,posts[y]);
+                }
+            }
+            authors[author] = output || [];
+        });
+        Userinfo.update(users[x]._id,{$set:{authors: authors}});
+    }
+}
 Meteor.methods({
     formSubmissionMethod: function(username, password, captchaData) {
 
@@ -143,7 +178,10 @@ Meteor.methods({
                     post: message,
                     likes: [],
                     dislikes: [],
-                });
+                },
+                    function(err, docsInserted) {
+                        updateSubscriptions(Meteor.user().username,docsInserted);
+                    });
             });
         var posts = Userinfo.findOne({username: Meteor.user().username});
         posts = posts && posts.posts;
@@ -193,7 +231,10 @@ Meteor.methods({
                     post: message,
                     likes: [],
                     dislikes: [],
-                });
+                },
+                    function(err, docsInserted) {
+                        updateSubscriptions(Meteor.user().username,docsInserted);
+                    });
             });
         var posts = Userinfo.findOne({username: Meteor.user().username});
         posts = posts && posts.posts;
@@ -232,7 +273,10 @@ Meteor.methods({
             post: message,
             likes: [],
             dislikes: [],
-        });
+        },
+            function(err, docsInserted) {
+                updateSubscriptions(Meteor.user().username,docsInserted);
+            });
         var thread = Threads.findOne({_id: threadId});
         if (thread.modified.getTime() != new Date(8640000000000000).getTime()) Threads.update(threadId,{ $set: { modified: new Date()}});
         var posts = Userinfo.findOne({username: Meteor.user().username});
@@ -468,6 +512,7 @@ Meteor.methods({
         if (admin) {
             Posts.remove({threadId: id});
             Threads.remove(id);
+            cleanSubscriptions();
         }
         /*var thread = Threads.findOne({_id: id});
         var topicId = thread && thread.topicId;
@@ -487,6 +532,7 @@ Meteor.methods({
             Topics.remove(id);
             Posts.remove({topicId: id});
             Threads.remove({topicId: id});
+            cleanSubscriptions();
         }
     },
     setSignature: function(signature, password) {
@@ -641,5 +687,36 @@ Meteor.methods({
         if (tracked.has(threadId)) {
             Userinfo.update(userinfo._id,{$set:{track: tracked}});
         }
-    }
+    },
+    followAuthor: function(author) {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var username = Meteor.user().username;
+        var userinfo = Userinfo.findOne({username: username});
+        var authorname = Userinfo.findOne({username: RegExp(author,"i")});
+        if (!authorname) throw new Meteor.Error(422,"Author doesn't exist");
+        authorname = authorname.username;
+        if (authorname == username) throw new Meteor.Error(422,"You can't follow yourself");
+        var authors = userinfo.authors || {};
+        authors[authorname] = [];
+        Userinfo.update(userinfo._id,{$set:{authors: authors}});
+    },
+    viewedFollow: function(author, postId) {
+        if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
+        var username = Meteor.user().username;
+        var userinfo = Userinfo.findOne({username: username});
+        var authors = userinfo.authors;
+        if (!authors.hasOwnProperty(author)) throw new Meteor.Error(422,"User is not following author '" + author + "'");
+        var posts = authors[author];
+        posts = _.without(posts,postId);
+        authors[author] = posts;
+        Userinfo.update(userinfo._id,{$set:{authors: authors}});
+    },
+    removeAuthor: function(author) {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var username = Meteor.user().username;
+        var userinfo = Userinfo.findOne({username: username});
+        var authors = userinfo.authors || {};
+        delete authors[author];
+        Userinfo.update(userinfo._id,{$set:{authors: authors}});
+    },
 });

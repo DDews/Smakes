@@ -19,6 +19,7 @@
         <div class="forumbg row">
             Found {{numposts}} matches for {{keywords}}
             {{#each record}}
+                {{countFollowed from _id}}
                 <div class="row {{toggle}}">
                     <div class="col s9">
                         <p>
