@@ -38,7 +38,11 @@ Template.game.helpers({
 	},
 	
 	startCombatLoop: function() {
-		if (_inCombat) { return; }
+		if (_inCombat) { 
+			console.log("combatAlreadyRunning")
+			return;
+		}
+		
 		var ticks = 0;
 		
 		var intervalId = setInterval(() => {
@@ -98,17 +102,21 @@ Template.game.helpers({
 		else { msgs = data.combatlog || ["no messages"]; }
 		var txt = $("#combatlog");
 		
-		var msg = "";
-		var len = msgs.length;
-		var i = 0;
-		msgs.each((m)=>{
-			msg += m + ((i < len-1) ? "\n" : "");
-			i += 1;
-			
-		});
-		
-		txt.text(msg)
-		txt.scrollTop(txt[0].scrollHeight)
+		if (txt) {
+			var msg = "";
+			var len = msgs.length;
+			var i = 0;
+			msgs.each((m)=>{
+				msg += m + ((i < len-1) ? "\n" : "");
+				i += 1;
+
+			});
+
+			txt.text(msg)
+			if (txt[0]) {
+				txt.scrollTop(txt[0].scrollHeight)
+			}
+		}
 	},
 	generateName: japaneseName,
 });
