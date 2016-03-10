@@ -1,20 +1,24 @@
 /* CSS declarations go here */
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: #bababa;
+    color: #727270;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: #bababa;
+    color: #727270;
     opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #bababa;
+    color: #727270;
     opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #bababa;
+    color: #727270;
 }
 :placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-    color: #bababa;
+    color: #727270;
+}
+
+.tt-hint {
+    color: #717171;
 }
 textarea {
     border-color: #bababa;
