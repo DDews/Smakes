@@ -8,7 +8,7 @@ var getUnit = function() {
 var displayStats = [
 	"patk","pacc%","pdef%","peva%",
 	"matk","macc%","mdef%","meva%",
-	"aspd","cspd","crit%","resi%",
+	"aspd#","cspd#","crit%","resi%",
 ];
 
 var auxStats = [
@@ -22,7 +22,10 @@ var auxStats = [
 Template.unit.helpers({
 	displayStats: function() { return displayStats; },
 	auxStats: function() { return auxStats; },
-	
+	unitEquip: function() {
+		console.log(getUnit());
+		return getUnit().equipment.toPairRay();	
+	},
 	getStat: function(stat) { 
 		var num = 0;
 		console.log(stat + " : "  + Router.current().params._id);

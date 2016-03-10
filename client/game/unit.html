@@ -83,6 +83,24 @@
 								</div>
 							{{/each}}
 						</div>
+						
+						
+						<span class="red-text text-lighten-5">Equipment</span>
+						<div class="row">
+							{{#each equip in unitEquip}}
+								<div class="left white-text text-lighten-4">
+
+									<div class="chip blue-grey darken-3 white-text">
+										<div class="icon iconbg valign-wrapper">
+											<div class="center valign {{equip.value.icon}}"></div>
+										</div>
+										{{unCamelCase equip.key}}
+									</div>
+
+								</div>
+							{{/each}}
+						</div>
+						
 					 </div>
 				</div>
 				
