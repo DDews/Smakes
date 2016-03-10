@@ -27,6 +27,36 @@ body {
     margin-right: 1rem;
 }
 
+.items {
+	position: relative;
+}
+
+.items li {
+	margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.items li, .items a {
+	display: block;
+}
+.icon {
+	float: left;
+	display: table-cell;
+}
+
+.pot_red {
+	width: 32px;
+	height: 32px;
+	background: url('/icons.png') 0 0;
+}
+
+.pot_orange {
+	width: 32px;
+	height: 32px;
+	background: url('/icons.png') -32px 0;
+}
+
 .round {
     border-radius: 0.5rem;
     background: #000000;
