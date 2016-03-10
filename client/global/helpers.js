@@ -66,6 +66,18 @@ var vitalColors = {
 	sp:"red",
 }
 
+var displayStats = [
+	"patk","pacc%","pdef%","peva%",
+	"matk","macc%","mdef%","meva%",
+	"aspd","cspd","crit%","resi%",
+];
+
+var auxStats = [
+	"rhp#", "rmp#", "rsp#",
+	"armor", "shell", "tough",
+	"rflex", "intut", "sight",
+]
+
 var tooltips = {
 	str: "Strength.\nPure brute force.",
 	vit: "Vitality.\nBecome the wall.",
@@ -224,6 +236,24 @@ var unitPoseStyle = function(id) {
 	if (unit.dead()) { return "blendDarkRed"; }
 	if (unit.hp / unit.mhp < .25) { return "blendRed"}
 	return "";
+}
+
+var getStat = function(stat, id, collection) {
+	var obj = dbget(collection, id);
+
+	var num = 0;
+	if (thing.suffix("%")) {
+		stat = unSuffix(stat)
+		num = (obj[stat] * 100)
+		return num.toFixed(3) + "%";
+	} else if (stat.suffix("#")) {
+		stat = unSuffix(stat);
+		num = obj[stat]
+		return num.toFixed(3);
+	} else {
+		num = obj[stat];
+	}
+	return num;
 }
 
 var statName = function(stat) { return statNames[unSuffix(stat)]; }
