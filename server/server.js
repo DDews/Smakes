@@ -48,7 +48,7 @@ Meteor.startup(function() {
     });
     if (!Meteor.users.findOne({username: 'admin'})) {
         Accounts.createUser({
-            password: 'moondied',
+            password: 'admin',
             username: 'admin',
             admin: true,
             createdAt: new Date(),
@@ -63,7 +63,68 @@ Meteor.startup(function() {
         );
     }
 });
-updateSubscriptions = function(author, postId) {
+var email = '<html lang="en"><head><style>.forumbg {color: white; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;'
+    + 'border-bottom-width: 0px;border-left-width: 0px;border-right-width: 0px;border-top-left-radius: 7px;border-top-right-radius: 7px;'
+    + 'border-top-width: 0px; font-size: 1rem; margin-bottom: .4rem; margin-left: 0.5rem; margin-right: 0.5rem; margin-top: 0px; padding-bottom: 0.5rem;'
+    + 'padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.5rem; text-align: left;'
+    + 'vertical-align: baseline; word-wrap: break-word; background-color: #161616;'
+    + 'word-wrap: break-word; list-style-type: none; font-family: Verdana, Helvetica, Arial, sans-serif;'
+    + 'font-size: 1rem; }'
+    + '.round { border-radius: 0.5rem; background: #000000; padding: 0.5rem; }'
+    + '.row { width: 100% }'
+    + 'a { color: #efeef2; text-decoration: underline; }'
+    + 'a:hover { color: #48c0c5; text-decoration: none; }'
+    + '.postOne { background-color: #292929; }'
+    + '.s9 { width: 75% }'
+    + '.s3 { width: 25% }'
+    + '.right { text-align: right; }'
+    + '.subjectText { color: white; font-size: 2.5rem; font-family: Arial, Helvetica, sans-serif;'
+    + 'margin-bottom: .2rem; margin-top: .2rem; }'
+    + '.small { text-align: left; line-height: 1rem; color: white; font-size: 1rem;'
+    + 'font-family: Arial, Helvetica, sans-serif; margin-top: 0px;'
+    + 'margin-bottom: 0px; margin-right: 0px; margin-left: 0px; }'
+    + '</style></head><body><div class="forumbg"><div class="row postOne"><div class="s9">'
+    + '<div class="subjectText">{{subject}} </div><span class="small">From: <a class="username" href="http://desynched.loganshouse.com:3000/profile/{{author}}">{{author}}</a></span>'
+    + '<p><pre>{{message}}</pre></p></div></div></div>';
+replaceHTML = function(message) {
+    message = message.replace(RegExp("<","g"),"&lt;").replace(RegExp(">","g"),"&gt;");
+    message = bbcodify(message);
+    var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
+    while (message.match(matching)) {
+        message = message.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
+    }
+    return urlify(message);
+}
+checkThreadSubscriptions = function(author, threadId, postId, subject, message) {
+    var users = Userinfo.find().fetch();
+    var x = 0;
+    var tracked;
+    var authors;
+    var threadSubject = Threads.findOne({_id: threadId}).subject;
+    for (x = 0; x < users.length; x++) {
+        tracked = users[x].track || {};
+        if (tracked.has(threadId)) {
+            authors = users[x].authors || {};
+            if (!authors.has(author)) {
+                if (users[x].sendemail) {
+                    var emails = Meteor.users.findOne({username: users[x].username});
+                    if (emails) {
+                        var posts = Math.ceil(Posts.find({threadId: threadId}).count() / 10);
+                        var email = emails.emails[0].address;
+                        message = replaceHTML(message);
+                        Email.send({
+                            to: email,
+                            from: "noreply@desynched.loganshouse.com",
+                            subject: author + "replied to thread " + threadSubject,
+                            html: '<h4>' + subject + '</h4><br>from ' + author + ':<br>' + message + '<br><br>------------------------------------------------<br>Click <a href="http://desynched.loganshouse.com:3000/posts/' + threadId + '/' + posts + '">here</a> to see the thread.</body></html>'
+                        });
+                    }
+                }
+            }
+        }
+    }
+}
+updateSubscriptions = function(author, postId, subject, message) {
     var users = Userinfo.find().fetch();
     var x = 0;
     var authors;
@@ -75,6 +136,24 @@ updateSubscriptions = function(author, postId) {
             value.push(postId);
             authors[author] = value;
             Userinfo.update(users[x]._id,{$set:{authors: authors}});
+            var userinfo = Userinfo.findOne({_id: users[x]._id});
+            if (userinfo.sendemail) {
+                var post = Posts.findOne({_id: postId});
+                var threadId = post.threadId;
+                var posts = Math.ceil(Posts.find({threadId: threadId}).count() / 10);
+                var emails = Meteor.users.findOne({username: users[x].username});
+                if (emails) {
+                    var email = emails.emails[0].address;
+                    message = replaceHTML(message);
+                    Email.send({
+                        to: email,
+                        from: "noreply@desynched.loganshouse.com",
+                        subject: author + ": " + subject,
+                        html: '<h4>' + subject + '</h4><br>from ' + author + ':<br>' + message + '<br><br>------------------------------------------------<br>Click <a href="http://desynched.loganshouse.com:3000/posts/' + threadId + '/' + posts + '">here</a> to see the thread.</body></html>'
+                    });
+                }
+            }
+
         }
     }
 }
@@ -248,7 +327,6 @@ Meteor.methods({
     },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
-        console.log("wtF");
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -275,7 +353,8 @@ Meteor.methods({
             dislikes: [],
         },
             function(err, docsInserted) {
-                updateSubscriptions(Meteor.user().username,docsInserted);
+                updateSubscriptions(Meteor.user().username,docsInserted,subject,message);
+                checkThreadSubscriptions(Meteor.user().username,threadId,docsInserted,subject,message);
             });
         var thread = Threads.findOne({_id: threadId});
         if (thread.modified.getTime() != new Date(8640000000000000).getTime()) Threads.update(threadId,{ $set: { modified: new Date()}});
@@ -719,4 +798,16 @@ Meteor.methods({
         delete authors[author];
         Userinfo.update(userinfo._id,{$set:{authors: authors}});
     },
+    emailMe: function(bool) {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var username = Meteor.user().username;
+        Userinfo.update({username: username}, {$set: {sendemail: bool}});
+    },
+    updateEmail: function(email) {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        if (!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+            throw new Meteor.Error(422,"Invalid email");
+        }
+        Meteor.users.update({_id: this.userId},{$set: {'emails.0.address': email}});
+    }
 });

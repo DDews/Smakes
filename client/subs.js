@@ -95,6 +95,18 @@ Template['subs'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         if (!userinfo) return false;
         return !jQuery.isEmptyObject(userinfo.track);
+    },
+    checked: function() {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return null;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return null;
+        if (userinfo.sendemail) return "checked";
+    },
+    getEmail: function() {
+        var emails = Meteor.user().emails;
+        if (!emails instanceof Array) return null;
+        return emails[0].address;
     }
 });
 Template.subs.events({
@@ -114,6 +126,30 @@ Template.subs.events({
         if (event && event.preventDefault) event.preventDefault();
         var author = event.currentTarget.id;
         Meteor.call("removeAuthor",author);
+        return false;
+    },
+    'click #emailme': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var checked = $('#emailme').is(":checked");
+        Meteor.call("emailMe",checked);
+        return false;
+    },
+    'click #save': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var email = $('[name=email]').val();
+        if (!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+            $('#error').html("Invalid email");
+            return;
+        }
+        Meteor.call("updateEmail",email, function(error, result) {
+            if (error) {
+                $('#error').html(error.reason);
+                return false;
+            }
+            else {
+                $('#error').html('Updated');
+            }
+        });
         return false;
     }
 });

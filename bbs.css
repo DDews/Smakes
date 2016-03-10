@@ -473,6 +473,9 @@ dt {
     margin-right: 0px;
     margin-left: 8px;
 }
+.smallemail {
+    width: 20em;
+}
 .homesmallsubject {
     text-align: left;
     line-height: .8rem;
