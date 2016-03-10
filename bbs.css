@@ -40,6 +40,10 @@ body {
 .items li, .items a {
 	display: block;
 }
+.icon {
+	float: left;
+	display: table-cell;
+}
 
 .pot_red {
 	width: 32px;
