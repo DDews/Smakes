@@ -96,6 +96,9 @@ Template['header'].helpers({
         isGame: function() {
             return Session.get("nav") == "game";
         },
+		isShop: function() {
+            return Session.get("nav") == "shop";
+        },
         isUnit: function() {
             var session = Session.get("nav");
             if (!session instanceof Array) return null;

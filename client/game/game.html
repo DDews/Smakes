@@ -5,9 +5,9 @@
 
         {{#if gameInfoExists }}
             {{#if paused}}
-                <button class="red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
+                <button class="btn red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
             {{else}}
-                <button class="green darken-4 white-text" id="pause" value="pause">pause</button>
+                <button class="btn green darken-4 white-text" id="pause" value="pause">pause</button>
             {{/if}}
 
 
@@ -27,6 +27,8 @@
                     {{> unitcard id=this}}
                 {{/each}}
             {{else}}
+				<a href="/shop" class="btn green darken-4 white-text" value="shop">Shop</a>
+				
                 <div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
                 {{> regiondropdown }}
 
