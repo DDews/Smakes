@@ -58,7 +58,7 @@
                     <p class="search"><a href="/search">Search</a> <a href="/users">User List</a></p>
                 </div>
                 <div class="col s4 center">
-                    {{#if isNotGame}} <a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a>{{/if}}
+                    {{#if isNotGame}} <a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a> {{else}}<p class="hidetext">.</p>{{/if}}
                 </div>
                 <div class="col s4">
                     <p class="messages">{{getUsername}}:
@@ -118,7 +118,7 @@
                 <a href="/search">Search</a>
             </div>
             <div class="col s4 center valign">
-                {{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{/if}}
+                {{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{else}}<p class="hidetext">.</p>{{/if}}
             </div>
             <div class="col s4 hidetext">
                 .
