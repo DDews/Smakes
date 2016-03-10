@@ -476,6 +476,12 @@ dt {
 .smallemail {
     width: 20em;
 }
+.dropdownText {
+    font-size: 1.2em;
+    color: black;
+    padding-top: 14px;
+    padding-right: 16px;
+}
 .homesmallsubject {
     text-align: left;
     line-height: .8rem;
