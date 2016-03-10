@@ -238,7 +238,7 @@ var unitPoseStyle = function(id) {
 	return "";
 }
 
-var getStat = function(stat, collection, id) {
+var getDbStat = function(stat, collection, id) {
 	var obj = dbget(collection, id);
 
 	var num = 0;
@@ -258,6 +258,7 @@ var getStat = function(stat, collection, id) {
 
 var statName = function(stat) { return statNames[unSuffix(stat)]; }
 	
+Handlebars.registerHelper('getDbStat', getDbStat);
 Handlebars.registerHelper('statName', statName);
 Handlebars.registerHelper('vitalColor', vitalColor);
 Handlebars.registerHelper('vitals', ()=>{return statCalcData.vitals;});
