@@ -241,7 +241,7 @@ Template['find'].helpers({
         else sort = { sort: {from: sortorder}};
         var search;
         if (within == 'all') search = {
-            from: RegExp(author, "i"),
+            from: RegExp("^" + author, "i"),
             topicId: RegExp(forum),
             $or: [
                 {subject: RegExp(keywords, regexoption)},
@@ -249,12 +249,12 @@ Template['find'].helpers({
             ]
         };
         else if (within == 'subject') search = {
-            from: RegExp(author, "i"),
+            from: RegExp("^" + author, "i"),
             topicId: RegExp(forum),
             subject: RegExp(keywords, regexoption)
         };
         else search = {
-                from: RegExp(author, "i"),
+                from: RegExp("^" + author, "i"),
                 topicId: RegExp(forum),
                 post: RegExp(keywords, regexoption)
             };

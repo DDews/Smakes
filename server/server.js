@@ -748,7 +748,7 @@ Meteor.methods({
         if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
         var username = Meteor.user().username;
         var userinfo = Userinfo.findOne({username: username});
-        var authorname = Userinfo.findOne({username: RegExp(author,"i")});
+        var authorname = Userinfo.findOne({username: RegExp("^" + author + "$","i")});
         if (!authorname) throw new Meteor.Error(422,"Author doesn't exist");
         authorname = authorname.username;
         if (authorname == username) throw new Meteor.Error(422,"You can't follow yourself");
