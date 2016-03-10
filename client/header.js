@@ -189,6 +189,7 @@ Template['header'].helpers({
             if (!username) return null;
             var userinfo = Userinfo.findOne({username: username});
             var authors = userinfo.authors || {};
+            if (!authors.has(author)) return null;
             if (authors[author].length > 0) return "new ";
             else return null;
         },
