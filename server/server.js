@@ -63,29 +63,6 @@ Meteor.startup(function() {
         );
     }
 });
-var email = '<html lang="en"><head><style>.forumbg {color: white; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px;'
-    + 'border-bottom-width: 0px;border-left-width: 0px;border-right-width: 0px;border-top-left-radius: 7px;border-top-right-radius: 7px;'
-    + 'border-top-width: 0px; font-size: 1rem; margin-bottom: .4rem; margin-left: 0.5rem; margin-right: 0.5rem; margin-top: 0px; padding-bottom: 0.5rem;'
-    + 'padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 0.5rem; text-align: left;'
-    + 'vertical-align: baseline; word-wrap: break-word; background-color: #161616;'
-    + 'word-wrap: break-word; list-style-type: none; font-family: Verdana, Helvetica, Arial, sans-serif;'
-    + 'font-size: 1rem; }'
-    + '.round { border-radius: 0.5rem; background: #000000; padding: 0.5rem; }'
-    + '.row { width: 100% }'
-    + 'a { color: #efeef2; text-decoration: underline; }'
-    + 'a:hover { color: #48c0c5; text-decoration: none; }'
-    + '.postOne { background-color: #292929; }'
-    + '.s9 { width: 75% }'
-    + '.s3 { width: 25% }'
-    + '.right { text-align: right; }'
-    + '.subjectText { color: white; font-size: 2.5rem; font-family: Arial, Helvetica, sans-serif;'
-    + 'margin-bottom: .2rem; margin-top: .2rem; }'
-    + '.small { text-align: left; line-height: 1rem; color: white; font-size: 1rem;'
-    + 'font-family: Arial, Helvetica, sans-serif; margin-top: 0px;'
-    + 'margin-bottom: 0px; margin-right: 0px; margin-left: 0px; }'
-    + '</style></head><body><div class="forumbg"><div class="row postOne"><div class="s9">'
-    + '<div class="subjectText">{{subject}} </div><span class="small">From: <a class="username" href="http://desynched.loganshouse.com:3000/profile/{{author}}">{{author}}</a></span>'
-    + '<p><pre>{{message}}</pre></p></div></div></div>';
 replaceHTML = function(message) {
     message = message.replace(RegExp("<","g"),"&lt;").replace(RegExp(">","g"),"&gt;");
     message = bbcodify(message);
@@ -105,7 +82,7 @@ checkThreadSubscriptions = function(author, threadId, postId, subject, message) 
         tracked = users[x].track || {};
         if (tracked.has(threadId)) {
             authors = users[x].authors || {};
-            if (!authors.has(author)) {
+            if (!authors.has(author) && (users[x].username != author)) {
                 if (users[x].sendemail) {
                     var emails = Meteor.users.findOne({username: users[x].username});
                     if (emails) {
@@ -115,7 +92,7 @@ checkThreadSubscriptions = function(author, threadId, postId, subject, message) 
                         Email.send({
                             to: email,
                             from: "noreply@desynched.loganshouse.com",
-                            subject: author + "replied to thread " + threadSubject,
+                            subject: author + " replied to thread: " + threadSubject,
                             html: '<h4>' + subject + '</h4><br>from ' + author + ':<br>' + message + '<br><br>------------------------------------------------<br>Click <a href="http://desynched.loganshouse.com:3000/posts/' + threadId + '/' + posts + '">here</a> to see the thread.</body></html>'
                         });
                     }
