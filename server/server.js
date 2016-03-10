@@ -92,7 +92,7 @@ checkThreadSubscriptions = function(author, threadId, postId, subject, message) 
                         Email.send({
                             to: email,
                             from: "noreply@desynched.loganshouse.com",
-                            subject: author + " replied to thread " + threadSubject,
+                            subject: author + " replied to thread: " + threadSubject,
                             html: '<h4>' + subject + '</h4><br>from ' + author + ':<br>' + message + '<br><br>------------------------------------------------<br>Click <a href="http://desynched.loganshouse.com:3000/posts/' + threadId + '/' + posts + '">here</a> to see the thread.</body></html>'
                         });
                     }
