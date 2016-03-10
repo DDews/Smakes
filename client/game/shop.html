@@ -1,42 +1,9 @@
 <template name="shop">
 	<div class="forumbg row">
-		
-		<div class="icon pot_red"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
-		<div class="icon pot_orange"></div>
+		{{#each icon in testIcons}}
+			<div class="icon iconbg valign-wrapper">
+				<div class="center valign {{icon}}"></div>
+			</div>
+		{{/each}}
 	</div>
 </template>

@@ -45,16 +45,10 @@ body {
 	display: table-cell;
 }
 
-.pot_red {
+.iconbg {
 	width: 32px;
 	height: 32px;
-	background: url('/icons.png') 0 0;
-}
-
-.pot_orange {
-	width: 32px;
-	height: 32px;
-	background: url('/icons.png') -32px 0;
+	background: url('/itembg.png');
 }
 
 .round {
