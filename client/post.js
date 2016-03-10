@@ -206,6 +206,16 @@ Template['post'].helpers({
         var tracked = userinfo.track || {};
         if (tracked.has(threadId)) return "Unfollow"
         return "Follow";
+    },
+    countFollowed: function(author, postId) {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return;
+        var authors = userinfo.authors || {};
+        if (authors.hasOwnProperty(author)) {
+            if (_.contains(authors[author],postId)) Meteor.call("viewedFollow",author,postId);
+        }
     }
 
 });

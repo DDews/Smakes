@@ -22,21 +22,24 @@ var auxStats = [
 Template.unit.helpers({
 	displayStats: function() { return displayStats; },
 	auxStats: function() { return auxStats; },
-	getStat: function(thing) { 
+	
+	getStat: function(stat) { 
 		var num = 0;
-		if (thing.suffix("%")) {
-			thing = unSuffix(thing)
-			num = (getUnit()[thing] * 100)
+		console.log(stat + " : "  + Router.current().params._id);
+		if (stat.suffix("%")) {
+			stat = unSuffix(stat)
+			num = (getUnit()[stat] * 100)
 			return num.toFixed(3) + "%";
-		} else if (thing.suffix("#")) {
-			thing = unSuffix(thing);
-			num = getUnit()[thing]
+		} else if (stat.suffix("#")) {
+			stat = unSuffix(stat);
+			num = getUnit()[stat]
 			return num.toFixed(3);
 	   	} else {
-			num = getUnit()[thing];
+			num = getUnit()[stat];
 		}
 		return num;
 	},
+	
 	getCap: function(thing) { return getUnit()["m"+thing] },	
 })
 

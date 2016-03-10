@@ -96,6 +96,9 @@ Template['header'].helpers({
         isGame: function() {
             return Session.get("nav") == "game";
         },
+		isShop: function() {
+            return Session.get("nav") == "shop";
+        },
         isUnit: function() {
             var session = Session.get("nav");
             if (!session instanceof Array) return null;
@@ -121,6 +124,10 @@ Template['header'].helpers({
                     if (tracked.has(thread) && posts > tracked[thread]) num += 1;
                 }
             );
+            var authors = userinfo.authors || {};
+            authors.each(function(author,posts) {
+                num += posts.length;
+            });
             return '' + num + " new";
         },
         followedThread: function() {
@@ -130,6 +137,13 @@ Template['header'].helpers({
             if (!userinfo) return null;
             var tracked = userinfo.track || {};
             return tracked.toPairRay();
+        },
+        followedThreads: function() {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return "0 new";
+            var userinfo = Userinfo.findOne({username: username});
+            if (!userinfo) return null;
+            return !jQuery.isEmptyObject(userinfo.track);
         },
         ifNew: function(threadId) {
             var posts = Posts.find({threadId: threadId}).count();
@@ -145,10 +159,49 @@ Template['header'].helpers({
             var tracked = userinfo.track;
             return posts - tracked[threadId];
         },
-        threadName: function(threadId) {
+        followedThreadName: function(threadId) {
             var thread = Threads.findOne({_id: threadId});
             if (!thread) return null;
             return thread.subject + " ";
+        },
+        lastPost: function(threadId) {
+            var posts = Posts.find({threadId: threadId}).count();
+            return Math.ceil(posts / 10);
+        },
+        isSubscriptions: function() {
+            return Session.get("nav") == "subscriptions";
+        },
+        followedAuthors: function() {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return false;
+            var userinfo = Userinfo.findOne({username: username});
+            if (!userinfo) return false;
+            var authors = userinfo.authors || {};
+            if (Object.keys(authors).length > 0) return true;
+            return false;
+        },
+        followedAuthor: function() {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return false;
+            var userinfo = Userinfo.findOne({username: username});
+            var authors = userinfo.authors || {};
+            return authors.toPairRay();
+        },
+        ifNewAuthor: function(author) {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return null;
+            var userinfo = Userinfo.findOne({username: username});
+            var authors = userinfo.authors || {};
+            if (authors[author].length > 0) return "new ";
+            else return null;
+        },
+        newAuthorPosts: function(author) {
+            var username = Meteor.user() && Meteor.user().username;
+            if (!username) return false;
+            var userinfo = Userinfo.findOne({username: username});
+            var authors = userinfo.authors || {};
+            return authors[author].length;
         }
+
     }
 );

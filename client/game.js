@@ -170,8 +170,12 @@ Template.game.events({
 		if (event && event.preventDefault) event.preventDefault();
 		
 		Meteor.call('runAway');
-		
+	},
+	'click #shop': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
 		
 	}
+		
+		
 	
 });

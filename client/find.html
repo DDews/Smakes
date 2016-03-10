@@ -1,6 +1,61 @@
 <template name="find">
-    <div class="container">
-        <div class="row short">
+    <div class="row short">
+    {{#if correctPage}}
+        <div class="right col s4 pageListing">
+            <img src="/pages.gif" width="10" height="10">
+            {{#if needFirst}}<a class="pages" href="{{linkToPage 1}}">1</a>{{/if}}
+            {{#if needFirstElipsis}}...{{/if}}
+            {{#if needBefore 2}}<a class="pages" href="{{linkPageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
+            {{#if needBefore 1}}<a class="pages" href="{{linkPageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
+            {{pageNumber}}
+            {{#if needAfter 1}}<a class="pages" href="{{linkPageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
+            {{#if needAfter 2}}<a class="pages" href="{{linkPageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
+            {{#if needSecondElipsis}}...{{/if}}
+            {{#if needLast}}<a class="pages" href="{{linkLastPage}}">{{lastPage}}</a>{{/if}}
+        </div>
+    {{/if}}
+    </div>
+    <div class="forumbg row">
+        Found {{numposts}} matches for {{keywords}}
+        {{#each record}}
+            {{countFollowed from _id}}
+            <div class="row {{toggle}}">
+                <div class="col s9">
+                    <p>
+                    <p class="subjectText">{{{abbSubject subject}}}</p>
+                    <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
+                    </p>
+                <p>
+                <span class="message"><pre>{{{abbreviate post}}}</pre>
+                    {{#if editedBy}}
+                        <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{editedBy}}">{{editedBy}}</a> on {{myDate modified}}</p>
+                    {{/if}}
+                    </span>
+                    </p>
+                </div>
+                <div class="col s3 right">
+                    <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
+                    {{#if shouldAdmin from}}
+                        <div class="admin">Administrator</div>
+                    {{else}}
+                        {{#if shouldMod from threadId}}
+                            <div class="moderator">Moderator</div>
+                        {{/if}}
+                    {{/if}}
+                    <div class="right-align info">
+                        <div class="right-align likes"><img src="/like.png" width="14" height="14">{{getLikes _id}}<img src="/dislike.png" width="14" height="14">{{getDislikes _id}}</div>
+                        <p class="right-align info">posts: {{getPosts from}}</p>
+                        <br>
+                        <p class="right-align info">Forum: <a href="/topic/{{topicId}}">{{topicName topicId}}</a></p>
+                        <p class="right-align info">Topic: <a href="/posts/{{threadId}}">{{threadName threadId}}</a></p>
+                        <p class="right-align info">Replies: <b>{{threadReplies threadId}}</b></p>
+                        <p class="right-align info">Views: <b>{{threadViews threadId}}</b></p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    <div class="row short">
         {{#if correctPage}}
             <div class="right col s4 pageListing">
                 <img src="/pages.gif" width="10" height="10">
@@ -15,61 +70,5 @@
                 {{#if needLast}}<a class="pages" href="{{linkLastPage}}">{{lastPage}}</a>{{/if}}
             </div>
         {{/if}}
-        </div>
-        <div class="forumbg row">
-            Found {{numposts}} matches for {{keywords}}
-            {{#each record}}
-                <div class="row {{toggle}}">
-                    <div class="col s9">
-                        <p>
-                        <p class="subjectText">{{{abbSubject subject}}}</p>
-                        <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
-                        </p>
-                    <p>
-                    <span class="message"><pre>{{{abbreviate post}}}</pre>
-                        {{#if editedBy}}
-                            <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{editedBy}}">{{editedBy}}</a> on {{myDate modified}}</p>
-                        {{/if}}
-                        </span>
-                        </p>
-                    </div>
-                    <div class="col s3 right">
-                        <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
-                        {{#if shouldAdmin from}}
-                            <div class="admin">Administrator</div>
-                        {{else}}
-                            {{#if shouldMod from threadId}}
-                                <div class="moderator">Moderator</div>
-                            {{/if}}
-                        {{/if}}
-                        <div class="right-align info">
-                            <div class="right-align likes"><img src="/like.png" width="14" height="14">{{getLikes _id}}<img src="/dislike.png" width="14" height="14">{{getDislikes _id}}</div>
-                            <p class="right-align info">posts: {{getPosts from}}</p>
-                            <br>
-                            <p class="right-align info">Forum: <a href="/topic/{{topicId}}">{{topicName topicId}}</a></p>
-                            <p class="right-align info">Topic: <a href="/posts/{{threadId}}">{{threadName threadId}}</a></p>
-                            <p class="right-align info">Replies: <b>{{threadReplies threadId}}</b></p>
-                            <p class="right-align info">Views: <b>{{threadViews threadId}}</b></p>
-                        </div>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-        <div class="row short">
-            {{#if correctPage}}
-                <div class="right col s4 pageListing">
-                    <img src="/pages.gif" width="10" height="10">
-                    {{#if needFirst}}<a class="pages" href="{{linkToPage 1}}">1</a>{{/if}}
-                    {{#if needFirstElipsis}}...{{/if}}
-                    {{#if needBefore 2}}<a class="pages" href="{{linkPageBefore 2}}">{{pageBefore 2}}</a>{{/if}}
-                    {{#if needBefore 1}}<a class="pages" href="{{linkPageBefore 1}}">{{pageBefore 1}}</a>{{/if}}
-                    {{pageNumber}}
-                    {{#if needAfter 1}}<a class="pages" href="{{linkPageAfter 1}}">{{pageAfter 1}}</a>{{/if}}
-                    {{#if needAfter 2}}<a class="pages" href="{{linkPageAfter 2}}">{{pageAfter 2}}</a>{{/if}}
-                    {{#if needSecondElipsis}}...{{/if}}
-                    {{#if needLast}}<a class="pages" href="{{linkLastPage}}">{{lastPage}}</a>{{/if}}
-                </div>
-            {{/if}}
-        </div>
     </div>
 </template>
