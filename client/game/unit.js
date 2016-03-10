@@ -25,7 +25,8 @@ Template.unit.helpers({
 	
 	getStat: function(stat) { 
 		var num = 0;
-		if (thing.suffix("%")) {
+		console.log(stat + " : "  + Router.current().params._id);
+		if (stat.suffix("%")) {
 			stat = unSuffix(stat)
 			num = (getUnit()[stat] * 100)
 			return num.toFixed(3) + "%";

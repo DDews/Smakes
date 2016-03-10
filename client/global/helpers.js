@@ -238,11 +238,11 @@ var unitPoseStyle = function(id) {
 	return "";
 }
 
-var getStat = function(stat, id, collection) {
+var getStat = function(stat, collection, id) {
 	var obj = dbget(collection, id);
 
 	var num = 0;
-	if (thing.suffix("%")) {
+	if (stat.suffix("%")) {
 		stat = unSuffix(stat)
 		num = (obj[stat] * 100)
 		return num.toFixed(3) + "%";
