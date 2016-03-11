@@ -72,15 +72,23 @@
 						<span class="red-text text-lighten-5">Base Stats</span>
 						<div class="row">
 							{{#each stat in baseStats}}
-								<div class="col s6 m4 l2 tooltipped blue-grey darken-3 center z-depth-2" 
+								<div class="col s6 m4 l2 tooltipped blue-grey darken-3 center z-depth-2"
 							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
-									<div>
-										<div class="left stattext">{{statName stat}}</div>
-										<div class="right stattext">{{getStat stat}}</div>
+									<div class="row">
+										<div class="left chip blue-grey darken-2 stattext white-text"> {{statName stat}} </div>
+										<div class="right chip blue-grey darken-2 stattext white-text"> {{getStat stat}} </div>
 									</div>
-									<br>
-									<div class="right white-text">cost: {{statCost stat}}</div>
-									<button id="plus{{stat}}" class="btn-floating left green darken-4 waves-effect waves-yellow">+</button>
+									
+									<div class="row center">
+									<button id="plus{{stat}}" class="center green darken-4 waves-effect waves-yellow">+1</button>
+									<span class="tiny">cost: {{statCost stat}} EXP</span>
+									</div>
+									
+									<div class="row center">
+									<button id="plus10{{stat}}" class="center green darken-4 waves-effect waves-yellow">+10</button>
+									<span class="tiny">cost: {{statCost10 stat}} EXP</span>
+									</div>
+									
 								</div>
 							{{/each}}
 						</div>
