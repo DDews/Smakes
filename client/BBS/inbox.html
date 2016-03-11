@@ -24,7 +24,7 @@
                 {{#each message}}
                 <div class="row">
                     <div class="col s2">{{isTo from to}}</div>
-                    <div class="col s3">{{#if locked showTo}}<img src="locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox/{{_id}}">{{subject}}</a></div>
+                    <div class="col s3">{{#if locked showTo}}<img src="/locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="inbox/{{_id}}">{{subject}}</a></div>
                     <div class="col s2 center">{{numPosts messages}}</div>
                     <div class="col s4">
                         <div class="row"><p class="small"><a href="/inbox/{{_id}}/{{lastPost messages}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom messages}}</b></p>

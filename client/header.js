@@ -128,6 +128,7 @@ Template['header'].helpers({
             authors.each(function(author,posts) {
                 num += posts.length;
             });
+            num += Messages.find({unread: username}).count();
             return '' + num + " new";
         },
         followedThread: function() {
@@ -192,8 +193,16 @@ Template['header'].helpers({
             if (!username) return null;
             var userinfo = Userinfo.findOne({username: username});
             var authors = userinfo.authors || {};
+            if (!authors.has(author)) return null;
             if (authors[author].length > 0) return "new ";
             else return null;
+        },
+        ifNewMessages: function() {
+            var newmessages = Meteor.user() && Messages.find({
+                unread: Meteor.user().username
+            }).count();
+            if (newmessages > 0) return "new ";
+            return null;
         },
         newAuthorPosts: function(author) {
             var username = Meteor.user() && Meteor.user().username;

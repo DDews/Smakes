@@ -45,5 +45,27 @@ Template['profile'].helpers({
         console.log(userinfo);
         if (userinfo && userinfo.totalKarma) return userinfo.totalKarma;
         return 0;
+    },
+    toggleFollow: function(author) {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return "Subscribe";
+        var userinfo = Userinfo.findOne({username: username});
+        var authors = userinfo.authors;
+        if (authors.has(author)) return "Unsubscribe";
+        return "Subscribe";
+    }
+});
+Template.profile.events({
+    'click .Subscribe': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        var author = event.currentTarget.id;
+        Meteor.call("followAuthor", author);
+        return false;
+    },
+    'click .Unsubscribe': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        var author = event.currentTarget.id;
+        Meteor.call("removeAuthor", author);
+        return false;
     }
 });

@@ -52,16 +52,17 @@
             <a href="/users">User List</a>
         {{/if}}
     </p>
-        {{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{/if}}
         {{#if currentUser}}
             <div class="row">
-                <div class="col s5">
+                <div class="col s4">
                     <p class="search"><a href="/search">Search</a> <a href="/users">User List</a></p>
                 </div>
-                <div class="col s7">
+                <div class="col s4 center">
+                    {{#if isNotGame}} <a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a> {{else}}<p class="hidetext">.</p>{{/if}}
+                </div>
+                <div class="col s4">
                     <p class="messages">{{getUsername}}:
                         <a href="/cp">Control Panel</a>
-                        <a href="/inbox">Inbox</a> (<a class="{{unreadColor}}" href="/inbox">{{unread}}</a>)
                     </p>
                 </div>
             </div>
@@ -80,6 +81,9 @@
                 {{/if}}
                 <a class='right dropdown-button btn col s4 subscriptions' href='#' data-activates='dropdown2'>{{numNewFollowed}}</a>
                 <ul id='dropdown2' class='dropdown-content'>
+                    <li><a href="/inbox">Inbox <span class="{{ifNewMessages}}badge">{{unread}}</span></a></li>
+                    <li class="divider"></li>
+                    <li class="dropdownText">Threads:</li>
                     {{#if followedThreads}}
                         {{#each followedThread}}
                             <li><a href="/posts/{{key}}/{{lastPost key}}">{{followedThreadName key}}<span class="{{ifNew key}}badge">{{newPosts key}}</span></a></li>
@@ -88,6 +92,7 @@
                         <li><a href="/subscriptions">No threads</a></li>
                     {{/if}}
                     <li class="divider"></li>
+                    <li class="dropdownText">Authors:</li>
                     {{#if followedAuthors}}
                         {{#each followedAuthor}}
                             <li><a href="/find?keywords=&regexoption=i&author={{key}}&forum=&within=all&sortby=createdAt&sortorder=-1&">{{key}}<span class="{{ifNewAuthor key}}badge">{{newAuthorPosts key}}</span></a></li>
@@ -108,9 +113,15 @@
                 );</script>
             </div>
         {{else}}
-        <div class="row">
-            <div class="col s12">
-                <p class="messages"><a href="/search">Search</a></p>
+        <div class="row valign-wrapper">
+            <div class="col s4 search valign">
+                <a href="/search">Search</a>
+            </div>
+            <div class="col s4 center valign">
+                {{#if isNotGame}} <p class="center"><a class="waves-effect waves-light btn-large" href="/game">Ryuusei RPG</a></p>{{else}}<p class="hidetext">.</p>{{/if}}
+            </div>
+            <div class="col s4 hidetext">
+                .
             </div>
         </div>
 

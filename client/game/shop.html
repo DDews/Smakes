@@ -1,9 +1,18 @@
 <template name="shop">
 	<div class="forumbg row">
-		{{#each icon in testIcons}}
+		{{#each testIcons}}
 			<div class="icon iconbg valign-wrapper">
-				<div class="center valign {{icon}}"></div>
+				<div class="center valign {{icon key}} item" name="item" id="{{key}}"></div>
 			</div>
+            <div name="{{key}}" class="itembg col s3 {{getBgColor value}}" style="display: none;">
+                <p class="tooltipText">{{getName value}}</p>
+                <p class="tooltipText">{{getType value}}</p>
+            {{#each toPairs value}}
+                {{#if statName key}}
+                    <p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
+                {{/if}}
+            {{/each}}
+            </div>
 		{{/each}}
 	</div>
 </template>

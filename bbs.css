@@ -1,20 +1,24 @@
 /* CSS declarations go here */
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color: #bababa;
+    color: #727270;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: #bababa;
+    color: #727270;
     opacity:  1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: #bababa;
+    color: #727270;
     opacity:  1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: #bababa;
+    color: #727270;
 }
 :placeholder-shown { /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
-    color: #bababa;
+    color: #727270;
+}
+
+.tt-hint {
+    color: #717171;
 }
 textarea {
     border-color: #bababa;
@@ -106,7 +110,12 @@ pre {
 .unitCardName {
 	font-size: 1rem !important;
 }
-
+.tiny {
+	font-size: .7rem;
+}
+.vtiny {
+	font-size: .6rem;
+}
 .pbig{
 	height: .8rem;
 	margin-bottom: 0px;
@@ -473,6 +482,15 @@ dt {
     margin-right: 0px;
     margin-left: 8px;
 }
+.smallemail {
+    width: 20em;
+}
+.dropdownText {
+    font-size: 1.2em;
+    color: black;
+    padding-top: 14px;
+    padding-right: 16px;
+}
 .homesmallsubject {
     text-align: left;
     line-height: .8rem;
@@ -532,6 +550,44 @@ dt {
     color: #9b9e46;
     font-size: 1rem;
 }
+.itembg {
+    color: white;
+    font-size: .8rem;
+    text-align: center;
+}
+.r1-10 {
+    background-color: #2e2e2e;
+}
+.r10-20 {
+    background-color: #6b6b6b;
+}
+.r20-30 {
+    background-color: #095b08;
+}
+.r30-40 {
+    background-color: #03706b;
+}
+.r40-50 {
+    background-color: #002175;
+}
+.r50-60 {
+    background-color: #45278d;
+}
+.r60-70 {
+    background-color: #6e058d;
+}
+.r70-80 {
+    background-color: #8d0757;
+}
+.r80-90 {
+    background-color: #8d0403;
+}
+.r90-100 {
+    background-color: #9a3e07;
+}
+.statName {
+    color: #c7c7c7;
+}
 .buttonbig {
     color: black;
     float: right;
@@ -541,4 +597,9 @@ dt {
 }
 .chiptext {
     font-size: 1.1rem;
+}
+.tooltipText {
+    line-height: .8rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
 }
