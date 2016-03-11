@@ -20,27 +20,23 @@ var auxStats = [
 
 
 Template.unit.helpers({
+	statCost: function(stat) {
+		var unit = getUnit();
+		var val = unit[stat];
+		return statUpgradeCost(val);
+	},
+	unitExists: function() { return getUnit(); },
 	displayStats: function() { return displayStats; },
 	auxStats: function() { return auxStats; },
 	unitEquip: function() {
 		console.log(getUnit());
 		return getUnit().equipment.toPairRay();	
 	},
-	getStat: function(stat) { 
-		var num = 0;
-		console.log(stat + " : "  + Router.current().params._id);
-		if (stat.suffix("%")) {
-			stat = unSuffix(stat)
-			num = (getUnit()[stat] * 100)
-			return num.toFixed(3) + "%";
-		} else if (stat.suffix("#")) {
-			stat = unSuffix(stat);
-			num = getUnit()[stat]
-			return num.toFixed(3);
-	   	} else {
-			num = getUnit()[stat];
-		}
-		return num;
+	getStat: function(stat) {
+		return getDbStat(stat, "Unitinfo", getID());
+	},
+	setTooltips: function() {
+		$('.tooltipped').tooltip({delay: 50});
 	},
 	
 	getCap: function(thing) { return getUnit()["m"+thing] },	
@@ -55,4 +51,20 @@ Template.unit.onRendered(function() {
 	$('.tooltipped').tooltip({delay: 50});
 	console.log("Unit onRendered");
 	
+})
+
+var buyStat = function(stat) {
+	var data = {};
+	data.stat = stat;
+	data.unit = getID();
+	Meteor.call("buyStat", data);
+}
+
+Template.unit.events({
+	'click #plusstr': function(event) { buyStat("str"); },
+	'click #plusvit': function(event) { buyStat("vit"); },
+	'click #plusdex': function(event) { buyStat("dex"); },
+	'click #plusagi': function(event) { buyStat("agi"); },
+	'click #plusint': function(event) { buyStat("int"); },
+	'click #pluswis': function(event) { buyStat("wis"); },
 })

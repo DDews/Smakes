@@ -138,7 +138,9 @@ var statNames = {
 }
 
 unSuffix = function(str) {
-	if (str.suffix("%") || str.suffix("#")) {
+	if (str.suffix("%")
+		|| str.suffix("#")
+		|| str.suffix("@")) {
 		return str.substring(0, str.length-1); 
 	}
 	return str;
@@ -238,7 +240,7 @@ var unitPoseStyle = function(id) {
 	return "";
 }
 
-var getDbStat = function(stat, collection, id) {
+getDbStat = function(stat, collection, id) {
 	var obj = dbget(collection, id);
 
 	var num = 0;
@@ -250,6 +252,10 @@ var getDbStat = function(stat, collection, id) {
 		stat = unSuffix(stat);
 		num = obj[stat]
 		return num.toFixed(3);
+	} else if (stat.suffix("@")) {
+		stat = unSuffix(stat);
+		num = obj[stat]
+		return num.toFixed(0);
 	} else {
 		num = obj[stat];
 	}
