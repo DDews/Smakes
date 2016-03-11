@@ -24,21 +24,28 @@ var test1 = [
 	"gem6",
 	
 ]
+var _slots = [
+	"body",
+	"head",
+	"gloves",
+	"legs",
+	"hand",
+	"accessory"
+]
 
 Template.shop.helpers({
 	testIcons: function() {
 		var items = itemDB.toPairRay();
-		var x = 0;
-		for (x = 0; x < 100; x++) {
-			items = items.concat(itemDB.toPairRay());
-		}
 		return items;
 	},
 	partyMember: function() {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) return null;
 		var gameinfo = Gameinfo.findOne({username: username});
+		if (!gameinfo) return null;
+		var unitId = Session.get("unitId");
 		var units = gameinfo.units;
+		if (!unitId && units[0]) Session.set("unitId",units[0]);
 		var players = [];
 		var x;
 		for (x = 0; x < units.length; x++) {
@@ -72,6 +79,23 @@ Template.shop.helpers({
 		if (rarity < 90) return "r80-90";
 		if (rarity < 100) return "r90-100"
 		return "r90-100";
+	},
+	slots: function() {
+		return _slots;
+	},
+	equipment: function(slot) {
+		var equip = [];
+		var unitId = Session.get("unitId");
+		var unit = Unitinfo.findOne({_id: unitId});
+		var equips = unit.equipment;
+		for (var property in equips) {
+			if (object.hasOwnProperty(property)) {
+				if (property.match(RegExp("^" + slot))) {
+					equip.push(equips[property]);
+				}
+			}
+		}
+		return equip;
 	}
 });
 _event = {};
