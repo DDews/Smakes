@@ -206,6 +206,30 @@ var unitHeader = function(id) {
 	var str = "lv. " + unit.level + " " + unit.race + " " + unit.job + " (" + unit.team + ")";
 	return str;
 }
+var unitLevelHeader = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return "lv. " + unit.level;
+}
+var unitRace = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return unit.race;
+}
+var unitJob = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return unit.job;
+}
+var unitTeam = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return unit.team;
+}
 var unitColor = function(id) { 
 	var unit = getUnit(id);
 	if (!unit) { return "unknownUnit"; }
@@ -285,6 +309,10 @@ Handlebars.registerHelper('vital', unitVital);
 Handlebars.registerHelper('vital2', unitVital2);
 Handlebars.registerHelper('unitName', unitName);
 Handlebars.registerHelper('unitHeader', unitHeader);
+Handlebars.registerHelper('unitLevelHeader', unitLevelHeader);
+Handlebars.registerHelper('unitRace', unitRace);
 Handlebars.registerHelper('unitColor', unitColor);
+Handlebars.registerHelper('unitJob', unitJob);
+Handlebars.registerHelper('unitTeam', unitTeam);
 Handlebars.registerHelper('unitInCombat', unitInCombat);
 Handlebars.registerHelper('isPlayer', isPlayer);

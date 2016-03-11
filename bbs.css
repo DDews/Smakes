@@ -113,7 +113,9 @@ pre {
 .tiny {
 	font-size: .7rem;
 }
-
+.vtiny {
+	font-size: .6rem;
+}
 .pbig{
 	height: .8rem;
 	margin-bottom: 0px;
