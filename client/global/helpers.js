@@ -135,6 +135,11 @@ var statNames = {
 	rflex: "Reflex",
 	intut: "Intuition",
 	sight: "Sight",
+	desc: "Description",
+	type: "",
+	value: "Value",
+	rarity: "Rarity",
+	quality: "Item Level"
 }
 
 unSuffix = function(str) {
@@ -294,6 +299,8 @@ Handlebars.registerHelper('vitalColor', vitalColor);
 Handlebars.registerHelper('vitals', ()=>{return statCalcData.vitals;});
 Handlebars.registerHelper('baseStats', ()=>{return statCalcData.baseStats;});
 Handlebars.registerHelper('combatStats', ()=>{return statCalcData.combatStats;});
+
+Handlebars.registerHelper('toPairs', (thing) => {return thing.toPairRay(); });
 
 Handlebars.registerHelper('tooltipFor', tooltipFor);
 Handlebars.registerHelper('unitPose', unitPose);
