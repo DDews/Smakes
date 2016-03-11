@@ -55,6 +55,116 @@ spawnMonsters = function(regionData, combo) {
 	return units;
 }
 
+var starterEquips = {
+	head: {
+		id:'eq_starter_helm',
+		name:'Headband',
+		icon:'helm6',
+		desc:'A small headband.',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		armor: 10,
+		shell: 10,
+		pdef: .01,
+	},
+	body: {
+		id:'eq_starter_body',
+		name:'Cotton Shirt',
+		icon:'armor1',
+		desc:'Does not offer much protection',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		armor: 25,
+		shell: 25,
+		pdef: .04,
+	},
+	legs: {
+		id:'eq_starter_legs',
+		name:'Cotton Skirt',
+		icon:'leg1',
+		desc:'A cute skirt.',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		armor: 20,
+		shell: 20,
+		pdef: .03,
+	},
+	gloves: {
+		id:'eq_starter_gloves',
+		name:'Quilted Gloves',
+		icon:'glove2',
+		desc:'Homemade quilted gloves, made with love.',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		armor: 13,
+		shell: 13,
+		pdef: .01,
+	},
+	feet: {
+		id:'eq_starter_feet',
+		name:'Basic Shoes',
+		icon:'shoes1',
+		desc:'Simple shoes with rubber bottoms.',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		armor: 12,
+		shell: 12,
+		pdef: .01,
+	},
+	handRight: {
+		id:'eq_starter_knife',
+		name:'Kitchen Knife',
+		icon:'dagger14',
+		desc:'A simple knife, more suited for cooking than combat.',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		patk: 25,
+		pacc: .10,
+		aspd: .4
+	},
+	handLeft: {
+		id:'eq_starter_shield',
+		name:'Pan Lid',
+		icon:'shield2',
+		desc:'A sturdy pan lid. A great shield for beginners.',
+		type:'Equipment',
+		value: 50,
+		rarity: 2,
+		
+		armor: 20,
+		shell: 20,
+		pdef: .01,
+		peva: .05,
+	},
+	
+};
+
+var newPlayerUnit = function(username, name, job) {
+	var unit = new Unit();
+	unit.username = username;
+	unit.name = name;
+	unit.job = job;
+	
+	unit.equipment = starterEquips;
+	
+	unit.recalc();
+	
+	dbupdate(unit);
+	return unit;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,14 +181,7 @@ Meteor.methods({
 			throw new Meteor.Error(422, "You already have a game!");
 		}
 		
-		var unit = new Unit();
-		unit.username = username;
-		unit.name = data.name;
-		unit.job = data.job;
-		
-		dbupdate(unit);
-		
-		//console.log(unit);
+		var unit = newPlayerUnit(username, data.name, data.job);
 		
 		var gamedata = {
 			username: username,

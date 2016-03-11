@@ -110,6 +110,9 @@ pre {
 .unitCardName {
 	font-size: 1rem !important;
 }
+.tiny {
+	font-size: .7rem;
+}
 
 .pbig{
 	height: .8rem;
