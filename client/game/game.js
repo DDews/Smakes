@@ -113,7 +113,7 @@ Template.game.helpers({
 
 			});
 
-			txt.text(msg)
+			//txt.text(msg)
 			if (txt[0]) {
 				txt.scrollTop(txt[0].scrollHeight)
 			}

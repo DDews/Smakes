@@ -26,12 +26,34 @@ var test1 = [
 ]
 
 Template.shop.helpers({
-	testIcons: function() { return itemDB.toPairRay(); },
+	testIcons: function() {
+		var items = itemDB.toPairRay();
+		var x = 0;
+		for (x = 0; x < 100; x++) {
+			items = items.concat(itemDB.toPairRay());
+		}
+		return items;
+	},
+	partyMember: function() {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) return null;
+		var gameinfo = Gameinfo.findOne({username: username});
+		var units = gameinfo.units;
+		var players = [];
+		var x;
+		for (x = 0; x < units.length; x++) {
+			players.push(Unitinfo.findOne({_id: units[x]}));
+		}
+		return players;
+	},
+	normalPose: function(poses) {
+		return poses.normal;
+	}
+	,
 	icon: function(object) {
 		return itemDB[object].icon;
 	},
 	getName: function(value) {
-		console.log(value);
 		return value.name;
 	},
 	getType: function(value) {
@@ -39,7 +61,6 @@ Template.shop.helpers({
 	},
 	getBgColor: function(value) {
 		var rarity = value.rarity;
-		console.log(rarity);
 		if (rarity < 10) return "r1-10";
 		if (rarity < 20) return "r10-20";
 		if (rarity < 30) return "r20-30";

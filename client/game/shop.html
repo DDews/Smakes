@@ -1,5 +1,12 @@
 <template name="shop">
 	<div class="forumbg row">
+        <div class="row">
+            {{#each partyMember}}
+                <div class="chip">
+                    <img src="{{normalPose poses}}" alt="Contact Person">{{name}}
+                </div>
+            {{/each}}
+        </div>
 		{{#each testIcons}}
 			<div class="icon iconbg valign-wrapper">
 				<div class="center valign {{icon key}} item" name="item" id="{{key}}"></div>

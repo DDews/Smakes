@@ -2,6 +2,15 @@
  * Created by Dan on 2/27/2016.
  */
 Template['inbox'].helpers({
+    numChars: function() {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return 400;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return 400;
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        return chars;
+    },
     usernameProvided: function() {
         return Router.current().params.username;
     },

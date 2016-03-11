@@ -15,7 +15,8 @@
                     Signature:
                 </div>
                 <div class="col s7">
-                    <textarea rows="4" cols="50" name="signature">{{getSignature}}</textarea>
+                    <textarea class="materialize-textarea" name="signature" length="{{numChars}}">{{getSignature}}</textarea>
+                    <script>$('[name=signature]').characterCounter();</script>
                 </div>
             </div>
             <div class="row">
