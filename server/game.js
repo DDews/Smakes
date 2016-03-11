@@ -200,17 +200,23 @@ Meteor.methods({
 	
 	buyStat: (data) => {
 		var stat = data.stat;
+		var n = data.n;
 		var unit = Unitinfo.findOne(data.unit);
 		
 		console.log("Upgrading shit yo ");
+		console.log(stat + " + " + n);
 		if (unit) {
 			var exp = unit.spendableExp;
-			var val = unit[stat];
-			var cost = statUpgradeCost(val);
+			var statsP = unit.statsPurchased || {};
+			var val = statsP[stat] || 0;
+			var cost = statUpgradeCost(val, n);
 			
 			if (exp >= cost) {
 				unit.spendableExp -= cost;
-				unit[stat] += 1;
+				unit[stat] += n;
+				statsP[stat] = val + n;
+				unit.statsPurchased = statsP;
+				
 				unit.recalc();
 				dbupdate(unit);
 			} 
