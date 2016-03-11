@@ -8,3 +8,10 @@ Template.regiondropdown.onRendered(function() {
 	console.log("Dropdown onRendered");
 	
 })
+
+
+Template.regiondropdown.helpers({
+	regionLevel: function(region) {
+		return region.level;
+	}
+});

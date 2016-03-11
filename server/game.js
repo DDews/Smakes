@@ -46,10 +46,11 @@ Meteor.publish("combatinfo", function() {
 spawnMonsters = function(regionData, combo) {
 	var size = 1 + Random.range(regionData.min, regionData.max) * .25;
 	var units = [];
+	var level = regionData.level;
 	var enemies = regionData.enemies;
 		
 	size.times((s) => { 
-		var mon = Monster(enemies.choose(), 1, combo)
+		var mon = Monster(enemies.choose(), level, combo)
 		units.push(mon); 
 	});
 	return units;
@@ -62,6 +63,7 @@ var starterEquips = {
 		icon:'helm6',
 		desc:'A small headband.',
 		type:'Equipment',
+		slot:"head",
 		value: 50,
 		rarity: 2,
 		
@@ -75,6 +77,7 @@ var starterEquips = {
 		icon:'armor1',
 		desc:'Does not offer much protection',
 		type:'Equipment',
+		slot:"body",
 		value: 50,
 		rarity: 2,
 		
@@ -88,6 +91,7 @@ var starterEquips = {
 		icon:'leg1',
 		desc:'A cute skirt.',
 		type:'Equipment',
+		slot:"legs",
 		value: 50,
 		rarity: 2,
 		
@@ -101,6 +105,7 @@ var starterEquips = {
 		icon:'glove2',
 		desc:'Homemade quilted gloves, made with love.',
 		type:'Equipment',
+		slot:"gloves",
 		value: 50,
 		rarity: 2,
 		
@@ -114,6 +119,7 @@ var starterEquips = {
 		icon:'shoes1',
 		desc:'Simple shoes with rubber bottoms.',
 		type:'Equipment',
+		feet:"feet",
 		value: 50,
 		rarity: 2,
 		
@@ -127,8 +133,11 @@ var starterEquips = {
 		icon:'dagger14',
 		desc:'A simple knife, more suited for cooking than combat.',
 		type:'Equipment',
+		slot:"hand",
+		slotIsPrefix:true,
 		value: 50,
 		rarity: 2,
+		element:"slash",
 		
 		patk: 25,
 		pacc: .10,
@@ -140,6 +149,8 @@ var starterEquips = {
 		icon:'shield2',
 		desc:'A sturdy pan lid. A great shield for beginners.',
 		type:'Equipment',
+		slot:"hand",
+		slotIsPrefix:true,
 		value: 50,
 		rarity: 2,
 		
@@ -193,6 +204,35 @@ Meteor.methods({
 		dbinsert("Gameinfo", gamedata)
 		
 		console.log("Gameinfo\n" + gamedata);
+		
+	},
+	
+	buyStat: (data) => {
+		var stat = data.stat;
+		var n = data.n;
+		var unit = Unitinfo.findOne(data.unit);
+		
+		console.log("Upgrading shit yo ");
+		console.log(stat + " + " + n);
+		if (unit) {
+			var exp = unit.spendableExp;
+			var statsP = unit.statsPurchased || {};
+			var val = statsP[stat] || 0;
+			var cost = statUpgradeCost(val, n);
+			
+			if (exp >= cost) {
+				unit.spendableExp -= cost;
+				unit[stat] += n;
+				statsP[stat] = val + n;
+				unit.statsPurchased = statsP;
+				
+				unit.recalc();
+				dbupdate(unit);
+			} 
+			
+			
+		}
+		
 		
 	},
 	

@@ -3,6 +3,7 @@
 		<div class="col s12" id="error"></div>
 		<div class="forumbg row">
 			<div class="row blue-grey darken-3">
+				{{#if unitExists}}
 				<div class="col s12 blue-grey darken-3 unitCardName">
 					<span class="">{{unitName id}}</span> | 
 					<span class="small green-text text-lighten-3">{{unitHeader id}}</span> |
@@ -20,10 +21,8 @@
 				
 				<div class="col s12 card blue-grey darken-4">
 					<div class="card-content white-text">
-						
-						
-					
 						<span class="red-text text-lighten-5">Vitals</span>
+						
 						<div class="row">
 							<div class="ptext green-text text-darken-4">{{vital id 'hp' }}</div>
 							<div class="progress pbig green lighten-5">
@@ -58,13 +57,13 @@
 							<div class="col s3 blue-grey darken-3 z-depth-2">
 								<span class="left stattext">TotalExp:</span>
 								<span class="right stattext">
-									{{getDbStat 'totalExp#' 'Unitinfo' id}}
+									{{getDbStat 'totalExp@' 'Unitinfo' id}}
 								</span>
 							</div>
 							<div class="col s3 blue-grey darken-3 z-depth-2">
 								<span class="left stattext">Exp:</span>
 								<span class="right stattext">
-									{{getDbStat 'spendableExp#' 'Unitinfo' id}}
+									{{getDbStat 'spendableExp@' 'Unitinfo' id}}
 								</span>
 							</div>
 						</div>
@@ -73,10 +72,23 @@
 						<span class="red-text text-lighten-5">Base Stats</span>
 						<div class="row">
 							{{#each stat in baseStats}}
-								<div class="col s6 m4 l2 tooltipped blue-grey darken-3 center z-depth-2" 
+								<div class="col s6 m4 l2 tooltipped blue-grey darken-3 center z-depth-2"
 							data-position="bottom" data-delay="10" data-tooltip="{{tooltipFor stat}}">
-									<span class="left stattext">{{statName stat}}</span>
-									<span class="right stattext">{{getStat stat}}</span>
+									<div class="row">
+										<div class="left chip blue-grey darken-2 stattext white-text"> {{statName stat}} </div>
+										<div class="right chip blue-grey darken-2 stattext white-text"> {{getStat stat}} </div>
+									</div>
+									
+									<div class="row center">
+									<button id="plus{{stat}}" class="center green darken-4 waves-effect waves-yellow">+1</button>
+									<span class="tiny">cost: {{statCost stat}} EXP</span>
+									</div>
+									
+									<div class="row center">
+									<button id="plus10{{stat}}" class="center green darken-4 waves-effect waves-yellow">+10</button>
+									<span class="tiny">cost: {{statCost10 stat}} EXP</span>
+									</div>
+									
 								</div>
 							{{/each}}
 						</div>
@@ -122,7 +134,8 @@
 						
 					 </div>
 				</div>
-				
+				{{setTooltips}}
+				{{/if}}
 				
 			</div>
 		</div>
