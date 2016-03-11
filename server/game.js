@@ -46,10 +46,11 @@ Meteor.publish("combatinfo", function() {
 spawnMonsters = function(regionData, combo) {
 	var size = 1 + Random.range(regionData.min, regionData.max) * .25;
 	var units = [];
+	var level = regionData.level;
 	var enemies = regionData.enemies;
 		
 	size.times((s) => { 
-		var mon = Monster(enemies.choose(), 1, combo)
+		var mon = Monster(enemies.choose(), level, combo)
 		units.push(mon); 
 	});
 	return units;
@@ -129,6 +130,7 @@ var starterEquips = {
 		type:'Equipment',
 		value: 50,
 		rarity: 2,
+		element:"slash",
 		
 		patk: 25,
 		pacc: .10,
@@ -193,6 +195,29 @@ Meteor.methods({
 		dbinsert("Gameinfo", gamedata)
 		
 		console.log("Gameinfo\n" + gamedata);
+		
+	},
+	
+	buyStat: (data) => {
+		var stat = data.stat;
+		var unit = Unitinfo.findOne(data.unit);
+		
+		console.log("Upgrading shit yo ");
+		if (unit) {
+			var exp = unit.spendableExp;
+			var val = unit[stat];
+			var cost = statUpgradeCost(val);
+			
+			if (exp >= cost) {
+				unit.spendableExp -= cost;
+				unit[stat] += 1;
+				unit.recalc();
+				dbupdate(unit);
+			} 
+			
+			
+		}
+		
 		
 	},
 	

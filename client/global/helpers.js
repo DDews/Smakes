@@ -143,7 +143,9 @@ var statNames = {
 }
 
 unSuffix = function(str) {
-	if (str.suffix("%") || str.suffix("#")) {
+	if (str.suffix("%")
+		|| str.suffix("#")
+		|| str.suffix("@")) {
 		return str.substring(0, str.length-1); 
 	}
 	return str;
@@ -209,6 +211,30 @@ var unitHeader = function(id) {
 	var str = "lv. " + unit.level + " " + unit.race + " " + unit.job + " (" + unit.team + ")";
 	return str;
 }
+var unitLevelHeader = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return "lv. " + unit.level;
+}
+var unitRace = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return unit.race;
+}
+var unitJob = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return unit.job;
+}
+var unitTeam = function(id) {
+	var unit = getUnit(id);
+	if (!unit) { return "" }
+	
+	return unit.team;
+}
 var unitColor = function(id) { 
 	var unit = getUnit(id);
 	if (!unit) { return "unknownUnit"; }
@@ -243,7 +269,7 @@ var unitPoseStyle = function(id) {
 	return "";
 }
 
-var getDbStat = function(stat, collection, id) {
+getDbStat = function(stat, collection, id) {
 	var obj = dbget(collection, id);
 
 	var num = 0;
@@ -255,6 +281,10 @@ var getDbStat = function(stat, collection, id) {
 		stat = unSuffix(stat);
 		num = obj[stat]
 		return num.toFixed(3);
+	} else if (stat.suffix("@")) {
+		stat = unSuffix(stat);
+		num = obj[stat]
+		return num.toFixed(0);
 	} else {
 		num = obj[stat];
 	}
@@ -286,6 +316,10 @@ Handlebars.registerHelper('vital', unitVital);
 Handlebars.registerHelper('vital2', unitVital2);
 Handlebars.registerHelper('unitName', unitName);
 Handlebars.registerHelper('unitHeader', unitHeader);
+Handlebars.registerHelper('unitLevelHeader', unitLevelHeader);
+Handlebars.registerHelper('unitRace', unitRace);
 Handlebars.registerHelper('unitColor', unitColor);
+Handlebars.registerHelper('unitJob', unitJob);
+Handlebars.registerHelper('unitTeam', unitTeam);
 Handlebars.registerHelper('unitInCombat', unitInCombat);
 Handlebars.registerHelper('isPlayer', isPlayer);

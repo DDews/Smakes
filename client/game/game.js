@@ -73,6 +73,7 @@ Template.game.helpers({
 							
 						}
 					})
+					
 					Meteor.call("elapseTime", data);
 				} else {
 					clearInterval(intervalId);
