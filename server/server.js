@@ -156,7 +156,7 @@ cleanSubscriptions = function() {
 }
 Meteor.methods({
     formSubmissionMethod: function(username, password, captchaData) {
-
+        if (username.length > 20) throw new Meteor.Error(422,"Username is longer than 20 characters");
         var verifyCaptchaResponse = reCAPTCHA.verifyCaptcha(this.connection.clientAddress, captchaData);
 
         if (!verifyCaptchaResponse.success) {
@@ -204,6 +204,7 @@ Meteor.methods({
     newThread: function(topicId, subject, message) {
         var topic = Topics.findOne({_id: topicId});
         if (isWhitespace(subject) || isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
+        if (subject.length > 50) throw new Meteor.Error(422,"Subject is more than 50 characters");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!topic) throw new Meteor.Error(422,"Error: topic doesn't exist");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
@@ -211,6 +212,10 @@ Meteor.methods({
         if (!message) throw new Meteor.Error(422,"Error: message is empty");
         var username = Meteor.user() && Meteor.user().username;
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         var _id;
         Threads.insert({
                 topicId: topicId,
@@ -251,6 +256,7 @@ Meteor.methods({
     },
     newSticky: function(topicId, subject, message) {
         var topic = Topics.findOne({_id: topicId});
+        if (subject.length > 50) throw new Meteor.Error(422,"Subject length is longer than 50 characters");
         if (isWhitespace(subject) || isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!topic) throw new Meteor.Error(422,"Error: topic doesn't exist");
@@ -259,6 +265,10 @@ Meteor.methods({
         if (!message) throw new Meteor.Error(422,"Error: message is empty");
         var username = Meteor.user() && Meteor.user().username;
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         var admin = Userinfo.findOne({username: username});
         admin = admin && admin.admin;
         topic = Topics.findOne({_id: topicId});
@@ -304,10 +314,15 @@ Meteor.methods({
     },
     postReply: function(topicId, threadId, subject, message) {
         var username = Meteor.user() && Meteor.user().username;
+        if (subject.length > 55) throw new Meteor.Error(422,"Subject length is more than 50 characters");
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         if (!Topics.findOne({_id: topicId})) throw new Meteor.Error(422,"Error: you are in a deleted topic");
         var thread = Threads.findOne({_id: threadId});
         if (!thread) throw new Meteor.Error(422,"Error: thread does not exist");
@@ -349,9 +364,14 @@ Meteor.methods({
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
         var messageTo = Meteor.users.findOne({username: RegExp('^' + messageTo + '$',"i")});
+        if (subject.length > 50) throw new Meteor.Error(422,"Subject length is longer than 50 characters");
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!messageTo) throw new Meteor.Error(422,"Error: username doesn't exist");
         if(!message) throw new Meteor.Error(422,"Error: message is empty");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         var messageTo = messageTo.username;
         Messages.insert(
@@ -381,13 +401,19 @@ Meteor.methods({
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!message) throw new Meteor.Error(422,"Error: Your message is emtpy");
+        if (subject.length > 55) throw new Meteor.Error(422,"Subject length is longer than 50 characters");
         //if (isZalgo(subject) || isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         var msg = Messages.findOne({_id: id});
         var length = msg && msg.showTo.length;
         if (length == 1) throw new Meteor.Error(422, "Error: This thread is locked.");
         var array = msg && msg.messages;
         if (!array) throw new Meteor.Error(422, "Error: thread not found");
-        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         array.push({
             _id: array.length,
             from: Meteor.user().username,
@@ -446,6 +472,10 @@ Meteor.methods({
         var username = Meteor.user() && Meteor.user().username;
         //if (isZalgo(message)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         var post = Posts.findOne({_id: postId});
         if (!post) throw new Meteor.Error(422,"Error: post does not exist");
         var threadId = post.threadId;
@@ -499,6 +529,10 @@ Meteor.methods({
         if (isZalgo(msg)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         var username = Meteor.user() && Meteor.user().username;
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         var thispost = Messages.findOne({_id: id});
         if (!thispost) throw new Meteor.Error(422,"Error: thread " + id + "does not exist");
         var array = thispost && thispost.messages;
@@ -593,6 +627,11 @@ Meteor.methods({
     },
     setSignature: function(signature, password) {
         if (!this.userId) throw new Meteor.Error(422,"You must be logged in");
+        var username = Meteor.user().username;
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 200 + 10 * karma;
+        if (signature.length > chars) throw new Meteor.Error(422,"Signature is longer than " + chars + " characters.");
         //if (isHTML(signature)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (isZalgo(signature)) throw new Meteor.Error(422, "Zalgo text not allowed.");
         var user = Meteor.user();

@@ -208,7 +208,6 @@ Template['find'].helpers({
         var matching = /\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/;
         while (output.match(matching)) {
             output = output.replace(/\[quote=\"([^\[\]]*)\"\]([^\[\]]*?)\[\/quote\]/,'<blockquote class="blockquote"><div><cite>$1 wrote:</cite><p>$2</p></div></blockquote>');
-            console.log("pass: " + output);
         }
         output = urlify(output);
         return output;

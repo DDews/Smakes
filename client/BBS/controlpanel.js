@@ -2,6 +2,15 @@
  * Created by Dan on 3/4/2016.
  */
 Template['controlpanel'].helpers({
+    numChars: function() {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return 400;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return 400;
+        var karma = userinfo.totalKarma || 0;
+        var chars = 200 + 10 * karma;
+        return chars;
+    },
     getSignature: function () {
         var user = Meteor.user();
         var username = user && user.username;
@@ -9,6 +18,7 @@ Template['controlpanel'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         if (!userinfo) return null;
         return userinfo.signature;
+
     },
     isAdmin: function() {
         var user = Meteor.user();
@@ -21,7 +31,6 @@ Template['controlpanel'].helpers({
 Template.controlpanel.events({
     'click .buttoncolor': function(event){
         if (event.preventDefault) event.preventDefault();
-        console.log("wtF");
         var submit = $('[name=submit]')[0];
         submit.disabled = true;
         var signature = $('[name=signature]').val();

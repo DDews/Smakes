@@ -42,7 +42,6 @@ Template['profile'].helpers({
     totalKarma: function() {
         var username = Router.current().params.username;
         var userinfo = Userinfo.findOne({username: username});
-        console.log(userinfo);
         if (userinfo && userinfo.totalKarma) return userinfo.totalKarma;
         return 0;
     },

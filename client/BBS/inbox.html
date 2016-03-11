@@ -8,9 +8,9 @@
                 <form class="pmForm">
                     <input type="text" class="form-control typeahead" data-source="usernames" autocomplete="off" spellcheck="off" name="to" placeholder="username to send to" />
                     <input type="text" name="subject" placeholder="subject" />
-                            <textarea rows="4" cols="50" name="message"></textarea>
+                            <textarea name="message" class="materialize-textarea" length="{{numChars}}"></textarea>
                     <input type="submit" name="submit" class="buttoncolor" value="Send" />
-                    <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); }</script>
+                    <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); } $('[name=message]').characterCounter();</script>
                 </form>
             {{/if}}
             </div>

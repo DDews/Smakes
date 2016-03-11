@@ -2,6 +2,15 @@
  * Created by Dan on 2/28/2016.
  */
 Template['pmPage'].helpers({
+    numChars: function() {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return 400;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return 400;
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        return chars;
+    },
     correctPage: function () {
         var page = +Router.current().params.page;
         page = page ? page : 1;
