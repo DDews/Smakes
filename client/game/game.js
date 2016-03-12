@@ -60,7 +60,7 @@ Template.game.helpers({
 							_turnsDone[hit.turn] = ticks;
 							//console.log("handled messages for turn " + ticks)
 							
-							/*hit.each((_id, data) => {
+							hit.each((_id, data) => {
 								if (_id != "turn") {
 									//console.log(_id);
 									//console.log(data);
@@ -69,7 +69,7 @@ Template.game.helpers({
 									
 									showDamage(elem, data.text, data.color, data.bgimg)
 								}
-							})*/
+							})
 							
 						}
 					})

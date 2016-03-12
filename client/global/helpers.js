@@ -290,8 +290,14 @@ getDbStat = function(stat, collection, id) {
 	}
 	return num;
 }
-
-var statName = function(stat) { return statNames[unSuffix(stat)]; }
+fixZeroes = function(val) {
+	if (val > Math.round(val)) {
+		if (('' + val).length > ('' + val.toFixed(1)).length) return val.toFixed(2);
+		else return val;
+	}
+	return val;
+}
+statName = function(stat) { return statNames[unSuffix(stat)]; }
 	
 Handlebars.registerHelper('getDbStat', getDbStat);
 Handlebars.registerHelper('statName', statName);
