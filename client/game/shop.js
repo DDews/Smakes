@@ -35,7 +35,12 @@ var _slots = [
 
 Template.shop.helpers({
 	testIcons: function() {
-		return itemDB.toPairRay();
+		var items = itemDB.toPairRay();
+		var x = 0;
+		for (x = 0; x < 100; x++) {
+			items = items.concat(itemDB.toPairRay());
+		}
+		return items;
 	},
 	partyMember: function() {
 		var username = Meteor.user() && Meteor.user().username;
@@ -139,19 +144,27 @@ Template.shop.events({
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		var width = $("[name=" + id +"]").width();
+		var offset = event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"
 		Session.set("selectedItem",id);
 		_event[id] = function(event) {
+			var left;
+			if (event.clientX + document.body.scrollLeft + (width / 2) > $(window).width()) left = $(window).width() - width - 12;
+			else left = event.clientX + document.body.scrollLeft - (width / 2);
+			if (event.clientX + document.body.scrollLeft - (width / 2) < 0) left = 0;
 			$("[name=" + id + "]").css({
 				position: "absolute",
 				display: "inline",
 				top: event.clientY + document.body.scrollTop + 20 + "px",
-				left: event.clientX + document.body.scrollLeft - (width / 2) + "px"
+				left: left + "px"
 			});
+			console.log(left + (2 * width) + 12 + " > " + $(window).width());
+			if (left + (2 * width) + 12 > $(window).width()) offset = left - 12 - width + "px";
+			else offset = left + width + 12 + "px";
 			$('#' + slot).css({
 				position: "absolute",
 				display: "inline",
 				top: event.clientY + document.body.scrollTop + 20 + "px",
-				left: event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"
+				left: offset
 			});
 		};
 		document.addEventListener('mousemove',_event[id](event),false);
