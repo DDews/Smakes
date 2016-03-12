@@ -603,3 +603,9 @@ dt {
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
 }
+.higherStat {
+    color: #7dc74d;
+}
+.lowerStat {
+    color: #e76a64;
+}

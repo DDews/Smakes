@@ -35,8 +35,7 @@ var _slots = [
 
 Template.shop.helpers({
 	testIcons: function() {
-		var items = itemDB.toPairRay();
-		return items;
+		return itemDB.toPairRay();
 	},
 	partyMember: function() {
 		var username = Meteor.user() && Meteor.user().username;
@@ -54,6 +53,7 @@ Template.shop.helpers({
 		return players;
 	},
 	normalPose: function(poses) {
+		if (!poses) return null;
 		return poses.normal;
 	}
 	,
@@ -87,15 +87,48 @@ Template.shop.helpers({
 		var equip = [];
 		var unitId = Session.get("unitId");
 		var unit = Unitinfo.findOne({_id: unitId});
+		if (!unit) return null;
 		var equips = unit.equipment;
 		for (var property in equips) {
-			if (object.hasOwnProperty(property)) {
-				if (property.match(RegExp("^" + slot))) {
+			if (equips.hasOwnProperty(property)) {
+				if (property.match(RegExp("^" + slot,"i"))) {
 					equip.push(equips[property]);
 				}
 			}
 		}
-		return equip;
+		return equip.toPairRay();
+	},
+	equipIcon: function(object) {
+		return object.icon;
+	},
+	getSlot: function(value) {
+		if (value.has("slot")) return value.slot;
+		return null;
+	},
+	upOrDown: function(stat,value) {
+		var currentItem = Session.get("selectedItem");
+		currentItem = itemDB[currentItem];
+		if (stat == "desc") return null;
+		if (stat == "rarity") return null;
+		if (stat == "value") return null;
+		if (!currentItem) return null;
+		if (currentItem.hasOwnProperty(stat)) {
+			if (currentItem[stat] < value) return "lowerStat";
+			if (currentItem[stat] > value) return "higherStat";
+		}
+	},
+	getIncrease: function(stat,value) {
+		var currentItem = Session.get("selectedItem");
+		console.log(currentItem);
+		currentItem = itemDB[currentItem];
+		if (stat == "desc") return null;
+		if (stat == "rarity") return null;
+		if (stat == "value") return null;
+		if (!currentItem) return null;
+		if (currentItem.hasOwnProperty(stat)) {
+			if (currentItem[stat] < value) return "-" + fixZeroes(value - currentItem[stat]);
+			if (currentItem[stat] > value) return "+" + fixZeroes(currentItem[stat] - value);
+		}
 	}
 });
 _event = {};
@@ -103,7 +136,10 @@ Template.shop.events({
 	'mouseenter .item': function(event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
+		var slot = id.split(' ')[1];
+		id = id.split(' ')[0];
 		var width = $("[name=" + id +"]").width();
+		Session.set("selectedItem",id);
 		_event[id] = function(event) {
 			$("[name=" + id + "]").css({
 				position: "absolute",
@@ -111,15 +147,26 @@ Template.shop.events({
 				top: event.clientY + document.body.scrollTop + 20 + "px",
 				left: event.clientX + document.body.scrollLeft - (width / 2) + "px"
 			});
-		}
+			$('#' + slot).css({
+				position: "absolute",
+				display: "inline",
+				top: event.clientY + document.body.scrollTop + 20 + "px",
+				left: event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"
+			});
+		};
 		document.addEventListener('mousemove',_event[id](event),false);
 		return false;
 	},
 	'mouseleave .item': function(event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
+		var slot = id.split(' ')[1];
+		id = id.split(' ')[0];
 		document.removeEventListener('mousemove',_event[id](event),false);
 		$("[name=" + id + "]").css({
+			display: "none"
+		});
+		$('#' + slot).css({
 			display: "none"
 		});
 		return false;
