@@ -81,5 +81,10 @@ Template.controlpanel.events({
         if (event.preventDefault) event.preventDefault();
         Meteor.call("dropGameDB");
         return false;
-    }
+    },
+    'click .gitPull': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        Meteor.call("gitPull");
+        return false;
+    },
 });
