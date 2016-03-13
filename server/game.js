@@ -227,6 +227,10 @@ Meteor.methods({
 				unit.statsPurchased = statsP;
 				
 				unit.recalc();
+				if (!unit.combat) {
+					unit.fullHeal();
+				}
+				
 				dbupdate(unit);
 			} 
 			

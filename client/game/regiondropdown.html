@@ -1,8 +1,8 @@
 <template name="regiondropdown">
 	
+	
 	<div class="input-field col s12 blue-grey darken-4 white-text">
 		<span class="white-text">Region</span>
-		<input class="button right green darken-4" type="submit" id="startCombat" value="Go Fight!" />
 		<select class="browser-default blue-grey" name="region" id="region">
 			{{#each regions}}
 				<option value="{{key}}" {{ifSelected key}}> {{unCamelCase key}} (Base Level {{regionLevel value}})</option>
