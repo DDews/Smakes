@@ -240,7 +240,7 @@ var startCombat = function(data) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
-	newGame: (data) => {
+	newGame: function(data) {
 		
 		console.log("new game started");
 		var username = Meteor.user() && Meteor.user().username;
@@ -268,17 +268,22 @@ Meteor.methods({
 		console.log("Gameinfo\n" + gamedata);
 		
 	},
-	updateUnitInfo: (data) => {
+	updateUnitInfo: function(data) {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		var gamedata = Gameinfo.findOne({username: username});
 		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
 		var userinfo = Userinfo.findOne({username: username})
-		
 		var unit = Unitinfo.findOne(data.id);
 		if (!unit) { throw new Meteor.Error(422, "Error: Unit does not exist!"); }
 		if (unit.username != username) { throw new Meteor.Error(422, "Error: You don't own this unit!"); }
-		
+		if (isZalgo(data.name) || isZalgo(data.race) || isZalgo(data.job)) throw new Meteor.Error(422,"Error: Zalgo text detected");
+		if (isHTML(data.name) || isHTML(data.race) || isHTML(data.job)) throw new Meteor.Error(422,"Error: HTML detected");
+		var obj = data.poses;
+		obj.each(function(key, value) {
+			console.log("is " + value + " html?");
+			if (isHTML(value)) throw new Meteor.Error(422,"Error: HTML detected");
+		});
 		unit.name = data.name;
 		unit.race = data.race;
 		unit.job = data.job;
@@ -287,7 +292,7 @@ Meteor.methods({
 		dbupdate(unit);
 	},
 	
-	buyStat: (data) => {
+	buyStat: function(data) {
 		var stat = data.stat;
 		var n = data.n;
 		var unit = Unitinfo.findOne(data.unit);
@@ -320,7 +325,7 @@ Meteor.methods({
 		
 	},
 	
-	startCombat: (data) => {
+	startCombat: function(data) {
 		startCombat(data);
 		
 	},

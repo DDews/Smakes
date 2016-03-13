@@ -1,6 +1,5 @@
 <template name="editunit">
-	{{#if unitExists}} 
-		<div class="col s12" id="error"></div>
+	{{#if unitExists}}
 		<div class="forumbg row">
 
 			<div class="col s12 center">Basic info</div>
@@ -62,7 +61,7 @@
 					<input onchange="updateImage('hurt')" type="text" id="unitPose-hurt" name="unitPose-hurt" placeholder="Paste image URL here" value="{{unitPoseURL id 'hurt'}}" />
 				</div>
 			</div>
-			
+			<div class="col s12" id="error"></div>
 			<button id="send" class="btn green darken-4 white-text" value="send">Send</button>
 			
 		</div>
