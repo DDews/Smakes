@@ -17,16 +17,14 @@ var auxStats = [
 	"rflex", "intut", "sight",
 ]
 
-
-
-Template.unit.helpers({
+var unitHelpers = {
 	userOwns: function(id) {
 		var username = Meteor.user();
 		username = username && username.username;
 		if (!username) { return false };
 		
 		var unit = Unitinfo.findOne({_id: id});
-		return (unit.username == username)
+		return (unit.username == username && unit.team == 'player');
 	},
 	
 	statCost: function(stat) {
@@ -68,16 +66,15 @@ Template.unit.helpers({
 		return "r90-100";
 	},
 	getCap: function(thing) { return getUnit()["m"+thing] },	
-})
-
-Template.unit.rendered = function(){
-	//$("[name=region]").material_select();
-	
 }
-Template.unit.onRendered(function() {
-	$('.tooltipped').tooltip({delay: 50});
-	
-})
+
+Template.unit.helpers(unitHelpers);
+Template.editunit.helpers(unitHelpers);
+
+Template.unit.rendered = function(){ }
+Template.unit.onRendered(function() { $('.tooltipped').tooltip({delay: 50}); })
+
+
 
 var buyStat = function(stat, n) {
 	var data = {};

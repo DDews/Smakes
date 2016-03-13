@@ -166,6 +166,16 @@ var newPlayerUnit = function(username, name, job) {
 	var unit = new Unit();
 	unit.username = username;
 	unit.name = name;
+	if (name == 'Neptune') {
+		unit.poses = {
+			normal: "http://a.pomf.cat/jmuhje.png",
+			ded: "http://a.pomf.cat/qsqrer.png",
+			lowHP: "http://a.pomf.cat/wszovy.png",
+			happy: "http://a.pomf.cat/pzfygl.png",
+			hurt: "http://a.pomf.cat/qgarkn.png",
+		}
+	}
+	
 	unit.job = job;
 	
 	unit.equipment = starterEquips;
@@ -257,6 +267,24 @@ Meteor.methods({
 		
 		console.log("Gameinfo\n" + gamedata);
 		
+	},
+	updateUnitInfo: (data) => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var userinfo = Userinfo.findOne({username: username})
+		
+		var unit = Unitinfo.findOne(data.id);
+		if (!unit) { throw new Meteor.Error(422, "Error: Unit does not exist!"); }
+		if (unit.username != username) { throw new Meteor.Error(422, "Error: You don't own this unit!"); }
+		
+		unit.name = data.name;
+		unit.race = data.race;
+		unit.job = data.job;
+		unit.poses = data.poses;
+		
+		dbupdate(unit);
 	},
 	
 	buyStat: (data) => {
