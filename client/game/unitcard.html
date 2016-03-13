@@ -53,11 +53,13 @@
 			</div>
 		</div>
 		<div class="card-action">
-			{{#if unitInCombat id}}
-				Abilities <br /> [Attack]
-			{{else}}
-				<a href="/game/unit/{{id}}">Info</a>
-			{{/if}}
+			<a href="/game/unit/{{id}}">Info</a>
+			<div>
+				{{#if unitInCombat id}}
+					Abilities <br /> [Attack]
+				{{else}}
+				{{/if}}
+			</div>
 		</div>
 
 	</div>

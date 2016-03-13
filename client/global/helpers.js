@@ -175,7 +175,13 @@ var unitName = function(id) {
 	return getUnit(id).name; 
 }
 var unitStat = function(id, stat) { return getUnit(id)[stat]; }
-var ownerName = function(id) { return getUnit(id).username; }
+var ownerName = function(id) { 
+	var unit = getUnit(id);
+	if (unit.team != 'player') { 
+		return "Nobody.";
+	}
+	return getUnit(id).username; 
+}
 var isPlayer = function(id) { 
 	var unit = getUnit(id);
 	if (!unit) { return false; }
@@ -259,6 +265,13 @@ var unitPose = function(id) {
 	return unit.poses[cpose];
 }
 
+var unitPoseURL = function(id, pose) {
+	var unit = getUnit(id);
+	if (!unit) { return ""; }
+	
+	return unit.poses[pose];
+}
+
 
 var unitPoseStyle = function(id) {
 	var unit = getUnit(id);
@@ -310,6 +323,7 @@ Handlebars.registerHelper('toPairs', (thing) => {return thing.toPairRay(); });
 
 Handlebars.registerHelper('tooltipFor', tooltipFor);
 Handlebars.registerHelper('unitPose', unitPose);
+Handlebars.registerHelper('unitPoseURL', unitPoseURL);
 Handlebars.registerHelper('unitPoseStyle', unitPoseStyle);
 
 
