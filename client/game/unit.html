@@ -123,7 +123,7 @@
 
 									<div class="chip blue-grey darken-3 white-text">
 										<div class="icon iconbg valign-wrapper">
-											<div class="center valign {{equip.value.icon}}"></div>
+											<div class="center valign {{equip.value.icon}} item" id="{{equip.value.id}}"></div>
 										</div>
 										{{unCamelCase equip.key}}
 									</div>
@@ -134,6 +134,17 @@
 						
 					 </div>
 				</div>
+                {{#each equip in unitEquip}}
+                    <div name="{{equip.value.id}}" class="itembg statwindow {{getBgColor equip.value.rarity}}" style="display: none;">
+                        <p class="tooltipText">{{equip.value.name}}</p>
+                        <p class="tooltipText">{{equip.value.type}}</p>
+                        {{#each toPairs equip.value}}
+                            {{#if statName key}}
+                                <p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/each}}
 				{{setTooltips}}
 				{{/if}}
 				
