@@ -5,6 +5,7 @@ inCombat = function() {
 
 _pause = false;
 _inCombat = false;
+_retry = false;
 
 _turnsDone = {};
 
@@ -33,10 +34,66 @@ Template.game.helpers({
 		var data = Combatinfo.findOne();
 		return data && (1+data.combo);
 	},
-	paused: function() {
-		return _pause;
-	},
+	paused: function() { return _pause; },
+	retry: function() { return _retry; },
+	retryAndNotInCombat: function() { return _retry && !_inCombat; },
 	
+	gameStamina: function() { 
+		var data = Gameinfo.findOne();
+		if (!data) { return 0; }
+		return data.stamina || 0;
+	},
+	gameMaxStamina: function() { 
+		var data = Gameinfo.findOne();
+		if (!data) { return 20; }
+		return data.maxStamina || 20;
+	},
+	gameRetryTime: function() {
+		var data = Gameinfo.findOne();
+		var time = 5;
+		if (data) {
+			time = data.retryTime || 5;
+		}
+		return time.toFixed(2);
+	},
+	gameRetryTimeout: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return 0; }
+		return data.retryTimeout || 0;
+	},
+	gameRetryTimeoutPercent: function() {
+		var data = Gameinfo.findOne();
+		var inKombat = data && data.combat != null;
+		if (inKombat || !_retry) { return 0; }
+		
+		var data = Gameinfo.findOne();
+		if (!data) { return .5; }
+		var retryTime = data.retryTime || 5;
+		var retryTimeout = data.retryTimeout || 2.5;
+		
+		return Math.floor(retryTimeout / retryTime * 100);
+	},
+	startRetryLoop: function() {
+		if (!_retry) {
+			console.log("not retrying combats...");
+			return;
+		}
+		var ticks = 0;
+		var intervalId = setInterval(() => {
+			if (!_retry || _inCombat) { 
+				clearInterval(intervalId); 
+				return; 
+			}
+			ticks += 1;
+			var data = {};
+			Meteor.call("elapseRetryTime", data);
+			if (Router.current().route.getName() != 'game') {
+				clearInterval(intervalId);
+			}
+			
+		}, 200); //interval length
+		
+	},
 	startCombatLoop: function() {
 		if (_inCombat) { 
 			console.log("combatAlreadyRunning")
@@ -49,9 +106,7 @@ Template.game.helpers({
 			_inCombat = true;
 			if (!_pause) {
 				ticks += 1;
-				var data = {}
-				data.time = .2;
-				data.sendTime = (new Date()).getTime();
+				var data = {};
 				
 				var combatinfo = Combatinfo.findOne();
 				if (combatinfo) {
@@ -91,6 +146,8 @@ Template.game.helpers({
 		}, 200); //Interval length
 		
 	},
+	
+	
 	
 	combatMessages: function() {
 		var data = Combatinfo.findOne();
@@ -143,6 +200,7 @@ Template.game.events({
 		
 		var data = {}
 		data.region = $("#region").val();
+		data.first = true;
 		Session.set("lastRegion",data.region);
 		//console.log(data);
 		
@@ -166,9 +224,22 @@ Template.game.events({
 		units.each((u) => {
 			console.log(u);
 		})
-		
-		
 	},
+	
+	'click #retry': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		
+		_retry = !_retry;
+		var btn = $("#retry");
+		
+		if (_retry) {
+			btn.removeClass("darken-4").addClass("darken-1").text("Autofight: On")
+		} else {
+			btn.addClass("darken-4").removeClass("darken-1").text("Autofight: Off");
+		}
+	},
+		
+		
 	'click #run': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
 		
