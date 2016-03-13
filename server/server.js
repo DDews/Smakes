@@ -43,6 +43,9 @@ Accounts.validateNewUser(function (user) {
     throw new Meteor.Error(403, "Username must start with a letter and only contain numbers and letters.");
 });
 Meteor.startup(function() {
+    Future = Npm.require("fibers/future");
+    // Load exec
+    exec = Npm.require("child_process").exec;
     reCAPTCHA.config({
         privatekey: '6LcPHRoTAAAAAMa7ccTuIuaV8jU3XahqTTnwuDrd'
     });
@@ -155,6 +158,23 @@ cleanSubscriptions = function() {
     }
 }
 Meteor.methods({
+    gitPull: function() {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
+        var isAdmin = Userinfo.findOne({username: username});
+        var isAdmin = isAdmin && isAdmin.admin;
+        if (!isAdmin) throw new Meteor.Error(422,"Error: unauthorized");
+        this.unblock();
+        var future = new Future();
+        exec("git pull origin master", function (error,stdout,stderr) {
+            if (error) {
+                console.log(error);
+                throw new Meteor.Error(500,"git pull origin master failed");
+            }
+            future.return(stdout.toString());
+        });
+        return future.wait();
+    },
     formSubmissionMethod: function(username, password, captchaData) {
         if (username.length > 20) throw new Meteor.Error(422,"Username is longer than 20 characters");
         var verifyCaptchaResponse = reCAPTCHA.verifyCaptcha(this.connection.clientAddress, captchaData);

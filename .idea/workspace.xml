@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/game.js" afterPath="$PROJECT_DIR$/client/game/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/unit.html" afterPath="$PROJECT_DIR$/client/game/unit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/unit.js" afterPath="$PROJECT_DIR$/client/game/unit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/controlpanel.html" afterPath="$PROJECT_DIR$/client/BBS/controlpanel.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/controlpanel.js" afterPath="$PROJECT_DIR$/client/BBS/controlpanel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,53 +25,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="shop.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/shop.html">
+      <file leaf-file-name="controlpanel.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/BBS/controlpanel.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.1923075">
-              <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+            <state vertical-scroll-proportion="-3.2692308">
+              <caret line="5" column="113" selection-start-line="5" selection-start-column="113" selection-end-line="5" selection-end-column="113" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bbs.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bbs.css">
+      <file leaf-file-name="controlpanel.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/BBS/controlpanel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.076923">
-              <caret line="612" column="17" selection-start-line="612" selection-start-column="17" selection-end-line="612" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.7983051">
+              <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shop.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/shop.js">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="140" column="4" selection-start-line="140" selection-start-column="4" selection-end-line="185" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="unit.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/unit.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.846154">
-              <caret line="136" column="23" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
-              <folding>
-                <element signature="n#style#0;n#div#3;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="unit.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/game/unit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30728242">
-              <caret line="68" column="42" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
+              <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -134,9 +111,6 @@
         <option value="$PROJECT_DIR$/client/BBS/pmPage.js" />
         <option value="$PROJECT_DIR$/client/BBS/inbox.js" />
         <option value="$PROJECT_DIR$/client/BBS/thread.js" />
-        <option value="$PROJECT_DIR$/client/BBS/controlpanel.html" />
-        <option value="$PROJECT_DIR$/client/BBS/controlpanel.js" />
-        <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/global/helpers.js" />
         <option value="$PROJECT_DIR$/client/game/shop.html" />
         <option value="$PROJECT_DIR$/client/game/shop.js" />
@@ -146,6 +120,9 @@
         <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/client/game/unit.html" />
         <option value="$PROJECT_DIR$/client/game/unit.js" />
+        <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/client/BBS/controlpanel.html" />
+        <option value="$PROJECT_DIR$/client/BBS/controlpanel.js" />
       </list>
     </option>
   </component>
@@ -249,7 +226,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
+              <option name="myItemId" value="BBS" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -379,7 +356,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="10" width="1346" height="728" extended-state="0" />
+    <frame x="0" y="10" width="1346" height="728" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962406" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -423,8 +400,13 @@
           <url>file://$PROJECT_DIR$/client/client.js</url>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/server.js</url>
+          <line>48</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="12" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -527,6 +509,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.206897">
           <caret line="198" column="33" selection-start-line="198" selection-start-column="33" selection-end-line="198" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -555,6 +538,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19484241">
           <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -602,6 +586,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44973546">
           <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -609,6 +594,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26984128">
           <caret line="154" column="21" selection-start-line="154" selection-start-column="21" selection-end-line="154" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -616,13 +602,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3148148">
           <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/controlpanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44973546">
-          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -630,21 +610,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17989418">
           <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/controlpanel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6996904">
-          <caret line="18" column="69" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="69" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38108882">
-          <caret line="158" column="102" selection-start-line="158" selection-start-column="102" selection-end-line="158" selection-end-column="102" />
         </state>
       </provider>
     </entry>
@@ -652,6 +618,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.9444444">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -742,44 +709,68 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/shop.js">
+    <entry file="file://$PROJECT_DIR$/client/game/unit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="4" selection-start-line="140" selection-start-column="4" selection-end-line="185" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/shop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.1923075">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bbs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.076923">
-          <caret line="612" column="17" selection-start-line="612" selection-start-column="17" selection-end-line="612" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.30728242">
+          <caret line="68" column="42" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/game/unit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.846154">
+        <state vertical-scroll-proportion="0.63829786">
           <caret line="136" column="23" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#1;n#div#0;n#template#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/unit.js">
+    <entry file="file://$PROJECT_DIR$/client/game/shop.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30728242">
-          <caret line="68" column="42" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.02881356">
+          <caret line="140" column="4" selection-start-line="140" selection-start-column="4" selection-end-line="185" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bbs.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9255319">
+          <caret line="612" column="17" selection-start-line="612" selection-start-column="17" selection-end-line="612" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/shop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33156028">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/controlpanel.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="5" column="113" selection-start-line="5" selection-start-column="113" selection-end-line="5" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/controlpanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7983051">
+          <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
           <folding />
         </state>
       </provider>
