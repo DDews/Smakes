@@ -145,6 +145,15 @@ Template['thread'].helpers({
         var thread = Threads.findOne({_id: id});
         if (!thread) return false;
         return thread.modified.getTime() == new Date(8640000000000000).getTime();
+    },
+    numChars: function () {
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) return 400;
+        var userinfo = Userinfo.findOne({username: username});
+        if (!userinfo) return 400;
+        var karma = userinfo.totalKarma || 0;
+        var chars = 800 + 10 * karma;
+        return chars;
     }
 });
 Template.thread.events({

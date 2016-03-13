@@ -27,9 +27,9 @@
                                     <div id="pmerror" class="col s12"></div>
                                     <form class="pmForm">
                                         <input type="text" name="subject" placeholder="subject" />
-                                        <textarea class="messagebox" name="message"></textarea>
+                                        <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
                                         <input type="submit" class="buttoncolor" name="submit" value="Send" />
-                                        <script>$('[name=subject]').focus();</script>
+                                        <script>$('[name=subject]').focus(); $('[name=message]').characterCounter();</script>
                                     </form>
                                 {{/if}}
                             </div>
@@ -64,10 +64,10 @@
                                 <div id="pmerror" class="col s12"></div>
                                 <form class="pmForm">
                                     <input type="text" name="subject" placeholder="subject" />
-                                    <textarea class="messagebox"  name="message"></textarea>
+                                    <textarea class="materialize-textarea"  name="message" length="{{numChars}}"></textarea>
                                     <input type="submit" class="buttoncolor" name="submit" value="Send" />
                                 </form>
-                                <script>$('[name=subject]').focus();</script>
+                                <script>$('[name=subject]').focus(); $('[name=message]').characterCounter();</script>
                             {{/if}}
                             </div>
                         {{/if}}

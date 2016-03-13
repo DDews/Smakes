@@ -1,8 +1,15 @@
 <template name="shop">
 	<div class="forumbg row">
+        <div class="row">
+            {{#each partyMember}}
+                <div class="chip">
+                    <img src="{{normalPose poses}}" alt="Contact Person">{{name}}
+                </div>
+            {{/each}}
+        </div>
 		{{#each testIcons}}
 			<div class="icon iconbg valign-wrapper">
-				<div class="center valign {{icon key}} item" name="item" id="{{key}}"></div>
+				<div class="center valign {{icon key}} item" name="item" id="{{key}} {{getSlot value}}"></div>
 			</div>
             <div name="{{key}}" class="itembg col s3 {{getBgColor value}}" style="display: none;">
                 <p class="tooltipText">{{getName value}}</p>
@@ -14,5 +21,24 @@
             {{/each}}
             </div>
 		{{/each}}
+        {{#each slots}}
+            <div id="{{this}}" class="itembg r1-10 col s3" style="display: none;">
+                <div class="tooltipText center">
+                    {{#each equipment this}}
+                        <div class="icon iconbg valign-wrapper">
+                            <div class="center valign {{equipIcon key}}"></div>
+                        </div>
+                        <p class="tooltipText">{{getName key}}</p>
+                        <p class="tooltipText">{{getSlot key}}</p>
+                        <br>
+                        {{#each toPairs key}}
+                            {{#if statName key}}
+                                <p class="tooltipText"><span class="{{upOrDown key value}}">{{getIncrease key value}}</span><span class="statName">{{statName key}}</span>: {{value}}</p>
+                            {{/if}}
+                        {{/each}}
+                    {{/each}}
+                </div>
+            </div>
+        {{/each}}
 	</div>
 </template>

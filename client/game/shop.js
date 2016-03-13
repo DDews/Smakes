@@ -24,14 +24,48 @@ var test1 = [
 	"gem6",
 	
 ]
+var _slots = [
+	"body",
+	"head",
+	"gloves",
+	"legs",
+	"hand",
+	"accessory"
+]
 
 Template.shop.helpers({
-	testIcons: function() { return itemDB.toPairRay(); },
+	testIcons: function() {
+		var items = itemDB.toPairRay();
+		var x = 0;
+		for (x = 0; x < 100; x++) {
+			items = items.concat(itemDB.toPairRay());
+		}
+		return items;
+	},
+	partyMember: function() {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) return null;
+		var gameinfo = Gameinfo.findOne({username: username});
+		if (!gameinfo) return null;
+		var unitId = Session.get("unitId");
+		var units = gameinfo.units;
+		if (!unitId && units[0]) Session.set("unitId",units[0]);
+		var players = [];
+		var x;
+		for (x = 0; x < units.length; x++) {
+			players.push(Unitinfo.findOne({_id: units[x]}));
+		}
+		return players;
+	},
+	normalPose: function(poses) {
+		if (!poses) return null;
+		return poses.normal;
+	}
+	,
 	icon: function(object) {
 		return itemDB[object].icon;
 	},
 	getName: function(value) {
-		console.log(value);
 		return value.name;
 	},
 	getType: function(value) {
@@ -39,7 +73,6 @@ Template.shop.helpers({
 	},
 	getBgColor: function(value) {
 		var rarity = value.rarity;
-		console.log(rarity);
 		if (rarity < 10) return "r1-10";
 		if (rarity < 20) return "r10-20";
 		if (rarity < 30) return "r20-30";
@@ -51,6 +84,56 @@ Template.shop.helpers({
 		if (rarity < 90) return "r80-90";
 		if (rarity < 100) return "r90-100"
 		return "r90-100";
+	},
+	slots: function() {
+		return _slots;
+	},
+	equipment: function(slot) {
+		var equip = [];
+		var unitId = Session.get("unitId");
+		var unit = Unitinfo.findOne({_id: unitId});
+		if (!unit) return null;
+		var equips = unit.equipment;
+		for (var property in equips) {
+			if (equips.hasOwnProperty(property)) {
+				if (property.match(RegExp("^" + slot,"i"))) {
+					equip.push(equips[property]);
+				}
+			}
+		}
+		return equip.toPairRay();
+	},
+	equipIcon: function(object) {
+		return object.icon;
+	},
+	getSlot: function(value) {
+		if (value.has("slot")) return value.slot;
+		return null;
+	},
+	upOrDown: function(stat,value) {
+		var currentItem = Session.get("selectedItem");
+		currentItem = itemDB[currentItem];
+		if (stat == "desc") return null;
+		if (stat == "rarity") return null;
+		if (stat == "value") return null;
+		if (!currentItem) return null;
+		if (currentItem.hasOwnProperty(stat)) {
+			if (currentItem[stat] < value) return "lowerStat";
+			if (currentItem[stat] > value) return "higherStat";
+		}
+	},
+	getIncrease: function(stat,value) {
+		var currentItem = Session.get("selectedItem");
+		console.log(currentItem);
+		currentItem = itemDB[currentItem];
+		if (stat == "desc") return null;
+		if (stat == "rarity") return null;
+		if (stat == "value") return null;
+		if (!currentItem) return null;
+		if (currentItem.hasOwnProperty(stat)) {
+			if (currentItem[stat] < value) return "-" + fixZeroes(value - currentItem[stat]);
+			if (currentItem[stat] > value) return "+" + fixZeroes(currentItem[stat] - value);
+		}
 	}
 });
 _event = {};
@@ -58,23 +141,45 @@ Template.shop.events({
 	'mouseenter .item': function(event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
+		var slot = id.split(' ')[1];
+		id = id.split(' ')[0];
 		var width = $("[name=" + id +"]").width();
+		var offset = event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"
+		Session.set("selectedItem",id);
 		_event[id] = function(event) {
+			var left;
+			if (event.clientX + document.body.scrollLeft + (width / 2) > $(window).width()) left = $(window).width() - width - 12;
+			else left = event.clientX + document.body.scrollLeft - (width / 2);
+			if (event.clientX + document.body.scrollLeft - (width / 2) < 0) left = 0;
 			$("[name=" + id + "]").css({
 				position: "absolute",
 				display: "inline",
 				top: event.clientY + document.body.scrollTop + 20 + "px",
-				left: event.clientX + document.body.scrollLeft - (width / 2) + "px"
+				left: left + "px"
 			});
-		}
+			console.log(left + (2 * width) + 12 + " > " + $(window).width());
+			if (left + (2 * width) + 12 > $(window).width()) offset = left - 12 - width + "px";
+			else offset = left + width + 12 + "px";
+			$('#' + slot).css({
+				position: "absolute",
+				display: "inline",
+				top: event.clientY + document.body.scrollTop + 20 + "px",
+				left: offset
+			});
+		};
 		document.addEventListener('mousemove',_event[id](event),false);
 		return false;
 	},
 	'mouseleave .item': function(event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
+		var slot = id.split(' ')[1];
+		id = id.split(' ')[0];
 		document.removeEventListener('mousemove',_event[id](event),false);
 		$("[name=" + id + "]").css({
+			display: "none"
+		});
+		$('#' + slot).css({
 			display: "none"
 		});
 		return false;

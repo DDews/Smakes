@@ -20,8 +20,9 @@
                 <div class="col s12" id="error"></div>
                 {{#if showpm}}
                     <form class="loginForm">
-                        <input type="text" name="subject" placeholder="subject" />
-                        <textarea class="messagebox" rows="4" cols="50" name="message"></textarea>
+                        <input type="text" name="subject" placeholder="subject"/>
+                        <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
+                        <script>$('[name=message]').characterCounter();</script>
                         <input type="submit" name="submit" class="buttoncolor" value="Submit" />
                         {{#if hasPriveledges}}<input type="checkbox" id="sticky" name="sticky"/><label for="sticky">Sticky</label>{{/if}}
                     </form>

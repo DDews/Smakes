@@ -13,5 +13,10 @@ Template.regiondropdown.onRendered(function() {
 Template.regiondropdown.helpers({
 	regionLevel: function(region) {
 		return region.level;
+	},
+	ifSelected: function(key) {
+		var lastRegion = Session.get("lastRegion");
+		if (lastRegion == key) return "selected";
+		return null;
 	}
 });
