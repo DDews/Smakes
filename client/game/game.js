@@ -141,7 +141,8 @@ Template.game.events({
 		if (event && event.preventDefault) event.preventDefault();
 		
 		var data = {}
-		data.region = $("#region").val()
+		data.region = $("#region").val();
+		Session.set("lastRegion",data.region);
 		//console.log(data);
 		
 		
