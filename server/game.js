@@ -349,7 +349,7 @@ Meteor.methods({
 			console.log("elapseRetryTime: potential cheating detected, ignoring!")
 		} else {
 			gamedata.retryTimeout += .2;
-			console.log(gamedata.retryTimeout + " " + gamedata.retryTime)
+			//console.log(gamedata.retryTimeout + " " + gamedata.retryTime)
 			if (gamedata.retryTimeout > gamedata.retryTime) {
 				var info = {}
 				info.region = gamedata.lastRegion;
