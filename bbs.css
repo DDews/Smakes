@@ -609,3 +609,6 @@ dt {
 .lowerStat {
     color: #e76a64;
 }
+.statwindow {
+    width: 300px;
+}
