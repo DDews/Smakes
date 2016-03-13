@@ -105,10 +105,20 @@ Template['header'].helpers({
             if (session[0] == "unit") return session[1];
             return null;
         },
+		isEditUnit: function() {
+            var session = Session.get("nav");
+            if (!session instanceof Array) return null;
+            if (session[0] == "editunit") return session[1];
+            return null;
+        },
         isNotGame: function() {
             var session = Session.get("nav");
             if (session == "game") return false;
-            if (session instanceof Array && session[0] == "unit") return false;
+            if (session instanceof Array) {
+				if (session[0] == "unit") { return false };
+				if (session[0] == "editunit") { return false };
+			}
+            
             return true;
         },
         numNewFollowed: function() {
