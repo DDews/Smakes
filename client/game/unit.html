@@ -61,7 +61,7 @@
 								</span>
 							</div>
 							<div class="col s3 blue-grey darken-3 z-depth-2">
-								<span class="left stattext">Exp:</span>
+								<span class="left stattext">Spendable Exp:</span>
 								<span class="right stattext">
 									{{getDbStat 'spendableExp@' 'Unitinfo' id}}
 								</span>
@@ -79,16 +79,17 @@
 										<div class="right chip blue-grey darken-2 stattext white-text"> {{getStat stat}} </div>
 									</div>
 									
-									<div class="row center">
-									<button id="plus{{stat}}" class="center green darken-4 waves-effect waves-yellow">+1</button>
-									<span class="tiny">cost: {{statCost stat}} EXP</span>
-									</div>
-									
-									<div class="row center">
-									<button id="plus10{{stat}}" class="center green darken-4 waves-effect waves-yellow">+10</button>
-									<span class="tiny">cost: {{statCost10 stat}} EXP</span>
-									</div>
-									
+									{{#if userOwns id}}
+										<div class="row center">
+										<button id="plus{{stat}}" class="center green darken-4 waves-effect waves-yellow">+1</button>
+										<span class="tiny">cost: {{statCost stat}} EXP</span>
+										</div>
+
+										<div class="row center">
+										<button id="plus10{{stat}}" class="center green darken-4 waves-effect waves-yellow">+10</button>
+										<span class="tiny">cost: {{statCost10 stat}} EXP</span>
+										</div>
+									{{/if}}
 								</div>
 							{{/each}}
 						</div>

@@ -20,6 +20,15 @@ var auxStats = [
 
 
 Template.unit.helpers({
+	userOwns: function(id) {
+		var username = Meteor.user();
+		username = username && username.username;
+		if (!username) { return false };
+		
+		var unit = Unitinfo.findOne({_id: id});
+		return (unit.username == username)
+	},
+	
 	statCost: function(stat) {
 		var unit = getUnit();
 		var statsP = unit.statsPurchased || {};
