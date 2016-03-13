@@ -4,13 +4,27 @@
         {{#if currentUser}}
 
         {{#if gameInfoExists }}
+			<div class="row">
+				<span class="right col s3">Autofight Timer: {{gameRetryTime}}s</span>
+				<span class="right col s3">Stamina: {{gameStamina}} / {{gameMaxStamina}}</span>
+			</div>
+				
+			<div class="progress blue-grey lighten-5">
+				<div class="determinate blue-grey lighten-2" style="width:{{gameRetryTimeoutPercent}}%"></div>
+			</div>
+				
             {{#if paused}}
-                <button class="btn red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
+                <button class="btn red darken-4 white-text left" id="pause" value="PAUSED">PAUSED</button>
             {{else}}
-                <button class="btn green darken-4 white-text" id="pause" value="pause">pause</button>
+                <button class="btn green darken-4 white-text left" id="pause" value="pause">pause</button>
             {{/if}}
-
-
+			
+			{{#if retry}}
+				<button class="btn green darken-1 white-text right" id="retry" value="RETRY">Autofight: On</button>
+			{{else}}
+				<button class="btn green darken-4 white-text right" id="retry" value="RETRY">Autofight: Off</button>
+			{{/if}}
+			
             {{#if inCombat}}
                 <button class="btn right orange darken-4 white-text" id="run" value="run">Run Away</button>
                 {{startCombatLoop}}
@@ -27,7 +41,8 @@
                     {{> unitcard id=this}}
                 {{/each}}
             {{else}}
-				<a href="/shop" class="btn green darken-4 white-text" value="shop">Shop</a>
+				{{startRetryLoop}}
+				<a href="/shop" class="btn green darken-4 white-text left" value="shop">Shop</a>
 		
 				<input class="btn right green darken-4" type="submit" id="startCombat" value="Go Fight!" />
                 <div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
