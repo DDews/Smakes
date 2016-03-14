@@ -262,7 +262,6 @@ Meteor.methods({
 			maxStamina: 4,
 			retryTime: 10,
 			retryTimeout: 0,
-			summary:defaultSummary,
 		};
 		dbinsert("Gameinfo", gamedata)
 		
@@ -275,11 +274,16 @@ Meteor.methods({
 		var gamedata = Gameinfo.findOne({username: username});
 		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
 		var userinfo = Userinfo.findOne({username: username})
-		
 		var unit = Unitinfo.findOne(data.id);
 		if (!unit) { throw new Meteor.Error(422, "Error: Unit does not exist!"); }
 		if (unit.username != username) { throw new Meteor.Error(422, "Error: You don't own this unit!"); }
-		
+		if (isZalgo(data.name) || isZalgo(data.race) || isZalgo(data.job)) throw new Meteor.Error(422,"Error: Zalgo text detected");
+		if (isHTML(data.name) || isHTML(data.race) || isHTML(data.job)) throw new Meteor.Error(422,"Error: HTML detected");
+		var obj = data.poses;
+		obj.each(function(key, value) {
+			console.log("is " + value + " html?");
+			if (isHTML(value)) throw new Meteor.Error(422,"Error: HTML detected");
+		});
 		unit.name = data.name;
 		unit.race = data.race;
 		unit.job = data.job;
@@ -432,9 +436,6 @@ Meteor.methods({
 		combatinfo.currentTurn = currentTurn;
 		var messages = {turn: currentTurn};
 		
-		var summary = gamedata.summary;
-		combatinfo.summary = gamedata.summary;
-		
 		if (combatinfo.hits.unshift(messages) > 3) { combatinfo.hits.pop(); }
 		combatinfo.rebuildCombatantLists();
 		
@@ -443,7 +444,6 @@ Meteor.methods({
 			console.log(diff);
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
-			summary.time += 200;
 			combatinfo.combatants.each((id) => {
 				var unit = dbget("Unitinfo", id);
 				
@@ -457,17 +457,13 @@ Meteor.methods({
 				
 				
 			})
-			gamedata.summary = combatinfo.summary;
 			
-			dbupdate(gamedata);
 		}
-		
 		
 		
 		var winner = combatinfo.run ? 'run' : combatinfo.winningTeam();
 		//console.log("winner: " + winner)
 		if (winner) {
-			
 			if (winner == 'run') {
 				console.log("bitches ran away!");
 				gamedata.cleanUpAllCombats();
@@ -477,6 +473,7 @@ Meteor.methods({
 				console.log("Spawning next thing in Region : " + region)
 				var regionData = areaData[region];
 				combatinfo.combo += 1;
+				//userinfo.kills += 
 				var goldDrop = 0;
 				var expDrop = 0;
 				combatinfo.combatants.each((id) => {
@@ -488,10 +485,6 @@ Meteor.methods({
 					}
 				})
 				
-				summary.inc("goldDrop", Math.floor(goldDrop));
-				summary.inc("expDrop", Math.floor(expDrop));
-				
-				
 				userinfo.wallet.gold = Math.floor(userinfo.wallet.gold + goldDrop);
 				console.log("dropped " + goldDrop + " golds");
 				
@@ -499,8 +492,8 @@ Meteor.methods({
 					var unit = dbget("Unitinfo", id);
 					
 					unit.giveExp(expDrop);
-				})
 					
+				})
 					
 				
 				combatinfo.cleanUpCombat();
@@ -508,8 +501,6 @@ Meteor.methods({
 				combatinfo.startNewBattle(mons);
 				
 				dbupdate(combatinfo);
-				
-				dbupdate(gamedata);
 				dbupdate(userinfo);
 				
 				combatinfo.lastTime = now;

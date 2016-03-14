@@ -9,7 +9,7 @@ Template.editunit.events({
 	'click #send': function() {
 		console.log("Updating unit info...");
 		//TBD: check for valid inputs...
-		
+		$("#error").html('');
 		var data = {};
 		
 		data.id = Router.current().params._id;
@@ -25,8 +25,15 @@ Template.editunit.events({
 		data.poses.lowHP = $('#unitPose-lowHP').val();
 		data.poses.happy = $('#unitPose-happy').val();
 		data.poses.hurt = $('#unitPose-hurt').val();
-		
-		Meteor.call("updateUnitInfo", data);
-		Router.go("/game/unit/"+data.id)
+		Meteor.call("updateUnitInfo", data, function(error, result) {
+			if (error) {
+				$("#error").html(error.reason);
+				return;
+			}
+			else {
+				$("#error").html("Updated");
+				Router.go("/game/unit/"+data.id)
+			}
+		});
 	}
 })
