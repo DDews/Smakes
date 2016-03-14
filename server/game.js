@@ -245,6 +245,46 @@ var unitRecruitmentCost = function(u) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
+	purgeGame: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedatas = Gameinfo.find({username: username}).fetch();
+		var unitinfos = Unitinfo.find({username: username}).fetch();
+		var combatinfo = Combatinfo.find({username: username}).fetch();
+		
+		gamedatas.each((d) => { dbremove(d); })
+		unitinfos.each((d) => { dbremove(d); })
+		combatinfo.each((d) => { dbremove(d); })
+		
+	},
+	
+	purgeCombat: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedatas = Gameinfo.find({username: username}).fetch();
+		var unitinfos = Unitinfo.find({username: username}).fetch();
+		var combatinfo = Combatinfo.find({username: username}).fetch();
+		
+		unitinfos.each((unit)=> {
+			if (unit.team != 'player') { dbremove(unit); }
+			else {
+				unit.combat = null;
+				dbupdate(unit);
+			}
+		});
+		gamedatas.each((data)=> {
+			data.combat = null;
+			dbupdate(data);
+		});
+		
+		combatinfo.each((info)=> {
+			dbremove(info);
+		});
+		
+		
+	},
+	
+	
 	newGame: (data) => {
 		
 		console.log("new game started");
