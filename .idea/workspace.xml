@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/summary.html" afterPath="$PROJECT_DIR$/client/game/summary.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/summary.js" afterPath="$PROJECT_DIR$/client/game/summary.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/unitcard.html" afterPath="$PROJECT_DIR$/client/game/unitcard.html" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,30 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="summary.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/game/summary.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3380682">
-              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="summary.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/summary.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.5555553">
-              <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="game.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/game/game.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2692308">
+            <state vertical-scroll-proportion="0.26136363">
               <caret line="32" column="35" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="35" />
               <folding />
             </state>
@@ -114,7 +93,6 @@
         <option value="$PROJECT_DIR$/client/game/editunit.html" />
         <option value="$PROJECT_DIR$/server/game.js" />
         <option value="$PROJECT_DIR$/client/game/editunit.js" />
-        <option value="$PROJECT_DIR$/client/game/unitcard.html" />
         <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/lib/utilities.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
@@ -122,6 +100,7 @@
         <option value="$PROJECT_DIR$/client/BBS/inbox.html" />
         <option value="$PROJECT_DIR$/client/game/summary.js" />
         <option value="$PROJECT_DIR$/client/game/summary.html" />
+        <option value="$PROJECT_DIR$/client/game/unitcard.html" />
       </list>
     </option>
   </component>
@@ -369,7 +348,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="10" width="1346" height="728" extended-state="0" />
+    <frame x="0" y="10" width="1346" height="728" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962406" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -807,14 +786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/unitcard.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19318181">
-          <caret line="4" column="110" selection-start-line="4" selection-start-column="110" selection-end-line="4" selection-end-column="110" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/BBS/inbox.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.35227272">
@@ -831,26 +802,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/game.html">
+    <entry file="file://$PROJECT_DIR$/client/game/summary.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2692308">
-          <caret line="32" column="35" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.48295453">
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/game/summary.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5555553">
+        <state vertical-scroll-proportion="0.5811966">
           <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/summary.html">
+    <entry file="file://$PROJECT_DIR$/client/game/unitcard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3380682">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.62784094">
+          <caret line="55" column="55" selection-start-line="55" selection-start-column="55" selection-end-line="55" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/game.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26136363">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="35" />
           <folding />
         </state>
       </provider>
