@@ -390,11 +390,12 @@ Meteor.methods({
         if (isZalgo(subject)) throw new Meteor.Error(422,"Error: Zalgo text detected.");
         if (!messageTo) throw new Meteor.Error(422,"Error: username doesn't exist");
         if(!message) throw new Meteor.Error(422,"Error: message is empty");
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
         var userinfo = Userinfo.findOne({username: username});
         var karma = userinfo.totalKarma || 0;
         var chars = 800 + 10 * karma;
         if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
-        if (!Meteor.user().username) throw new Meteor.Error(422, "Error: you must be logged in");
         var messageTo = messageTo.username;
         Messages.insert(
             {

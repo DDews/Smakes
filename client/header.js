@@ -101,12 +101,14 @@ Template['header'].helpers({
         },
         isUnit: function() {
             var session = Session.get("nav");
+            if (session == undefined) return null;
             if (!session instanceof Array) return null;
             if (session[0] == "unit") return session[1];
             return null;
         },
 		isEditUnit: function() {
             var session = Session.get("nav");
+            if (session == undefined) return null;
             if (!session instanceof Array) return null;
             if (session[0] == "editunit") return session[1];
             return null;
