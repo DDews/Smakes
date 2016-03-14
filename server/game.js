@@ -262,6 +262,7 @@ Meteor.methods({
 			maxStamina: 4,
 			retryTime: 10,
 			retryTimeout: 0,
+			summary:defaultSummary,
 		};
 		dbinsert("Gameinfo", gamedata)
 		
@@ -436,6 +437,9 @@ Meteor.methods({
 		combatinfo.currentTurn = currentTurn;
 		var messages = {turn: currentTurn};
 		
+		var summary = gamedata.summary;
+		combatinfo.summary = gamedata.summary;
+		
 		if (combatinfo.hits.unshift(messages) > 3) { combatinfo.hits.pop(); }
 		combatinfo.rebuildCombatantLists();
 		
@@ -444,6 +448,7 @@ Meteor.methods({
 			console.log(diff);
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
+			summary.time += 200;
 			combatinfo.combatants.each((id) => {
 				var unit = dbget("Unitinfo", id);
 				
@@ -457,7 +462,9 @@ Meteor.methods({
 				
 				
 			})
+			gamedata.summary = combatinfo.summary;
 			
+			dbupdate(gamedata);
 		}
 		
 		
@@ -484,6 +491,8 @@ Meteor.methods({
 						expDrop += unit.exp;
 					}
 				})
+				summary.inc("goldDrop", Math.floor(goldDrop));
+				summary.inc("expDrop", Math.floor(expDrop));
 				
 				userinfo.wallet.gold = Math.floor(userinfo.wallet.gold + goldDrop);
 				console.log("dropped " + goldDrop + " golds");
@@ -501,6 +510,8 @@ Meteor.methods({
 				combatinfo.startNewBattle(mons);
 				
 				dbupdate(combatinfo);
+				
+				dbupdate(gamedata);
 				dbupdate(userinfo);
 				
 				combatinfo.lastTime = now;
