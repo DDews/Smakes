@@ -240,7 +240,7 @@ var startCombat = function(data) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
-	newGame: function(data) {
+	newGame: (data) => {
 		
 		console.log("new game started");
 		var username = Meteor.user() && Meteor.user().username;
@@ -268,7 +268,7 @@ Meteor.methods({
 		console.log("Gameinfo\n" + gamedata);
 		
 	},
-	updateUnitInfo: function(data) {
+	updateUnitInfo: (data) => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		var gamedata = Gameinfo.findOne({username: username});
@@ -292,7 +292,25 @@ Meteor.methods({
 		dbupdate(unit);
 	},
 	
-	buyStat: function(data) {
+	resetSummary: ()=> {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var combatinfo = Combatinfo.findOne({username: username});
+		
+		var summary = defaultSummary;
+		
+		gamedata.summary = summary;
+		dbupdate(gamedata);
+		if (combatinfo) {
+			combatinfo.summary = summary;
+			dbupdate(combatinfo);
+		}
+		
+	},
+	
+	buyStat: (data) => {
 		var stat = data.stat;
 		var n = data.n;
 		var unit = Unitinfo.findOne(data.unit);
@@ -325,7 +343,7 @@ Meteor.methods({
 		
 	},
 	
-	startCombat: function(data) {
+	startCombat: (data) => {
 		startCombat(data);
 		
 	},

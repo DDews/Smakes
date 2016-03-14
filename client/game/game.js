@@ -21,6 +21,11 @@ Template.game.helpers({
 		//console.log("gameInfoUnits: " + data)
 		return data ? data.units : null;
 	},
+	gameSummary: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return null; }
+		return data.summary;
+	},
 	combatInfoUnits: function() {
 		var data = Combatinfo.findOne();
 		//console.log("combatInfoUnits: " + data)

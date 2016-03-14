@@ -31,6 +31,10 @@ Handlebars.registerHelper('currentUserWalletExists', () => {
 	return wallet;
 })
 
+Handlebars.registerHelper('formatMiliTime', (t) => {
+	return formatMiliTime(t);
+})
+
 Handlebars.registerHelper('currentUserWallet', () => {
 	var username = Meteor.user();
 	username = username && username.username;
