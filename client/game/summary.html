@@ -3,52 +3,54 @@
 	
 	<div class="col s12 blue-grey darken-3">
 		{{#with s}}
+            <div class="col s12  center"><a href="#" class="toggleSummary">Combat Summary</a></div>
+            {{#if showSummary}}
 			<div class="row blue-grey darken-2">
-				<div class="col s12  center">Combat Summary</div>
+                <div class="col s4 left">
+                    <span class="right">
+                        Last:
+                        {{#if message}}
+                            {{message}}
+                        {{/if}}
+                    </span>
+                </div>
 
-				<div class="col s4 left">
-					<span class="right">
-						Last:
-						{{#if message}}
-							{{message}}
-						{{/if}}
-					</span>
-				</div>
+                <div class="col s4 center">
+                    <button id="resetSummary" class="btn blue-grey darken-4 white-text" value="resetSummary">Reset Summary</button>
+                </div>
 
-				<div class="col s4 center">
-					<button id="resetSummary" class="btn blue-grey darken-4 white-text" value="resetSummary">Reset Summary</button>
-				</div>
+                <div class="col s4 right">
+                    <span class="left">
+                        Time: {{formatMiliTime time}}
+                    </span>
+                </div>
 
-				<div class="col s4 right">
-					<span class="left">
-						Time: {{formatMiliTime time}}
-					</span>
-				</div>
+                </div>
 
-			</div>
-			<div class="row">
+                    <div class="row">
 
-				<div class="col s3 blue-grey darken-3">Gold: {{goldDrop}}</div>
-				<div class="col s3 blue-grey darken-3">Exp: {{expDrop}}</div>
-				<div class="col s3 blue-grey darken-3">Kills: {{kills}}</div>
-				<div class="col s3 blue-grey darken-3">Elites: {{eliteKills}}</div>
+                        <div class="col s3 blue-grey darken-3">Gold: {{goldDrop}}</div>
+                        <div class="col s3 blue-grey darken-3">Exp: {{expDrop}}</div>
+                        <div class="col s3 blue-grey darken-3">Kills: {{kills}}</div>
+                        <div class="col s3 blue-grey darken-3">Elites: {{eliteKills}}</div>
 
-				<div class="col s3 blue-grey darken-4">Actions: {{skillsUsed}}</div>
-				<div class="col s3 blue-grey darken-4">Healing: {{healingDone}}</div>
-				<div class="col s3 blue-grey darken-4">Deaths: {{deaths}}</div>
-				<div class="col s3 blue-grey darken-4">Resses: {{resses}}</div>
+                        <div class="col s3 blue-grey darken-4">Actions: {{skillsUsed}}</div>
+                        <div class="col s3 blue-grey darken-4">Healing: {{healingDone}}</div>
+                        <div class="col s3 blue-grey darken-4">Deaths: {{deaths}}</div>
+                        <div class="col s3 blue-grey darken-4">Resses: {{resses}}</div>
 
-				<div class="col s3 blue-grey darken-3">Dealt: {{damageDealt}}</div>
-				<div class="col s3 blue-grey darken-3">Hits: {{hitsDealt}}</div>
-				<div class="col s3 blue-grey darken-3">Misses: {{missesDealt}}</div>
-				<div class="col s3 blue-grey darken-3">Crits: {{missesDealt}}</div>
+                        <div class="col s3 blue-grey darken-3">Dealt: {{damageDealt}}</div>
+                        <div class="col s3 blue-grey darken-3">Hits: {{hitsDealt}}</div>
+                        <div class="col s3 blue-grey darken-3">Misses: {{missesDealt}}</div>
+                        <div class="col s3 blue-grey darken-3">Crits: {{missesDealt}}</div>
 
-				<div class="col s3 blue-grey darken-4">Taken: {{damageTaken}}</div>
-				<div class="col s3 blue-grey darken-4">Hits: {{hitsTaken}}</div>
-				<div class="col s3 blue-grey darken-4">Misses: {{missesTaken}}</div>
-				<div class="col s3 blue-grey darken-4">Crits: {{missesTaken}}</div>
+                        <div class="col s3 blue-grey darken-4">Taken: {{damageTaken}}</div>
+                        <div class="col s3 blue-grey darken-4">Hits: {{hitsTaken}}</div>
+                        <div class="col s3 blue-grey darken-4">Misses: {{missesTaken}}</div>
+                        <div class="col s3 blue-grey darken-4">Crits: {{missesTaken}}</div>
 
-			</div>
+                    </div>
+                {{/if}}
 		{{/with}}
 	</div>
 	
