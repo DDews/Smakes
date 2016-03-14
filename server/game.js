@@ -213,24 +213,25 @@ var startCombat = function(data) {
 		units.push(mon); 
 		dbupdate(mon);
 	} );
-
+	//
 	var combat = new Combat(units, username, region);
 	gamedata.combat = combat._id;
 	gamedata.lastRegion = region;
 	gamedata.retryTimeout = 0;
 	
 	if (data.first) {
-		if (!gamedata.maxStamina) { gamedata.maxStamina = 4; }
+		if (!gamedata.maxStamina || gamedata.maxStamina < 5) { gamedata.maxStamina = 5; }
 		gamedata.stamina = gamedata.maxStamina;
-		gamedata.retryTime = 10;
+		gamedata.fatigue = 0;
+		gamedata.retryTime = 20;
 	} else {
 		if (gamedata.stamina > 0) {
 			gamedata.stamina -= 1;
 		} else {
-			gamedata.retryTime += 5;
+			gamedata.fatigue += 1;
+			gamedata.retryTime = 20 + 10 * gamedata.fatigue;
 		}
 	}
-
 	dbupdate(gamedata);
 }
 
