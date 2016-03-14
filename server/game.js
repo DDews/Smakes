@@ -262,6 +262,7 @@ Meteor.methods({
 			maxStamina: 4,
 			retryTime: 10,
 			retryTimeout: 0,
+			summary:defaultSummary,
 		};
 		dbinsert("Gameinfo", gamedata)
 		
@@ -285,6 +286,24 @@ Meteor.methods({
 		unit.poses = data.poses;
 		
 		dbupdate(unit);
+	},
+	
+	resetSummary: ()=> {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var combatinfo = Combatinfo.findOne({username: username});
+		
+		var summary = defaultSummary;
+		
+		gamedata.summary = summary;
+		dbupdate(gamedata);
+		if (combatinfo) {
+			combatinfo.summary = summary;
+			dbupdate(combatinfo);
+		}
+		
 	},
 	
 	buyStat: (data) => {
@@ -413,6 +432,9 @@ Meteor.methods({
 		combatinfo.currentTurn = currentTurn;
 		var messages = {turn: currentTurn};
 		
+		var summary = gamedata.summary;
+		combatinfo.summary = gamedata.summary;
+		
 		if (combatinfo.hits.unshift(messages) > 3) { combatinfo.hits.pop(); }
 		combatinfo.rebuildCombatantLists();
 		
@@ -421,6 +443,7 @@ Meteor.methods({
 			console.log(diff);
 			console.log("elapseTime: potential cheating detected, ignoring!")
 		} else {
+			summary.time += 200;
 			combatinfo.combatants.each((id) => {
 				var unit = dbget("Unitinfo", id);
 				
@@ -434,13 +457,17 @@ Meteor.methods({
 				
 				
 			})
+			gamedata.summary = combatinfo.summary;
 			
+			dbupdate(gamedata);
 		}
+		
 		
 		
 		var winner = combatinfo.run ? 'run' : combatinfo.winningTeam();
 		//console.log("winner: " + winner)
 		if (winner) {
+			
 			if (winner == 'run') {
 				console.log("bitches ran away!");
 				gamedata.cleanUpAllCombats();
@@ -450,7 +477,6 @@ Meteor.methods({
 				console.log("Spawning next thing in Region : " + region)
 				var regionData = areaData[region];
 				combatinfo.combo += 1;
-				//userinfo.kills += 
 				var goldDrop = 0;
 				var expDrop = 0;
 				combatinfo.combatants.each((id) => {
@@ -462,6 +488,10 @@ Meteor.methods({
 					}
 				})
 				
+				summary.inc("goldDrop", Math.floor(goldDrop));
+				summary.inc("expDrop", Math.floor(expDrop));
+				
+				
 				userinfo.wallet.gold = Math.floor(userinfo.wallet.gold + goldDrop);
 				console.log("dropped " + goldDrop + " golds");
 				
@@ -469,8 +499,8 @@ Meteor.methods({
 					var unit = dbget("Unitinfo", id);
 					
 					unit.giveExp(expDrop);
-					
 				})
+					
 					
 				
 				combatinfo.cleanUpCombat();
@@ -478,6 +508,8 @@ Meteor.methods({
 				combatinfo.startNewBattle(mons);
 				
 				dbupdate(combatinfo);
+				
+				dbupdate(gamedata);
 				dbupdate(userinfo);
 				
 				combatinfo.lastTime = now;
