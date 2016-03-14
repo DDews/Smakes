@@ -42,7 +42,16 @@ Template.game.helpers({
 	paused: function() { return _pause; },
 	retry: function() { return _retry; },
 	retryAndNotInCombat: function() { return _retry && !_inCombat; },
-	
+	gameFatigue: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return 0; }
+		return data.fatigue;	
+	},
+	gameFatigueColor: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return "purple"; }
+		return data.fatigue ? "red" : "green";
+	},
 	gameStamina: function() { 
 		var data = Gameinfo.findOne();
 		if (!data) { return 0; }

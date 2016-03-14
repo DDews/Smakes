@@ -29,6 +29,17 @@ Template['controlpanel'].helpers({
     }
 });
 Template.controlpanel.events({
+	'click #purgeGame' : function() {
+		if (event.preventDefault) event.preventDefault();
+		Meteor.call("purgeGame");
+		return false;
+	},
+	'click #purgeCombat' : function() {
+		if (event.preventDefault) event.preventDefault();
+		Meteor.call("purgeCombat");
+		return false;
+	},
+	
     'click .buttoncolor': function(event){
         if (event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];
@@ -77,12 +88,12 @@ Template.controlpanel.events({
         submit.disabled = false;
         return false;
     },
-    'click .dropGameDB': function(event) {
+    'click #dropGameDB': function(event) {
         if (event.preventDefault) event.preventDefault();
         Meteor.call("dropGameDB");
         return false;
     },
-    'click .gitPull': function(event) {
+    'click #gitPull': function(event) {
         if (event.preventDefault) event.preventDefault();
         Meteor.call("gitPull");
         return false;

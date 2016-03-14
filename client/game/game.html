@@ -4,10 +4,17 @@
         {{#if currentUser}}
 
         {{#if gameInfoExists }}
-			<div class="row">
+			
+			<div class="row {{gameFatigueColor}} darken-4">
+				
 				<span class="right col s3">Autofight Timer: {{gameRetryTime}}s</span>
-				<span class="right col s3">Stamina: {{gameStamina}} / {{gameMaxStamina}}</span>
-		</div>
+				{{#if gameFatigue}}
+					<span class="right col s3 red-text text-lighten-3">Fatigue: {{gameFatigue}}</span>
+				{{else}}
+					<span class="right col s3 amber-text">Stamina: {{gameStamina}} / {{gameMaxStamina}}</span>
+				{{/if}}
+				<span class="right col s3">Autos</span>
+			</div>
 				
 			<div class="progress blue-grey lighten-5">
 				<div class="determinate blue-grey lighten-2" style="width:{{gameRetryTimeoutPercent}}%"></div>

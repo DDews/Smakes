@@ -213,24 +213,25 @@ var startCombat = function(data) {
 		units.push(mon); 
 		dbupdate(mon);
 	} );
-
+	//
 	var combat = new Combat(units, username, region);
 	gamedata.combat = combat._id;
 	gamedata.lastRegion = region;
 	gamedata.retryTimeout = 0;
 	
 	if (data.first) {
-		if (!gamedata.maxStamina) { gamedata.maxStamina = 4; }
+		if (!gamedata.maxStamina || gamedata.maxStamina < 5) { gamedata.maxStamina = 5; }
 		gamedata.stamina = gamedata.maxStamina;
-		gamedata.retryTime = 10;
+		gamedata.fatigue = 0;
+		gamedata.retryTime = 20;
 	} else {
 		if (gamedata.stamina > 0) {
 			gamedata.stamina -= 1;
 		} else {
-			gamedata.retryTime += 5;
+			gamedata.fatigue += 1;
+			gamedata.retryTime = 20 + 10 * gamedata.fatigue;
 		}
 	}
-
 	dbupdate(gamedata);
 }
 
@@ -245,6 +246,46 @@ var unitRecruitmentCost = function(u) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
+	purgeGame: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedatas = Gameinfo.find({username: username}).fetch();
+		var unitinfos = Unitinfo.find({username: username}).fetch();
+		var combatinfo = Combatinfo.find({username: username}).fetch();
+		
+		gamedatas.each((d) => { dbremove(d); })
+		unitinfos.each((d) => { dbremove(d); })
+		combatinfo.each((d) => { dbremove(d); })
+		
+	},
+	
+	purgeCombat: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedatas = Gameinfo.find({username: username}).fetch();
+		var unitinfos = Unitinfo.find({username: username}).fetch();
+		var combatinfo = Combatinfo.find({username: username}).fetch();
+		
+		unitinfos.each((unit)=> {
+			if (unit.team != 'player') { dbremove(unit); }
+			else {
+				unit.combat = null;
+				dbupdate(unit);
+			}
+		});
+		gamedatas.each((data)=> {
+			data.combat = null;
+			dbupdate(data);
+		});
+		
+		combatinfo.each((info)=> {
+			dbremove(info);
+		});
+		
+		
+	},
+	
+	
 	newGame: (data) => {
 		
 		console.log("new game started");
