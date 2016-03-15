@@ -36,9 +36,10 @@ var _slots = [
 Template.shop.helpers({
 	testIcons: function() {
 		var items = itemDB.toPairRay();
+		//var items2 = itemDB.toPairRay();
 		var x = 0;
-		for (x = 0; x < 100; x++) {
-			items = items.concat(itemDB.toPairRay());
+		for (x = 0; x < 7; x++) {
+			items = items.concat(items);
 		}
 		return items;
 	},

@@ -195,6 +195,11 @@ Template.game.helpers({
 });
 
 Template.game.events({
+	'click #makeItem': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		Meteor.call('testMakeItem');
+		return false;
+	},
 	'click #newGame': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
 		
