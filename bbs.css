@@ -60,6 +60,18 @@ body {
     background: #000000;
     padding: 0.5rem;
 }
+.round2 {
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+.invisbg {
+    background: transparent;
+}
+.divider2 {
+    height: 1px;
+    overflow: hidden;
+    background-color: transparent;
+}
 .title, .logout, .center {
     text-align: center;
     color: #f9f9f9;

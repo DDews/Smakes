@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/unitcard.html" afterPath="$PROJECT_DIR$/client/game/unitcard.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/shop.html" afterPath="$PROJECT_DIR$/client/game/shop.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/shop.js" afterPath="$PROJECT_DIR$/client/game/shop.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,11 +25,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="game.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/game/game.html">
+      <file leaf-file-name="shop.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/game/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26136363">
-              <caret line="32" column="35" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="35" />
+            <state vertical-scroll-proportion="-11.692307">
+              <caret line="43" column="105" selection-start-line="43" selection-start-column="105" selection-end-line="43" selection-end-column="105" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="shop.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/game/shop.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.21538462">
+              <caret line="162" column="111" selection-start-line="162" selection-start-column="111" selection-end-line="162" selection-end-column="111" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bbs.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bbs.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.0">
+              <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utilities.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/utilities.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="191" column="0" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -68,7 +100,6 @@
         <option value="$PROJECT_DIR$/client/inbox.html" />
         <option value="$PROJECT_DIR$/client/profile.html" />
         <option value="$PROJECT_DIR$/client/profile.js" />
-        <option value="$PROJECT_DIR$/client/game/game.html" />
         <option value="$PROJECT_DIR$/client/header.html" />
         <option value="$PROJECT_DIR$/lib/game/data/items.js" />
         <option value="$PROJECT_DIR$/client/BBS/find.js" />
@@ -81,8 +112,6 @@
         <option value="$PROJECT_DIR$/client/BBS/inbox.js" />
         <option value="$PROJECT_DIR$/client/BBS/thread.js" />
         <option value="$PROJECT_DIR$/client/global/helpers.js" />
-        <option value="$PROJECT_DIR$/client/game/shop.html" />
-        <option value="$PROJECT_DIR$/client/game/shop.js" />
         <option value="$PROJECT_DIR$/client/game/regiondropdown.html" />
         <option value="$PROJECT_DIR$/client/game/regiondropdown.js" />
         <option value="$PROJECT_DIR$/client/game/game.js" />
@@ -93,7 +122,6 @@
         <option value="$PROJECT_DIR$/client/game/editunit.html" />
         <option value="$PROJECT_DIR$/server/game.js" />
         <option value="$PROJECT_DIR$/client/game/editunit.js" />
-        <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/lib/utilities.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/header.js" />
@@ -101,6 +129,10 @@
         <option value="$PROJECT_DIR$/client/game/summary.js" />
         <option value="$PROJECT_DIR$/client/game/summary.html" />
         <option value="$PROJECT_DIR$/client/game/unitcard.html" />
+        <option value="$PROJECT_DIR$/client/game/game.html" />
+        <option value="$PROJECT_DIR$/bbs.css" />
+        <option value="$PROJECT_DIR$/client/game/shop.html" />
+        <option value="$PROJECT_DIR$/client/game/shop.js" />
       </list>
     </option>
   </component>
@@ -348,13 +380,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="10" width="1346" height="728" extended-state="1" />
+    <frame x="0" y="10" width="1346" height="728" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962406" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34304208" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3381877" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -593,14 +625,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/game/data/items.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/game/combat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -640,34 +664,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/unit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30728242">
-          <caret line="68" column="42" selection-start-line="68" selection-start-column="42" selection-end-line="68" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/game/unit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.63829786">
           <caret line="136" column="23" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/shop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02881356">
-          <caret line="140" column="4" selection-start-line="140" selection-start-column="4" selection-end-line="185" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/shop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33156028">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -717,31 +717,31 @@
         <state vertical-scroll-proportion="1.2486678">
           <caret line="320" column="8" selection-start-line="320" selection-start-column="8" selection-end-line="320" selection-end-column="8" />
           <folding>
-            <marker date="1457966154996" expanded="false" signature="0:319" placeholder="//..." />
-            <marker date="1457966154996" expanded="true" signature="359:653" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="698:992" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="1034:1062" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="1105:1407" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="1411:1755" placeholder="//..." />
-            <marker date="1457966154996" expanded="true" signature="1800:2071" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="1975:2037" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="2102:2296" placeholder="{&quot;id&quot;: 'eq_starter_helm'...}" />
-            <marker date="1457966154996" expanded="true" signature="2305:2517" placeholder="{&quot;id&quot;: 'eq_starter_body'...}" />
-            <marker date="1457966154996" expanded="true" signature="2526:2719" placeholder="{&quot;id&quot;: 'eq_starter_legs'...}" />
-            <marker date="1457966154996" expanded="true" signature="3195:3470" placeholder="{&quot;id&quot;: 'eq_starter_knife'...}" />
-            <marker date="1457966154996" expanded="true" signature="3483:3744" placeholder="{&quot;id&quot;: 'eq_starter_shield'...}" />
-            <marker date="1457966154996" expanded="true" signature="3802:4238" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="3898:4131" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="3915:4128" placeholder="{&quot;normal&quot;: &quot;http://a.pomf.cat/jmuhje.png&quot;...}" />
-            <marker date="1457966154996" expanded="true" signature="4274:5490" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="4816:4851" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="5363:5466" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="5393:5424" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="5430:5463" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="14020:14087" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="14020:14188" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="14020:14269" placeholder="{...}" />
-            <marker date="1457966154996" expanded="true" signature="14020:14283" placeholder="{...}" />
+            <marker date="1457998994535" expanded="false" signature="0:319" placeholder="//..." />
+            <marker date="1457998994535" expanded="true" signature="359:653" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="698:992" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="1034:1062" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="1105:1407" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="1411:1755" placeholder="//..." />
+            <marker date="1457998994535" expanded="true" signature="1800:2071" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="1975:2037" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="2102:2296" placeholder="{&quot;id&quot;: 'eq_starter_helm'...}" />
+            <marker date="1457998994535" expanded="true" signature="2305:2517" placeholder="{&quot;id&quot;: 'eq_starter_body'...}" />
+            <marker date="1457998994535" expanded="true" signature="2526:2719" placeholder="{&quot;id&quot;: 'eq_starter_legs'...}" />
+            <marker date="1457998994535" expanded="true" signature="3195:3470" placeholder="{&quot;id&quot;: 'eq_starter_knife'...}" />
+            <marker date="1457998994535" expanded="true" signature="3483:3744" placeholder="{&quot;id&quot;: 'eq_starter_shield'...}" />
+            <marker date="1457998994535" expanded="true" signature="3802:4238" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="3898:4131" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="3915:4128" placeholder="{&quot;normal&quot;: &quot;http://a.pomf.cat/jmuhje.png&quot;...}" />
+            <marker date="1457998994535" expanded="true" signature="4274:5066" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="4816:4851" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="5363:5466" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="5393:5424" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="5430:5463" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="15261:15328" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="15261:15429" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="15261:15510" placeholder="{...}" />
+            <marker date="1457998994535" expanded="true" signature="15261:15524" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -750,14 +750,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8188277">
           <caret line="36" column="11" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/utilities.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.222222">
-          <caret line="249" column="75" selection-start-line="249" selection-start-column="75" selection-end-line="249" selection-end-column="75" />
           <folding />
         </state>
       </provider>
@@ -778,26 +770,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bbs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8068182">
-          <caret line="615" column="23" selection-start-line="615" selection-start-column="23" selection-end-line="615" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/BBS/inbox.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.35227272">
           <caret line="26" column="281" selection-start-line="26" selection-start-column="281" selection-end-line="26" selection-end-column="281" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.044973545">
-          <caret line="78" column="19" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -829,7 +805,63 @@
     <entry file="file://$PROJECT_DIR$/client/game/game.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26136363">
-          <caret line="32" column="35" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="35" />
+          <caret line="40" column="35" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/unit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.5634921">
+          <caret line="68" column="1" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.473545">
+          <caret line="78" column="19" selection-start-line="78" selection-start-column="19" selection-end-line="78" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/utilities.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="191" column="0" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/game/data/items.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2230971">
+          <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bbs.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.0">
+          <caret line="72" column="33" selection-start-line="72" selection-start-column="33" selection-end-line="72" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/shop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.692307">
+          <caret line="43" column="105" selection-start-line="43" selection-start-column="105" selection-end-line="43" selection-end-column="105" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/shop.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21538462">
+          <caret line="162" column="111" selection-start-line="162" selection-start-column="111" selection-end-line="162" selection-end-column="111" />
           <folding />
         </state>
       </provider>
