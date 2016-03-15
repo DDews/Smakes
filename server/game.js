@@ -294,6 +294,33 @@ Meteor.methods({
 		
 	},
 	
+	purgeAllCombats: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var isAdmin = Userinfo.findOne({username: username});
+		isAdmin = isAdmin && isAdmin.admin;
+		if (!isAdmin) { throw new Meteor.Error(422, "Error: You must be admin!");}
+		var gamedatas = Gameinfo.find().fetch();
+		var unitinfos = Unitinfo.find().fetch();
+		var combatinfo = Combatinfo.find().fetch();
+		unitinfos.each((unit)=> {
+			if (unit.team != 'player') { dbremove(unit); }
+			else {
+				unit.combat = null;
+				dbupdate(unit);
+			}
+		});
+		gamedatas.each((data)=> {
+			data.combat = null;
+			dbupdate(data);
+		});
+		
+		combatinfo.each((info)=> {
+			dbremove(info);
+		});
+		
+	},
+	
 	
 	newGame: (data) => {
 		
