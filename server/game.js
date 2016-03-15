@@ -249,6 +249,9 @@ Meteor.methods({
 	testMakeItem: () => {
 		var item = MakeItem("meleeWeapon", 1);
 		console.log(item);
+		
+		reapplyHistory(item, 100);
+		console.log(item);
 							
 	},
 	
@@ -558,7 +561,7 @@ Meteor.methods({
 				
 				gamedata.units.each((id) => {
 					var unit = dbget("Unitinfo", id);
-					
+					unit.timer = 0;
 					unit.giveExp(expDrop);
 					
 				})

@@ -16,7 +16,7 @@ itemGenData = {
 			dirk:8,
 			sword:5,
 			club:5,
-			greatsword:5,
+			greatsword:3,
 		},
 		rolls:[
 			"suffix",
@@ -509,13 +509,13 @@ itemGenData = {
 		smart:	{ 	prefix: "Smart", 	norm:{mnd:3,}, },
 		wise:	{	prefix: "Wise", 	norm:{wis:3,}, },
 		
-		powerful:	{ 	quality:3, prefix:"Powerful", 	norm:{str:3, vit:3, }, },
-		skilled:	{ 	quality:3, prefix:"Skilled", 	norm:{dex:3, agi:3, }, },
-		ingenius:	{ 	quality:3, prefix:"Ingenius", 	norm:{mnd:3, wis:3, }, },
+		powerful:	{ rarity:5,	quality:3, prefix:"Powerful", 	norm:{str:3, vit:3, }, },
+		skilled:	{ rarity:5,	quality:3, prefix:"Skilled", 	norm:{dex:3, agi:3, }, },
+		ingenius:	{ rarity:5,	quality:3, prefix:"Ingenius", 	norm:{mnd:3, wis:3, }, },
 		
-		breach:	{ 	quality:6, prefix:"Breach", 	norm:{str:3, dex:3, mnd:3, }, },
-		aegis:	{ 	quality:6, prefix:"Aegis", 		norm:{vit:3, agi:3, wis:3, }, },
-		masters:{ 	quality:6, prefix:"Masters", 	norm:{base:2, }, },
+		breach:	{ rarity:15,	quality:6, prefix:"Breach", 	norm:{str:3, dex:3, mnd:3, }, },
+		aegis:	{ rarity:15,	quality:6, prefix:"Aegis", 		norm:{vit:3, agi:3, wis:3, }, },
+		masters:{ rarity:15,	quality:6, prefix:"Masters", 	norm:{base:2, }, },
 		
 		ruby:	{ prefix:"Ruby", 	stat: { res_flame:	.05,}, },
 		cobalt:	{ prefix:"Cobalt", 	stat: { res_ice:	.05,}, },
@@ -1144,10 +1144,26 @@ itemGenData = {
 
 
 function subrule(start, key) {
+	if (!start) { return null; }
+	
+	if (isString(start)) {
+		var path = start.split('.');
+		var obj = itemGenData;
+		
+		path.each((o)=> {
+			if (obj) { obj = obj[o]; }
+			if (!obj) { obj = itemGenData[o]; }
+		});
+		
+		return obj;
+	}
+	
 	if (!key) { return null; }
+		
 	if (start[key] instanceof Object) {
 		return start[key]
 	}
+	
 	return itemGenData[key];
 }
 
@@ -1156,30 +1172,34 @@ function chooseFrom(coll) {
 	if (coll instanceof Array) {
 		return coll.choose();
 	}
+	
 	var weight = coll.sum();
 	var roll = Random.value() * weight;
 	var s = 0;
 	var it = "none";
+	
 	coll.each((k,v) => {
 		if (isNumber(v)) {
 			if (s < roll) { it = k }
 			s += v;
 		}
 	});
+	
 	return it;
 }
 
 function multiplyStat(item, stat, mult) {
 	var val = item.num(stat);
 	if (val > 0) { item[stat] = val * mult; }
+	
 }
 
 function multiplyStatRule(item, rule, mult) {
 	var matches = item.matchingKeys(rule);
 	matches.each((k)=> {
-		var val = item.num(key);
+		var val = item.num(k);
 		if (val > 0) {
-			item[key] = val * mult;
+			item[k] = val * mult;
 		}
 	})
 }
@@ -1208,6 +1228,7 @@ MakeItem = function(ruleName, level) {
 	if (type != "rules") { return "cannot use " + type + " object as rules"; }
 	
 	var itemType = getOrChooseString(rules, "settings");
+	var path = ruleName + "." + itemType;
 	
 	var typeSubrule = subrule(rules, itemType);
 	if (typeSubrule == null) { 
@@ -1224,21 +1245,36 @@ MakeItem = function(ruleName, level) {
 		value: 0,
 		rarity: 0,
 		hits: [],
+		genHistory: [ {path:path}, ],
 	}
-	//Magic *snort*
-	applyBonus(item, typeSubrule);
 	
-	var rolls = rules[rolls];
-	if (rolls && isArray(rolls)) {
+	//Magic *snort*
+	applyBonus(item, typeSubrule, last(item.genHistory) );
+	
+	item.genHistory.each((h)=> {
+		console.log(h);
+	})
+	
+	var rolls = rules.rolls;
+	if (rolls) {
 		rolls.each((roll)=>{
-			var rollObj = subrule(roll);
+			var rollObj = subrule(rules, roll);
 			if (rollObj) {
-				applyRoll(item, rollObj);
+				var aRoll = Random.value();
+				var chance = rollObj.num("chance");
+				if (aRoll < chance) {
+					item.genHistory.push({path: path + "." + roll })
+					applyRoll(item, rollObj, last(item.genHistory) );
+
+				}
 			} else {
 				console.log("Could not find roll [" + roll + "]")
 			}
 		})
+	} else {
+		console.log("Could not find any rolls in [" + ruleName + "]")
 	}
+	if (item.level) { item.level = 0; }
 	return item;
 }
 
@@ -1256,17 +1292,43 @@ function grabArray(b, k) {
 	return null;
 }
 
-function applyBonus(item, bonus) {
-	//if (!bonus) { return null; }
-	var level = item.quality;
-	var element = bonus.element;
-	var prefix = getOrChooseString(bonus, "prefix");
-	var suffix = getOrChooseString(bonus, "suffix");
-	var statMult = bonus.num("statMult") || 1;
-	var finalMult = bonus.num("finalMult") || 1;
+reapplyHistory = function(item, level) {
+	console.log("rebuilding item at level " + level)
+	baseStats.each((stat) => { if (item[stat]) { item[stat] = 0; } })
+	combatStats.each((stat) => { if (item[stat]) { item[stat] = 0; } })
+	combatRatios.each((stat) => { if (item[stat]) { item[stat] = 0; } })
+	item.matchingKeys(resistances).each((stat)=>{ if (item[stat]) { item[stat] = 0; } })
+	item.matchingKeys(affinities).each((stat)=>{ if (item[stat]) { item[stat] = 0; } })
 	
-	var statGroup = getOrChooseString(bonus, "statGroup");
-	var statGroupObj = subrule(bonus, statGroup);
+	item.quality = level;
+	if (item.level) { item.level = 0; }
+	
+	item.genHistory.each((h)=>{
+		var path = h.path;
+		var rolls = h.rolls;
+		
+		var rule = subrule(path)
+		console.log(path);
+		applyBonus(item, rule, h);
+		
+	});
+	
+	console.log("--------Done---------")
+	if (item.level) { item.level = 0; }
+	
+}
+
+function applyBonus(item, bonus, history) {
+	//if (!bonus) { return null; }
+	var path = history.path;
+	if (!history.rolls) { history.rolls = {} }
+	
+	var rolls = history.rolls;
+	var firstTime = Object.keys(rolls).length == 0;
+	rolls["$"] = 1;
+	
+	var level = item.quality;
+	
 	
 	var stat = grabObj(bonus, "stat");
 	var rand = grabObj(bonus, "rand");
@@ -1274,46 +1336,66 @@ function applyBonus(item, bonus) {
 	var frand = grabObj(bonus, "frand");
 	var fnorm = grabObj(bonus, "fnorm");
 	
-	var hits = grabArray(bonus, "hits")
-	var colors = grabArray(bonus, "color");
-	
-	//var blend = bonus.num(blend) || .5;
-	
-	if (bonus.has("id")) {
-		var id = item.itemID;
-		item.itemID = id + bonus.id;
-	}
-	
-	if (bonus.has("subType")) { item.subType = getOrChooseString(bonus, "subType"); }
-	if (bonus.has("name")) { item.name = getOrChooseString(bonus, "name"); }
-	if (bonus.has("icon")) { item.icon = getOrChooseString(bonus, "icon"); }
-	if (bonus.has("equipSlot")) { item.equipSlot = getOrChooseString(bonus, "equipSlot"); }
-	if (bonus.has("equip")) { item.equip = bonus.equip; }
-	if (bonus.has("equipSlotIsPrefix")) { item.equipSlotIsPrefix = bonus.equipSlotIsPrefix; }
-	
 	item.quality = level + bonus.num("quality");
 	item.value = item.value + level * bonus.num("value");
 	item.rarity = item.rarity + bonus.num("rarity");
 	
-	if (element && element.length > 1) { item.element = element; }
-	if (prefix && prefix.length > 1) { item.name = prefix + " " + item.name; }
-	if (suffix && suffix.length > 1) { item.suffix = suffix; }
-	
 	if (statMult > 0 && statMult != 1) { multiplyAllStats(item, statMult); }
 	
-	//WE RECURSING, GRAB THE CALLSTACK!
-	if (statGroupObj) { applyBonus(item, statGroupObj); }
-	
-	applyStats(item, stat, ()=>1 );
-	applyStats(item, frand, ()=>Random.value() );	
-	applyStats(item, frand, ()=>Random.normal() );
-	applyStats(item, rand, ()=>Random.value() * level );
-	applyStats(item, norm, ()=>Random.normal() * level );
+	if (firstTime) {
+		var statGroup = getOrChooseString(bonus, "statGroup");
+		var statGroupObj = subrule(bonus, statGroup);
+		//WE RECURSING, GRAB THE CALLSTACK!
+		if (statGroupObj) { 
+			item.genHistory.push({path: path + "." + statGroup})
+			applyBonus(item, statGroupObj, last(item.genHistory)); 
+						  
+	  	}
+	}
+		
+	applyStats(item, "stat", 	stat,	()=>1, 					1,		rolls );
+	applyStats(item, "frand",	frand,	()=>Random.value(), 	1,		rolls );	
+	applyStats(item, "fnorm",	fnorm,	()=>Random.normal(), 	1,		rolls );
+	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls );
+	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls );
 	
 	if (finalMult > 0 && finalMult != 1) { multiplyAllStats(item, finalMult); }
 	
-	if (hits) {
-		hits.each((hit)=>{ item.hits.push(hit); });
+	
+	
+	if (firstTime) {
+		if (bonus.has("id")) {
+			var id = item.itemID;
+			item.itemID = id + bonus.id;
+		}
+
+		//var blend = bonus.num(blend) || .5;
+
+		var hits = grabArray(bonus, "hits")
+		var colors = grabArray(bonus, "color");
+
+		var element = bonus.element;
+		var prefix = getOrChooseString(bonus, "prefix");
+		var suffix = getOrChooseString(bonus, "suffix");
+		var statMult = bonus.num("statMult") || 1;
+		var finalMult = bonus.num("finalMult") || 1;
+
+		if (bonus.has("subType")) { item.subType = getOrChooseString(bonus, "subType"); }
+		if (bonus.has("name")) { item.name = getOrChooseString(bonus, "name"); }
+		if (bonus.has("icon")) { item.icon = getOrChooseString(bonus, "icon"); }
+		if (bonus.has("equipSlot")) { item.equipSlot = getOrChooseString(bonus, "equipSlot"); }
+		if (bonus.has("equip")) { item.equip = bonus.equip; }
+		if (bonus.has("equipSlotIsPrefix")) { item.equipSlotIsPrefix = bonus.equipSlotIsPrefix; }
+
+
+		if (element && element.length > 1) { item.element = element; }
+		if (prefix && prefix.length > 1) { item.name = prefix + " " + item.name; }
+		if (suffix && suffix.length > 1) { item.suffix = suffix; }
+
+
+		if (hits) {
+			hits.each((hit)=>{ item.hits.push(hit); });
+		}
 	}
 	
 	//if (colors) {
@@ -1324,43 +1406,62 @@ function applyBonus(item, bonus) {
 	//	item.color = toHexFromRGB(c3)
 	//}
 	
+	
 	return item;
 }
 
 
-function applyStats(item, stats, randomizer) {
+function applyStats(item, group, stats, randomizer, scale, rolls) {
 	if (stats) {
 		stats.each((k,v)=>{ 
+			if (!rolls[group]) { rolls[group] = {}; }
+			var statGroup = rolls[group];
+			
 			if (k == "base") {
-				baseStats.each((stat)=>{
-					item[stat] = item.num(stat) + v * randomizer();
-				})
-				
+				baseStats.each((stat)=>{ applyStat(item, stat, v, randomizer, scale, statGroup); })
 			} else {
-				item[k] = item.num(k) + v * randomizer();
+				applyStat(item, k, v, randomizer, scale, statGroup);
 			}
 		})
 	}
 	return item
 } 
 
-function applyRoll(item, roll) {
-	var chance = roll.num(chance);
-	if (chance <= 0 || (Random.value() < chance)) {
-		applyBonus(item, roll);
-		
-		var bonuses = roll.bonuses;
-		if (bonuses) {
-			var bonusName = chooseFrom(bonuses);
-			var bonusObj = roll.subrule(bonusName);
-			
-			if (bonusObj) {
-				applyBonus(item, bonusObj);
-			} else {
-				console.log("Could not find bonus " + bonusName);
+function applyStat(item, stat, v, randomizer, scale, statGroup) {
+	if (statGroup.num(stat)) {
+		item[stat] = item.num(stat) + v * statGroup.num(stat) * scale;
+	} else {
+		var roll = randomizer();
+		item[stat] = item.num(stat) + v * roll * scale;
+		statGroup[stat] = roll;
+	}
+	return item;
+}
+
+function applyRoll(item, roll, history) {
+	var firstTime = !history.rolls;
+	if (firstTime) { 
+		history.rolls = {}
+		var chance = roll.num("chance");
+		if (chance <= 0 || (Random.value() < chance)) {
+			applyBonus(item, roll, history);
+
+			var bonuses = roll.bonuses;
+			if (bonuses) {
+				var bonusName = chooseFrom(bonuses);
+				var bonusObj = subrule(roll, bonusName);
+
+				if (bonusObj) {
+					item.genHistory.push({path: history.path + "." + bonusName})
+					applyBonus(item, bonusObj, last(item.genHistory) );
+				} else {
+					console.log("Could not find bonus " + bonusName);
+				}
+
 			}
-			
 		}
+	} else {
+		applyBonus(item, roll, history);
 	}
 	
 	return item;
