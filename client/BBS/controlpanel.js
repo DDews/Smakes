@@ -40,6 +40,7 @@ Template.controlpanel.events({
 		return false;
 	},
 	
+	
     'click .buttoncolor': function(event){
         if (event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];
@@ -88,6 +89,11 @@ Template.controlpanel.events({
         submit.disabled = false;
         return false;
     },
+	'click #purgeAllCombats': function(event) {
+		if (event.preventDefault) event.preventDefault();
+		Meteor.call("purgeAllCombats");
+		return false;
+	},
     'click #dropGameDB': function(event) {
         if (event.preventDefault) event.preventDefault();
         Meteor.call("dropGameDB");

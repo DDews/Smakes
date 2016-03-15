@@ -213,7 +213,7 @@ var startCombat = function(data) {
 		units.push(mon); 
 		dbupdate(mon);
 	} );
-	//
+	
 	var combat = new Combat(units, username, region);
 	gamedata.combat = combat._id;
 	gamedata.lastRegion = region;
@@ -246,6 +246,12 @@ var unitRecruitmentCost = function(u) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
+	testMakeItem: () => {
+		var item = MakeItem("meleeWeapon", 1);
+		console.log(item);
+							
+	},
+	
 	purgeGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -282,6 +288,33 @@ Meteor.methods({
 			dbremove(info);
 		});
 		
+		
+	},
+	
+	purgeAllCombats: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var isAdmin = Userinfo.findOne({username: username});
+		isAdmin = isAdmin && isAdmin.admin;
+		if (!isAdmin) { throw new Meteor.Error(422, "Error: You must be admin!");}
+		var gamedatas = Gameinfo.find().fetch();
+		var unitinfos = Unitinfo.find().fetch();
+		var combatinfo = Combatinfo.find().fetch();
+		unitinfos.each((unit)=> {
+			if (unit.team != 'player') { dbremove(unit); }
+			else {
+				unit.combat = null;
+				dbupdate(unit);
+			}
+		});
+		gamedatas.each((data)=> {
+			data.combat = null;
+			dbupdate(data);
+		});
+		
+		combatinfo.each((info)=> {
+			dbremove(info);
+		});
 		
 	},
 	

@@ -12,12 +12,12 @@ itemGenData = {
 		itemType:"Weapon",
 		id:"eq_gen_melee",
 		
-		settings:[
-			"dirk",8,
-			"sword",5,
-			"club",5,
-			"greatsword",5,
-		],
+		settings:{
+			dirk:8,
+			sword:5,
+			club:5,
+			greatsword:5,
+		},
 		rolls:[
 			"suffix",
 			"rare",
@@ -138,11 +138,11 @@ itemGenData = {
 		id:"eq_gen_hvy",
 		
 		settings:[
-			"helmet",	15,
-			"body",		15,
-			"legs",		15,
-			"gloves",	15,
-			"sabatons",	15,
+			"helmet",
+			"body",
+			"legs",
+			"gloves",
+			"sabatons",
 		],
 		rolls:[
 			"suffix",
@@ -159,13 +159,13 @@ itemGenData = {
 			type:"settings",
 			id:"helm",
 			name:["Helmet", "Helm", "Gaze", "Headguard", "Headpiece", "Faceguard", "Visage", ],
-			icon:[
-				"helm17",	70,
-				"helm18",	50,
-				"helm31",	20,
-				"helm77",	10,
-				"helm84",	10,
-			],
+			icon:{
+				helm17:	70,
+				helm18:	50,
+				helm31:	20,
+				helm77:	10,
+				helm84:	10,
+			},
 			equipSlot:"head",
 			
 			statGroup:"heavyArmorTypes",
@@ -175,16 +175,16 @@ itemGenData = {
 			type:"settings",
 			id:"body",
 			name:["Body", "Chestpiece", "Greatplate", "Chestguard", "Curiass", "Mail"],
-			icon:[
-				"armor25",	120,
-				"armor7", 	100,
-				"armor8",	90,
-				"armor17",	80,
-				"armor9",	20,
-				"armor26",	5,
-				"armor37",	5,
-				"armor48",	5,
-			],
+			icon:{
+				armor25:	120,
+				armor7:		100,
+				armor8:		90,
+				armor17:	80,
+				armor9:		20,
+				armor26:	5,
+				armor37:	5,
+				armor48:	5,
+			},
 			equipSlot:"body",
 			statGroup:"heavyArmorTypes",
 			finalMult:1.3,
@@ -193,13 +193,13 @@ itemGenData = {
 			type:"settings",
 			id:"legs",
 			name:["Greaves", "Kilt", "Legs", "Legguards", ],
-			icon:[
-				"leg6",		100,
-				"leg9",		10,
-				"leg14",	20,
-				"leg27", 	10,
-				"leg28", 	10,
-			],
+			icon:{
+				leg6:	100,
+				leg9:	10,
+				leg14:	20,
+				leg27: 	10,
+				leg28: 	10,
+			},
 			equipSlot:"legs",
 			statGroup:"heavyArmorTypes",
 			finalMult:1.2,
@@ -209,7 +209,7 @@ itemGenData = {
 			id:"gloves",
 			name:["Grips", "Gloves", "Grasps", "Gauntlets", "Fists", "Hands", "Warfists", "Handguards", ],
 			icon:[
-				"glove1",  100,
+				"glove1"
 			],
 			equipSlot:"gloves",
 			
@@ -220,17 +220,17 @@ itemGenData = {
 			type:"settings",
 			id:"sabs",
 			name:["Boots", "Warboots", "Walkers", "Spurs", "Feet", "Sabatons", "Treads", "Stompers", ],
-			icon:[
-				"shoes7",	20,
-				"shoes8",	200,
-				"shoes21",	50,
-				"shoes24",	50,
-				"shoes40",	10,
-				"shoes41",	10,
-				"shoes42",	10,
-				"shoes44",	30,
-				"shoes45",	30,
-			],
+			icon:{
+				shoes7:		20,
+				shoes8:		200,
+				shoes21:	50,
+				shoes24:	50,
+				shoes40:	10,
+				shoes41:	10,
+				shoes42:	10,
+				shoes44:	30,
+				shoes45:	30,
+			},
 			equipSlot:"feet",
 			statGroup:"heavyArmorTypes",
 			finalMult:0.7,
@@ -245,11 +245,11 @@ itemGenData = {
 		type:"bonus",
 		equip:true,
 		subType:"Heavy",
-		statGroup:[
-			"power",	10, 
-			"plate",	100, 
-			"chain",	140, 
-		],
+		statGroup:{
+			power:	10, 
+			plate:	100, 
+			chain:	140, 
+		},
 		power:{
 			type:"bonus",
 			id:"power",
@@ -296,11 +296,11 @@ itemGenData = {
 		type:"rules",
 		itemType:"Armor",
 		settings:[
-			"helmet",	15,
-			"body",		15,
-			"legs",		15,
-			"gloves",	15,
-			"boots",	15,
+			"helmet",
+			"body",
+			"legs",
+			"gloves",
+			"boots",
 		],
 		rolls:[
 			"suffix",
@@ -315,13 +315,13 @@ itemGenData = {
 			type:"settings",
 			id:"helm",
 			name:["Helmet", "Helm", "Gaze", "Headguard", "Headpiece", "Faceguard", "Visage", ],
-			icon:[
-				"helm6",	100,
-				"helm16",	80,
-				"helm30",	20,
-				"helm32",	20,
-				"helm33",	20,
-			],
+			icon:{
+				helm6:	100,
+				helm16:	80,
+				helm30:	20,
+				helm32:	20,
+				helm33:	20,
+			},
 			equipSlot:"head",
 			statGroup:"lightArmorTypes",
 			finalMult:.75,
@@ -330,13 +330,13 @@ itemGenData = {
 			type:"settings",
 			id:"body",
 			name:["Body", "Chestpiece", "Greatplate", "Chestguard", "Curiass", ],
-			icon:[
-				"armor2",	100,
-				"armor3",	80,
-				"armor4",	70,
-				"armor10",	10,
-				"armor21",	10,
-			],	
+			icon:{
+				armor2:		100,
+				armor3:		80,
+				armor4:		70,
+				armor10:	10,
+				armor21:	10,
+			},	
 			equipSlot:"body",
 			
 			statGroup:"lightArmorTypes",
@@ -346,14 +346,14 @@ itemGenData = {
 			type:"settings",
 			id:"legs",
 			name:["Greaves", "Kilt", "Legs", "Legguards", ],
-			icon:[
-				"leg1", 100,
-				"leg2", 50,
-				"leg21", 10,
-				"leg23", 10,
-				"leg25", 10,
-				"leg41", 10,
-			],
+			icon:{
+				leg1: 100,
+				leg2: 50,
+				leg21: 10,
+				leg23: 10,
+				leg25: 10,
+				leg41: 10,
+			},
 			equipSlot:"legs",
 			statGroup:"lightArmorTypes",
 			finalMult:1.2,
@@ -363,7 +363,7 @@ itemGenData = {
 			id:"gloves",
 			name:["Grips", "Gloves", "Grasps", "Gauntlets", "Fists", "Hands", "Warfists", "Handguards", ],
 			icon:[
-				"glove2", 100,
+				"glove2",
 			],
 			equipSlot:"gloves",
 			statGroup:"lightArmorTypes",
@@ -373,14 +373,14 @@ itemGenData = {
 			type:"settings",
 			id:"boots",
 			name:["Boots", "Warboots", "Walkers", "Spurs", "Feet", "Treads", "Stompers", ],
-			icon:[
-				"shoes2",	100,
-				"shoes3",	80,
-				"shoes9",	20,
-				"shoes11",	10,
-				"shoes27",	10,
-				"shoes28",	10,
-			],
+			icon:{
+				shoes2:		100,
+				shoes3:		80,
+				shoes9:		20,
+				shoes11:	10,
+				shoes27:	10,
+				shoes28:	10,
+			},
 			equipSlot:"feet",
 			
 			statGroup:"lightArmorTypes",
@@ -395,11 +395,11 @@ itemGenData = {
 		type:"bonus",
 		subType:"Light",
 		equip:true,
-		statGroup:[
-			"shade",	10,
-			"leather",	100, 
-			"kevlar",	80,
-		],
+		statGroup:{
+			shade:		10,
+			leather:	100, 
+			kevlar:		80,
+		},
 		leather:{
 			type:"bonus",
 			prefix:"Leather",
@@ -437,11 +437,11 @@ itemGenData = {
 	rare:{
 		type:"roll",
 		chance:.01,
-		bonuses:[
-			"silver",	10,
-			"gold",		5,
-			"platinum",	2,
-		],
+		bonuses:{
+			silver:		10,
+			gold:		5,
+			platinum:	2,
+		},
 		silver:{
 			type:"bonus",
 			prefix:"Silver-Trimmed",
@@ -478,30 +478,30 @@ itemGenData = {
 		chance:.15,
 		rarity:5,
 		value:4,
-		bonuses:[
-			"strong",		10,
-			"tact",			10,
-			"agile",		10,
-			"lively",		10,
-			"smart",		10,
-			"wise",			10,
+		bonuses:{
+			strong:		10,
+			tact:		10,
+			agile:		10,
+			lively:		10,
+			smart:		10,
+			wise:		10,
 			
-			"powerful",		8,
-			"skilled",		8,
-			"ingenius",		8,
+			powerful:	8,
+			skilled:	8,
+			ingenius:	8,
 			
-			"breach",		5,
-			"aegis",		5,
-			"masters",		5,
+			breach:		5,
+			aegis:		5,
+			masters:	5,
 			
-			"ruby",			10,
-			"jade",			10,
-			"cobalt",		10,
-			"amber",		10,
-			"opal",			10,
-			"zircon",		10,
-			"onyx",			10,
-		],
+			ruby:		10,
+			jade:		10,
+			cobalt:		10,
+			amber:		10,
+			opal:		10,
+			zircon:		10,
+			onyx:		10,
+		},
 		strong:	{ 	prefix: "Strong", 	norm:{str:3,}, },
 		tact:	{	prefix: "Tact", 	norm:{dex:3,}, },
 		agile:	{ 	prefix: "Agile", 	norm:{agi:3,}, },
@@ -534,16 +534,16 @@ itemGenData = {
 		quality:0,
 		value:5,
 		
-		bonuses:[
-			"fire",		10,
-			"ice",		10,
-			"wind",		10,
-			"earth",	10,
-			"elec",		10,
-			"holy",		5,
-			"dark",		5,
-			"void",		3,
-		],
+		bonuses:{
+			fire:		10,
+			ice:		10,
+			wind:		10,
+			earth:		10,
+			elec:		10,
+			holy:		5,
+			dark:		5,
+			void:		3,
+		},
 		fire:{
 			type:"bonus",
 			prefix:["Flaming", "Volcanic", "Blaze", "Inferno", "Pyre", "Hearth", "Scorching", "Searing"],
@@ -775,17 +775,17 @@ itemGenData = {
 	quality:{
 		type:"roll",
 		chance:1,
-		bonuses:[
-			"crude", 		200,
-			"fair", 		180,
-			"average", 		160,
-			"fine",			80,
-			"superior", 	40,
-			"exquisite",	20,
-			"magnificant",	10,
-			"legendary",	5,
-			"peerless",		1,
-		],
+		bonuses:{
+			crude: 			200,
+			fair: 			180,
+			average: 		160,
+			fine:			80,
+			superior: 		40,
+			exquisite:		20,
+			magnificant:	10,
+			legendary:		5,
+			peerless:		1,
+		},
 		crude:{
 			type:"bonus",
 			prefix:["Crude", "Rusted", "Broken", "Dented", "Moldy", "Stinky", "Rotten", "Awful", "Atrocious", "Pathetic"],
@@ -944,20 +944,20 @@ itemGenData = {
 	metal:{
 		type:"roll",
 		chance:1,
-		bonuses:[
-			"copper",		300,
-			"bronze",		250,
-			"iron",			225,
-			"steel",		200,
-			"frorium",		100,
-			"preocium",		80,
-			"broedian",		60,
-			"mithril",		40,
-			"oridecon",		20,
-			"adamant",		10,
-			"edril",		5,
-			"orichalcum",	2,
-		],
+		bonuses:{
+			copper:		300,
+			bronze:		250,
+			iron:		225,
+			steel:		200,
+			frorium:	100,
+			preocium:	80,
+			broedian:	60,
+			mithril:	40,
+			oridecon:	20,
+			adamant:	10,
+			edril:		5,
+			orichalcum:	2,
+		},
 		copper:{
 			type:"bonus",
 			prefix:"Copper",
@@ -1143,8 +1143,228 @@ itemGenData = {
 }
 
 
+function subrule(start, key) {
+	if (!key) { return null; }
+	if (start[key] instanceof Object) {
+		return start[key]
+	}
+	return itemGenData[key];
+}
 
 
+function chooseFrom(coll) {
+	if (coll instanceof Array) {
+		return coll.choose();
+	}
+	var weight = coll.sum();
+	var roll = Random.value() * weight;
+	var s = 0;
+	var it = "none";
+	coll.each((k,v) => {
+		if (isNumber(v)) {
+			if (s < roll) { it = k }
+			s += v;
+		}
+	});
+	return it;
+}
+
+function multiplyStat(item, stat, mult) {
+	var val = item.num(stat);
+	if (val > 0) { item[stat] = val * mult; }
+}
+
+function multiplyStatRule(item, rule, mult) {
+	var matches = item.matchingKeys(rule);
+	matches.each((k)=> {
+		var val = item.num(key);
+		if (val > 0) {
+			item[key] = val * mult;
+		}
+	})
+}
+
+function multiplyAllStats(item, mult) {
+	baseStats.each((stat) => multiplyStat(item, stat, mult));
+	combatStats.each((stat) => multiplyStat(item, stat, mult));
+	intermediate.each((stat) => multiplyStat(item, stat, mult));
+	multiplyStatRule(item, affinities, mult)
+}
+
+function hasRule(ruleName) { return itemGenData.has(ruleName); }
+function getOrChooseString(obj, key) {
+	var val = obj[key];
+	if (!val) { return null; }
+	if (isString(val)) { return val; }
+	return chooseFrom(val);
+	
+}
+
+MakeItem = function(ruleName, level) {
+	var rules = itemGenData[ruleName];
+	if (!rules) { return "Could not make item, no rule " + ruleName}
+	
+	var type = rules.type;
+	if (type != "rules") { return "cannot use " + type + " object as rules"; }
+	
+	var itemType = getOrChooseString(rules, "settings");
+	
+	var typeSubrule = subrule(rules, itemType);
+	if (typeSubrule == null) { 
+		console.log("could not find rule [" + itemType + "]");
+	}
+	
+	var item = {
+		name: "",
+		itemID: rules.id,
+		type: rules.itemType,
+		subType: rules.itemType + "_" + itemType,
+		color: "#FFFFFF",
+		quality: 1 + level,
+		value: 0,
+		rarity: 0,
+		hits: [],
+	}
+	//Magic *snort*
+	applyBonus(item, typeSubrule);
+	
+	var rolls = rules[rolls];
+	if (rolls && isArray(rolls)) {
+		rolls.each((roll)=>{
+			var rollObj = subrule(roll);
+			if (rollObj) {
+				applyRoll(item, rollObj);
+			} else {
+				console.log("Could not find roll [" + roll + "]")
+			}
+		})
+	}
+	return item;
+}
+
+function grabObj(b, k) {
+	var obj = b[k];
+	if (!obj || isArray(obj)) { return null; }
+	if (obj instanceof Object) { return obj; }
+	return null;
+}
+
+function grabArray(b, k) {
+	var arr = b[k];
+	if (!arr) { return null; }
+	if (isArray(arr)) { return arr; }
+	return null;
+}
+
+function applyBonus(item, bonus) {
+	//if (!bonus) { return null; }
+	var level = item.quality;
+	var element = bonus.element;
+	var prefix = getOrChooseString(bonus, "prefix");
+	var suffix = getOrChooseString(bonus, "suffix");
+	var statMult = bonus.num("statMult") || 1;
+	var finalMult = bonus.num("finalMult") || 1;
+	
+	var statGroup = getOrChooseString(bonus, "statGroup");
+	var statGroupObj = subrule(bonus, statGroup);
+	
+	var stat = grabObj(bonus, "stat");
+	var rand = grabObj(bonus, "rand");
+	var norm = grabObj(bonus, "norm");
+	var frand = grabObj(bonus, "frand");
+	var fnorm = grabObj(bonus, "fnorm");
+	
+	var hits = grabArray(bonus, "hits")
+	var colors = grabArray(bonus, "color");
+	
+	//var blend = bonus.num(blend) || .5;
+	
+	if (bonus.has("id")) {
+		var id = item.itemID;
+		item.itemID = id + bonus.id;
+	}
+	
+	if (bonus.has("subType")) { item.subType = getOrChooseString(bonus, "subType"); }
+	if (bonus.has("name")) { item.name = getOrChooseString(bonus, "name"); }
+	if (bonus.has("icon")) { item.icon = getOrChooseString(bonus, "icon"); }
+	if (bonus.has("equipSlot")) { item.equipSlot = getOrChooseString(bonus, "equipSlot"); }
+	if (bonus.has("equip")) { item.equip = bonus.equip; }
+	if (bonus.has("equipSlotIsPrefix")) { item.equipSlotIsPrefix = bonus.equipSlotIsPrefix; }
+	
+	item.quality = level + bonus.num("quality");
+	item.value = item.value + level * bonus.num("value");
+	item.rarity = item.rarity + bonus.num("rarity");
+	
+	if (element && element.length > 1) { item.element = element; }
+	if (prefix && prefix.length > 1) { item.name = prefix + " " + item.name; }
+	if (suffix && suffix.length > 1) { item.suffix = suffix; }
+	
+	if (statMult > 0 && statMult != 1) { multiplyAllStats(item, statMult); }
+	
+	//WE RECURSING, GRAB THE CALLSTACK!
+	if (statGroupObj) { applyBonus(item, statGroupObj); }
+	
+	applyStats(item, stat, ()=>1 );
+	applyStats(item, frand, ()=>Random.value() );	
+	applyStats(item, frand, ()=>Random.normal() );
+	applyStats(item, rand, ()=>Random.value() * level );
+	applyStats(item, norm, ()=>Random.normal() * level );
+	
+	if (finalMult > 0 && finalMult != 1) { multiplyAllStats(item, finalMult); }
+	
+	if (hits) {
+		hits.each((hit)=>{ item.hits.push(hit); });
+	}
+	
+	//if (colors) {
+	//	var hex = chooseFrom(colors);
+	//	var c1 = toRGBFromHex(hex)
+	//	var c2 = toRGBFromHex(item.color)
+	//	var c3 = lerp(c1, c2, blend);
+	//	item.color = toHexFromRGB(c3)
+	//}
+	
+	return item;
+}
+
+
+function applyStats(item, stats, randomizer) {
+	if (stats) {
+		stats.each((k,v)=>{ 
+			if (k == "base") {
+				baseStats.each((stat)=>{
+					item[stat] = item.num(stat) + v * randomizer();
+				})
+				
+			} else {
+				item[k] = item.num(k) + v * randomizer();
+			}
+		})
+	}
+	return item
+} 
+
+function applyRoll(item, roll) {
+	var chance = roll.num(chance);
+	if (chance <= 0 || (Random.value() < chance)) {
+		applyBonus(item, roll);
+		
+		var bonuses = roll.bonuses;
+		if (bonuses) {
+			var bonusName = chooseFrom(bonuses);
+			var bonusObj = roll.subrule(bonusName);
+			
+			if (bonusObj) {
+				applyBonus(item, bonusObj);
+			} else {
+				console.log("Could not find bonus " + bonusName);
+			}
+			
+		}
+	}
+	
+	return item;
+}
 
 
 
