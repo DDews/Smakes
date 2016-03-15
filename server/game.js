@@ -213,7 +213,7 @@ var startCombat = function(data) {
 		units.push(mon); 
 		dbupdate(mon);
 	} );
-	//
+	
 	var combat = new Combat(units, username, region);
 	gamedata.combat = combat._id;
 	gamedata.lastRegion = region;
@@ -246,6 +246,12 @@ var unitRecruitmentCost = function(u) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
+	testMakeItem: () => {
+		var item = MakeItem("meleeWeapon", 1);
+		console.log(item);
+							
+	},
+	
 	purgeGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
