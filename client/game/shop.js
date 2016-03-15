@@ -32,7 +32,9 @@ var _slots = [
 	"hand",
 	"accessory"
 ]
+var _arraysize = {
 
+}
 Template.shop.helpers({
 	testIcons: function() {
 		var items = itemDB.toPairRay();
@@ -72,7 +74,21 @@ Template.shop.helpers({
 		return value.type;
 	},
 	getBgColor: function(value) {
-		var rarity = value.rarity;
+		var rarity = value;
+		if (rarity < 10) return "r1-10";
+		if (rarity < 20) return "r10-20";
+		if (rarity < 30) return "r20-30";
+		if (rarity < 40) return "r30-40";
+		if (rarity < 50) return "r40-50";
+		if (rarity < 60) return "r50-60";
+		if (rarity < 70) return "r60-70";
+		if (rarity < 80) return "r70-80";
+		if (rarity < 90) return "r80-90";
+		if (rarity < 100) return "r90-100"
+		return "r90-100";
+	},
+	getBgColor2: function(key) {
+		var rarity = key.rarity;
 		if (rarity < 10) return "r1-10";
 		if (rarity < 20) return "r10-20";
 		if (rarity < 30) return "r20-30";
@@ -120,11 +136,10 @@ Template.shop.helpers({
 		if (currentItem.hasOwnProperty(stat)) {
 			if (currentItem[stat] < value) return "lowerStat";
 			if (currentItem[stat] > value) return "higherStat";
-		}
+		} else { return "lowerStat"; }
 	},
 	getIncrease: function(stat,value) {
 		var currentItem = Session.get("selectedItem");
-		console.log(currentItem);
 		currentItem = itemDB[currentItem];
 		if (stat == "desc") return null;
 		if (stat == "rarity") return null;
@@ -133,7 +148,31 @@ Template.shop.helpers({
 		if (currentItem.hasOwnProperty(stat)) {
 			if (currentItem[stat] < value) return "-" + fixZeroes(value - currentItem[stat]);
 			if (currentItem[stat] > value) return "+" + fixZeroes(currentItem[stat] - value);
-		}
+		} else { return "-" + fixZeroes(value); }
+	},
+	selectedItem: function() {
+		var selectedItem = Session.get("selectedItem");
+		if (selectedItem) return itemDB[selectedItem];
+	},
+	lostStats: function(obj) {
+		var selectedItem = Session.get("selectedItem");
+		if (!selectedItem) return null;
+		var output = {};
+		var item = itemDB[selectedItem];
+		item.each(function(key, value) {
+			if (key != "stacks" && key != "maxStack" && key != "rarity" && key != "quality" && key != "element") {
+				if (!obj.hasOwnProperty(key)) {
+					var object = {};
+					output[key] = value;
+				}
+			}
+		});
+		console.log(output);
+		return output.toPairRay();
+	},
+	getStatName: function(stat) {
+		if (statName(stat)) return statName(stat);
+		return stat;
 	}
 });
 _event = {};
@@ -143,7 +182,8 @@ Template.shop.events({
 		var id = event.currentTarget.id;
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
-		var width = $("[name=" + id +"]").width();
+		var width = $("[name=tooltip]").width();
+		var height = $("[name=tooltip]").height();
 		var offset = event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"
 		Session.set("selectedItem",id);
 		_event[id] = function(event) {
@@ -151,19 +191,24 @@ Template.shop.events({
 			if (event.clientX + document.body.scrollLeft + (width / 2) > $(window).width()) left = $(window).width() - width - 12;
 			else left = event.clientX + document.body.scrollLeft - (width / 2);
 			if (event.clientX + document.body.scrollLeft - (width / 2) < 0) left = 0;
-			$("[name=" + id + "]").css({
+			var top = event.clientY + document.body.scrollTop + 20;
+			var top2 = top;
+			if (event.clientY + document.body.scrollTop + 20 + $('#' + slot).height() > $(document).height()) {
+				top = event.clientY + document.body.scrollTop - height - 10;
+				top2 = event.clientY + document.body.scrollTop - $('#' + slot).height() - 10;
+			}
+			$("[name=tooltip]").css({
 				position: "absolute",
 				display: "inline",
-				top: event.clientY + document.body.scrollTop + 20 + "px",
+				top: top + "px",
 				left: left + "px"
 			});
-			console.log(left + (2 * width) + 12 + " > " + $(window).width());
 			if (left + (2 * width) + 12 > $(window).width()) offset = left - 12 - width + "px";
 			else offset = left + width + 12 + "px";
 			$('#' + slot).css({
 				position: "absolute",
 				display: "inline",
-				top: event.clientY + document.body.scrollTop + 20 + "px",
+				top: top2 + "px",
 				left: offset
 			});
 		};
@@ -176,7 +221,7 @@ Template.shop.events({
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		document.removeEventListener('mousemove',_event[id](event),false);
-		$("[name=" + id + "]").css({
+		$("[name=tooltip]").css({
 			display: "none"
 		});
 		$('#' + slot).css({
