@@ -1313,7 +1313,6 @@ reapplyHistory = function(item, level) {
 		
 	});
 	
-	console.log("--------Done---------")
 	if (item.level) { item.level = 0; }
 	
 }
