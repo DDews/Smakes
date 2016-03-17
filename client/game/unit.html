@@ -146,17 +146,9 @@
 
 				 </div>
 			</div>
-			{{#each equip in unitEquip}}
-				<div name="{{equip.value.id}}" class="itembg statwindow {{getBgColor equip.value.rarity}}" style="display: none;">
-					<p class="tooltipText">{{equip.value.name}}</p>
-					<p class="tooltipText">{{equip.value.type}}</p>
-					{{#each toPairs equip.value}}
-						{{#if statName key}}
-							<p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
-						{{/if}}
-					{{/each}}
-				</div>
-			{{/each}}
+			{{else}}
+				UNIT DOES NOT EXIST LOOLOLOLOL
+				
 			{{/if}}
 
 		</div>
