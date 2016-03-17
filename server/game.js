@@ -162,6 +162,8 @@ var starterEquips = {
 	
 };
 
+
+
 var newPlayerUnit = function(username, name, job) {
 	var unit = new Unit();
 	unit.username = username;
@@ -198,7 +200,6 @@ var startCombat = function(data) {
 	if (!regionData) { throw new Meteor.Error(422, "Error: Unknown region " + region); }
 
 	var units = []
-	
 
 	gamedata.units.each( (id) => { 
 			var u = dbget("Unitinfo", id);
@@ -240,10 +241,13 @@ var unitRecruitmentCost = function(u) {
 	return 1000 * Math.pow(10, u);
 }
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Messages that can be sent to the server by clients for game logic.
+
+
 
 Meteor.methods({
 	testMakeItem: () => {
@@ -578,6 +582,7 @@ Meteor.methods({
 					if (unit.team != 'player') {
 						goldDrop += unit.exp * Random.value();
 						expDrop += unit.exp;
+						
 					}
 				})
 				summary.inc("goldDrop", Math.floor(goldDrop));
