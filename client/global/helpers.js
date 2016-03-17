@@ -288,24 +288,27 @@ var unitPoseStyle = function(id) {
 
 getDbStat = function(stat, collection, id) {
 	var obj = dbget(collection, id);
+	if (obj) {
 
-	var num = 0;
-	if (stat.suffix("%")) {
-		stat = unSuffix(stat)
-		num = (obj[stat] * 100)
-		return num.toFixed(3) + "%";
-	} else if (stat.suffix("#")) {
-		stat = unSuffix(stat);
-		num = obj[stat]
-		return num.toFixed(3);
-	} else if (stat.suffix("@")) {
-		stat = unSuffix(stat);
-		num = obj[stat]
-		return num.toFixed(0);
-	} else {
-		num = obj[stat];
+		var num = 0;
+		if (stat.suffix("%")) {
+			stat = unSuffix(stat)
+			num = (obj[stat] * 100)
+			return num.toFixed(3) + "%";
+		} else if (stat.suffix("#")) {
+			stat = unSuffix(stat);
+			num = obj[stat]
+			return num.toFixed(3);
+		} else if (stat.suffix("@")) {
+			stat = unSuffix(stat);
+			num = obj[stat]
+			return num.toFixed(0);
+		} else {
+			num = obj[stat];
+		}
+		return num;
 	}
-	return num;
+	return collection + ":" + id + "Does not exist";
 }
 fixZeroes = function(val) {
 	if (val > Math.round(val)) {
