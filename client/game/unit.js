@@ -1,6 +1,6 @@
-var getID = function() { return Router.current().params._id;  }
+getID = function() { return Router.current().params._id;  }
 
-var getUnit = function() {
+getUnit = function() {
 	var id = getID();
 	return Unitinfo.findOne({_id: id});
 }
@@ -23,7 +23,7 @@ var unitHelpers = {
 		username = username && username.username;
 		if (!username) { return false };
 		
-		var unit = Unitinfo.findOne({_id: id});
+		var unit = Unitinfo.findOne(id);
 		return (unit.username == username && unit.team == 'player');
 	},
 	
@@ -39,7 +39,7 @@ var unitHelpers = {
 		var val = statsP[stat] || 0;
 		return statUpgradeCost(val, 10);
 	},
-	unitExists: function() { return getUnit(); },
+	unitExists: function(id) { return Unitinfo.findOne(id); },
 	displayStats: function() { return displayStats; },
 	auxStats: function() { return auxStats; },
 	unitEquip: function() {
