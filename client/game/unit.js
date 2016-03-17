@@ -70,9 +70,9 @@ var unitHelpers = {
 
 Template.unit.helpers(unitHelpers);
 Template.editunit.helpers(unitHelpers);
-
-Template.unit.rendered = function(){ }
-Template.unit.onRendered(function() { $('.tooltipped').tooltip({delay: 50}); })
+//
+//Template.unit.rendered = function(){ }
+//Template.unit.onRendered(function() { $('.tooltipped').tooltip({delay: 50}); })
 
 
 
