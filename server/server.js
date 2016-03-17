@@ -775,16 +775,7 @@ Meteor.methods({
         dislikes.push(Meteor.user().username);
         Posts.update(postId,{$set:{dislikes: dislikes}});
     },
-    dropGameDB: function() {
-        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
-        var admin = Userinfo.findOne({username: Meteor.user().username});
-        admin = admin && admin.admin;
-        if (!admin) throw new Meteor.Error(422,"Not authorized");
-        Unitinfo.remove({});
-        Combatinfo.remove({});
-        Gameinfo.remove({});
-        console.log("Game database cleared");
-    },
+    
     track: function(threadId) {
         if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
         var username = Meteor.user().username;

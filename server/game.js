@@ -258,6 +258,17 @@ Meteor.methods({
 		console.log(item);
 							
 	},
+	dropGameDB: function() {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var admin = Userinfo.findOne({username: Meteor.user().username});
+        admin = admin && admin.admin;
+        if (!admin) throw new Meteor.Error(422,"Not authorized");
+        Unitinfo.remove({});
+        Combatinfo.remove({});
+        Gameinfo.remove({});
+		Iteminfo.remove({});
+        console.log("Game database cleared");
+    },
 	
 	purgeGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
