@@ -6,14 +6,13 @@
         {{#if gameInfoExists }}
 			
 			<div class="row {{gameFatigueColor}} darken-4">
-				
+				<span class="center col s12">Autos</span>
 				<span class="right col s3">Autofight Timer: {{gameRetryTime}}s</span>
 				{{#if gameFatigue}}
 					<span class="right col s3 red-text text-lighten-3">Fatigue: {{gameFatigue}}</span>
 				{{else}}
 					<span class="right col s3 amber-text">Stamina: {{gameStamina}} / {{gameMaxStamina}}</span>
 				{{/if}}
-				<span class="right col s3">Autos</span>
 			</div>
 				
 			<div class="progress blue-grey lighten-5">
@@ -25,6 +24,7 @@
             {{else}}
                 <button class="btn green darken-4 white-text left" id="pause" value="pause">pause</button>
             {{/if}}
+			<a href="/inventory" class="btn green darken-4 white-text left">Inventory</a>
 			
 			{{#if retry}}
 				<button class="btn green darken-1 white-text right" id="retry" value="RETRY">Autofight: On</button>
@@ -32,6 +32,7 @@
 				<button class="btn green darken-4 white-text right" id="retry" value="RETRY">Autofight: Off</button>
 			{{/if}}
 			
+		
             {{#if inCombat}}
                 <button class="btn right orange darken-4 white-text" id="run" value="run">Run Away</button>
                 {{startCombatLoop}}

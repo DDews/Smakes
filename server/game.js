@@ -162,6 +162,8 @@ var starterEquips = {
 	
 };
 
+
+
 var newPlayerUnit = function(username, name, job) {
 	var unit = new Unit();
 	unit.username = username;
@@ -198,7 +200,6 @@ var startCombat = function(data) {
 	if (!regionData) { throw new Meteor.Error(422, "Error: Unknown region " + region); }
 
 	var units = []
-	
 
 	gamedata.units.each( (id) => { 
 			var u = dbget("Unitinfo", id);
@@ -240,10 +241,13 @@ var unitRecruitmentCost = function(u) {
 	return 1000 * Math.pow(10, u);
 }
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Messages that can be sent to the server by clients for game logic.
+
+
 
 Meteor.methods({
 	testMakeItem: () => {
@@ -254,6 +258,17 @@ Meteor.methods({
 		console.log(item);
 							
 	},
+	dropGameDB: function() {
+        if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
+        var admin = Userinfo.findOne({username: Meteor.user().username});
+        admin = admin && admin.admin;
+        if (!admin) throw new Meteor.Error(422,"Not authorized");
+        Unitinfo.remove({});
+        Combatinfo.remove({});
+        Gameinfo.remove({});
+		Iteminfo.remove({});
+        console.log("Game database cleared");
+    },
 	
 	purgeGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
@@ -261,10 +276,12 @@ Meteor.methods({
 		var gamedatas = Gameinfo.find({username: username}).fetch();
 		var unitinfos = Unitinfo.find({username: username}).fetch();
 		var combatinfo = Combatinfo.find({username: username}).fetch();
+		var items = Iteminfo.find({username: username}).fetch();
 		
 		gamedatas.each((d) => { dbremove(d); })
 		unitinfos.each((d) => { dbremove(d); })
 		combatinfo.each((d) => { dbremove(d); })
+		items.each((d) => { dbremove(d); })
 		
 	},
 	
@@ -578,6 +595,7 @@ Meteor.methods({
 					if (unit.team != 'player') {
 						goldDrop += unit.exp * Random.value();
 						expDrop += unit.exp;
+						
 					}
 				})
 				summary.inc("goldDrop", Math.floor(goldDrop));

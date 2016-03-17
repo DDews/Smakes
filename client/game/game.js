@@ -213,6 +213,11 @@ Template.game.events({
 		
 		return false
 	},
+	'click #inventory': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		Router.go("inventory")
+		return false;
+	},
 	
 	'click #startCombat': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
