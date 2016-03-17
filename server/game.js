@@ -265,10 +265,12 @@ Meteor.methods({
 		var gamedatas = Gameinfo.find({username: username}).fetch();
 		var unitinfos = Unitinfo.find({username: username}).fetch();
 		var combatinfo = Combatinfo.find({username: username}).fetch();
+		var items = Iteminfo.find({username: username}).fetch();
 		
 		gamedatas.each((d) => { dbremove(d); })
 		unitinfos.each((d) => { dbremove(d); })
 		combatinfo.each((d) => { dbremove(d); })
+		items.each((d) => { dbremove(d); })
 		
 	},
 	
