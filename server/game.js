@@ -13,6 +13,19 @@ Meteor.publish("gamedata", function() {
 	
 });
 
+
+Meteor.publish("inventory", function() {
+	var user = Meteor.users.findOne(this.userId)
+	var username = user && user.username
+	console.log("items for " + username + " : " + Iteminfo.find({username: username}).count() );
+	
+	return Iteminfo.find( { username: username } );
+	
+})
+
+Meteor.publish("shopItems", function() {
+	return Iteminfo.find( { owner: "<shop>"} )
+})
 	
 
 Meteor.publish("unitinfo", function() {
@@ -42,7 +55,10 @@ Meteor.publish("combatinfo", function() {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//Extra helper functions for serverside game logic
+///Extra helper functions for serverside game logic
+
+///Spawn monsters in a given region, at a given round (combo)
+///Returns an array of spawned units (already placed in DB)
 spawnMonsters = function(regionData, combo) {
 	var size = 1 + Random.range(regionData.min, regionData.max) * .25;
 	var units = [];
@@ -56,6 +72,7 @@ spawnMonsters = function(regionData, combo) {
 	return units;
 }
 
+///Starter equipment objects for new units.
 var starterEquips = {
 	head: {
 		id:'eq_starter_helm',
@@ -163,7 +180,13 @@ var starterEquips = {
 };
 
 
+///Curve for unit recruitment costs
+var unitRecruitmentCost = function(u) {
+	return 1000 * Math.pow(10, u);
+}
 
+
+///Create a new player unit for 'username'
 var newPlayerUnit = function(username, name, job) {
 	var unit = new Unit();
 	unit.username = username;
@@ -179,15 +202,18 @@ var newPlayerUnit = function(username, name, job) {
 	}
 	
 	unit.job = job;
-	
 	unit.equipment = starterEquips;
-	
 	unit.recalc();
 	
 	dbupdate(unit);
 	return unit;
 };
 
+
+///Start a combat (or begin a new round of combat)
+///Creates the new combat object and associates it with the calling user.
+///Adds monsters based on the region the combat is in.
+///If it's the first combat, resets fatigue and combo.
 var startCombat = function(data) {
 	var username = Meteor.user() && Meteor.user().username;
 	if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -237,8 +263,56 @@ var startCombat = function(data) {
 }
 
 
-var unitRecruitmentCost = function(u) {
-	return 1000 * Math.pow(10, u);
+
+///Give Item to user
+///username - name of user to give item to
+///data - information about what item to give
+///		data.item - name of item to give, or rule to use 
+///					to generate item
+///		data.quantity - number of items to give
+///					(default = 1)
+///		data.level	- level of item to generate
+///					(default = 0)
+///		data.rarityBonus - bonus to rarity of
+///					generated items (default = 0)
+///
+var giveItem = function(username, data) {
+	var user = Userinfo.findOne({username: username});
+	var gamedata = Gameinfo.findOne({username: username});
+	
+	var item = data.item;
+	var quantity = data.quantity || 1;
+	var rarityBonus = data.rarityBonus || 0;
+	var level = data.level || 0;
+	
+	console.log("Giving ")
+	console.log(data)
+	console.log("to" + username)
+	
+	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!!!"); }
+	
+	if (itemDB.has(item)) {
+		if (!gamedata.stacks) { gamedata.stacks = {}; }
+		if (!gamedata.stacks.has(item)) {
+			gamedata.stacks[item] = quantity;
+		} else {
+			gamedata.stacks[item] += quantity;
+		}
+		console.log('gave ' + quantity + ' ' + item + "(s)");
+		dbupdate(gamedata);
+	} else {
+		var i;
+		for (i = 0; i < quantity; i+=1) {
+			var i = MakeItem(item, level, rarityBonus);
+			i.username = username;
+			console.log('created item from rule ' + item);
+			console.log(i.name);
+			dbinsert("Iteminfo", i);
+		}
+		
+	}
+	
+	
 }
 
 
@@ -247,17 +321,40 @@ var unitRecruitmentCost = function(u) {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Messages that can be sent to the server by clients for game logic.
 
-
-
 Meteor.methods({
 	testMakeItem: () => {
-		var item = MakeItem("meleeWeapon", 1);
+		var item = MakeItem("heavyArmor", 1);
 		console.log(item);
 		
 		reapplyHistory(item, 100);
 		console.log(item);
-							
+		
+		console.log("Histories");
+		item.genHistory.each((h)=>{
+			console.log(h);
+		})
 	},
+	testGiveDrops: (data) => {
+		console.log("testing drops");
+		
+		var results = rollDropTable(data.table);
+		console.log("Roll results:")
+		console.log(results)
+		
+		var username = Meteor.user() && Meteor.user().username;
+		results.each((k,v) => {
+			giveItem(username, {item:k, quantity:v});
+		})
+		
+		
+	},
+	testGiveItem: (data) => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		
+		
+		giveItem(username, data);
+	},					
 	dropGameDB: function() {
         if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
         var admin = Userinfo.findOne({username: Meteor.user().username});

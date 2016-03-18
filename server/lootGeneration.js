@@ -1143,6 +1143,87 @@ itemGenData = {
 }
 
 
+MakeItem = function(ruleName, level, rarityBonus) {
+	var rules = itemGenData[ruleName];
+	if (!rules) { return "Could not make item, no rule " + ruleName}
+	
+	var type = rules.type;
+	if (type != "rules") { return "cannot use " + type + " object as rules"; }
+	if (!level) { level = 0; }
+	if (!rarityBonus) { rarityBonus = 0; }
+	
+	var itemType = getOrChooseString(rules, "settings");
+	var path = ruleName + "." + itemType;
+	
+	var typeSubrule = subrule(rules, itemType);
+	if (typeSubrule == null) { 
+		console.log("could not find rule [" + itemType + "]");
+	}
+	
+	var item = {
+		name: "",
+		itemID: rules.id,
+		type: rules.itemType,
+		subType: rules.itemType + "_" + itemType,
+		color: "#FFFFFF",
+		quality: 1 + level,
+		value: 0,
+		rarity: 0,
+		hits: [],
+		genHistory: [ {path:path},],
+	}
+	
+	//Magic *snort*
+	applyBonus(item, typeSubrule, last(item.genHistory), rarityBonus );
+	
+	var rolls = rules.rolls;
+	if (rolls) {
+		rolls.each((roll)=>{
+			var rollObj = subrule(rules, roll);
+			if (rollObj) {
+				var aRoll = Random.value();
+				var chance = rollObj.num("chance");
+				if (aRoll < chance) {
+					item.genHistory.push({path: path + "." + roll })
+					applyRoll(item, rollObj, last(item.genHistory), rarityBonus );
+
+				}
+			} else {
+				console.log("Could not find roll [" + roll + "]")
+			}
+		})
+	} else {
+		console.log("Could not find any rolls in [" + ruleName + "]")
+	}
+	if (item.level) { item.level = 0; }
+	return item;
+}
+
+
+reapplyHistory = function(item, level) {
+	console.log("rebuilding item at level " + level)
+	baseStats.each((stat) => { if (item[stat]) { item[stat] = 0; } })
+	combatStats.each((stat) => { if (item[stat]) { item[stat] = 0; } })
+	combatRatios.each((stat) => { if (item[stat]) { item[stat] = 0; } })
+	item.matchingKeys(resistances).each((stat)=>{ if (item[stat]) { item[stat] = 0; } })
+	item.matchingKeys(affinities).each((stat)=>{ if (item[stat]) { item[stat] = 0; } })
+	
+	item.quality = level;
+	if (item.level) { item.level = 0; }
+	
+	item.genHistory.each((h)=>{
+		var path = h.path;
+		var rolls = h.rolls;
+		
+		var rule = subrule(path);
+		applyBonus(item, rule, h, 0);
+	});
+	
+	if (item.level) { item.level = 0; }
+	
+}
+
+
 function subrule(start, key) {
 	if (!start) { return null; }
 	
@@ -1165,27 +1246,6 @@ function subrule(start, key) {
 	}
 	
 	return itemGenData[key];
-}
-
-
-function chooseFrom(coll) {
-	if (coll instanceof Array) {
-		return coll.choose();
-	}
-	
-	var weight = coll.sum();
-	var roll = Random.value() * weight;
-	var s = 0;
-	var it = "none";
-	
-	coll.each((k,v) => {
-		if (isNumber(v)) {
-			if (s < roll) { it = k }
-			s += v;
-		}
-	});
-	
-	return it;
 }
 
 function multiplyStat(item, stat, mult) {
@@ -1212,71 +1272,8 @@ function multiplyAllStats(item, mult) {
 }
 
 function hasRule(ruleName) { return itemGenData.has(ruleName); }
-function getOrChooseString(obj, key) {
-	var val = obj[key];
-	if (!val) { return null; }
-	if (isString(val)) { return val; }
-	return chooseFrom(val);
-	
-}
 
-MakeItem = function(ruleName, level) {
-	var rules = itemGenData[ruleName];
-	if (!rules) { return "Could not make item, no rule " + ruleName}
-	
-	var type = rules.type;
-	if (type != "rules") { return "cannot use " + type + " object as rules"; }
-	
-	var itemType = getOrChooseString(rules, "settings");
-	var path = ruleName + "." + itemType;
-	
-	var typeSubrule = subrule(rules, itemType);
-	if (typeSubrule == null) { 
-		console.log("could not find rule [" + itemType + "]");
-	}
-	
-	var item = {
-		name: "",
-		itemID: rules.id,
-		type: rules.itemType,
-		subType: rules.itemType + "_" + itemType,
-		color: "#FFFFFF",
-		quality: 1 + level,
-		value: 0,
-		rarity: 0,
-		hits: [],
-		genHistory: [ {path:path}, ],
-	}
-	
-	//Magic *snort*
-	applyBonus(item, typeSubrule, last(item.genHistory) );
-	
-	item.genHistory.each((h)=> {
-		console.log(h);
-	})
-	
-	var rolls = rules.rolls;
-	if (rolls) {
-		rolls.each((roll)=>{
-			var rollObj = subrule(rules, roll);
-			if (rollObj) {
-				var aRoll = Random.value();
-				var chance = rollObj.num("chance");
-				if (aRoll < chance) {
-					item.genHistory.push({path: path + "." + roll })
-					applyRoll(item, rollObj, last(item.genHistory) );
 
-				}
-			} else {
-				console.log("Could not find roll [" + roll + "]")
-			}
-		})
-	} else {
-		console.log("Could not find any rolls in [" + ruleName + "]")
-	}
-	if (item.level) { item.level = 0; }
-	return item;
-}
 
 function grabObj(b, k) {
 	var obj = b[k];
@@ -1292,39 +1289,15 @@ function grabArray(b, k) {
 	return null;
 }
 
-reapplyHistory = function(item, level) {
-	console.log("rebuilding item at level " + level)
-	baseStats.each((stat) => { if (item[stat]) { item[stat] = 0; } })
-	combatStats.each((stat) => { if (item[stat]) { item[stat] = 0; } })
-	combatRatios.each((stat) => { if (item[stat]) { item[stat] = 0; } })
-	item.matchingKeys(resistances).each((stat)=>{ if (item[stat]) { item[stat] = 0; } })
-	item.matchingKeys(affinities).each((stat)=>{ if (item[stat]) { item[stat] = 0; } })
-	
-	item.quality = level;
-	if (item.level) { item.level = 0; }
-	
-	item.genHistory.each((h)=>{
-		var path = h.path;
-		var rolls = h.rolls;
-		
-		var rule = subrule(path)
-		console.log(path);
-		applyBonus(item, rule, h);
-		
-	});
-	
-	if (item.level) { item.level = 0; }
-	
-}
 
-function applyBonus(item, bonus, history) {
+function applyBonus(item, bonus, history, rarityBonus) {
 	//if (!bonus) { return null; }
 	var path = history.path;
 	if (!history.rolls) { history.rolls = {} }
 	
 	var rolls = history.rolls;
 	var firstTime = Object.keys(rolls).length == 0;
-	rolls["$"] = 1;
+	rolls["didIt_"] = true;
 	
 	var level = item.quality;
 	
@@ -1347,16 +1320,16 @@ function applyBonus(item, bonus, history) {
 		//WE RECURSING, GRAB THE CALLSTACK!
 		if (statGroupObj) { 
 			item.genHistory.push({path: path + "." + statGroup})
-			applyBonus(item, statGroupObj, last(item.genHistory)); 
+			applyBonus(item, statGroupObj, last(item.genHistory), rarityBonus); 
 						  
 	  	}
 	}
 		
-	applyStats(item, "stat", 	stat,	()=>1, 					1,		rolls );
-	applyStats(item, "frand",	frand,	()=>Random.value(), 	1,		rolls );	
-	applyStats(item, "fnorm",	fnorm,	()=>Random.normal(), 	1,		rolls );
-	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls );
-	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls );
+	applyStats(item, "stat", 	stat,	()=>1, 					1,		rolls, 0 );
+	applyStats(item, "frand",	frand,	()=>Random.value(), 	1,		rolls, 0 );	
+	applyStats(item, "fnorm",	fnorm,	()=>Random.normal(), 	1,		rolls, 0 );
+	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls, rarityBonus );
+	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls, rarityBonus );
 	
 	if (finalMult > 0 && finalMult != 1) { multiplyAllStats(item, finalMult); }
 	
@@ -1410,40 +1383,41 @@ function applyBonus(item, bonus, history) {
 }
 
 
-function applyStats(item, group, stats, randomizer, scale, rolls) {
+function applyStats(item, group, stats, randomizer, scale, rolls, rarityBonus) {
 	if (stats) {
 		stats.each((k,v)=>{ 
 			if (!rolls[group]) { rolls[group] = {}; }
 			var statGroup = rolls[group];
 			
 			if (k == "base") {
-				baseStats.each((stat)=>{ applyStat(item, stat, v, randomizer, scale, statGroup); })
+				baseStats.each((stat)=>{ applyStat(item, stat, v, randomizer, scale, statGroup, rarityBonus); })
 			} else {
-				applyStat(item, k, v, randomizer, scale, statGroup);
+				applyStat(item, k, v, randomizer, scale, statGroup, rarityBonus);
 			}
 		})
 	}
 	return item
 } 
 
-function applyStat(item, stat, v, randomizer, scale, statGroup) {
+function applyStat(item, stat, v, randomizer, scale, statGroup, rarityBonus) {
 	if (statGroup.num(stat)) {
 		item[stat] = item.num(stat) + v * statGroup.num(stat) * scale;
 	} else {
-		var roll = randomizer();
-		item[stat] = item.num(stat) + v * roll * scale;
+		var roll = randomizer() ;
+		item[stat] = item.num(stat) + v * (rarityBonus + roll) * scale;
 		statGroup[stat] = roll;
 	}
 	return item;
 }
 
-function applyRoll(item, roll, history) {
+function applyRoll(item, roll, history, rarityBonus) {
 	var firstTime = !history.rolls;
+	
 	if (firstTime) { 
 		history.rolls = {}
 		var chance = roll.num("chance");
 		if (chance <= 0 || (Random.value() < chance)) {
-			applyBonus(item, roll, history);
+			applyBonus(item, roll, history, rarityBonus);
 
 			var bonuses = roll.bonuses;
 			if (bonuses) {
@@ -1452,15 +1426,16 @@ function applyRoll(item, roll, history) {
 
 				if (bonusObj) {
 					item.genHistory.push({path: history.path + "." + bonusName})
-					applyBonus(item, bonusObj, last(item.genHistory) );
+					applyBonus(item, bonusObj, last(item.genHistory), rarityBonus );
 				} else {
 					console.log("Could not find bonus " + bonusName);
 				}
 
 			}
 		}
+		
 	} else {
-		applyBonus(item, roll, history);
+		applyBonus(item, roll, history, rarityBonus);
 	}
 	
 	return item;

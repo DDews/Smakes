@@ -1,7 +1,29 @@
 <template name="inventory">
 	<div class="col s12" id="error"></div>
     <div class="forumbg row">
-    	
+    	<a href="#" id="gibsMeDat" class="btn green darken-4 white-text left" value="shop">Gibs me item</a>
+    	<a href="#" id="gibsMeDrops" class="btn green darken-4 white-text left" value="shop">Gibs me drops</a>
+		
+		<div class="col s12">
+			<div class="row">
+				{{#each stack in stacks}}
+					<div class="icon iconbg valign-wrapper">
+						{{#with stackItem stack.key}}
+							<div class="center valign {{this.icon}} item" id="{{this.id}}"></div>
+						{{/with}}
+						<span class="itext">{{stack.value}}</span>
+					</div>
+				{{/each}}
+				
+				{{#each item in items}}
+					<div class="icon iconbg valign-wrapper">
+						<div class="center valign {{item.icon}} item" id="{{item.id}}"></div>
+					</div>
+				{{/each}}
+			</div>
+			
+		</div>
+		
 		
 	</div>
 </template>

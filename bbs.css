@@ -136,7 +136,7 @@ pre {
 .ptext{
 	position: relative;
 	top: .85rem;
-	left: 0.5rem;
+	left: .5rem;
 	font-size: .65rem;
 	margin-bottom: 0px;
 	margin-top: 0px;
@@ -144,6 +144,19 @@ pre {
 	padding-top: 0px;
 	font-weight: bold;
 	z-index: 2;
+}
+.itext{
+	position: relative;
+	top: -1.4rem;
+	left: .2rem;
+	font-size: .65rem;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	font-weight: bold;
+	z-index: 2;
+	text-align: right;
 }
 
 
