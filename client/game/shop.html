@@ -9,7 +9,7 @@
         </div>
 		{{#each testIcons}}
 			<div class="icon iconbg valign-wrapper">
-				<div class="center valign {{icon key}} item" name="item" id="{{key}} {{getSlot value}}"></div>
+				<div class="center valign {{icon key}} item itemclick" name="item" id="{{key}} {{getSlot value}}"></div>
 			</div>
 		{{/each}}
         {{#with selectedItem}}
@@ -50,4 +50,23 @@
             </div>
         {{/each}}
 	</div>
+    <div id="buymenu" class="modal bottom-sheet menubg">
+        {{#with clickedItem}}
+            <div class="modal-content">
+                <h4>{{name}}</h4>
+                <p>{{value}} gold</p>
+                <p>{{desc}}</p>
+            </div>
+            <div class="menubg modal-footer">
+                <div class="row right">
+                    <a href="#!" id="buy" class="right waves-effect waves-green btn">Buy</a>
+                    <div class="col s4" id="buyError"></div>
+                    <div class="row">
+                        <div class="numberinput right"><input class="numbers" onchange="checkNumber();" type="number" value="1" name="numToBuy"></div>
+                    </div>
+                    <script>checkNumber = function() { if ($('[name=numToBuy]').val() < 1) $('[name=numToBuy]').val('1'); }</script>
+                </div>
+            </div>
+        {{/with}}
+    </div>
 </template>

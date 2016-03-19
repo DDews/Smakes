@@ -38,11 +38,6 @@ var _arraysize = {
 Template.shop.helpers({
 	testIcons: function() {
 		var items = itemDB.toPairRay();
-		//var items2 = itemDB.toPairRay();
-		var x = 0;
-		for (x = 0; x < 7; x++) {
-			items = items.concat(items);
-		}
 		return items;
 	},
 	partyMember: function() {
@@ -168,12 +163,16 @@ Template.shop.helpers({
 				}
 			}
 		});
-		console.log(output);
 		return output.toPairRay();
 	},
 	getStatName: function(stat) {
 		if (statName(stat)) return statName(stat);
 		return stat;
+	},
+	clickedItem: function() {
+		var item = Session.get("clickedItem");
+		if (!item) return null;
+		return itemDB[item];
 	}
 });
 _event = {};
@@ -229,5 +228,27 @@ Template.shop.events({
 			display: "none"
 		});
 		return false;
+	},
+	'click .item': function(event) {
+		if (event.preventDefault) event.preventDefault();
+		var id = event.currentTarget.id;
+		var slot = id.split(' ')[1];
+		id = id.split(' ')[0];
+		Session.set("clickedItem",id);
+		console.log(id);
+		$('#buyError').html('');
+		$('#buymenu').openModal();
+		return false;
+	},
+	'click #buy': function(event) {
+		var clickedItem = Session.get("clickedItem");
+		if (!clickedItem) return false;
+		Meteor.call("buyItem",clickedItem,$('[name=numToBuy]').val(), function(error, result) {
+			if (error) $('#buyError').html(error.reason);
+			else {
+				$('#buyError').html('');
+				$('#buymenu').closeModal();
+			}
+		});
 	}
 });

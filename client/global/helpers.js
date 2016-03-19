@@ -70,6 +70,7 @@ var vitalColors = {
 	sp:"red",
 }
 
+
 var displayStats = [
 	"patk","pacc%","pdef%","peva%",
 	"matk","macc%","mdef%","meva%",
