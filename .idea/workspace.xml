@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/inventory.html" afterPath="$PROJECT_DIR$/client/game/inventory.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/inventory.js" afterPath="$PROJECT_DIR$/client/game/inventory.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/shop.html" afterPath="$PROJECT_DIR$/client/game/shop.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/shop.js" afterPath="$PROJECT_DIR$/client/game/shop.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/global/helpers.js" afterPath="$PROJECT_DIR$/client/global/helpers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/game/data/items.js" afterPath="$PROJECT_DIR$/lib/game/data/items.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/game.js" afterPath="$PROJECT_DIR$/server/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/lootGeneration.js" afterPath="$PROJECT_DIR$/server/lootGeneration.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="shop.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="shop.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/game/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.076923">
-              <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.7605634">
+              <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -63,10 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32768363">
+            <state vertical-scroll-proportion="-4.296296">
               <caret line="329" column="88" selection-start-line="329" selection-start-column="88" selection-end-line="329" selection-end-column="88" />
               <folding />
             </state>
@@ -188,8 +178,8 @@
         <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/lib/game/data/items.js" />
         <option value="$PROJECT_DIR$/client/game/shop.js" />
-        <option value="$PROJECT_DIR$/client/game/shop.html" />
         <option value="$PROJECT_DIR$/server/game.js" />
+        <option value="$PROJECT_DIR$/client/game/shop.html" />
       </list>
     </option>
   </component>
@@ -940,18 +930,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/shop.html">
+    <entry file="file://$PROJECT_DIR$/server/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.076923">
-          <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
+        <state vertical-scroll-proportion="-4.296296">
+          <caret line="329" column="88" selection-start-line="329" selection-start-column="88" selection-end-line="329" selection-end-column="88" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/game.js">
+    <entry file="file://$PROJECT_DIR$/client/game/shop.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32768363">
-          <caret line="329" column="88" selection-start-line="329" selection-start-column="88" selection-end-line="329" selection-end-column="88" />
+        <state vertical-scroll-proportion="0.7605634">
+          <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
           <folding />
         </state>
       </provider>
