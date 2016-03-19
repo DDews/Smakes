@@ -43,6 +43,7 @@ var unitHelpers = {
 	displayStats: function() { return displayStats; },
 	auxStats: function() { return auxStats; },
 	unitEquip: function() {
+		console.log(getUnit().equipment);
 		return getUnit().equipment.toPairRay();	
 	},
 	getStat: function(stat) {
@@ -101,6 +102,7 @@ Template.unit.events({
 	'mouseenter .item': function(event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
+		console.log(id);
 		var width = $("[name=" + id +"]").width();
 		_event[id] = function(event) {
 			var left;
