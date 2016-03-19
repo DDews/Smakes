@@ -641,3 +641,16 @@ dt {
     position: relative;
     z-index: 99;
 }
+.itemclick {
+    cursor:pointer;
+}
+.menubg {
+    background-color: #000000;
+}
+.numberinput {
+    width: 50px;
+    height: 36px;
+}
+.numbers {
+    height: 36px;
+}

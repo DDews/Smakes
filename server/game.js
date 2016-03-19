@@ -24,7 +24,7 @@ Meteor.publish("inventory", function() {
 })
 
 Meteor.publish("shopItems", function() {
-	return Iteminfo.find( { owner: "<shop>"} )
+	return Iteminfo.find( { username: "<shop>"} )
 })
 	
 
@@ -75,7 +75,7 @@ spawnMonsters = function(regionData, combo) {
 ///Starter equipment objects for new units.
 var starterEquips = {
 	head: {
-		id:'eq_starter_helm',
+		itemId:'eq_starter_helm',
 		name:'Headband',
 		icon:'helm6',
 		desc:'A small headband.',
@@ -89,7 +89,7 @@ var starterEquips = {
 		pdef: .01,
 	},
 	body: {
-		id:'eq_starter_body',
+		itemId:'eq_starter_body',
 		name:'Cotton Shirt',
 		icon:'armor1',
 		desc:'Does not offer much protection',
@@ -103,7 +103,7 @@ var starterEquips = {
 		pdef: .04,
 	},
 	legs: {
-		id:'eq_starter_legs',
+		itemId:'eq_starter_legs',
 		name:'Cotton Skirt',
 		icon:'leg1',
 		desc:'A cute skirt.',
@@ -117,7 +117,7 @@ var starterEquips = {
 		pdef: .03,
 	},
 	gloves: {
-		id:'eq_starter_gloves',
+		itemId:'eq_starter_gloves',
 		name:'Quilted Gloves',
 		icon:'glove2',
 		desc:'Homemade quilted gloves, made with love.',
@@ -131,7 +131,7 @@ var starterEquips = {
 		pdef: .01,
 	},
 	feet: {
-		id:'eq_starter_feet',
+		itemId:'eq_starter_feet',
 		name:'Basic Shoes',
 		icon:'shoes1',
 		desc:'Simple shoes with rubber bottoms.',
@@ -145,7 +145,7 @@ var starterEquips = {
 		pdef: .01,
 	},
 	handRight: {
-		id:'eq_starter_knife',
+		itemId:'eq_starter_knife',
 		name:'Kitchen Knife',
 		icon:'dagger14',
 		desc:'A simple knife, more suited for cooking than combat.',
@@ -161,7 +161,7 @@ var starterEquips = {
 		aspd: .4
 	},
 	handLeft: {
-		id:'eq_starter_shield',
+		itemId:'eq_starter_shield',
 		name:'Pan Lid',
 		icon:'shield2',
 		desc:'A sturdy pan lid. A great shield for beginners.',
@@ -322,6 +322,26 @@ var giveItem = function(username, data) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
+	buyItem: function(item,quantity) {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
+		var userinfo = Userinfo.findOne({username: username});
+		if (!userinfo) throw new Meteor.Error(422,"Error: userinfo not found");
+		if (+quantity < 1) throw new Meteor.Error(422,"Error: You can't buy that many");
+		var gold = userinfo.wallet.gold;
+		var itemInfo = itemDB[item];
+		var value = itemInfo.value;
+		var cost = value * quantity;
+		if (cost > gold) throw new Meteor.Error(422,"You can't afford it");
+		gold -= cost;
+		var wallet = userinfo.wallet;
+		wallet.gold = gold;
+		Userinfo.update(userinfo._id,{$set:{wallet: wallet}});
+		var data = {};
+		data.item = item;
+		data.quantity = +quantity;
+		giveItem(username,data);
+	},
 	testMakeItem: () => {
 		var item = MakeItem("heavyArmor", 1);
 		console.log(item);

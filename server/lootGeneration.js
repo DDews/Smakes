@@ -1355,7 +1355,7 @@ function applyBonus(item, bonus, history, rarityBonus) {
 		if (bonus.has("subType")) { item.subType = getOrChooseString(bonus, "subType"); }
 		if (bonus.has("name")) { item.name = getOrChooseString(bonus, "name"); }
 		if (bonus.has("icon")) { item.icon = getOrChooseString(bonus, "icon"); }
-		if (bonus.has("equipSlot")) { item.equipSlot = getOrChooseString(bonus, "equipSlot"); }
+		if (bonus.has("equipSlot")) { item.slot = getOrChooseString(bonus, "equipSlot"); }
 		if (bonus.has("equip")) { item.equip = bonus.equip; }
 		if (bonus.has("equipSlotIsPrefix")) { item.equipSlotIsPrefix = bonus.equipSlotIsPrefix; }
 
