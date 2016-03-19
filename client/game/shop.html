@@ -12,43 +12,7 @@
 				<div class="center valign {{icon key}} item itemclick" name="item" id="{{key}} {{getSlot value}}"></div>
 			</div>
 		{{/each}}
-        {{#with selectedItem}}
-            <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
-                <p class="tooltipText">{{name}}</p>
-                <p class="tooltipText">{{type}}</p>
-                {{#each toPairs this}}
-                    {{#if statName key}}
-                        <p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
-                    {{/if}}
-                {{/each}}
-            </div>
-        {{/with}}
-        {{#each slots}}
-            <div id="{{this}}" class="itembg invisbg col s3" style="display: none;">
-                <div class="tooltipText center">
-                    {{#each equipment this}}
-                        <div class="col s12"><div class="divider2"></div></div>
-                        <div class="round2 col s12 itembg {{getBgColor2 key}}">
-                            <div class="icon iconbg valign-wrapper">
-                                <div class="center valign {{equipIcon key}}"></div>
-                            </div>
-                            <p class="tooltipText">{{getName key}}</p>
-                            <p class="tooltipText">{{getSlot key}}</p>
-                            <br>
-                            {{#each toPairs key}}
-                                {{#if statName key}}
-                                    <p class="tooltipText"><span class="{{upOrDown key value}}">{{getIncrease key value}}</span><span class="statName">{{statName key}}</span>: {{value}}</p>
-                                {{/if}}
-                            {{/each}}
-                            {{#each lostStats key}}
-                                <p class="tooltipText"><span class="higherStat">+{{value}} {{getStatName key}}</span></p>
-                            {{/each}}
-                        </div>
-                        <div class="col s12"><div class="divider2"></div></div>
-                    {{/each}}
-                </div>
-            </div>
-        {{/each}}
+        {{> tooltipsWithSuggestion}}
 	</div>
     <div id="buymenu" class="modal bottom-sheet menubg">
         {{#with clickedItem}}
