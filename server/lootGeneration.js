@@ -119,6 +119,7 @@ itemGenData = {
 			equip:true,
 			equipSlot:"handRight",
 			equipSlotIsPrefix:false,
+			twoHands:true,
 			value:10,
 			rarity:5,
 			quality:0,
