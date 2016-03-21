@@ -1297,10 +1297,9 @@ function applyBonus(item, bonus, history, rarityBonus) {
 	
 	var rolls = history.rolls;
 	var firstTime = Object.keys(rolls).length == 0;
-	rolls["didIt_"] = true;
+	if (firstTime) { rolls["didIt_"] = true; }
 	
 	var level = item.quality;
-	
 	
 	var stat = grabObj(bonus, "stat");
 	var rand = grabObj(bonus, "rand");
@@ -1315,34 +1314,11 @@ function applyBonus(item, bonus, history, rarityBonus) {
 	if (statMult > 0 && statMult != 1) { multiplyAllStats(item, statMult); }
 	
 	if (firstTime) {
-		var statGroup = getOrChooseString(bonus, "statGroup");
-		var statGroupObj = subrule(bonus, statGroup);
-		//WE RECURSING, GRAB THE CALLSTACK!
-		if (statGroupObj) { 
-			item.genHistory.push({path: path + "." + statGroup})
-			applyBonus(item, statGroupObj, last(item.genHistory), rarityBonus); 
-						  
-	  	}
-	}
-		
-	applyStats(item, "stat", 	stat,	()=>1, 					1,		rolls, 0 );
-	applyStats(item, "frand",	frand,	()=>Random.value(), 	1,		rolls, 0 );	
-	applyStats(item, "fnorm",	fnorm,	()=>Random.normal(), 	1,		rolls, 0 );
-	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls, rarityBonus );
-	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls, rarityBonus );
-	
-	if (finalMult > 0 && finalMult != 1) { multiplyAllStats(item, finalMult); }
-	
-	
-	
-	if (firstTime) {
 		if (bonus.has("id")) {
 			var id = item.itemID;
 			item.itemID = id + bonus.id;
 		}
-
-		//var blend = bonus.num(blend) || .5;
-
+		
 		var hits = grabArray(bonus, "hits")
 		var colors = grabArray(bonus, "color");
 
@@ -1369,6 +1345,26 @@ function applyBonus(item, bonus, history, rarityBonus) {
 			hits.each((hit)=>{ item.hits.push(hit); });
 		}
 	}
+	
+	applyStats(item, "stat", 	stat,	()=>1, 					1,		rolls, 0 );
+	applyStats(item, "frand",	frand,	()=>Random.value(), 	1,		rolls, 0 );	
+	applyStats(item, "fnorm",	fnorm,	()=>Random.normal(), 	1,		rolls, 0 );
+	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls, rarityBonus );
+	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls, rarityBonus );
+	
+	if (firstTime) {
+		var statGroup = getOrChooseString(bonus, "statGroup");
+		var statGroupObj = subrule(bonus, statGroup);
+		//WE RECURSING, GRAB THE CALLSTACK!
+		if (statGroupObj) { 
+			item.genHistory.push({path: path + "." + statGroup})
+			applyBonus(item, statGroupObj, last(item.genHistory), rarityBonus); 
+						  
+	  	}
+	}
+	
+	if (finalMult > 0 && finalMult != 1) { multiplyAllStats(item, finalMult); }
+	
 	
 	//if (colors) {
 	//	var hex = chooseFrom(colors);

@@ -1,4 +1,5 @@
 <template name="unitcard">
+	
 	<div class="col s6 m4 l2 hoverable card {{unitColor id}} darken-4" id="{id}">
 		<div class="card-content white-text">
 			<div class="center">
@@ -54,6 +55,7 @@
 		</div>
 		<div class="card-action">
 			<a href="/game/unit/{{id}}">Info</a>
+			<a href="/game/unit/{{id}}/equip">Equip</a>
 			<div>
 				{{#if unitInCombat id}}
 					Abilities <br /> [Attack]

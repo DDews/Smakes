@@ -66,11 +66,14 @@ var unitHelpers = {
 		if (rarity < 100) return "r90-100"
 		return "r90-100";
 	},
-	getCap: function(thing) { return getUnit()["m"+thing] },	
+	getCap: function(thing) { return getUnit()["m"+thing] },
+	getSlots: function() { return getUnit().equipmentSlots; },
+	
 }
 
 Template.unit.helpers(unitHelpers);
 Template.editunit.helpers(unitHelpers);
+Template.equipunit.helpers(unitHelpers);
 //
 //Template.unit.rendered = function(){ }
 //Template.unit.onRendered(function() { $('.tooltipped').tooltip({delay: 50}); })
