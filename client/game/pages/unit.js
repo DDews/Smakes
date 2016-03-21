@@ -6,7 +6,7 @@ getUnit = function() {
 }
 
 var displayStats = [
-	"patk","pacc%","pdef%","peva%",
+	"patk@","pacc%","pdef%","peva%",
 	"matk","macc%","mdef%","meva%",
 	"aspd#","cspd#","crit%","resi%",
 ];
