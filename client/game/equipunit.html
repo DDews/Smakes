@@ -1,0 +1,53 @@
+<template name="equipunit">
+	<div class="forumbg row">
+		{{#if unitExists id}}
+			<div class="row blue-grey darken-2">
+				<div class="col s12 blue-grey darken-4">
+					Equipping {{unitName id}}
+				</div>
+				
+				<div class="col s12 l4 blue-grey darken-4">
+					Abridged stats go here...
+				</div>
+				
+				
+				<div class="col s6 l4">
+					{{selectFirstSlotOnLoad}}
+					<div class="row">
+						{{#each slot in getSlots}}
+							<div class="col s12 btn {{slotColor slot}}" id="setSlot" value="{{slot}}">
+								{{#with itemFor slot}}
+									<div class="icon iconbg valign-wrapper">
+										<div class="center valign {{this.icon}} item" id="{{this._id}} {{this.slot}}"></div>
+									</div>
+
+									<span class="left tiny">{{name}}</span>
+								{{else}}
+									<div class="icon iconbg valign-wrapper"></div>
+									<span class="left tiny">[Empty]</span>
+								{{/with}}
+
+								<div class="right {{slotIcon slot}}bg"></div>
+							</div>
+
+						{{/each}}
+					</div>
+				</div>
+				
+				<div class="col s6 l4">
+					<div class="row">
+						{{#each item in invItemsForSlot}}
+							<div class="col s12 btn equipment" id="equip" value="{{item._id}}">
+								<div class="icon iconbg valign-wrapper">
+									<div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
+								</div>
+								<span class="left tiny">{{item.name}}</span>
+							</div>
+						{{/each}}
+					</div>
+				</div>
+				
+			</div>
+		{{/if}}
+	</div>
+</template>

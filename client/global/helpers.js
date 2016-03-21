@@ -319,7 +319,11 @@ fixZeroes = function(val) {
 	return val;
 }
 statName = function(stat) { return statNames[unSuffix(stat)]; }
-	
+
+
+
+
+
 Handlebars.registerHelper('getDbStat', getDbStat);
 Handlebars.registerHelper('statName', statName);
 Handlebars.registerHelper('vitalColor', vitalColor);
