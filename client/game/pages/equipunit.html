@@ -3,7 +3,12 @@
 		{{#if unitExists id}}
 			<div class="row blue-grey darken-2">
 				<div class="col s12 blue-grey darken-4">
-					Equipping {{unitName id}}
+					{{#with unit id}}
+					Equipping {{name}}
+					
+					
+						
+					{{/with}}
 				</div>
 				
 				<div class="col s12 l4 blue-grey darken-4">
