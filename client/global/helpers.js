@@ -1,69 +1,61 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//Failed shortcut for registration of helpers.... laaaame....
-var reg = {}
-reg.helpers = function(fmap) {
-	fmap.each((name, func) => {
-		Handlebars.registerHelper(name, func);
-	});
-}
-reg.helpers({}); //this didn't work out as expected:
-//TBD - research why...
+//Register a single function in Handlebars
+var reg = function(name, func) { Handlebars.registerHelper(name, func); }
+//Register a map of functions in Handlebars
+var helpers = function(fmap) { for (var k in fmap) { reg(k, fmap[k]); } }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//
-Handlebars.registerHelper('currentUserWalletExists', () => {
-	var username = Meteor.user();
-	username = username && username.username;
-	if (!username) return;
-	
-	var user = Userinfo.findOne({username: username});
-	var wallet = user && user.wallet;
-	
-	if (!wallet) {
-		Meteor.call("newWallet", username);
-		return null;
-	}
-	
-	return wallet;
-})
+//Helpers to be available on every page.
+var globalHelpers = {
+	formatMiliTime: function(t) { return formatMiliTime(t); },
+	regions: function() { return areaData.toPairRay();  },
+	vitals: function() { return statCalcData.vitals; },
+	baseStats: function() { return statCalcData.baseStats; },
+	combatStats: function() { return statCalcData.combatStats; },
+	currentUserWalletExists: function() {
+		var username = Meteor.user();
+		username = username && username.username;
+		if (!username) return;
 
-Handlebars.registerHelper('formatMiliTime', (t) => {
-	return formatMiliTime(t);
-})
+		var user = Userinfo.findOne({username: username});
+		var wallet = user && user.wallet;
 
-Handlebars.registerHelper('currentUserWallet', () => {
-	var username = Meteor.user();
-	username = username && username.username;
-	if (!username) return null;
-	
-	var user = Userinfo.findOne({username: username});
-	var wallet = user && user.wallet;
-	
-	if (!wallet) {
-		Meteor.call("newWallet", username);
-		return null;
-	}
-	
-	return wallet.toPairRay();
-})
+		if (!wallet) {
+			Meteor.call("newWallet", username);
+			return null;
+		}
 
-function unCamelCase(string) {
-	return string.replace(/[A-Z]/g, function(x) { return " " + x; }).capitalize();
-}
+		return wallet;
+	},
+	currentUserWallet: function() {
+		var username = Meteor.user();
+		username = username && username.username;
+		if (!username) return null;
 
+		var user = Userinfo.findOne({username: username});
+		var wallet = user && user.wallet;
 
-Handlebars.registerHelper('unCamelCase', unCamelCase);
-Handlebars.registerHelper('regions', () => { return areaData.toPairRay(); });
+		if (!wallet) {
+			Meteor.call("newWallet", username);
+			return null;
+		}
+
+		return wallet.toPairRay();
+	},
+	unCamelCase: function(string) {
+		return string.replace(/[A-Z]/g, function(x) { return " " + x; }).capitalize();
+	},
+};
+helpers(globalHelpers);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//Global Unit helpers...
-
+//Data
 var vitalColors = {
 	hp:"green",
 	mp:"indigo",
@@ -156,29 +148,39 @@ unSuffix = function(str) {
 	return str;
 }
 
-var tooltipFor = function(thing) { 
-	if (isString(thing)) {
-		return tooltips[unSuffix(thing)]; 
-	}
-	return "THING IS NOT STRING";
-}
-	
-var vitalColor = function(vital) { return vitalColors[vital]; }
-
 var getUnit = function(id) { return Unitinfo.findOne(id); }
 
-var unitInCombat = function(id) {
-	var unit = getUnit(id);
-	return unit && unit.combat;
-}
+//Map of all functions that are useful for units.
+var globalUnitHelpers = {
+	test: function() { return "lel"; },
+	unit: function(id) { return Unitinfo.findOne(id); },
+	vitalColor: function(vital) { return vitalColors[vital]; },
+	combat: function(id) { return getUnit(id).combat; },
+	tooltipFor: function(thing) { 
+		if (isString(thing)) {
+			return tooltips[unSuffix(thing)]; 
+		}
+		return "THING IS NOT STRING";
+	},
+	unitInCombat: function(id) {
+		var unit = getUnit(id);
+		return unit && unit.combat;
+	},
+	unitName: function(id) { 
+		var unit = getUnit(id);
+		return unit ? unit.name : ""; 
+	},
 
-var combat = function(id) { return getUnit(id).combat; }
+};
 
-var unitName = function(id) { 
-	var unit = getUnit(id);
-	if (!unit) { return ""; }
-	return getUnit(id).name; 
-}
+helpers(globalUnitHelpers);
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Helpers (to be moved into globalUnitHelpers):
 var unitStat = function(id, stat) { return getUnit(id)[stat]; }
 var ownerName = function(id) { 
 	var unit = getUnit(id);
@@ -323,17 +325,12 @@ statName = function(stat) { return statNames[unSuffix(stat)]; }
 
 
 
+Handlebars.registerHelper('toPairs', (thing) => {return thing.toPairRay(); });
+
 
 Handlebars.registerHelper('getDbStat', getDbStat);
 Handlebars.registerHelper('statName', statName);
-Handlebars.registerHelper('vitalColor', vitalColor);
-Handlebars.registerHelper('vitals', ()=>{return statCalcData.vitals;});
-Handlebars.registerHelper('baseStats', ()=>{return statCalcData.baseStats;});
-Handlebars.registerHelper('combatStats', ()=>{return statCalcData.combatStats;});
 
-Handlebars.registerHelper('toPairs', (thing) => {return thing.toPairRay(); });
-
-Handlebars.registerHelper('tooltipFor', tooltipFor);
 Handlebars.registerHelper('unitPose', unitPose);
 Handlebars.registerHelper('unitPoseURL', unitPoseURL);
 Handlebars.registerHelper('unitPoseStyle', unitPoseStyle);
@@ -341,17 +338,14 @@ Handlebars.registerHelper('unitPoseStyle', unitPoseStyle);
 
 Handlebars.registerHelper('ownerName', ownerName);
 Handlebars.registerHelper('unitStat', unitStat);
-Handlebars.registerHelper('combat', combat);
 Handlebars.registerHelper('percent', unitPercent);
 Handlebars.registerHelper('percent2', unitPercent2);
 Handlebars.registerHelper('vital', unitVital);
 Handlebars.registerHelper('vital2', unitVital2);
-Handlebars.registerHelper('unitName', unitName);
 Handlebars.registerHelper('unitHeader', unitHeader);
 Handlebars.registerHelper('unitLevelHeader', unitLevelHeader);
 Handlebars.registerHelper('unitRace', unitRace);
 Handlebars.registerHelper('unitColor', unitColor);
 Handlebars.registerHelper('unitJob', unitJob);
 Handlebars.registerHelper('unitTeam', unitTeam);
-Handlebars.registerHelper('unitInCombat', unitInCombat);
 Handlebars.registerHelper('isPlayer', isPlayer);
