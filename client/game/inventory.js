@@ -184,16 +184,18 @@ Template.inventory.events({
 		Meteor.call('testGiveDrops', data);
 		return false;
 	},
-	'mouseenter .item': function(event) {
+	'mouseenter .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
+		console.log("wtF");
 		var id = event.currentTarget.id;
+		console.log(id);
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		var width = $("[name=tooltip]").width();
 		var height = $("[name=tooltip]").height();
 		var offset = event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"
-		Session.set("selectedItem",id);
-		_event[id] = function(event) {
+		Session.set("selectedItem", id);
+		_event[id] = function (event) {
 			var left;
 			if (event.clientX + document.body.scrollLeft + (width / 2) > $(window).width()) left = $(window).width() - width - 12;
 			else left = event.clientX + document.body.scrollLeft - (width / 2);
@@ -219,15 +221,16 @@ Template.inventory.events({
 				left: offset
 			});
 		};
-		document.addEventListener('mousemove',_event[id](event),false);
+		document.addEventListener('mousemove', _event[id](event), false);
 		return false;
 	},
-	'mouseleave .item': function(event) {
+	'mouseleave .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
+		console.log(id);
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
-		document.removeEventListener('mousemove',_event[id](event),false);
+		document.removeEventListener('mousemove', _event[id](event), false);
 		$("[name=tooltip]").css({
 			display: "none"
 		});
@@ -235,7 +238,6 @@ Template.inventory.events({
 			display: "none"
 		});
 		return false;
-	}
-	
+	},
 	
 });

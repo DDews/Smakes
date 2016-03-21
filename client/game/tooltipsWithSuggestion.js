@@ -99,7 +99,10 @@ Template.tooltipsWithSuggestion.helpers({
     },
     selectedItem: function () {
         var selectedItem = Session.get("selectedItem");
-        if (selectedItem) return itemDB[selectedItem];
+        console.log(selectedItem);
+        if (!selectedItem) return null;
+        if (itemDB.hasOwnProperty(selectedItem)) return itemDB[selectedItem];
+        return Iteminfo.findOne({_id: selectedItem});
     },
     lostStats: function (obj) {
         var selectedItem = Session.get("selectedItem");
@@ -124,7 +127,9 @@ Template.tooltipsWithSuggestion.helpers({
 Template.tooltipsWithSuggestion.events({
     'mouseenter .item': function (event) {
         if (event.preventDefault) event.preventDefault();
+        console.log("wtF");
         var id = event.currentTarget.id;
+        console.log(id);
         var slot = id.split(' ')[1];
         id = id.split(' ')[0];
         var width = $("[name=tooltip]").width();
@@ -163,6 +168,7 @@ Template.tooltipsWithSuggestion.events({
     'mouseleave .item': function (event) {
         if (event.preventDefault) event.preventDefault();
         var id = event.currentTarget.id;
+        console.log(id);
         var slot = id.split(' ')[1];
         id = id.split(' ')[0];
         document.removeEventListener('mousemove', _event[id](event), false);
