@@ -80,12 +80,6 @@ var vitalColors = {
 }
 
 
-var displayStats = [
-	"patk","pacc%","pdef%","peva%",
-	"matk","macc%","mdef%","meva%",
-	"aspd","cspd","crit%","resi%",
-];
-
 var auxStats = [
 	"rhp#", "rmp#", "rsp#",
 	"armor", "shell", "tough",
