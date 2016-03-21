@@ -342,6 +342,38 @@ Meteor.methods({
 		data.quantity = +quantity;
 		giveItem(username,data);
 	},
+	equipItem: (data) => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
+		var userinfo = Userinfo.findOne({username: username});
+		if (!userinfo) throw new Meteor.Error(422,"Error: userinfo not found");
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		
+		var unit = Unitinfo.findOne(data.unit);
+		if (!unit) { throw new Meteor.Error(422, "Error: Unit does not exist!"); }
+		var item = Iteminfo.findOne(data.item);
+		if (!item) { throw new Meteor.Error(422, "Error: Item does not exist!"); }
+		if (item.username != username) { throw new Meteor.Error(422, "Error: You don't own that item!"); }
+		
+		var slot = data.slot;
+		if (!slot) { throw new Meteor.Error(422, "Error: Slot does not exist!"); }
+		var oldItem = unit.equipment[slot];
+		if (oldItem) { 
+			oldItem.username = username;
+			dbinsert("Iteminfo", oldItem); 
+		}
+		
+		dbremove(item);
+		delete item._collection;
+		delete item._id;
+		
+		unit.equipment[slot] = item;
+		unit.recalc();
+		dbupdate(unit);
+		
+		
+	},
 	testMakeItem: () => {
 		var item = MakeItem("heavyArmor", 1);
 		console.log(item);

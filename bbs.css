@@ -17,6 +17,27 @@
     color: #727270;
 }
 
+.statBtn {
+	background-color: #103e10;
+}
+.statBtn:hover {
+	background-color: #1e5e20;
+}
+
+.equipment {
+    background-color: #37474f;
+}
+.equipmentSelected {
+    background-color: #546e7a;
+}
+
+.equipment:hover {
+    background-color: #455a64;
+}
+.equipmentSelected:hover {
+    background-color: #607d8b;
+}
+
 .tt-hint {
     color: #717171;
 }
@@ -54,6 +75,15 @@ body {
 	height: 32px;
 	background: url('/itembg.png');
 }
+
+.headbg		{ width:32px; height:32px; background: url('/headbg.png'); }
+.bodybg		{ width:32px; height:32px; background: url('/bodybg.png'); }
+.legsbg		{ width:32px; height:32px; background: url('/legsbg.png'); }
+.glovesbg	{ width:32px; height:32px; background: url('/glovesbg.png'); }
+.feetbg		{ width:32px; height:32px; background: url('/feetbg.png'); }
+.handRightbg{ width:32px; height:32px; background: url('/handRightbg.png'); }
+.handLeftbg	{ width:32px; height:32px; background: url('/handLeftbg.png'); }
+.accessorybg{ width:32px; height:32px; background: url('/accessorybg.png'); }
 
 .round {
     border-radius: 0.5rem;
@@ -159,6 +189,10 @@ pre {
 	text-align: right;
 }
 
+
+.btn {
+	text-transform: none !important; 
+}
 
 .blendRed {
 	background-color: #AA3333;
