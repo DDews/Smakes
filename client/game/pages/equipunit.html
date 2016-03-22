@@ -114,7 +114,7 @@
 			<p class="tooltipText">{{getEquippedValue "desc"}}</p>
 			<table class="itemtable">
 				<tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td><td class="itemtable"></td></tr>
-				{{#each displayStats}}
+				{{#each getDisplayStats}}
 					<tr class="itemtable">
 						{{#if getStatAbbEquip this}}
 							<td class="itemtable"><span class="statName">{{getStatAbbEquip this}}</span>:</td> <td class="itemtable">{{getStatNumberEquip this}}</td><td class="itemtable"></td>
