@@ -138,7 +138,7 @@ Template.equipunit.helpers({
 	getEquippedValue: function(val) {
 		var item = getUnit();
 		if (!item) return null;
-		return item.equipment[Session.get("selectedItem")];
+		item = item.equipment[Session.get("selectedItem")];
 		return item[val];
 	},
 	getSelectedValue: function(val) {
