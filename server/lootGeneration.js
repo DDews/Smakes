@@ -1144,14 +1144,14 @@ itemGenData = {
 }
 
 
-MakeItem = function(ruleName, level, rarityBonus) {
+MakeItem = function(ruleName, level, rollBonus, rarityBonus) {
 	var rules = itemGenData[ruleName];
 	if (!rules) { return "Could not make item, no rule " + ruleName}
 	
 	var type = rules.type;
 	if (type != "rules") { return "cannot use " + type + " object as rules"; }
 	if (!level) { level = 0; }
-	if (!rarityBonus) { rarityBonus = 0; }
+	if (!rollBonus) { rollBonus = 0; }
 	
 	var itemType = getOrChooseString(rules, "settings");
 	var path = ruleName + "." + itemType;
@@ -1175,7 +1175,7 @@ MakeItem = function(ruleName, level, rarityBonus) {
 	}
 	
 	//Magic *snort*
-	applyBonus(item, typeSubrule, last(item.genHistory), rarityBonus );
+	applyBonus(item, typeSubrule, last(item.genHistory), rollBonus );
 	
 	var rolls = rules.rolls;
 	if (rolls) {
@@ -1184,9 +1184,10 @@ MakeItem = function(ruleName, level, rarityBonus) {
 			if (rollObj) {
 				var aRoll = Random.value();
 				var chance = rollObj.num("chance");
+				if (chance > 0 && chance < 1) { chance *= rarityBonus; }
 				if (aRoll < chance) {
 					item.genHistory.push({path: path + "." + roll })
-					applyRoll(item, rollObj, last(item.genHistory), rarityBonus );
+					applyRoll(item, rollObj, last(item.genHistory), rollBonus );
 
 				}
 			} else {
@@ -1291,7 +1292,7 @@ function grabArray(b, k) {
 }
 
 
-function applyBonus(item, bonus, history, rarityBonus) {
+function applyBonus(item, bonus, history, rollBonus) {
 	//if (!bonus) { return null; }
 	var path = history.path;
 	if (!history.rolls) { history.rolls = {} }
@@ -1350,8 +1351,8 @@ function applyBonus(item, bonus, history, rarityBonus) {
 	applyStats(item, "stat", 	stat,	()=>1, 					1,		rolls, 0 );
 	applyStats(item, "frand",	frand,	()=>Random.value(), 	1,		rolls, 0 );	
 	applyStats(item, "fnorm",	fnorm,	()=>Random.normal(), 	1,		rolls, 0 );
-	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls, rarityBonus );
-	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls, rarityBonus );
+	applyStats(item, "rand", 	rand,	()=>Random.value(),		level, 	rolls, rollBonus );
+	applyStats(item, "norm", 	norm,	()=>Random.normal(),	level,	rolls, rollBonus );
 	
 	if (firstTime) {
 		var statGroup = getOrChooseString(bonus, "statGroup");
@@ -1359,7 +1360,7 @@ function applyBonus(item, bonus, history, rarityBonus) {
 		//WE RECURSING, GRAB THE CALLSTACK!
 		if (statGroupObj) { 
 			item.genHistory.push({path: path + "." + statGroup})
-			applyBonus(item, statGroupObj, last(item.genHistory), rarityBonus); 
+			applyBonus(item, statGroupObj, last(item.genHistory), rollBonus); 
 						  
 	  	}
 	}
@@ -1380,41 +1381,41 @@ function applyBonus(item, bonus, history, rarityBonus) {
 }
 
 
-function applyStats(item, group, stats, randomizer, scale, rolls, rarityBonus) {
+function applyStats(item, group, stats, randomizer, scale, rolls, rollBonus) {
 	if (stats) {
 		stats.each((k,v)=>{ 
 			if (!rolls[group]) { rolls[group] = {}; }
 			var statGroup = rolls[group];
 			
 			if (k == "base") {
-				baseStats.each((stat)=>{ applyStat(item, stat, v, randomizer, scale, statGroup, rarityBonus); })
+				baseStats.each((stat)=>{ applyStat(item, stat, v, randomizer, scale, statGroup, rollBonus); })
 			} else {
-				applyStat(item, k, v, randomizer, scale, statGroup, rarityBonus);
+				applyStat(item, k, v, randomizer, scale, statGroup, rollBonus);
 			}
 		})
 	}
 	return item
 } 
 
-function applyStat(item, stat, v, randomizer, scale, statGroup, rarityBonus) {
+function applyStat(item, stat, v, randomizer, scale, statGroup, rollBonus) {
 	if (statGroup.num(stat)) {
 		item[stat] = item.num(stat) + v * statGroup.num(stat) * scale;
 	} else {
 		var roll = randomizer() ;
-		item[stat] = item.num(stat) + v * (rarityBonus + roll) * scale;
+		item[stat] = item.num(stat) + v * (rollBonus + roll) * scale;
 		statGroup[stat] = roll;
 	}
 	return item;
 }
 
-function applyRoll(item, roll, history, rarityBonus) {
+function applyRoll(item, roll, history, rollBonus) {
 	var firstTime = !history.rolls;
 	
 	if (firstTime) { 
 		history.rolls = {}
 		var chance = roll.num("chance");
 		if (chance <= 0 || (Random.value() < chance)) {
-			applyBonus(item, roll, history, rarityBonus);
+			applyBonus(item, roll, history, rollBonus);
 
 			var bonuses = roll.bonuses;
 			if (bonuses) {
@@ -1423,7 +1424,7 @@ function applyRoll(item, roll, history, rarityBonus) {
 
 				if (bonusObj) {
 					item.genHistory.push({path: history.path + "." + bonusName})
-					applyBonus(item, bonusObj, last(item.genHistory), rarityBonus );
+					applyBonus(item, bonusObj, last(item.genHistory), rollBonus );
 				} else {
 					console.log("Could not find bonus " + bonusName);
 				}
@@ -1432,7 +1433,7 @@ function applyRoll(item, roll, history, rarityBonus) {
 		}
 		
 	} else {
-		applyBonus(item, roll, history, rarityBonus);
+		applyBonus(item, roll, history, rollBonus);
 	}
 	
 	return item;
