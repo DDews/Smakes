@@ -14,22 +14,6 @@ var displayStats = [
 	"str@","dex@","wis@","agi@","vit@","int@"
 ];
 Template.inventory.helpers({
-	getStackIconBG: (item) => {
-		//console.log(item);
-		if (itemDB.has(item)) {
-			var rarity = Math.floor(itemDB[item].rarity / 10);
-			if (rarity < 0) { rarity = 0; }
-			if (rarity > 9) { rarity = 9; }
-			return "iconbg" + rarity;
-		}
-		return "iconbg";
-	},
-	getIconBG: (rarity) => {
-		rarity = Math.floor(rarity / 10);
-		if (rarity < 0) { rarity = 0; }
-		if (rarity > 9) { rarity = 9; }
-		return "iconbg" + rarity;
-	},
 	items: () => { 
 		if (_tab == "all") {
 			return Iteminfo.find();

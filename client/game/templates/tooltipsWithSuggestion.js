@@ -99,7 +99,7 @@ Template.tooltipsWithSuggestion.helpers({
     },
     selectedItem: function () {
         var selectedItem = Session.get("selectedItem");
-        console.log(selectedItem);
+        //console.log(selectedItem);
         if (!selectedItem) return null;
         if (itemDB.hasOwnProperty(selectedItem)) return itemDB[selectedItem];
         return Iteminfo.findOne({_id: selectedItem});
