@@ -19,7 +19,7 @@
 		<div class="col s12">
 			<div class="row">
 				{{#each stack in stacks}}
-					<div class="icon iconbg valign-wrapper" id="stackItem" value="{{stack.key}}">
+					<div class="icon {{getStackIconBG stack.key}} valign-wrapper" id="stackItem" value="{{stack.key}}">
 						{{#with stackItem stack.key}}
 							<div class="center valign {{this.icon}} item" id="{{this._id}}"></div>
 						{{/with}}
@@ -28,7 +28,7 @@
 				{{/each}}
 				
 				{{#each item in items}}
-					<div class="icon iconbg valign-wrapper" id="uniqueItem" value="{{item._id}}">
+					<div class="icon {{getIconBG item.rarity}} valign-wrapper" id="uniqueItem" value="{{item._id}}">
 						<div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
 						{{#if item.locked}}
 						<div class="locked"></div>

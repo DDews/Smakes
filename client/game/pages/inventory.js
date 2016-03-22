@@ -14,6 +14,22 @@ var displayStats = [
 	"str@","dex@","wis@","agi@","vit@","int@"
 ];
 Template.inventory.helpers({
+	getStackIconBG: (item) => {
+		//console.log(item);
+		if (itemDB.has(item)) {
+			var rarity = Math.floor(itemDB[item].rarity / 10);
+			if (rarity < 0) { rarity = 0; }
+			if (rarity > 9) { rarity = 9; }
+			return "iconbg" + rarity;
+		}
+		return "iconbg";
+	},
+	getIconBG: (rarity) => {
+		rarity = Math.floor(rarity / 10);
+		if (rarity < 0) { rarity = 0; }
+		if (rarity > 9) { rarity = 9; }
+		return "iconbg" + rarity;
+	},
 	items: () => { 
 		if (_tab == "all") {
 			return Iteminfo.find();
@@ -180,7 +196,7 @@ Template.inventory.events({
 	},
 	'click #uniqueItem': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
-		console.log("toggling lock on item")
+		//console.log("toggling lock on item")
 		var id = event.currentTarget.getAttribute("value");
 		
 		Meteor.call("toggleUniqueLock", id)
@@ -212,9 +228,9 @@ Template.inventory.events({
 	},
 	'mouseenter .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
-		console.log("wtF");
+		//console.log("wtF");
 		var id = event.currentTarget.id;
-		console.log(id);
+		//console.log(id);
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		var width = $("[name=tooltip]").width();
@@ -253,7 +269,7 @@ Template.inventory.events({
 	'mouseleave .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
-		console.log(id);
+		//console.log(id);
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		document.removeEventListener('mousemove', _event[id](event), false);
