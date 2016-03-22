@@ -827,6 +827,7 @@ Meteor.methods({
 		if (diff > 1000 || diff < -40) {
 			console.log(diff);
 			console.log("elapseTime: potential cheating detected, ignoring!")
+			return;
 		} else {
 			summary.time += 200;
 			combatinfo.combatants.each((id) => {
@@ -882,6 +883,9 @@ Meteor.methods({
 							dropData.rollBonus = 0 + .0001 * combatinfo.combo;
 							
 							var results = rollDropTable(drops);
+							console.log("rolled ")
+							console.log(results)
+							
 							results.each((k,v) => {
 								if (v > 0) {
 									dropData.item = k;
