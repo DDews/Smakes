@@ -15,6 +15,9 @@ itemGenData = {
 		settings:{
 			dirk:8,
 			sword:5,
+			spear:5,
+			halberd:5,
+			longhammer:5,
 			club:5,
 			greatsword:3,
 		},
@@ -49,11 +52,86 @@ itemGenData = {
 			value:3,
 			rarity:1,
 			quality:0,
+			property:"short",
 			element:"pierce",
 			
 			stat:{patk:10, pacc:.0500, aspd:.1000, },
 			norm:{patk: 3, pacc:.0001, aspd:.0020, },
 			rand:{patk: 5, pacc:.0001, aspd:.0005, },
+		},
+		spear:{
+			type:"settings",
+			id:"spear",
+			name:["Lance","Ahlspiess","Spear","Glaive", "Naginata", "Pike" ],
+			icon:[
+				"spear1",
+				"spear2",
+				"spear3",
+				"spear4",
+				"spear6",
+				"spear20",
+			],
+			equip:true,
+			equipSlot:"hand",
+			twoHands:true,
+			value:6,
+			rarity:3,
+			quality:0,
+			property:"long",
+			element:"pierce",
+			
+			stat:{patk:20, pacc:.1000, aspd:.0050, },
+			norm:{patk:25, pacc:.0006, aspd:.0005, },
+			rand:{patk:25, pacc:.0001, aspd:.0002, },
+		},
+		halberd:{
+			type:"settings",
+			id:"halberd",
+			name:["Guisarme", "Halberd", "Poleax", "Doloire", "Spontoon"],
+			icon:[
+				"spear5",
+				"spear23",
+				"spear25",
+				"spear29",
+				"spear18",
+			],
+			equip:true,
+			equipSlot:"hand",
+			twoHands:true,
+			value:6,
+			rarity:3,
+			quality:0,
+			property:"long",
+			element:"slash",
+			
+			stat:{patk:30, pacc:.0900, aspd:.0050, },
+			norm:{patk:22, pacc:.0006, aspd:.0005, },
+			rand:{patk:22, pacc:.0001, aspd:.0002, },
+		},
+		longhammer:{
+			type:"settings",
+			id:"longhammer",
+			name:["Bec de corbin", "Pillar", "Lucerne",],
+			icon:[
+				"spear8",
+				"spear9",
+				"spear14",
+				"spear30",
+				"spear33",
+			],
+			equip:true,
+			equipSlot:"hand",
+			twoHands:true,
+			value:6,
+			rarity:3,
+			quality:0,
+			property:"long",
+			element:"crush",
+			
+			stat:{patk:30, pacc:.0800, aspd:.0050, },
+			norm:{patk:15, pacc:.0006, aspd:.0005, },
+			rand:{patk:15, pacc:.0001, aspd:.0002, },
+				
 		},
 		sword:{
 			type:"settings",
@@ -69,10 +147,10 @@ itemGenData = {
 			],
 			equip:true,
 			equipSlot:"hand",
-			equipSlotIsPrefix:true,
 			value:6,
 			rarity:3,
 			quality:0,
+			property:"short",
 			element:"slash",
 			
 			stat:{patk:15, pacc:.0500, aspd:.0200, },
@@ -96,6 +174,7 @@ itemGenData = {
 			value:7,
 			rarity:3,
 			quality:0,
+			property:"short",
 			element:"crush",
 			
 			stat:{patk:25, pacc:.050, aspd:.0200, },
@@ -117,12 +196,12 @@ itemGenData = {
 				"sword48",
 			],
 			equip:true,
-			equipSlot:"handRight",
-			equipSlotIsPrefix:false,
+			equipSlot:"hand",
 			twoHands:true,
 			value:10,
 			rarity:5,
 			quality:0,
+			property:"heavy",
 			element:"slash",
 			
 			stat:{patk:30, pacc:.040, aspd: .0020, },
@@ -1336,7 +1415,8 @@ function applyBonus(item, bonus, history, rollBonus) {
 		if (bonus.has("equipSlot")) { item.slot = getOrChooseString(bonus, "equipSlot"); }
 		if (bonus.has("equip")) { item.equip = bonus.equip; }
 		if (bonus.has("equipSlotIsPrefix")) { item.equipSlotIsPrefix = bonus.equipSlotIsPrefix; }
-
+		if (bonus.has("property")) { item.property = bonus.property; }
+		if (bonus.has("twoHands")) { item.twoHands = bonus.twoHands; }
 
 		if (element && element.length > 1) { item.element = element; }
 		if (prefix && prefix.length > 1) { item.name = prefix + " " + item.name; }
