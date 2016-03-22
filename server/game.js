@@ -242,6 +242,10 @@ var startCombat = function(data) {
 	} );
 	
 	var combat = new Combat(units, username, region);
+	combat.combatlog = gamedata.combatLog || [];
+	combat.combatlog.push("Combat Started!");
+	dbupdate(combat);
+	
 	gamedata.combat = combat._id;
 	gamedata.lastRegion = region;
 	gamedata.retryTimeout = 0;
@@ -303,6 +307,7 @@ var giveItemLive = function(gamedata, data) {
 	var quantity = data.quantity || 1;
 	var rarityBonus = data.rarityBonus || 0;
 	var level = data.level || 0;
+	if (!gamedata.itemlog) { gamedata.itemlog = []; }
 	
 	console.log("Giving ")
 	console.log(data)
@@ -316,17 +321,27 @@ var giveItemLive = function(gamedata, data) {
 		} else {
 			gamedata.stacks[item] += quantity;
 		}
-		console.log('gave ' + quantity + ' ' + item + "(s)");
+		var msg = 'Found ' + quantity + ' ' + itemDB[item].name + "(s)";
+		while (gamedata.itemlog.length > 99) { gamedata.itemlog.unshift(); }
+		gamedata.itemlog.push(msg);
+		
 		dbupdate(gamedata);
 	} else {
 		var i;
 		for (i = 0; i < quantity; i+=1) {
 			var i = MakeItem(item, level, rarityBonus);
 			i.username = username;
-			console.log('created item from rule ' + item);
-			console.log(i.name);
+			
+			var msg = "Found " + i.name;
+			while (gamedata.itemlog.length > 99) { gamedata.itemlog.unshift(); }
+			gamedata.itemlog.push(msg);
+			
+			//console.log('created item from rule ' + item);
+			//console.log(i.name);
 			dbinsert("Iteminfo", i);
 		}
+		
+		dbupdate(gamedata);
 		
 	}
 	
@@ -789,6 +804,7 @@ Meteor.methods({
 				
 			})
 			gamedata.summary = combatinfo.summary;
+			gamedata.combatlog = combatinfo.combatlog;
 			
 			dbupdate(gamedata);
 		}
@@ -807,6 +823,7 @@ Meteor.methods({
 				combatinfo.combo += 1;
 				var goldDrop = 0;
 				var expDrop = 0;
+				
 				combatinfo.combatants.each((id) => {
 					var unit = dbget("Unitinfo", id);
 					
@@ -844,6 +861,7 @@ Meteor.methods({
 				combatinfo.startNewBattle(mons);
 				
 				dbupdate(combatinfo);
+				gamedata.combatlog = combatinfo.combatlog;
 				
 				dbupdate(gamedata);
 				dbupdate(userinfo);
