@@ -7,7 +7,7 @@ var _slots = [
 	"accessory",
 	"feet"
 ];
-var displayStats = [
+var _displayStats = [
 	"quality","patk@","pacc%","pdef%","peva%",
 	"matk@","macc%","mdef%","meva%",
 	"aspd#","cspd#","crit%","resi%",
@@ -39,7 +39,6 @@ Template.equipunit.helpers({
 	selectFirstSlotOnLoad: function() {
 		var unit = getUnit();
 		if (unit) {
-			//console.log(unit);
 			var slot = Session.get("activeSlot");
 			if (!slot) {
 				Session.set("activeSlot", unit.equipmentSlots[0]);
@@ -101,22 +100,9 @@ Template.equipunit.helpers({
 		}
 		return equip.toPairRay();
 	},
-	getBgColor2: function(key) {
-		var rarity = key.rarity;
-		if (rarity < 10) return "r1-10";
-		if (rarity < 20) return "r10-20";
-		if (rarity < 30) return "r20-30";
-		if (rarity < 40) return "r30-40";
-		if (rarity < 50) return "r40-50";
-		if (rarity < 60) return "r50-60";
-		if (rarity < 70) return "r60-70";
-		if (rarity < 80) return "r70-80";
-		if (rarity < 90) return "r80-90";
-		if (rarity < 100) return "r90-100"
-		return "r90-100";
-	},
 	getSelectedBgColor: function(value) {
 		var item = Iteminfo.findOne({_id: Session.get("selectedItem")});
+		if (!item) return null;
 		var rarity = item.rarity;
 		if (rarity < 10) return "r1-10";
 		if (rarity < 20) return "r10-20";
@@ -131,7 +117,10 @@ Template.equipunit.helpers({
 		return "r90-100";
 	},
 	getEquippedBgColor: function(value) {
-		var item = getUnit().equipment[Session.get("selectedItem")];
+		var item = getUnit()
+		if (!item) return null;
+		item = item.equipment[Session.get("selectedItem")];
+		if (!item) return null;
 		var rarity = item.rarity;
 		if (rarity < 10) return "r1-10";
 		if (rarity < 20) return "r10-20";
@@ -146,22 +135,15 @@ Template.equipunit.helpers({
 		return "r90-100";
 	},
 	getEquippedValue: function(val) {
-		var item = getUnit().equipment[Session.get("selectedItem")];
+		var item = getUnit();
+		if (!item) return null;
+		return item.equipment[Session.get("selectedItem")];
 		return item[val];
 	},
 	getSelectedValue: function(val) {
 		var item = Iteminfo.findOne({_id: Session.get("selectedItem")});
+		if (!item) return null;
 		return item[val];
-	},
-	equipIcon: function(object) {
-		return object.icon;
-	},
-	getSlot: function(value) {
-		if (value.has("slot")) return value.slot;
-		return null;
-	},
-	getName: function(value) {
-		return value.name;
 	},
 	upOrDown: function(val) {
 		var stat = unSuffix(val);
@@ -191,21 +173,20 @@ Template.equipunit.helpers({
 		var selectedItem = Session.get("selectedItem");
 		if (!selectedItem) return null;
 		var output = {};
-		var equip = getUnit().equipment[Session.get("activeSlot")];
+		var equip = getUnit();
+		if (!equip) return null;
+		equip = equip.equipment[Session.get("activeSlot")];
+		if (!equip) return null;
 		var item = Iteminfo.findOne({_id: selectedItem});
 		if (!item) return null;
 		var stat;
-		for (var i = 0, j = displayStats.length; i < j; i++) {
-			stat = unSuffix(displayStats[i]);
+		for (var i = 0, j = _displayStats.length; i < j; i++) {
+			stat = unSuffix(_displayStats[i]);
 			if (!item.hasOwnProperty(stat) && equip.hasOwnProperty(stat) && (stat != "quality")) {
-				output[displayStats[i]] = item[stat];
+				output[_displayStats[i]] = item[stat];
 			}
 		}
 		return output.toPairRay();
-	},
-	getStatName: function(stat) {
-		if (statName(stat)) return statName(stat);
-		return stat;
 	},
 	getStatName2: function(stat) {
 		var stat = unSuffix(stat);
@@ -218,13 +199,17 @@ Template.equipunit.helpers({
 	getStatAbb: function(val) {
 		var stat = unSuffix(val);
 		var s = Session.get("selectedItem");
+		if (!s) return null;
 		var iteminfo = Iteminfo.findOne({_id: s});
+		if (!iteminfo) return null;
 		if (itemDB.hasOwnProperty(s)) iteminfo = itemDB[s];
 		if (iteminfo.hasOwnProperty(stat)) return statName(stat);
 		return null;
 	},
 	getStatAbbEquip: function(val) {
-		var equip = getUnit().equipment[Session.get("selectedItem")];
+		var equip = getUnit();
+		if (!equip) return null;
+		equip = equip.equipment[Session.get("selectedItem")];
 		if (!equip) return null;
 		var stat = unSuffix(val);
 		if (equip.hasOwnProperty(stat)) return statName(stat);
@@ -234,9 +219,6 @@ Template.equipunit.helpers({
 		var stat = unSuffix(val);
 		var equip = getUnit().equipment[Session.get("selectedItem")];
 		return getAbb(val,equip[stat]);
-	},
-	getStat3: function(stat,val) {
-		return getAbb(stat,val);
 	},
 	getStatNumber: function(val) {
 		var stat = unSuffix(val);
@@ -253,22 +235,9 @@ Template.equipunit.helpers({
 		var stat = unSuffix(val);
 		return getAbb(val,equip[stat]);
 	},
-	displayStats: function() {
-		var s = Session.get("selectedItem");
-		if (itemDB.hasOwnProperty(s)) {
-			var output = [];
-			itemDB[s].each(function(key, value) {
-				if(statName(key)) output.push(key);
-			});
-			return output;
-		}
-		return displayStats;
+	getDisplayStats: function() {
+		return _displayStats;
 	},
-	activeItem: function() {
-		var unit = getUnit();
-		if (!unit) return null;
-		return unit.equipment[Session.get("selectedItem")];
-	}
 });
 
 

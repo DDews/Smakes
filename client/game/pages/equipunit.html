@@ -60,7 +60,7 @@
             <p class="tooltipText">{{getSelectedValue "desc"}}</p>
             <table class="itemtable">
                 <tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td><td class="itemtable"></td></tr>
-                {{#each displayStats}}
+                {{#each getDisplayStats}}
                     <tr class="itemtable">
                     {{#if getStatAbb this}}
                         <td class="itemtable"><span class="statName">{{getStatAbb this}}</span>:</td> <td class="itemtable">{{getStatNumber this}}</td> <td class="itemtable">(<span class="{{upOrDown this}}">{{getIncrease this}}</span>)</td>
