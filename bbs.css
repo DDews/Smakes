@@ -24,6 +24,13 @@
 	background-color: #1e5e20;
 }
 
+.panicbtn {
+    background-color: #37474f;
+}
+.panicbtn:hover {
+    background-color: #f44336;
+}	
+
 .equipment {
     background-color: #37474f;
 }
@@ -74,6 +81,15 @@ body {
 	width: 32px;
 	height: 32px;
 	background: url('/itembg.png');
+}
+
+.locked {
+	width: 8px;
+	height: 8px;
+	background: url('/itemlock.png');
+	position:relative;
+	top: -32px;
+	
 }
 
 .headbg		{ width:32px; height:32px; background: url('/headbg.png'); }
