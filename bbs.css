@@ -612,7 +612,6 @@ dt {
 .itembg {
     color: white;
     font-size: .8rem;
-    text-align: center;
 }
 .r1-10 {
     background-color: #2e2e2e;
@@ -687,4 +686,14 @@ dt {
 }
 .numbers {
     height: 36px;
+}
+.itemtable {
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
 }
