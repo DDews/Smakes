@@ -454,9 +454,11 @@ Meteor.methods({
 		
 		var totalSell = 0;
 		items.each((item)=>{
-			totalSell += item.value * .1;
-			item.username = "<shop>";
-			dbupdate(item);
+			if (!item.locked) {
+				totalSell += item.value * .1;
+				item.username = "<shop>";
+				dbupdate(item);
+			}
 		});
 		
 		userinfo.wallet.gold += totalSell;
