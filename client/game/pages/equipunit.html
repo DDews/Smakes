@@ -1,14 +1,13 @@
 <template name="equipunit">
 	<div class="forumbg row">
 		{{#if userInCombat}}
-			<span class="red-text">You may not change equipment in combat.</span>
-			<a href="/game" class="btn blue-grey darken-4 white-text">Okay</a>
+			<span class="amber-text">You may not switch equipment in combat.</span>
+			<a href="/game" class="btn blue-grey darken-4">Okay</a>
 		{{else}}
-		
 
 			{{#if unitExists id}}
-
 				{{#if userOwns id}}
+
 					<div class="row blue-grey darken-2">
 						<div class="col s12 blue-grey darken-4">
 							{{#with unit id}}
@@ -31,7 +30,7 @@
 									<div class="col s12 btn {{slotColor slot}}" id="setSlot" value="{{slot}}">
 										{{#with itemFor slot}}
 											<div class="icon iconbg valign-wrapper">
-												<div class="center valign {{this.icon}}" id="{{this._id}} {{this.slot}}"></div>
+												<div class="center valign equipitem {{this.icon}}" id="{{slot}}"></div>
 											</div>
 
 											<span class="left tiny">{{name}}</span>
@@ -62,47 +61,48 @@
 
 					</div>
 				{{else}}
-					You don't own this unit...
+					<span class="amber-text">You do not own this unit...</span>
 				{{/if}}
+			{{else}}
+				<span class="amber-text">Could not find unit...</span>
 			{{/if}}
-			{{#with selectedItem}}
-				<div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
-					<p class="tooltipText">{{name}}</p>
-					<p class="tooltipText">{{type}}</p>
-					{{#each displayStats}}
-						{{#if getStatAbb this}}
-							<p class="tooltipText"><span class="statName">{{getStatAbb this}}</span>: {{getStatNumber this}}</p>
-						{{/if}}
-					{{/each}}
-				</div>
-			{{/with}}
-			{{#each slots}}
-				<div id="{{this}}" class="itembg invisbg col s3" style="display: none;">
-					<div class="tooltipText center">
-						{{#each equipment this}}
-							<div class="col s12"><div class="divider2"></div></div>
-							<div class="round2 col s12 itembg {{getBgColor2 key}}">
-								<div class="icon iconbg valign-wrapper">
-									<div class="center valign {{equipIcon key}}"></div>
-								</div>
-								<p class="tooltipText">{{getName key}}</p>
-								<p class="tooltipText">{{getSlot key}}</p>
-								<br>
-								{{#each displayStats}}
-									{{#if getStatAbb2 this ../key}}
-										<p class="tooltipText"><span class="{{upOrDown this ../key}}">{{getIncrease this ../key}}</span><span class="statName">{{getStatAbb2 this ../key}}</span>: {{getStat2 this ../key}}</p>
-									{{/if}}
-								{{/each}}
-								{{#each lostStats key}}
-									<p class="tooltipText"><span class="higherStat">+{{getStat3 key value}} {{getStatName key}}</span></p>
-								{{/each}}
-							</div>
-							<div class="col s12"><div class="divider2"></div></div>
-						{{/each}}
-					</div>
-				</div>
-			{{/each}}
-		
 		{{/if}}
+		
+		
+		<div name="tooltip" class="round2 itembg col s5 m4 l3 {{getSelectedBgColor}} left-align" style="display: none;">
+			<p class="tooltipText">{{getSelectedValue "name"}}</p>
+			<p class="tooltipText">{{getSelectedValue "desc"}}</p>
+			<table class="itemtable">
+				<tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td><td class="itemtable"></td></tr>
+				{{#each displayStats}}
+					<tr class="itemtable">
+					{{#if getStatAbb this}}
+						<td class="itemtable"><span class="statName">{{getStatAbb this}}</span>:</td> <td class="itemtable">{{getStatNumber this}}</td> <td class="itemtable">(<span class="{{upOrDown this}}">{{getIncrease this}}</span>)</td>
+					{{/if}}
+					</tr>
+				{{/each}}
+				{{#each lostStats}}
+					<tr class="itemtable">
+						<td class="itemtable"><span class="statName">{{getStatName2 key}}</span>:</td> <td class="itemtable">{{getStatAbb2 key}}</td> <td class="itemtable">(<span class="lowerStat">-{{getStat2 key}}</span>)</td>
+					</tr>
+				{{/each}}
+			</table>
+		</div>
+
+
+		<div name="Equiptooltip" class="round2 itembg col s5 m4 l3 {{getEquippedBgColor}} left-align" style="display: none;">
+			<p class="tooltipText">{{getEquippedValue "name"}}</p>
+			<p class="tooltipText">{{getEquippedValue "desc"}}</p>
+			<table class="itemtable">
+				<tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td><td class="itemtable"></td></tr>
+				{{#each displayStats}}
+					<tr class="itemtable">
+						{{#if getStatAbbEquip this}}
+							<td class="itemtable"><span class="statName">{{getStatAbbEquip this}}</span>:</td> <td class="itemtable">{{getStatNumberEquip this}}</td><td class="itemtable"></td>
+						{{/if}}
+					</tr>
+				{{/each}}
+			</table>
+		</div>
 	</div>
 </template>
