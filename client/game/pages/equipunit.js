@@ -138,7 +138,10 @@ Template.equipunit.helpers({
 	getEquippedValue: function(val) {
 		var item = getUnit();
 		if (!item) return null;
-		item = item.equipment[Session.get("selectedItem")];
+		item = item.equipment;
+		if (!item) return null;
+		item = item[Session.get("selectedItem")];
+		if (!item) return null;
 		return item[val];
 	},
 	getSelectedValue: function(val) {
@@ -218,7 +221,12 @@ Template.equipunit.helpers({
 	},
 	getStat2: function(val) {
 		var stat = unSuffix(val);
-		var equip = getUnit().equipment[Session.get("selectedItem")];
+		var equip = getUnit();
+		if (!equip) return null;
+		equip = equip.equipment;
+		if (!equip) return null;
+		equip = equip[Session.get("activeSlot")];
+		if (!equip) return null;
 		return getAbb(val,equip[stat]);
 	},
 	getStatNumber: function(val) {
