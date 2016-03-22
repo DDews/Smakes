@@ -11,6 +11,9 @@ var _displayStats = [
 	"quality","patk@","pacc%","pdef%","peva%",
 	"matk@","macc%","mdef%","meva%",
 	"aspd#","cspd#","crit%","resi%",
+	"armor@","shell@",
+	"rflex@","intut@",
+	"sight@","tough@",
 	"str@","dex@","wis@","agi@","vit@","int@"
 ];
 getAbb = function(stat,value) {
