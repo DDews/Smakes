@@ -829,7 +829,6 @@ Meteor.methods({
 		if (diff > 1000 || diff < -40) {
 			console.log(diff);
 			console.log("elapseTime: potential cheating detected, ignoring!")
-			return;
 		} else {
 			summary.time += 200;
 			combatinfo.combatants.each((id) => {
