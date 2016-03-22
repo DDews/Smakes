@@ -29,7 +29,7 @@
 								{{#each slot in getSlots}}
 									<div class="col s12 btn {{slotColor slot}}" id="setSlot" value="{{slot}}">
 										{{#with itemFor slot}}
-											<div class="icon iconbg valign-wrapper">
+											<div class="icon {{getIconBG rarity}} valign-wrapper">
 												<div class="center valign equipitem {{this.icon}}" id="{{slot}}"></div>
 											</div>
 
@@ -50,7 +50,7 @@
 							<div class="row">
 								{{#each item in invItemsForSlot}}
 									<div class="col s12 btn equipment" id="equip" value="{{item._id}}">
-										<div class="icon iconbg valign-wrapper">
+										<div class="icon {{getIconBG item.rarity}} valign-wrapper">
 											<div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
 										</div>
 										<span class="left tiny">{{item.name}}</span>

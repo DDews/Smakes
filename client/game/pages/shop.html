@@ -7,10 +7,16 @@
                 </div>
             {{/each}}
         </div>
-		{{#each testIcons}}
-			<div class="icon iconbg valign-wrapper">
+		{{#each fixedItems}}
+			<div class="icon {{getStackIconBG key}} valign-wrapper">
 				<div class="center valign {{icon key}} item itemclick" name="item" id="{{key}} {{getSlot value}}"></div>
 			</div>
+		{{/each}}
+		{{#each item in soldGear}}
+			<div class="icon {{getIconBG item.rarity}} valign-wrapper">
+				<div class="center valign {{item.icon}} item itemclick" name="item" id="{{item._id}} {{item.slot}}"></div>
+			</div>
+			
 		{{/each}}
         {{> tooltipsWithSuggestion}}
 	</div>

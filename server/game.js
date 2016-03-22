@@ -23,7 +23,7 @@ Meteor.publish("inventory", function() {
 	
 })
 
-Meteor.publish("shopItems", function() {
+Meteor.publish("shopitems", function() {
 	return Iteminfo.find( { username: "<shop>"} )
 })
 	
