@@ -45,8 +45,9 @@ Template.equipunit.helpers({
 				Session.set("activeSlot", unit.equipmentSlots[0]);
 			}
 		}
-		
 	},
+	
+		
 	itemsForSlot: function() {
 		var activeSlot = Session.get("activeSlot");
 	},

@@ -28,6 +28,7 @@ var helpers = function(fmap) { for (var k in fmap) { reg(k, fmap[k]); } }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Helpers to be available on every page.
 var globalHelpers = {
+	userInCombat: function() { return Combatinfo.findOne(); },
 	formatMiliTime: function(t) { return formatMiliTime(t); },
 	regions: function() { return areaData.toPairRay();  },
 	vitals: function() { return statCalcData.vitals; },

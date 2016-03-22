@@ -1,95 +1,108 @@
 <template name="equipunit">
 	<div class="forumbg row">
-		{{#if unitExists id}}
-			<div class="row blue-grey darken-2">
-				<div class="col s12 blue-grey darken-4">
-					{{#with unit id}}
-					Equipping {{name}}
-					
-					
-						
-					{{/with}}
-				</div>
-				
-				<div class="col s12 l4 blue-grey darken-4">
-					Abridged stats go here...
-				</div>
-				
-				
-				<div class="col s6 l4">
-					{{selectFirstSlotOnLoad}}
-					<div class="row">
-						{{#each slot in getSlots}}
-							<div class="col s12 btn {{slotColor slot}}" id="setSlot" value="{{slot}}">
-								{{#with itemFor slot}}
-									<div class="icon iconbg valign-wrapper">
-										<div class="center valign {{this.icon}}" id="{{this._id}} {{this.slot}}"></div>
+		{{#if userInCombat}}
+			<span class="red-text">You may not change equipment in combat.</span>
+			<a href="/game" class="btn blue-grey darken-4 white-text">Okay</a>
+		{{else}}
+		
+
+			{{#if unitExists id}}
+
+				{{#if userOwns id}}
+					<div class="row blue-grey darken-2">
+						<div class="col s12 blue-grey darken-4">
+							{{#with unit id}}
+							Equipping {{name}}
+
+
+
+							{{/with}}
+						</div>
+
+						<div class="col s12 l4 blue-grey darken-4">
+							Abridged stats go here...
+						</div>
+
+
+						<div class="col s6 l4">
+							{{selectFirstSlotOnLoad}}
+							<div class="row">
+								{{#each slot in getSlots}}
+									<div class="col s12 btn {{slotColor slot}}" id="setSlot" value="{{slot}}">
+										{{#with itemFor slot}}
+											<div class="icon iconbg valign-wrapper">
+												<div class="center valign {{this.icon}}" id="{{this._id}} {{this.slot}}"></div>
+											</div>
+
+											<span class="left tiny">{{name}}</span>
+										{{else}}
+											<div class="icon iconbg valign-wrapper"></div>
+											<span class="left tiny">[Empty]</span>
+										{{/with}}
+
+										<div class="right {{slotIcon slot}}bg"></div>
 									</div>
 
-									<span class="left tiny">{{name}}</span>
-								{{else}}
-									<div class="icon iconbg valign-wrapper"></div>
-									<span class="left tiny">[Empty]</span>
-								{{/with}}
-
-								<div class="right {{slotIcon slot}}bg"></div>
+								{{/each}}
 							</div>
+						</div>
 
-						{{/each}}
+						<div class="col s6 l4">
+							<div class="row">
+								{{#each item in invItemsForSlot}}
+									<div class="col s12 btn equipment" id="equip" value="{{item._id}}">
+										<div class="icon iconbg valign-wrapper">
+											<div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
+										</div>
+										<span class="left tiny">{{item.name}}</span>
+									</div>
+								{{/each}}
+							</div>
+						</div>
+
 					</div>
+				{{else}}
+					You don't own this unit...
+				{{/if}}
+			{{/if}}
+			{{#with selectedItem}}
+				<div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+					<p class="tooltipText">{{name}}</p>
+					<p class="tooltipText">{{type}}</p>
+					{{#each displayStats}}
+						{{#if getStatAbb this}}
+							<p class="tooltipText"><span class="statName">{{getStatAbb this}}</span>: {{getStatNumber this}}</p>
+						{{/if}}
+					{{/each}}
 				</div>
-				
-				<div class="col s6 l4">
-					<div class="row">
-						{{#each item in invItemsForSlot}}
-							<div class="col s12 btn equipment" id="equip" value="{{item._id}}">
+			{{/with}}
+			{{#each slots}}
+				<div id="{{this}}" class="itembg invisbg col s3" style="display: none;">
+					<div class="tooltipText center">
+						{{#each equipment this}}
+							<div class="col s12"><div class="divider2"></div></div>
+							<div class="round2 col s12 itembg {{getBgColor2 key}}">
 								<div class="icon iconbg valign-wrapper">
-									<div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
+									<div class="center valign {{equipIcon key}}"></div>
 								</div>
-								<span class="left tiny">{{item.name}}</span>
+								<p class="tooltipText">{{getName key}}</p>
+								<p class="tooltipText">{{getSlot key}}</p>
+								<br>
+								{{#each displayStats}}
+									{{#if getStatAbb2 this ../key}}
+										<p class="tooltipText"><span class="{{upOrDown this ../key}}">{{getIncrease this ../key}}</span><span class="statName">{{getStatAbb2 this ../key}}</span>: {{getStat2 this ../key}}</p>
+									{{/if}}
+								{{/each}}
+								{{#each lostStats key}}
+									<p class="tooltipText"><span class="higherStat">+{{getStat3 key value}} {{getStatName key}}</span></p>
+								{{/each}}
 							</div>
+							<div class="col s12"><div class="divider2"></div></div>
 						{{/each}}
 					</div>
 				</div>
-				
-			</div>
+			{{/each}}
+		
 		{{/if}}
-        {{#with selectedItem}}
-            <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
-                <p class="tooltipText">{{name}}</p>
-                <p class="tooltipText">{{type}}</p>
-                {{#each displayStats}}
-                    {{#if getStatAbb this}}
-                        <p class="tooltipText"><span class="statName">{{getStatAbb this}}</span>: {{getStatNumber this}}</p>
-                    {{/if}}
-                {{/each}}
-            </div>
-        {{/with}}
-        {{#each slots}}
-            <div id="{{this}}" class="itembg invisbg col s3" style="display: none;">
-                <div class="tooltipText center">
-                    {{#each equipment this}}
-                        <div class="col s12"><div class="divider2"></div></div>
-                        <div class="round2 col s12 itembg {{getBgColor2 key}}">
-                            <div class="icon iconbg valign-wrapper">
-                                <div class="center valign {{equipIcon key}}"></div>
-                            </div>
-                            <p class="tooltipText">{{getName key}}</p>
-                            <p class="tooltipText">{{getSlot key}}</p>
-                            <br>
-                            {{#each displayStats}}
-                                {{#if getStatAbb2 this ../key}}
-                                    <p class="tooltipText"><span class="{{upOrDown this ../key}}">{{getIncrease this ../key}}</span><span class="statName">{{getStatAbb2 this ../key}}</span>: {{getStat2 this ../key}}</p>
-                                {{/if}}
-                            {{/each}}
-                            {{#each lostStats key}}
-                                <p class="tooltipText"><span class="higherStat">+{{getStat3 key value}} {{getStatName key}}</span></p>
-                            {{/each}}
-                        </div>
-                        <div class="col s12"><div class="divider2"></div></div>
-                    {{/each}}
-                </div>
-            </div>
-        {{/each}}
 	</div>
 </template>
