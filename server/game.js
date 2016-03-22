@@ -280,6 +280,25 @@ var giveItem = function(username, data) {
 	var user = Userinfo.findOne({username: username});
 	var gamedata = Gameinfo.findOne({username: username});
 	
+	giveItemLive(gamedata, data);
+}
+	
+///Give Item to gamedata
+///gamedata - users gamedata
+///data - information about what item to give
+///		data.item - name of item to give, or rule to use 
+///					to generate item
+///		data.quantity - number of items to give
+///					(default = 1)
+///		data.level	- level of item to generate
+///					(default = 0)
+///		data.rarityBonus - bonus to rarity of
+///					generated items (default = 0)
+///
+var giveItemLive = function(gamedata, data) {
+	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!!!"); }
+	var username = gamedata.username;
+	var user = Userinfo.findOne({username: username});
 	var item = data.item;
 	var quantity = data.quantity || 1;
 	var rarityBonus = data.rarityBonus || 0;
@@ -289,7 +308,6 @@ var giveItem = function(username, data) {
 	console.log(data)
 	console.log("to" + username)
 	
-	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!!!"); }
 	
 	if (itemDB.has(item)) {
 		if (!gamedata.stacks) { gamedata.stacks = {}; }
@@ -312,9 +330,7 @@ var giveItem = function(username, data) {
 		
 	}
 	
-	
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -396,7 +412,7 @@ Meteor.methods({
 		var username = Meteor.user() && Meteor.user().username;
 		results.each((k,v) => {
 			giveItem(username, {item:k, quantity:v});
-		})
+		});
 		
 		
 	},
@@ -744,6 +760,15 @@ Meteor.methods({
 					if (unit.team != 'player') {
 						goldDrop += unit.exp * Random.value();
 						expDrop += unit.exp;
+						var drops = unit.drops;
+						if (drops) {
+							var results = rollDropTable(drops);
+							results.each((k,v) => {
+								console.log("giving " + username + "  " + v + " " + k + "(s)");
+								giveItemLive(gamedata, {item:k, quantity:v});
+								
+							});
+						}
 						
 					}
 				})
