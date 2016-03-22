@@ -2,11 +2,24 @@
 	<div class="col s12" id="error"></div>
     <div class="forumbg row">
 		
+		{{#if userInCombat}}
+			<span class="red-text">You can't sell items when in combat</span>
+		{{else}}
 		
+		<div class="col s12">
+			<div class="btn panicbtn" id="sell">Sell <em>ALL</em> Unlocked items</div>
+		</div>
+		<div class="col s12">
+			<span class="amber-text tiny">
+				Note: Click an item to toggle its lock state, or click a stack to sell items from that stack.
+			</span>
+			
+		</div>
+		{{/if}}
 		<div class="col s12">
 			<div class="row">
 				{{#each stack in stacks}}
-					<div class="icon iconbg valign-wrapper">
+					<div class="icon {{getStackIconBG stack.key}} valign-wrapper" id="stackItem" value="{{stack.key}}">
 						{{#with stackItem stack.key}}
 							<div class="center valign {{this.icon}} item" id="{{this._id}}"></div>
 						{{/with}}
@@ -15,8 +28,12 @@
 				{{/each}}
 				
 				{{#each item in items}}
-					<div class="icon iconbg valign-wrapper">
+					<div class="icon {{getIconBG item.rarity}} valign-wrapper" id="uniqueItem" value="{{item._id}}">
 						<div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
+						{{#if item.locked}}
+						<div class="locked"></div>
+						{{/if}}
+						
 					</div>
 				{{/each}}
 			</div>

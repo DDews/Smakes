@@ -27,6 +27,10 @@ Template.inventory.helpers({
 		if (!data) { return null; }
 		return data.toPairRay();
 	},
+	isLocked:function(id) {
+		var item = dbget("Iteminfo", id);
+		return item && item.locked;
+	},
 	stackItem: (id) => {
 		return itemDB[id];	
 	},
@@ -166,6 +170,28 @@ Template.inventory.helpers({
 });
 
 Template.inventory.events({
+	'click #sell': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		if (window.confirm("Are you SURE you want to sell ALL UNLOCKED ITEMS?")) {
+			Meteor.call("sellUnlockedItems");
+		}
+		
+		return false;
+	},
+	'click #uniqueItem': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		//console.log("toggling lock on item")
+		var id = event.currentTarget.getAttribute("value");
+		
+		Meteor.call("toggleUniqueLock", id)
+		return false;
+	},
+	'click #stackItem': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		console.log("TBD: Open dialog for selling stacked items...")
+		var id = event.currentTarget.getAttribute("value");
+		return false;
+	},
 	'click #gibsMeDat': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
 		var data = {};
@@ -186,9 +212,9 @@ Template.inventory.events({
 	},
 	'mouseenter .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
-		console.log("wtF");
+		//console.log("wtF");
 		var id = event.currentTarget.id;
-		console.log(id);
+		//console.log(id);
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		var width = $("[name=tooltip]").width();
@@ -227,7 +253,7 @@ Template.inventory.events({
 	'mouseleave .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
-		console.log(id);
+		//console.log(id);
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		document.removeEventListener('mousemove', _event[id](event), false);

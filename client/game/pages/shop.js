@@ -28,8 +28,12 @@ var _arraysize = {
 
 }
 Template.shop.helpers({
-	testIcons: function() {
+	fixedItems: function() {
 		var items = itemDB.toPairRay();
+		return items;
+	},
+	soldGear: function() {
+		var items = Iteminfo.find().fetch();
 		return items;
 	},
 	getSlot: function (value) {

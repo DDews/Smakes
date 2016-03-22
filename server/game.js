@@ -23,7 +23,7 @@ Meteor.publish("inventory", function() {
 	
 })
 
-Meteor.publish("shopItems", function() {
+Meteor.publish("shopitems", function() {
 	return Iteminfo.find( { username: "<shop>"} )
 })
 	
@@ -413,9 +413,62 @@ Meteor.methods({
 		results.each((k,v) => {
 			giveItem(username, {item:k, quantity:v});
 		});
+	},
+	
+	toggleUniqueLock: (id) => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var userinfo = Userinfo.findOne({username: username});
+		if (!userinfo) throw new Meteor.Error(422,"Error: userinfo not found");
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		
+		var item = Iteminfo.findOne(id);
+		if (!item)  { throw new Meteor.Error(422, "Error: Item does not exist!"); }
+		
+		item.locked = !item.locked;
+		dbupdate(item);
+	},
+	
+	sellUnlockedItems: () => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var userinfo = Userinfo.findOne({username: username});
+		if (!userinfo) throw new Meteor.Error(422,"Error: userinfo not found");
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		
+		var items = Iteminfo.find({username: username});
+		var itemsCount = items.count();
+		items = items.fetch();
+		var shopItems = Iteminfo.find({username:"<shop>"});
+		var shopItemCount = shopItems.count();
+		shopItems = shopItems.fetch();
+		
+		if (shopItemCount + itemsCount > 1000) {
+			var toDrop = shopItemCount + itemsCount - 1000;
+			for (var i = 0; i < toDrop; i += 1) {
+				dbremove(shopItems[i])
+			}
+		}
+		
+		var totalSell = 0;
+		items.each((item)=>{
+			if (!item.locked) {
+				totalSell += item.value * .1;
+				item.username = "<shop>";
+				dbupdate(item);
+			}
+		});
+		
+		userinfo.wallet.gold += totalSell;
+		dbupdate(gamedata);
+		
 		
 		
 	},
+	
+		
 	testGiveItem: (data) => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
