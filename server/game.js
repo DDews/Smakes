@@ -307,19 +307,21 @@ var giveItem = function(username, data) {
 ///					to application of bonuses to items found
 ///
 var giveItemLive = function(gamedata, data) {
-	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!!!"); }
+	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!"); }
 	var username = gamedata.username;
 	var user = Userinfo.findOne({username: username});
+	if (!user)  { throw new Meteor.Error(422, "You must be logged in!"); }
+	console.log("Giving ")
+	console.log(data)
+	console.log("to" + username)
+	if (!gamedata.itemlog) { gamedata.itemlog = []; }
+	
 	var item = data.item;
 	var quantity = data.quantity || 1;
 	var rollBonus = data.rollBonus || 0;
 	var rarityBonus = data.rarityBonus || 1;
 	var level = data.level || 0;
-	if (!gamedata.itemlog) { gamedata.itemlog = []; }
 	
-	console.log("Giving ")
-	console.log(data)
-	console.log("to" + username)
 	var now = new Date();
 	now = formatDate(now);
 	
@@ -332,7 +334,7 @@ var giveItemLive = function(gamedata, data) {
 			gamedata.stacks[item] += quantity;
 		}
 		var msg = now + ' - Found ' + quantity + ' ' + itemDB[item].name + "(s)";
-		while (gamedata.itemlog.length > 99) { gamedata.itemlog.unshift(); }
+		while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
 		gamedata.itemlog.push(msg);
 		
 		dbupdate(gamedata);
@@ -343,7 +345,7 @@ var giveItemLive = function(gamedata, data) {
 			i.username = username;
 			
 			var msg = now + " - Found " + i.name;
-			while (gamedata.itemlog.length > 99) { gamedata.itemlog.unshift(); }
+			while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
 			gamedata.itemlog.push(msg);
 			
 			//console.log('created item from rule ' + item);
