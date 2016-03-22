@@ -169,11 +169,34 @@ Template.game.helpers({
 		return data.combatlog || ["no messages"];
 	},
 	fillCombatMessages: function() {
-		var data = Combatinfo.findOne();
+		var data = Gameinfo.findOne();
 		var msgs = [];
 		if (!data) { msgs = ["no combat data"]; }
 		else { msgs = data.combatlog || ["no messages"]; }
 		var txt = $("#combatlog");
+		
+		if (txt) {
+			var msg = "";
+			var len = msgs.length;
+			var i = 0;
+			msgs.each((m)=>{
+				msg += m + ((i < len-1) ? "\n" : "");
+				i += 1;
+
+			});
+
+			txt.text(msg)
+			if (txt[0]) {
+				txt.scrollTop(txt[0].scrollHeight)
+			}
+		}
+	},
+	fillItemMessages: function() {
+		var data = Gameinfo.findOne();
+		var msgs = [];
+		if (!data) { msgs = ["no item data"]; }
+		else { msgs = data.itemlog || ["no item messages"]; }
+		var txt = $("#itemlog");
 		
 		if (txt) {
 			var msg = "";

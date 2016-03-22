@@ -176,7 +176,6 @@ var starterEquips = {
 		pdef: .01,
 		peva: .05,
 	},
-	
 };
 
 
@@ -242,6 +241,11 @@ var startCombat = function(data) {
 	} );
 	
 	var combat = new Combat(units, username, region);
+	combat.combatlog = gamedata.combatlog || [];
+	combat.combatlog.push("Combat Started!");
+	combat.combatlog.push("---------------Round 1---------------");
+	dbupdate(combat);
+	
 	gamedata.combat = combat._id;
 	gamedata.lastRegion = region;
 	gamedata.retryTimeout = 0;
@@ -262,7 +266,10 @@ var startCombat = function(data) {
 	dbupdate(gamedata);
 }
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Inventory Manipulation functions
 
 ///Give Item to user
 ///username - name of user to give item to
@@ -273,8 +280,10 @@ var startCombat = function(data) {
 ///					(default = 1)
 ///		data.level	- level of item to generate
 ///					(default = 0)
-///		data.rarityBonus - bonus to rarity of
+///		data.rollBonus - bonus to rarity of
 ///					generated items (default = 0)
+///		data.rarityBonus - multiplicitave bonus chance
+///					to application of bonuses to items found
 ///
 var giveItem = function(username, data) {
 	var user = Userinfo.findOne({username: username});
@@ -292,21 +301,29 @@ var giveItem = function(username, data) {
 ///					(default = 1)
 ///		data.level	- level of item to generate
 ///					(default = 0)
-///		data.rarityBonus - bonus to rarity of
+///		data.rollBonus - bonus to rarity of
 ///					generated items (default = 0)
+///		data.rarityBonus - multiplicitave bonus chance
+///					to application of bonuses to items found
 ///
 var giveItemLive = function(gamedata, data) {
-	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!!!"); }
+	if (!gamedata) { throw new Meteor.Error(422, "You must have a game!"); }
 	var username = gamedata.username;
 	var user = Userinfo.findOne({username: username});
-	var item = data.item;
-	var quantity = data.quantity || 1;
-	var rarityBonus = data.rarityBonus || 0;
-	var level = data.level || 0;
-	
+	if (!user)  { throw new Meteor.Error(422, "You must be logged in!"); }
 	console.log("Giving ")
 	console.log(data)
 	console.log("to" + username)
+	if (!gamedata.itemlog) { gamedata.itemlog = []; }
+	
+	var item = data.item;
+	var quantity = data.quantity || 1;
+	var rollBonus = data.rollBonus || 0;
+	var rarityBonus = data.rarityBonus || 1;
+	var level = data.level || 0;
+	
+	var now = new Date();
+	now = formatDate(now);
 	
 	
 	if (itemDB.has(item)) {
@@ -316,17 +333,27 @@ var giveItemLive = function(gamedata, data) {
 		} else {
 			gamedata.stacks[item] += quantity;
 		}
-		console.log('gave ' + quantity + ' ' + item + "(s)");
+		var msg = now + ' - Found ' + quantity + ' ' + itemDB[item].name + "(s)";
+		while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
+		gamedata.itemlog.push(msg);
+		
 		dbupdate(gamedata);
 	} else {
 		var i;
 		for (i = 0; i < quantity; i+=1) {
-			var i = MakeItem(item, level, rarityBonus);
+			var i = MakeItem(item, level, rollBonus, rarityBonus);
 			i.username = username;
-			console.log('created item from rule ' + item);
-			console.log(i.name);
+			
+			var msg = now + " - Found " + i.name;
+			while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
+			gamedata.itemlog.push(msg);
+			
+			//console.log('created item from rule ' + item);
+			//console.log(i.name);
 			dbinsert("Iteminfo", i);
 		}
+		
+		dbupdate(gamedata);
 		
 	}
 	
@@ -338,6 +365,13 @@ var giveItemLive = function(gamedata, data) {
 //Messages that can be sent to the server by clients for game logic.
 
 Meteor.methods({
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Inventory Manipulation
+	
+	//Purchases a stackable item from the shop
 	buyItem: function(item,quantity) {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
@@ -358,6 +392,8 @@ Meteor.methods({
 		data.quantity = +quantity;
 		giveItem(username,data);
 	},
+	
+	//Equips an item on a given unit
 	equipItem: (data) => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
@@ -390,31 +426,8 @@ Meteor.methods({
 		
 		
 	},
-	testMakeItem: () => {
-		var item = MakeItem("heavyArmor", 1);
-		console.log(item);
-		
-		reapplyHistory(item, 100);
-		console.log(item);
-		
-		console.log("Histories");
-		item.genHistory.each((h)=>{
-			console.log(h);
-		})
-	},
-	testGiveDrops: (data) => {
-		console.log("testing drops");
-		
-		var results = rollDropTable(data.table);
-		console.log("Roll results:")
-		console.log(results)
-		
-		var username = Meteor.user() && Meteor.user().username;
-		results.each((k,v) => {
-			giveItem(username, {item:k, quantity:v});
-		});
-	},
 	
+	//Toggles the lock state of an item in the player's inventory.
 	toggleUniqueLock: (id) => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -430,6 +443,7 @@ Meteor.methods({
 		dbupdate(item);
 	},
 	
+	//Sells all unlocked items in the player's inventory
 	sellUnlockedItems: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -468,14 +482,12 @@ Meteor.methods({
 		
 	},
 	
-		
-	testGiveItem: (data) => {
-		var username = Meteor.user() && Meteor.user().username;
-		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
-		
-		
-		giveItem(username, data);
-	},					
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Game data management functions
+	
+	//Resets all game data. Yay.
 	dropGameDB: function() {
         if (!this.userId) throw new Meteor.Error(422, "You must be logged in");
         var admin = Userinfo.findOne({username: Meteor.user().username});
@@ -488,6 +500,7 @@ Meteor.methods({
         console.log("Game database cleared");
     },
 	
+	//Removes the current user's game data.
 	purgeGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -503,6 +516,8 @@ Meteor.methods({
 		
 	},
 	
+	//Forcefully removes the current user's combat data 
+	//Used when running away doesn't work for laggy players.
 	purgeCombat: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -529,6 +544,8 @@ Meteor.methods({
 		
 	},
 	
+	//Forcefully removes all combats for all players...
+	//Used when there's some issue that purgeCombat() can't solve.
 	purgeAllCombats: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -555,8 +572,13 @@ Meteor.methods({
 		});
 		
 	},
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Game creation
 	
-	
+	//Creates a new game with some information.
 	newGame: (data) => {
 		
 		console.log("new game started");
@@ -587,6 +609,14 @@ Meteor.methods({
 		console.log("Gameinfo\n" + gamedata);
 		
 	},
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Unit Manipulation methods
+	
+	//Called when a unit is recruited
+	//tbd: make it work :)
 	recruitNewUnit: (data) => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -600,6 +630,7 @@ Meteor.methods({
 		
 	},
 	
+	//Called when a unit's information is edited
 	updateUnitInfo: (data) => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -623,25 +654,8 @@ Meteor.methods({
 		
 		dbupdate(unit);
 	},
-	
-	resetSummary: ()=> {
-		var username = Meteor.user() && Meteor.user().username;
-		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
-		var gamedata = Gameinfo.findOne({username: username});
-		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
-		var combatinfo = Combatinfo.findOne({username: username});
-		
-		var summary = defaultSummary;
-		
-		gamedata.summary = summary;
-		dbupdate(gamedata);
-		if (combatinfo) {
-			combatinfo.summary = summary;
-			dbupdate(combatinfo);
-		}
-		
-	},
-	
+
+	//Called to boost the stats of a unit
 	buyStat: (data) => {
 		var stat = data.stat;
 		var n = data.n;
@@ -675,12 +689,41 @@ Meteor.methods({
 		
 	},
 	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///misc functions
+	
+	//Called to reset the tracked information in the summary window
+	resetSummary: ()=> {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var combatinfo = Combatinfo.findOne({username: username});
+		
+		var summary = defaultSummary;
+		
+		gamedata.summary = summary;
+		dbupdate(gamedata);
+		if (combatinfo) {
+			combatinfo.summary = summary;
+			dbupdate(combatinfo);
+		}
+		
+	},
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Combat functions
+	
+	//Called to initiate combat
 	startCombat: (data) => {
 		startCombat(data);
 	},
 	
-	
-	
+	//Called to voluntarily stop combat
 	runAway: function() {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -695,6 +738,7 @@ Meteor.methods({
 		
 	},
 	
+	//Called to elapse time on the out-of-combat screen
 	elapseRetryTime: function(data) {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -737,6 +781,14 @@ Meteor.methods({
 		}
 		
 	},
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///Major game logic function- 
+	
+	//elapses time in combat.
 	elapseTime: function(data) {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
@@ -758,6 +810,9 @@ Meteor.methods({
 		combatinfo.currentTurn = currentTurn;
 		var messages = {turn: currentTurn};
 		
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//Moves the summary into the game data (which is passed into the combat methods)
+		//so that combat actions can be tracked.
 		var summary = gamedata.summary;
 		if (!summary) {
 			summary = {};
@@ -769,7 +824,8 @@ Meteor.methods({
 		if (combatinfo.hits.unshift(messages) > 3) { combatinfo.hits.pop(); }
 		combatinfo.rebuildCombatantLists();
 		
-		
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//Cheat protection
 		if (diff > 1000 || diff < -40) {
 			console.log(diff);
 			console.log("elapseTime: potential cheating detected, ignoring!")
@@ -789,24 +845,31 @@ Meteor.methods({
 				
 			})
 			gamedata.summary = combatinfo.summary;
+			gamedata.combatlog = combatinfo.combatlog;
 			
 			dbupdate(gamedata);
 		}
 		
-		
+		//////////////////////////////////////////////////////////////////////////////////////////////////
+		//Check for and handle win/loss conditions
 		var winner = combatinfo.run ? 'run' : combatinfo.winningTeam();
 		if (winner) {
 			if (winner == 'run') {
+				//////////////////////////////////////////////////////////////////////////////////////////////////
+				//Run away
 				console.log("bitches ran away!");
 				gamedata.cleanUpAllCombats();
 				
 			} else if (winner == 'player') {
+				//////////////////////////////////////////////////////////////////////////////////////////////////
+				//Victory!
 				var region = combatinfo.region;
 				console.log("Spawning next thing in Region : " + region)
 				var regionData = areaData[region];
 				combatinfo.combo += 1;
 				var goldDrop = 0;
 				var expDrop = 0;
+				
 				combatinfo.combatants.each((id) => {
 					var unit = dbget("Unitinfo", id);
 					
@@ -815,12 +878,24 @@ Meteor.methods({
 						expDrop += unit.exp;
 						var drops = unit.drops;
 						if (drops) {
+							var dropData = {};
+							dropData.level = Math.floor(unit.level/10);
+							dropData.rarityBonus = .1 + .1 * unit.num("eliteRank");
+							dropData.rollBonus = 0 + .0001 * combatinfo.combo;
+							
 							var results = rollDropTable(drops);
+							console.log("rolled ")
+							console.log(results)
+							
 							results.each((k,v) => {
-								console.log("giving " + username + "  " + v + " " + k + "(s)");
-								giveItemLive(gamedata, {item:k, quantity:v});
-								
+								if (v > 0) {
+									dropData.item = k;
+									dropData.quantity = v;
+									console.log("giving " + username + "  " + v + " " + k + "(s)");
+									giveItemLive(gamedata, dropData);
+								}
 							});
+								
 						}
 						
 					}
@@ -842,8 +917,9 @@ Meteor.methods({
 				combatinfo.cleanUpCombat();
 				var mons = spawnMonsters(regionData, combatinfo.combo);
 				combatinfo.startNewBattle(mons);
-				
+				combatinfo.combatlog.push("---------------Round " + (1+combatinfo.combo) + "---------------");
 				dbupdate(combatinfo);
+				gamedata.combatlog = combatinfo.combatlog;
 				
 				dbupdate(gamedata);
 				dbupdate(userinfo);
@@ -868,6 +944,9 @@ Meteor.methods({
 	}
 		
 		
-		
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+///
 		
 });
