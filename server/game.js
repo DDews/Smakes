@@ -520,6 +520,7 @@ Meteor.methods({
 		
 		userinfo.wallet.gold += totalSell;
 		dbupdate(gamedata);
+		dbupdate(userinfo);
 		
 		
 		
