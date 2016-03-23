@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/client.js" afterPath="$PROJECT_DIR$/client/client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/pages/inventory.js" afterPath="$PROJECT_DIR$/client/game/pages/inventory.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/pages/shop.html" afterPath="$PROJECT_DIR$/client/game/pages/shop.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/pages/shop.js" afterPath="$PROJECT_DIR$/client/game/pages/shop.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.html" afterPath="$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.js" afterPath="$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/game.js" afterPath="$PROJECT_DIR$/server/game.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,21 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="tooltipsWithSuggestion.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.html">
+      <file leaf-file-name="shop.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/game/pages/shop.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-289">
-              <caret line="4" column="55" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tooltipsWithSuggestion.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="175" column="96" selection-start-line="175" selection-start-column="96" selection-end-line="175" selection-end-column="96" />
+            <state relative-caret-position="153">
+              <caret line="108" column="37" selection-start-line="108" selection-start-column="37" selection-end-line="108" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -115,8 +99,8 @@
         <option value="$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.html" />
         <option value="$PROJECT_DIR$/client/game/pages/inventory.js" />
         <option value="$PROJECT_DIR$/client/game/pages/shop.html" />
-        <option value="$PROJECT_DIR$/client/game/pages/shop.js" />
         <option value="$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.js" />
+        <option value="$PROJECT_DIR$/client/game/pages/shop.js" />
       </list>
     </option>
   </component>
@@ -454,15 +438,15 @@
       <workItem from="1458598348236" duration="7826000" />
       <workItem from="1458611010093" duration="610000" />
       <workItem from="1458665595142" duration="2030000" />
-      <workItem from="1458682253394" duration="12538000" />
+      <workItem from="1458682253394" duration="12694000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35084000" />
+    <option name="totallyTimeSpent" value="35240000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="342" y="203" width="1280" height="676" extended-state="1" />
+    <frame x="342" y="203" width="1280" height="676" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24604431" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -762,14 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/pages/shop.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="51" column="74" selection-start-line="51" selection-start-column="74" selection-end-line="51" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/game/pages/shop.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="439">
@@ -786,6 +762,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="175" column="96" selection-start-line="175" selection-start-column="96" selection-end-line="175" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-289">
@@ -794,10 +778,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/templates/tooltipsWithSuggestion.js">
+    <entry file="file://$PROJECT_DIR$/client/game/pages/shop.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="175" column="96" selection-start-line="175" selection-start-column="96" selection-end-line="175" selection-end-column="96" />
+        <state relative-caret-position="153">
+          <caret line="108" column="37" selection-start-line="108" selection-start-column="37" selection-end-line="108" selection-end-column="37" />
           <folding />
         </state>
       </provider>

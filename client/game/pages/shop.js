@@ -105,6 +105,8 @@ Template.shop.helpers({
 	checkOrder: function() {
 		Session.set("sortBy","quality");
 		Session.set("sortOrder",-1);
+		Session.set("sortArmor","");
+		Session.set("sortWeapon","");
 	}
 });
 _event = {};
