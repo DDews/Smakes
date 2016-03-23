@@ -115,6 +115,7 @@ Template.shop.events({
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
 		var slot = id.split(' ')[1];
+		if (slot == "handRight") slot = "hand";
 		id = id.split(' ')[0];
 		var width = $("[name=tooltip]").width();
 		var height = $("[name=tooltip]").height();
@@ -153,6 +154,7 @@ Template.shop.events({
 		if (event.preventDefault) event.preventDefault();
 		var id = event.currentTarget.id;
 		var slot = id.split(' ')[1];
+		if (slot == "handRight") slot = "hand";
 		id = id.split(' ')[0];
 		document.removeEventListener('mousemove',_event[id](event),false);
 		$("[name=tooltip]").css({
