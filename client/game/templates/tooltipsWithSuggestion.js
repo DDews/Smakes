@@ -7,9 +7,97 @@ var _slots = [
     "gloves",
     "legs",
     "hand",
-    "accessory"
+    "accessory",
+    "feet"
 ]
+var _displayStats = [
+    "quality","patk@","pacc%","pdef%","peva%",
+    "matk@","macc%","mdef%","meva%",
+    "aspd#","cspd#","crit%","resi%",
+    "armor@","shell@",
+    "rflex@","intut@",
+    "sight@","tough@",
+    "str@","dex@","wis@","agi@","vit@","int@",
+    "value","hp@"
+];
 Template.tooltipsWithSuggestion.helpers({
+    getSelectedBgColor: function(value) {
+        var item = Iteminfo.findOne({_id: Session.get("selectedItem")});
+        if (!item) item = itemDB[Session.get("selectedItem")];
+        if (!item) return null;
+        var rarity = item.rarity;
+        if (rarity < 10) return "r1-10";
+        if (rarity < 20) return "r10-20";
+        if (rarity < 30) return "r20-30";
+        if (rarity < 40) return "r30-40";
+        if (rarity < 50) return "r40-50";
+        if (rarity < 60) return "r50-60";
+        if (rarity < 70) return "r60-70";
+        if (rarity < 80) return "r70-80";
+        if (rarity < 90) return "r80-90";
+        if (rarity < 100) return "r90-100"
+        return "r90-100";
+    },
+    getSelectedValue: function(val) {
+        var item = Iteminfo.findOne({_id: Session.get("selectedItem")});
+        if (!item) item = itemDB[Session.get("selectedItem")];
+        if (!item) return null;
+        return item[val];
+    },
+    getDisplayStats: function() {
+        return _displayStats;
+    },
+    getStatAbb: function(val) {
+        var stat = unSuffix(val);
+        var s = Session.get("selectedItem");
+        if (!s) return null;
+        var iteminfo = Iteminfo.findOne({_id: s});
+        if (itemDB.hasOwnProperty(s)) iteminfo = itemDB[s];
+        if (!iteminfo) return null;
+        if (iteminfo.hasOwnProperty(stat)) return statName(stat);
+        return null;
+    },
+    getStatAbb2: function(equip,val) {
+        var stat = unSuffix(val);
+        if (equip.hasOwnProperty(stat)) return statName(stat);
+        return null;
+    },
+    getStatNumber: function(val) {
+        var stat = unSuffix(val);
+        var s = Session.get("selectedItem");
+        var iteminfo = Iteminfo.findOne({_id: s});
+        if (itemDB.hasOwnProperty(s)) return itemDB[s][stat];
+        if (!iteminfo) return null;
+        if (iteminfo.hasOwnProperty(stat)) return getDbStat(val,"Iteminfo",s);
+        return null;
+    },
+    getStatNumber2: function(equip,val) {
+        var stat = unSuffix(val);
+        if (equip.hasOwnProperty(stat)) return getAbb(val,equip[stat]);
+        return null;
+    },
+    upOrDown: function(equip,val) {
+        var stat = unSuffix(val);
+        var currentItem = Session.get("selectedItem");
+        currentItem = Iteminfo.findOne({_id: currentItem});
+        if (!currentItem) return null;
+        if (currentItem.hasOwnProperty(stat)) {
+            if (currentItem[stat] < equip[stat]) return "lowerStat";
+            if (currentItem[stat] > equip[stat]) return "higherStat";
+            if (!equip.hasOwnProperty(stat)) return "higherStat";
+        } else { return "lowerStat"; }
+    },
+    getIncrease: function(equip,val) {
+        var stat = unSuffix(val);
+        var currentItem = Session.get("selectedItem");
+        currentItem = Iteminfo.findOne({_id: currentItem});
+        if (!currentItem) return null;
+        if (currentItem.hasOwnProperty(stat)) {
+            if (currentItem[stat] < equip[stat]) return "-" + getAbb(val,equip[stat] - currentItem[stat]);
+            if (currentItem[stat] > equip[stat]) return "+" + getAbb(val,currentItem[stat] - equip[stat]);
+            if (!equip.hasOwnProperty(stat)) return "+" + getAbb(val,currentItem[stat]);
+        } else { return "-" + getAbb(val,equip[stat]); }
+    },
     getName: function (value) {
         return value.name;
     },
@@ -69,34 +157,6 @@ Template.tooltipsWithSuggestion.helpers({
         if (value.has("slot")) return value.slot;
         return null;
     },
-    upOrDown: function (stat, value) {
-        var currentItem = Session.get("selectedItem");
-        currentItem = itemDB[currentItem];
-        if (stat == "desc") return null;
-        if (stat == "rarity") return null;
-        if (stat == "value") return null;
-        if (!currentItem) return null;
-        if (currentItem.hasOwnProperty(stat)) {
-            if (currentItem[stat] < value) return "lowerStat";
-            if (currentItem[stat] > value) return "higherStat";
-        } else {
-            return "lowerStat";
-        }
-    },
-    getIncrease: function (stat, value) {
-        var currentItem = Session.get("selectedItem");
-        currentItem = itemDB[currentItem];
-        if (stat == "desc") return null;
-        if (stat == "rarity") return null;
-        if (stat == "value") return null;
-        if (!currentItem) return null;
-        if (currentItem.hasOwnProperty(stat)) {
-            if (currentItem[stat] < value) return "-" + fixZeroes(value - currentItem[stat]);
-            if (currentItem[stat] > value) return "+" + fixZeroes(currentItem[stat] - value);
-        } else {
-            return "-" + fixZeroes(value);
-        }
-    },
     selectedItem: function () {
         var selectedItem = Session.get("selectedItem");
         //console.log(selectedItem);
@@ -104,32 +164,47 @@ Template.tooltipsWithSuggestion.helpers({
         if (itemDB.hasOwnProperty(selectedItem)) return itemDB[selectedItem];
         return Iteminfo.findOne({_id: selectedItem});
     },
-    lostStats: function (obj) {
+    lostStats: function(equip) {
         var selectedItem = Session.get("selectedItem");
         if (!selectedItem) return null;
         var output = {};
-        var item = itemDB[selectedItem];
-        item.each(function (key, value) {
-            if (key != "stacks" && key != "maxStack" && key != "rarity" && key != "quality" && key != "element") {
-                if (!obj.hasOwnProperty(key)) {
-                    var object = {};
-                    output[key] = value;
-                }
+        var item = Iteminfo.findOne({_id: selectedItem});
+        if (!item) return null;
+        var stat;
+        for (var i = 0, j = _displayStats.length; i < j; i++) {
+            stat = unSuffix(_displayStats[i]);
+            if (item.hasOwnProperty(stat) && !equip.hasOwnProperty(stat) && (stat != "quality")) {
+                output[_displayStats[i]] = item[stat];
             }
-        });
+        }
         return output.toPairRay();
     },
     getStatName: function (stat) {
         if (statName(stat)) return statName(stat);
         return stat;
     },
+    getStatName2: function(stat) {
+        var stat = unSuffix(stat);
+        if (statName(stat)) return statName(stat);
+        return stat;
+    },
+    getStatAbb3: function(val) {
+        return getAbb(val,0);
+    },
+    getStat2: function(val,equip) {
+        var stat = unSuffix(val);
+        var selectedItem = Session.get("selectedItem");
+        if (!selectedItem) return null;
+        var output = {};
+        var item = Iteminfo.findOne({_id: selectedItem});
+        if (!item) return null;
+        return getAbb(val,item[stat]);
+    },
 });
 Template.tooltipsWithSuggestion.events({
     'mouseenter .item': function (event) {
         if (event.preventDefault) event.preventDefault();
-        console.log("wtF");
         var id = event.currentTarget.id;
-        console.log(id);
         var slot = id.split(' ')[1];
         id = id.split(' ')[0];
         var width = $("[name=tooltip]").width();
@@ -168,7 +243,6 @@ Template.tooltipsWithSuggestion.events({
     'mouseleave .item': function (event) {
         if (event.preventDefault) event.preventDefault();
         var id = event.currentTarget.id;
-        console.log(id);
         var slot = id.split(' ')[1];
         id = id.split(' ')[0];
         document.removeEventListener('mousemove', _event[id](event), false);
