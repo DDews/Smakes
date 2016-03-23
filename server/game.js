@@ -450,6 +450,20 @@ Meteor.methods({
 		delete item._id;
 		
 		unit.equipment[slot] = item;
+		
+		if (item.twoHands) {
+			var otherHand = (slot == "handLeft") 
+				? "handRight" : "handLeft";
+			
+			var otherHandItem = unit.equipment[otherHand];
+			if (otherHandItem) {
+				otherHandItem.username = username;
+				dbinsert("Iteminfo", otherHandItem);
+				unit.equipment[otherHand] = null;
+			}
+			
+		}
+		
 		unit.recalc();
 		dbupdate(unit);
 		
