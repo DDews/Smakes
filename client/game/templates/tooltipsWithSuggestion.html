@@ -1,35 +1,45 @@
 <template name="tooltipsWithSuggestion">
-    {{#with selectedItem}}
-        <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
-            <p class="tooltipText">{{name}}</p>
-            <p class="tooltipText">{{type}}</p>
-            {{#each toPairs this}}
-                {{#if statName key}}
-                    <p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
-                {{/if}}
+    <div name="tooltip" class="round2 tooltipText itembg col s5 m4 l3 {{getSelectedBgColor}} center" style="display: none;">
+        <p class="tooltipText">{{getSelectedValue "name"}}</p>
+        <p class="tooltipText">{{getSelectedValue "slot"}}</p>
+        <p class="tooltipText">{{getSelectedValue "desc"}}</p>
+        <table class="itemtable">
+            <tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td></tr>
+            {{#each getDisplayStats}}
+                <tr class="itemtable">
+                    {{#if getStatAbb this}}
+                        <td class="itemtable"><span class="statName">{{getStatAbb this}}</span>:</td> <td class="itemtable">{{getStatNumber this}}</td>
+                    {{/if}}
+                </tr>
             {{/each}}
-        </div>
-    {{/with}}
+        </table>
+    </div>
     {{#each slots}}
         <div id="{{this}}" class="itembg invisbg col s3" style="display: none;">
             <div class="tooltipText center">
                 {{#each equipment this}}
                     <div class="col s12"><div class="divider2"></div></div>
-                    <div class="round2 col s12 itembg {{getBgColor2 key}}">
-                        <div class="icon iconbg valign-wrapper">
+                    <div class="round2 col s12 {{getBgColor2 key}}">
+                        <div class="icon {{getIconBG key.rarity}} valign-wrapper">
                             <div class="center valign {{equipIcon key}}"></div>
                         </div>
                         <p class="tooltipText">{{getName key}}</p>
                         <p class="tooltipText">{{getSlot key}}</p>
-                        <br>
-                        {{#each toPairs key}}
-                            {{#if statName key}}
-                                <p class="tooltipText"><span class="{{upOrDown key value}}">{{getIncrease key value}}</span><span class="statName">{{statName key}}</span>: {{value}}</p>
-                            {{/if}}
-                        {{/each}}
-                        {{#each lostStats key}}
-                            <p class="tooltipText"><span class="higherStat">+{{value}} {{getStatName key}}</span></p>
-                        {{/each}}
+                        <table class="itemtable">
+                            <tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td><td class="itemtable"></td></tr>
+                            {{#each getDisplayStats}}
+                                <tr class="itemtable">
+                                    {{#if getStatAbb2 ../key this}}
+                                        <td class="itemtable"><span class="statName">{{getStatAbb2 ../key this}}</span>:</td> <td class="itemtable">{{getStatNumber2 ../key this}}</td> <td class="itemtable">(<span class="{{upOrDown ../key this}}">{{getIncrease ../key this}}</span>)</td>
+                                    {{/if}}
+                                </tr>
+                            {{/each}}
+                            {{#each lostStats key}}
+                                <tr class="itemtable">
+                                    <td class="itemtable"><span class="statName">{{getStatName2 ./key}}</span>:</td> <td class="itemtable">{{getStatAbb3 ./key}}</td> <td class="itemtable">(<span class="higherStat">+{{getStat2 ./key ../key}}</span>)</td>
+                                </tr>
+                            {{/each}}
+                        </table>
                     </div>
                     <div class="col s12"><div class="divider2"></div></div>
                 {{/each}}

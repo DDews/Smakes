@@ -401,6 +401,11 @@ Meteor.methods({
 		if (+quantity < 1) throw new Meteor.Error(422,"Error: You can't buy that many");
 		var gold = userinfo.wallet.gold;
 		var itemInfo = itemDB[item];
+		var db = true;
+		if (!itemInfo) {
+			itemInfo = Iteminfo.findOne({_id: item});
+			db = false;
+		}
 		var value = itemInfo.value;
 		var cost = value * quantity;
 		if (cost > gold) throw new Meteor.Error(422,"You can't afford it");
@@ -411,7 +416,10 @@ Meteor.methods({
 		var data = {};
 		data.item = item;
 		data.quantity = +quantity;
-		giveItem(username,data);
+		if (db) giveItem(username,data);
+		else {
+			Iteminfo.update(itemInfo._id,{$set:{username: Meteor.user().username}});
+		}
 	},
 	
 	//Equips an item on a given unit

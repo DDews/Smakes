@@ -125,6 +125,7 @@ Template.inventory.helpers({
 		if (!selectedItem) return null;
 		var output = {};
 		var item = itemDB[selectedItem];
+		if (!item) return null;
 		item.each(function(key, value) {
 			if (key != "stacks" && key != "maxStack" && key != "rarity" && key != "quality" && key != "element") {
 				if (!obj.hasOwnProperty(key)) {

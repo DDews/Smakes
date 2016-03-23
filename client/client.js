@@ -148,7 +148,8 @@ var statNames = {
 	type: "",
 	value: "Value",
 	rarity: "Rarity",
-	quality: "Item Level"
+	quality: "Item Level",
+	hp: "Heal HP"
 }
 
 unSuffix = function(str) {
