@@ -336,10 +336,6 @@ var giveItemLive = function(gamedata, data) {
 	var rarityBonus = data.rarityBonus || 1;
 	var level = data.level || 0;
 	
-	var now = new Date();
-	now = formatDate(now);
-	
-	
 	if (itemDB.has(item)) {
 		if (!gamedata.stacks) { gamedata.stacks = {}; }
 		if (!gamedata.stacks.has(item)) {
@@ -347,7 +343,7 @@ var giveItemLive = function(gamedata, data) {
 		} else {
 			gamedata.stacks[item] += quantity;
 		}
-		var msg = now + ' - Found ' + quantity + ' ' + itemDB[item].name + "(s)";
+		var msg = 'Found ' + quantity + ' ' + itemDB[item].name + "(s)";
 		while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
 		gamedata.itemlog.push(msg);
 		
@@ -358,7 +354,7 @@ var giveItemLive = function(gamedata, data) {
 			var i = MakeItem(item, level, rollBonus, rarityBonus);
 			i.username = username;
 			
-			var msg = now + " - Found " + i.name;
+			var msg = "Found " + i.name;
 			while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
 			gamedata.itemlog.push(msg);
 			
@@ -384,6 +380,17 @@ Meteor.methods({
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ///Inventory Manipulation
+	//Test method to give an item
+	giveItem: function(data) {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
+		var admin = Userinfo.findOne({username: Meteor.user().username});
+        admin = admin && admin.admin;
+        if (!admin) throw new Meteor.Error(422,"Not authorized");
+        
+		giveItem(username, data)
+	},
+	
 	
 	//Purchases a stackable item from the shop
 	buyItem: function(item,quantity) {
@@ -611,9 +618,9 @@ Meteor.methods({
 			items: [],
 			combat: null,
 			kills: 0,
-			stamina: 4,
-			maxStamina: 4,
-			retryTime: 10,
+			stamina: 5,
+			maxStamina: 5,
+			retryTime: 20,
 			retryTimeout: 0,
 			unitsRecruited: 0,
 			summary:defaultSummary,
@@ -883,6 +890,7 @@ Meteor.methods({
 				combatinfo.combo += 1;
 				var goldDrop = 0;
 				var expDrop = 0;
+				gamedata.itemlog.push("---------------Round " + (combatinfo.combo) + " Drops---------------");
 				
 				combatinfo.combatants.each((id) => {
 					var unit = dbget("Unitinfo", id);

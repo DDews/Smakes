@@ -17,9 +17,9 @@ itemGenData = {
 			sword:5,
 			spear:5,
 			halberd:5,
-			longhammer:5,
+			longClub:5,
 			club:5,
-			greatsword:3,
+			heavySword:3,
 		},
 		rolls:[
 			"suffix",
@@ -36,6 +36,7 @@ itemGenData = {
 		dirk:{
 			type:"settings",
 			id:"dirk",
+			subType:"dagger",
 			name:["Dirk","Dagger","Kris","Shiv"],
 			icon:[
 				"dagger1",
@@ -55,13 +56,13 @@ itemGenData = {
 			property:"short",
 			element:"pierce",
 			
-			stat:{patk:10, pacc:.0500, aspd:.1000, },
-			norm:{patk: 3, pacc:.0001, aspd:.0020, },
-			rand:{patk: 5, pacc:.0001, aspd:.0005, },
+			stat:{patk:10, pacc:.1000, aspd:.1000, },
+			rand:{patk:18, pacc:.0002, aspd:.0025, },
 		},
 		spear:{
 			type:"settings",
 			id:"spear",
+			subType:"spear",
 			name:["Lance","Ahlspiess","Spear","Glaive", "Naginata", "Pike" ],
 			icon:[
 				"spear1",
@@ -81,12 +82,12 @@ itemGenData = {
 			element:"pierce",
 			
 			stat:{patk:20, pacc:.1000, aspd:.0050, },
-			norm:{patk:25, pacc:.0006, aspd:.0005, },
-			rand:{patk:25, pacc:.0001, aspd:.0002, },
+			rand:{patk:50, pacc:.0007, aspd:.0007, },
 		},
 		halberd:{
 			type:"settings",
 			id:"halberd",
+			subType:"halberd",
 			name:["Guisarme", "Halberd", "Poleax", "Doloire", "Spontoon"],
 			icon:[
 				"spear5",
@@ -105,12 +106,12 @@ itemGenData = {
 			element:"slash",
 			
 			stat:{patk:30, pacc:.0900, aspd:.0050, },
-			norm:{patk:22, pacc:.0006, aspd:.0005, },
-			rand:{patk:22, pacc:.0001, aspd:.0002, },
+			rand:{patk:44, pacc:.0007, aspd:.0007, },
 		},
-		longhammer:{
+		longClub:{
 			type:"settings",
-			id:"longhammer",
+			id:"longClub",
+			subType:"longClub",
 			name:["Bec de corbin", "Pillar", "Lucerne",],
 			icon:[
 				"spear8",
@@ -128,14 +129,14 @@ itemGenData = {
 			property:"long",
 			element:"crush",
 			
-			stat:{patk:30, pacc:.0800, aspd:.0050, },
-			norm:{patk:15, pacc:.0006, aspd:.0005, },
-			rand:{patk:15, pacc:.0001, aspd:.0002, },
+			stat:{patk:45, pacc:.0800, aspd:.0050, },
+			rand:{patk:30, pacc:.0007, aspd:.0007, },
 				
 		},
 		sword:{
 			type:"settings",
 			id:"sword",
+			subType:"sword",
 			name:["Blade","Sword","Shortsword","Longsword"],
 			icon:[
 				"sword1",
@@ -154,13 +155,13 @@ itemGenData = {
 			element:"slash",
 			
 			stat:{patk:15, pacc:.0500, aspd:.0200, },
-			norm:{patk:15, pacc:.0003, aspd:.0018, },
-			rand:{patk:15, pacc:.0001, aspd:.0002, },
+			rand:{patk:30, pacc:.0004, aspd:.0020, },
 		},
 		club:{
 			type:"settings",
 			id:"club",
-			name:["Club","Mallet","Morning Star","Wrench"],
+			subType:"club",
+			name:["Club","Mallet","Morning Star","Wrench","Warhammer"],
 			icon:[
 				"mace1",
 				"mace2",
@@ -177,13 +178,14 @@ itemGenData = {
 			property:"short",
 			element:"crush",
 			
-			stat:{patk:25, pacc:.050, aspd:.0200, },
-			norm:{patk:16, pacc:.001, aspd:.0010, },
-			rand:{patk:15, pacc:.002, aspd:.0001, },
+			
+			stat:{patk:25, pacc:.050, aspd:.0150, },
+			rand:{patk:41, pacc:.003, aspd:.0011, },
 		},
-		greatsword:{
+		heavySword:{
 			type:"settings",
-			id:"gsword",
+			id:"heavySword",
+			subType:"heavySword",
 			name:["Greatsword","Heavy Blade","Katana","Bidenhander", "Claymore", "Broadsword", "Zweihander", ],
 			icon:[
 				"sword27",
@@ -204,9 +206,8 @@ itemGenData = {
 			property:"heavy",
 			element:"slash",
 			
-			stat:{patk:30, pacc:.040, aspd: .0020, },
-			norm:{patk:20, pacc:.001, aspd: .0005, },
-			rand:{patk:30, pacc:.001, aspd: .0001, },
+			stat:{patk:50, pacc:.040, aspd: .0020, },
+			rand:{patk:75, pacc:.002, aspd: .0006, },
 		},
 		
 		
@@ -316,15 +317,15 @@ itemGenData = {
 			finalMult:0.7,
 		},
 		
-		
-		
-		
 	},
+		
+		
+		
 	
 	heavyArmorTypes:{
 		type:"bonus",
 		equip:true,
-		subType:"Heavy",
+		subType:"heavyArmor",
 		statGroup:{
 			power:	10, 
 			plate:	100, 
@@ -333,6 +334,7 @@ itemGenData = {
 		power:{
 			type:"bonus",
 			id:"power",
+			property:"power",
 			prefix:"Power",
 			rarity:25,
 			value:31,
@@ -340,12 +342,13 @@ itemGenData = {
 				res_slash:.040, res_pierce:.040, res_crush:.040, },
 			frand:{pdef:.020, mdef:.020, resi:.005, 
 				res_slash:.030, res_pierce:.030, res_crush:.030, },
-			norm:{armor: 5, shell: 5, patk: 5, pacc: .030, },
+			rand:{armor: 5, shell: 5, patk: 5, pacc: .030, },
 		},
 		
 		plate:{
 			type:"bonus",
 			id:"plate",
+			property:"plate",
 			prefix:"Plate",
 			rarity:2,
 			value:5,
@@ -353,12 +356,13 @@ itemGenData = {
 				res_slash:.080, res_pierce:.080, res_crush:.020, },
 			frand:{pdef:.040, mdef:.030, resi:.005,
 				res_slash:.040, res_pierce:.040, res_crush:.040, },
-			norm:{armor:20, shell: 5, },
+			rand:{armor:20, shell: 5, },
 		},
 		
 		chain:{
 			type:"bonus",
 			id:"chain",
+			property:"chain",
 			prefix:"Chain",
 			rarity:1,
 			value:4,
@@ -366,7 +370,7 @@ itemGenData = {
 				res_slash:.050, res_pierce:.050, res_crush:.100, },
 			frand:{pdef:.025, mdef:.030, resi:.005, 
 				res_slash:.020, res_pierce:.005, res_crush:.020, },
-			norm:{ armor:10, shell:10, rflex: 5, },
+			rand:{ armor:10, shell:10, rflex: 5, },
 		},
 		
 	},
@@ -473,44 +477,47 @@ itemGenData = {
 	
 	lightArmorTypes:{
 		type:"bonus",
-		subType:"Light",
+		subType:"lightArmor",
 		equip:true,
 		statGroup:{
-			shade:		10,
+			shade:		5,
 			leather:	100, 
 			kevlar:		80,
 		},
 		leather:{
 			type:"bonus",
 			prefix:"Leather",
+			property:"leather",
 			id:"leather",
 			stat:{pdef:.020, mdef:.025, resi:.001, peva:.050, meva:.050, 
 				res_slash:.050, res_pierce:.010, res_crush:.120, },
 			frand:{pdef:.015, mdef:.020, resi:.005, peva:.050, meva:.050, 
 				res_slash:.020, res_pierce:.005, res_crush:.080, },
-			norm:{ armor: 5, shell: 5, rflex:35, intut:25, },
+			rand:{ armor: 5, shell: 5, rflex:35, intut:25, },
 		},
 		
 		kevlar:{
 			type:"bonus",
 			prefix:"Kevlar",
+			property:"kevlar",
 			id:"kevlar",
 			stat:{pdef:.030, mdef:.035, resi:.001, peva:.040, meva:.040, 
 				res_slash:.050, res_pierce:.050, res_crush:.160, },
 			frand:{pdef:.015, mdef:.020, resi:.005, peva:.050, meva:.050, 
 				res_slash:.020, res_pierce:.020, res_crush:.050, },
-			norm:{ armor:15, shell:15, rflex:15, intuit:15, },
+			rand:{ armor:15, shell:15, rflex:15, intuit:15, },
 		},
 		
 		shade:{
 			type:"bonus",
 			prefix:"Shade",
+			property:"shade",
 			id:"shade",
 			stat:{pdef:.020, mdef:.025, resi:.001, peva:.050, meva:.080, 
 				res_slash:.080, res_pierce:.040, res_crush:.080, },
 			frand:{pdef:.015, mdef:.020, resi:.005, peva:.050, meva:.040, 
 				res_slash:.040, res_pierce:.020, res_crush:.040, },
-			norm:{ armor: 5, shell: 5, rflex:35, intuit:35, patk:15, },
+			rand:{ armor: 5, shell: 5, rflex:35, intuit:35, patk:15, },
 		},
 	},
 	
