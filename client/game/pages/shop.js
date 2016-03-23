@@ -24,16 +24,48 @@ var test1 = [
 	"gem6",
 	
 ]
-var _arraysize = {
+_assign = function (obj, prop, value) {
+	if (typeof prop === "string")
+		prop = prop.split(".");
 
+	if (prop.length > 1) {
+		var e = prop.shift();
+		_assign(obj[e] =
+				Object.prototype.toString.call(obj[e]) === "[object Object]"
+					? obj[e]
+					: {},
+			prop,
+			value);
+	} else
+		obj[prop[0]] = value;
 }
 Template.shop.helpers({
 	fixedItems: function() {
 		var items = itemDB.toPairRay();
 		return items;
 	},
-	soldGear: function() {
-		var items = Iteminfo.find().fetch();
+	soldArmor: function() {
+		var sort = {};
+		var propName = "sort." + Session.get("sortBy");
+		var value = Session.get("sortOrder");
+		_assign(sort,propName,value);
+		var items = Iteminfo.find({username: "<shop>", type: "Armor", slot: RegExp("^" + Session.get("sortArmor"),"i")},sort).fetch();
+		return items;
+	},
+	soldWeapons: function() {
+		var sort = {};
+		var propName = "sort." + Session.get("sortBy");
+		var value = Session.get("sortOrder");
+		_assign(sort,propName,value);
+		var items = Iteminfo.find({username: "<shop>", type: "Weapon", subType: RegExp("^" + Session.get("sortWeapon"),"i")},sort).fetch();
+		return items;
+	},
+	soldAccessories: function() {
+		var sort = {};
+		var propName = "sort." + Session.get("sortBy");
+		var value = Session.get("sortOrder");
+		_assign(sort,propName,value);
+		var items = Iteminfo.find({username: "<shop>", type: "Accessory"},sort).fetch();
 		return items;
 	},
 	getSlot: function (value) {
@@ -66,7 +98,13 @@ Template.shop.helpers({
 	clickedItem: function() {
 		var item = Session.get("clickedItem");
 		if (!item) return null;
-		return itemDB[item];
+		var iteminfo = Iteminfo.findOne({_id: item});
+		if (!iteminfo) return itemDB[item];
+		return iteminfo;
+	},
+	checkOrder: function() {
+		Session.set("sortBy","quality");
+		Session.set("sortOrder",-1);
 	}
 });
 _event = {};
@@ -132,6 +170,8 @@ Template.shop.events({
 		console.log(id);
 		$('#buyError').html('');
 		$('#buymenu').openModal();
+		if (!itemDB[id])  $('[name=numToBuy]').prop('disabled',true);
+		else $('[name=numToBuy]').prop('disabled',false);
 		return false;
 	},
 	'click #buy': function(event) {
@@ -144,5 +184,11 @@ Template.shop.events({
 				$('#buymenu').closeModal();
 			}
 		});
+	},
+	'click #sortorder': function(event) {
+		Session.set("sortOrder",1);
+	},
+	'click #sortorder2': function(event) {
+		Session.set("sortOrder",-1);
 	}
 });
