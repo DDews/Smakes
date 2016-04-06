@@ -44,6 +44,7 @@ Accounts.validateNewUser(function (user) {
         return true;
     throw new Meteor.Error(403, "Username must start with a letter and only contain numbers and letters.");
 });
+
 Meteor.startup(function() {
     Future = Npm.require("fibers/future");
     // Load exec
