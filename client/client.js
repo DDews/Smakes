@@ -149,7 +149,10 @@ var statNames = {
 	value: "Value",
 	rarity: "Rarity",
 	quality: "Item Level",
-	hp: "Heal HP"
+	hp: "Heal HP",
+	res_pierce: "Pierce Resist",
+	res_crush: "Crush Resist",
+	res_slash: "Slash Resist"
 }
 
 unSuffix = function(str) {

@@ -648,6 +648,9 @@ Meteor.methods({
 			retryTimeout: 0,
 			unitsRecruited: 0,
 			summary:defaultSummary,
+			combatlog: [],
+			itemlog: [],
+			
 		};
 		dbinsert("Gameinfo", gamedata)
 		

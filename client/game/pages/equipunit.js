@@ -63,16 +63,21 @@ Template.equipunit.helpers({
 	invItemsForSlot: function() {
 		var slot = Session.get("activeSlot");
 		var items = Iteminfo.find().fetch();
+		var unit = Unitinfo.find().fetch()[0];
+		var lv = unit.level;
+		
 		var result = [];
 		if (!slot) {
-			return result; 
+			return result;
 		}
 		
 		items.each((item)=>{
-			if (item.equipSlotIsPrefix && slot.prefix(item.slot)) {
-				result.push(item);
-			} else if (slot == item.slot) {
-				result.push(item);
+			if (item.quality <= lv) {
+				if (item.equipSlotIsPrefix && slot.prefix(item.slot)) {
+					result.push(item);
+				} else if (slot == item.slot) {
+					result.push(item);
+				}
 			}
 		});
 		
@@ -272,10 +277,13 @@ Template.equipunit.events({
 	},
 	'mouseenter .item': function (event) {
 		if (event.preventDefault) event.preventDefault();
+		
 		var id = event.currentTarget.id;
+		
 		var slot = id.split(' ')[1];
 		id = id.split(' ')[0];
 		Session.set("selectedItem", id);
+		
 		var width = $("[name=tooltip]").width();
 		var height = $("[name=tooltip]").height();
 		var offset = event.clientX + document.body.scrollLeft + (width / 2) + 12 + "px"

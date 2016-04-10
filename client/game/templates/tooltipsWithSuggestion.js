@@ -18,7 +18,8 @@ var _displayStats = [
     "rflex@","intut@",
     "sight@","tough@",
     "str@","dex@","wis@","agi@","vit@","int@",
-    "value","hp@"
+    "value","hp@",
+    "res_crush%","res_pierce%","res_slash%"
 ];
 Template.tooltipsWithSuggestion.helpers({
     getSelectedBgColor: function(value) {
