@@ -108,7 +108,7 @@ itemGenData = {
 			element:"slash",
 			
 			stat:{patk:30, pacc:.0900, aspd:.0050, },
-			rand:{patk:44, pacc:.0007, aspd:.0007, },
+			rand:{patk:44, pacc:.0007, aspd:.0009, },
 		},
 		longClub:{
 			type:"settings",
