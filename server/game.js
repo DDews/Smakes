@@ -344,18 +344,19 @@ var giveItemLive = function(gamedata, data) {
 			gamedata.stacks[item] += quantity;
 		}
 		var msg = 'Found ' + quantity + ' ' + itemDB[item].name + "(s)";
-		while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
+		while (gamedata.itemlog.length > 10) { gamedata.itemlog.shift(); }
 		gamedata.itemlog.push(msg);
 		
 		dbupdate(gamedata);
 	} else {
+		
 		var i;
 		for (i = 0; i < quantity; i+=1) {
 			var i = MakeItem(item, level, rollBonus, rarityBonus);
 			i.username = username;
 			
 			var msg = "Found " + i.name;
-			while (gamedata.itemlog.length > 99) { gamedata.itemlog.shift(); }
+			while (gamedata.itemlog.length > 10) { gamedata.itemlog.shift(); }
 			gamedata.itemlog.push(msg);
 			
 			//console.log('created item from rule ' + item);
