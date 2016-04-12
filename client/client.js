@@ -184,6 +184,11 @@ var globalUnitHelpers = {
 		var unit = getUnit(id);
 		return unit && unit.combat;
 	},
+	unitInParty: function(id) {
+		var gamedata = Gameinfo.findOne();
+		var inParty = gamedata && gamedata.party.includes(id);
+		return inParty ? "checked" : null;
+	},
 	unitName: function(id) { 
 		var unit = getUnit(id);
 		return unit ? unit.name : ""; 

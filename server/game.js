@@ -108,9 +108,9 @@ var starterEquips = {
 	},
 	legs: {
 		itemId:'eq_starter_legs',
-		name:'Cotton Skirt',
+		name:'Cotton Pants',
 		icon:'leg1',
-		desc:'A cute skirt.',
+		desc:'A basic pair of pants.',
 		type:'Equipment',
 		slot:"legs",
 		equip:true,
@@ -201,9 +201,11 @@ var unitRecruitmentCost = function(u) {
 
 ///Create a new player unit for 'username'
 var newPlayerUnit = function(username, name, job) {
+	
 	var unit = new Unit();
 	unit.username = username;
 	unit.name = name;
+	
 	if (name == 'Neptune') {
 		unit.poses = {
 			normal: "http://a.pomf.cat/jmuhje.png",
@@ -232,18 +234,17 @@ var startCombat = function(data) {
 	if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 	var gamedata = Gameinfo.findOne({username: username});
 	if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
-	//var userinfo = Userinfo.findOne({username: username});
-
+	
 	var region = data.region;
 	var regionData = areaData[region];
 	if (!regionData) { throw new Meteor.Error(422, "Error: Unknown region " + region); }
-
-	var units = []
-
-	gamedata.units.each( (id) => { 
-			var u = dbget("Unitinfo", id);
-			u.fullHeal(); 
-			units.push(u); 
+	
+	var units = [];
+	
+	gamedata.party.each( (id) => { 
+		var u = dbget("Unitinfo", id);
+		u.fullHeal(); 
+		units.push(u); 
 	} );
 
 	//console.log("units added!");	
@@ -639,6 +640,7 @@ Meteor.methods({
 		var gamedata = {
 			username: username,
 			units: [unit._id],
+			party: [unit._id],
 			items: [],
 			combat: null,
 			kills: 0,
@@ -665,18 +667,62 @@ Meteor.methods({
 	
 	//Called when a unit is recruited
 	//tbd: make it work :)
-	recruitNewUnit: (data) => {
+	recruitNewUnit: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		var gamedata = Gameinfo.findOne({username: username});
 		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
 		var userinfo = Userinfo.findOne({username: username})
 		
+		var combatdata = Combatinfo.findOne({username: username});
+		if (userinfo.combat || combatData != null) { throw new Meteor.Error(422, "Error: You cannot be in combat!"); }
+		
 		var cost = unitRecruitmentCost(gamedata.unitsRecruited);
 		
+		if (userinfo.wallet.gold >= cost) {
+			var unit = newPlayerUnit(username, japaneseName(), "Mercenary");
+			gameData.units.push(unit._id);
+			
+			dbupdate();
+		}
+		
+	},
+	
+	
+	toggleUnitInParty: (data) => {
+		var username = Meteor.user() && Meteor.user().username;
+		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+		var gamedata = Gameinfo.findOne({username: username});
+		if (!gamedata) { throw new Meteor.Error(422, "Error: You must have a game started"); }
+		var userinfo = Userinfo.findOne({username: username})
+		
+		var combatdata = Combatinfo.findOne({username: username});
+		if (userinfo.combat || combatdata != null) { throw new Meteor.Error(422, "Error: You cannot be in combat!"); }
+		
+		var id = data.id;
+		console.log(gamedata.party + " : " + gamedata.party.length);
+		
+		var index = gamedata.party.indexOf(id);
+		
+		if (index >= 0) {
+			if (gamedata.party.length == 1) {
+				throw new Meteor.Error(422, "Error: You must have at least one unit in your party!");
+			} else {
+				gamedata.party.splice(index, 1);
+			}
+		} else {
+			if (gamedata.party.length == 4) {
+				throw new Meteor.Error(422, "Error: You can only have up to 4 units in you party!");
+			} else {
+				gamedata.party.push(id);
+			}
+		}
+		
+		dbupdate(gamedata);
 		
 		
 	},
+	
 	
 	//Called when a unit's information is edited
 	updateUnitInfo: (data) => {
@@ -711,6 +757,7 @@ Meteor.methods({
 		
 		console.log("Upgrading shit yo ");
 		console.log(stat + " + " + n);
+		
 		if (unit) {
 			var exp = unit.spendableExp;
 			var statsP = unit.statsPurchased || {};
@@ -955,7 +1002,7 @@ Meteor.methods({
 				userinfo.wallet.gold = Math.floor(userinfo.wallet.gold + goldDrop);
 				console.log("dropped " + goldDrop + " golds");
 				
-				gamedata.units.each((id) => {
+				gamedata.party.each((id) => {
 					var unit = dbget("Unitinfo", id);
 					unit.timer = 0;
 					unit.giveExp(expDrop);

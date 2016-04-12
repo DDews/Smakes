@@ -60,6 +60,17 @@ Template.equipunit.helpers({
 		}
 		return null;
 	},
+	slotFor: function(item) {
+		var slot = item.slot;
+		if (slot == "hand") {
+			return item.twoHands ? "Two Hands" : "One Hand"
+		}
+		if (slot != null) {
+			return slot.capitalize();
+		}
+		return null;
+		
+	},
 	invItemsForSlot: function() {
 		var slot = Session.get("activeSlot");
 		var items = Iteminfo.find().fetch();

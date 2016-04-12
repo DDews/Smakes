@@ -11,6 +11,8 @@ _turnsDone = {};
 
 
 Template.game.helpers({
+	showLogs: function() { return Session.get("showLogs"); },
+	
 	gameInfoExists: function() {
 		var data = Gameinfo.findOne();
 		if (data) { return true; }
@@ -221,6 +223,30 @@ Template.game.events({
 	'click #makeItem': function(event) {
 		if (event && event.preventDefault) event.preventDefault();
 		Meteor.call('testMakeItem');
+		return false;
+	},
+	'click #recruit': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		
+		
+		//Meteor.call("")
+		
+		return false;
+	},
+	"click .toggleLogs": function(event) {
+		if (event.preventDefault) event.preventDefault();
+		var showlogs = Session.get("showLogs");
+		if (!showlogs) { Session.set("showLogs",true); }
+		else { Session.set("showLogs",false); }
+		return false;
+	},
+	'click .partyCheck': function(event) {
+		if (event && event.preventDefault) event.preventDefault();
+		
+		var data = {};
+		data.id = event.currentTarget.id;
+		Meteor.call("toggleUnitInParty", data)
+		
 		return false;
 	},
 	'click #newGame': function(event) {
