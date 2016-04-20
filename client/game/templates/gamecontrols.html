@@ -1,0 +1,44 @@
+<template name="gamecontrols">
+	<div class="row blue-grey darken-4">
+		<div class="col s12">
+			<span>Controls</span>
+		</div>
+		<a href="/game" class="col s3 btn green darken-4 white-text">Home</a>
+		<a href="/inventory" class="col s3 btn green darken-4 white-text">Inventory</a>
+		
+		{{#if gameInCombat}}
+			{{#if onGamePage}}
+				<button class="col s3 btn orange darken-4 white-text" id="run" value="run">Run Away</button>
+			{{/if}}
+		{{else}}
+			{{#if onGamePage}}
+			{{/if}}
+			<a href="/shop" class="col s3 btn green darken-4 white-text left" value="shop">Shop</a>	
+		{{/if}}
+		
+		
+		{{#if onGamePage}}
+			<div class="col s12">
+				<span>Neat Stuff</span>
+			</div>
+
+			{{#if retry}}
+				<button class="col s3 btn green darken-1 white-text" id="retry" value="RETRY">Autofight: On</button>
+			{{else}}
+				<button class="col s3 btn green darken-4 white-text" id="retry" value="RETRY">Autofight: Off</button>
+			{{/if}}
+
+			{{#if paused}}
+				<button class="col s3 btn red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
+			{{else}}
+				<button class="col s3 btn green darken-4 white-text" id="pause" value="pause">pause</button>
+			{{/if}}
+		{{/if}}
+		
+		
+		
+		
+		
+	</div>
+	
+</template>

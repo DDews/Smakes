@@ -20,7 +20,7 @@
 			<div class="unitHeader tiny">{{unitRace id}} {{unitJob id}}</div>
 			<div class="unitHeader tiny">{{unitLevelHeader id}} ({{unitTeam id}})</div>
 			<div class="row">
-				<div class="ptext green-text text-darken-4">{{vital id 'hp' }}</div>
+				<div class="ptext green-text text-darken-4">{{vital id 'hp'}}</div>
 				<div class="progress pbig green lighten-5">
 					<div class="determinate green lighten-3" id="{{id}}hp" style="width:{{percent id 'hp'}}%"></div>
 				</div>
@@ -66,12 +66,12 @@
 			</div>
 		</div>
 		<div class="card-action">
-			<a href="/game/unit/{{id}}">Info</a>
-			<a href="/game/unit/{{id}}/equip">Equip</a>
 			<div>
 				{{#if unitInCombat id}}
 					Abilities <br /> [Attack]
 				{{else}}
+					<a href="/game/unit/{{id}}">Info</a>
+					<a href="/game/unit/{{id}}/equip">Equip</a>
 				{{/if}}
 			</div>
 		</div>

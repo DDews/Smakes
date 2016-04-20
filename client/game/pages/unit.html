@@ -1,6 +1,8 @@
 <template name="unit">
 	<div class="col s12" id="error"></div>
 	<div class="forumbg row">
+		{{> gamecontrols}}
+		
 		<div class="row blue-grey darken-3">
 			{{#if unitExists id}}
 			<div class="col s12 blue-grey darken-3 unitCardName">
@@ -65,13 +67,13 @@
 
 					<span class="red-text text-lighten-5">Info</span>
 					<div class="row">
-						<div class="col s3 blue-grey darken-3 z-depth-2">
+						<div class="col s6 blue-grey darken-3 z-depth-2">
 							<span class="left stattext">TotalExp:</span>
 							<span class="right stattext">
 								{{getDbStat 'totalExp@' 'Unitinfo' id}}
 							</span>
 						</div>
-						<div class="col s3 blue-grey darken-3 z-depth-2">
+						<div class="col s6 blue-grey darken-3 z-depth-2">
 							<span class="left stattext">Spendable Exp:</span>
 							<span class="right stattext">
 								{{getDbStat 'spendableExp@' 'Unitinfo' id}}
@@ -93,12 +95,12 @@
 								{{#if userOwns id}}
 									<div class="row center">
 									<button id="plus{{stat}}" class="btn center statBtn waves-effect waves-yellow">+1</button>
-									<span class="tiny">cost: {{statCost stat}} EXP</span>
+									<p class="tiny">cost: {{statCost stat}} EXP</p>
 									</div>
 
 									<div class="row center">
 									<button id="plus10{{stat}}" class="btn center statBtn waves-effect waves-yellow">+10</button>
-									<span class="tiny">cost: {{statCost10 stat}} EXP</span>
+									<p class="tiny">cost: {{statCost10 stat}} EXP</p>
 									</div>
 								{{/if}}
 							</div>
@@ -150,11 +152,14 @@
 				<div name="{{equip.value.itemId}}" class="itembg statwindow {{getBgColor equip.value.rarity}}" style="display: none;">
 					<p class="tooltipText">{{equip.value.name}}</p>
 					<p class="tooltipText">{{equip.value.type}}</p>
-					{{#each toPairs equip.value}}
-						{{#if statName key}}
-							<p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
-						{{/if}}
-					{{/each}}
+					
+					{{#if equip.value}}
+						{{#each toPairs equip.value}}
+							{{#if statName key}}
+								<p class="tooltipText"><span class="statName">{{statName key}}</span>: {{value}}</p>
+							{{/if}}
+						{{/each}}
+					{{/if}}
 				</div>
 			{{/each}}
 			

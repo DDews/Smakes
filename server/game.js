@@ -278,6 +278,7 @@ var startCombat = function(data) {
 			gamedata.retryTime = 20 + 10 * gamedata.fatigue;
 		}
 	}
+	console.log("Starting combat");
 	dbupdate(gamedata);
 }
 
@@ -326,9 +327,9 @@ var giveItemLive = function(gamedata, data) {
 	var username = gamedata.username;
 	var user = Userinfo.findOne({username: username});
 	if (!user)  { throw new Meteor.Error(422, "You must be logged in!"); }
-	console.log("Giving ")
-	console.log(data)
-	console.log("to" + username)
+	//console.log("Giving ")
+	//console.log(data)
+	//console.log("to" + username)
 	if (!gamedata.itemlog) { gamedata.itemlog = []; }
 	
 	var item = data.item;
@@ -953,7 +954,7 @@ Meteor.methods({
 				//////////////////////////////////////////////////////////////////////////////////////////////////
 				//Run away
 				console.log("bitches ran away!");
-				gamedata.cleanUpAllCombats();
+				gamedata.removeAllCombats();
 				
 			} else if (winner == 'player') {
 				//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -996,6 +997,7 @@ Meteor.methods({
 						
 					}
 				})
+				
 				summary.inc("goldDrop", Math.floor(goldDrop));
 				summary.inc("expDrop", Math.floor(expDrop));
 				
@@ -1011,25 +1013,45 @@ Meteor.methods({
 					
 				
 				combatinfo.cleanUpCombat();
-				var mons = spawnMonsters(regionData, combatinfo.combo);
-				combatinfo.startNewBattle(mons);
-				combatinfo.combatlog.push("---------------Round " + (1+combatinfo.combo) + "---------------");
-				dbupdate(combatinfo);
-				gamedata.combatlog = combatinfo.combatlog;
+				var maxRounds = combatinfo.maxRounds;
 				
-				dbupdate(gamedata);
-				dbupdate(userinfo);
+				console.log("Max rounds: " + maxRounds)
 				
-				combatinfo.lastTime = now;
-			} else {
 				
-				console.log('bitches died');
-				gamedata.cleanUpAllCombats();
+				if (combatinfo.combo < maxRounds) {
+					var mons = spawnMonsters(regionData, combatinfo.combo);
+					combatinfo.startNewBattle(mons);
+					var roundMessage = "---------------Round " + (1+combatinfo.combo) + "/" + maxRounds + "---------------";
+					combatinfo.combatlog.push(roundMessage);
+					dbupdate(combatinfo);
+					gamedata.combatlog = combatinfo.combatlog;
+
+					dbupdate(gamedata);
+					dbupdate(userinfo);
+
+					combatinfo.lastTime = now;
+				} else {
+					
+					combatinfo.combatlog.push("---------------Victory! Area Cleared!---------------");
+					gamedata.combatlog = combatinfo.combatlog;
+					dbupdate(gamedata);
+					dbupdate(userinfo);
+					
+					gamedata.removeAllCombats();
+					
+					
+					
+				}
+				
+			} else { // Flee
+				combatinfo.combatlog.push("---------------You Were Defeated---------------");
+				console.log('party died');
+				gamedata.removeAllCombats();
 				
 			}
 			
 			
-		} else {
+		} else { // No Winner
 		
 			combatinfo.lastTime = now;
 			dbupdate(combatinfo);
