@@ -505,19 +505,31 @@ Meteor.methods({
 		var shopItemCount = shopItems.count();
 		shopItems = shopItems.fetch();
 		
-		if (shopItemCount + itemsCount > 1000) {
+		if (itemsCount > 1000) {
+			for (var i = 0; i < shopItemCount; i++) {
+				dbremove(shopItems[i]);
+			}
+			
+		} else if (shopItemCount + itemsCount > 1000) {
 			var toDrop = shopItemCount + itemsCount - 1000;
-			for (var i = 0; i < toDrop; i += 1) {
-				dbremove(shopItems[i])
+			
+			for (var i = 0; i < toDrop && i < 1000; i += 1) {
+				dbremove(shopItems[i]);
 			}
 		}
 		
 		var totalSell = 0;
+		var newShopItems = 0;
 		items.each((item)=>{
 			if (!item.locked) {
 				totalSell += item.value * .1;
-				item.username = "<shop>";
-				dbupdate(item);
+				if (newShopItems < 1000) {
+					item.username = "<shop>";
+					dbupdate(item);
+					newShopItems += 1;
+				} else {
+					dbremove(item);
+				}
 			}
 		});
 		

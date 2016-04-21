@@ -1,39 +1,50 @@
 <template name="gamecontrols">
 	<div class="row blue-grey darken-4">
-		<div class="col s12">
-			<span>Controls</span>
-		</div>
-		<a href="/game" class="col s3 btn green darken-4 white-text">Home</a>
-		<a href="/inventory" class="col s3 btn green darken-4 white-text">Inventory</a>
 		
-		{{#if gameInCombat}}
-			{{#if onGamePage}}
-				<button class="col s3 btn orange darken-4 white-text" id="run" value="run">Run Away</button>
-			{{/if}}
-		{{else}}
-			{{#if onGamePage}}
-			{{/if}}
-			<a href="/shop" class="col s3 btn green darken-4 white-text left" value="shop">Shop</a>	
-		{{/if}}
-		
-		
-		{{#if onGamePage}}
-			<div class="col s12">
-				<span>Neat Stuff</span>
-			</div>
+		<ul class="col s12 collapsible blue-grey darken-4" data-collapsible="accordion">
+			<li>
+				<div class="collapsible-header blue-grey darken-3 active">Navigation</div>
+				<div class="collapsible-body blue-grey darken-4 row">
+					<a href="/game" class="col s3 btn green darken-4 white-text">Home</a>
+					<a href="/inventory" class="col s3 btn green darken-4 white-text">Inventory</a>
 
-			{{#if retry}}
-				<button class="col s3 btn green darken-1 white-text" id="retry" value="RETRY">Autofight: On</button>
-			{{else}}
-				<button class="col s3 btn green darken-4 white-text" id="retry" value="RETRY">Autofight: Off</button>
-			{{/if}}
+					{{#if gameInCombat}}
+						{{#if onGamePage}}
+							<button class="col s3 btn orange darken-4 white-text" id="run" value="run">Run Away</button>
+						{{/if}}
+					{{else}}
+						<a href="/shop" class="col s3 btn green darken-4 white-text left" value="shop">Shop</a>	
+						<a href="/recruit" class="col s3 btn green darken-4 white-text">Recruit</a>
+						<a href="/monsterlab" class="col s3 btn green darken-4 white-text">Monster Lab</a>
 
-			{{#if paused}}
-				<button class="col s3 btn red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
-			{{else}}
-				<button class="col s3 btn green darken-4 white-text" id="pause" value="pause">pause</button>
+						{{#if onGamePage}}
+						{{/if}}
+					{{/if}}
+				</div>
+			</li>
+			{{#if onGamePage}}
+				<li>
+					<div class="collapsible-header blue-grey darken-3">Toggles</div>
+					<div class="collapsible-body blue-grey darken-4 row">
+
+						{{#if retry}}
+							<button class="col s3 btn green darken-1 white-text" id="retry" value="RETRY">Autofight: On</button>
+						{{else}}
+							<button class="col s3 btn green darken-4 white-text" id="retry" value="RETRY">Autofight: Off</button>
+						{{/if}}
+
+						{{#if paused}}
+							<button class="col s3 btn red darken-4 white-text" id="pause" value="PAUSED">PAUSED</button>
+						{{else}}
+							<button class="col s3 btn green darken-4 white-text" id="pause" value="pause">pause</button>
+						{{/if}}
+					</div>
+				</li>
 			{{/if}}
-		{{/if}}
+			
+		</ul>
+		
+		
 		
 		
 		

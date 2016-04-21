@@ -1,5 +1,7 @@
 <template name="equipunit">
 	<div class="forumbg row">
+		{{> gamecontrols}}
+		
 		{{#if userInCombat}}
 			<span class="amber-text">You may not switch equipment in combat.</span>
 			<a href="/game" class="btn blue-grey darken-4">Okay</a>
