@@ -43,7 +43,7 @@ var unitHelpers = {
 	displayStats: function() { return displayStats; },
 	auxStats: function() { return auxStats; },
 	unitEquip: function() {
-		console.log(getUnit().equipment);
+		//console.log(getUnit().equipment);
 		return getUnit().equipment.toPairRay();	
 	},
 	getStat: function(stat) {

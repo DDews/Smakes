@@ -4,6 +4,7 @@
         {{#if currentUser}}
 
         {{#if gameInfoExists }}
+			{{> gamecontrols}}
 			
 			<div class="row {{gameFatigueColor}} darken-4">
 				<span class="center col s12">Autos</span>
@@ -13,64 +14,66 @@
 				{{else}}
 					<span class="right col s3 amber-text">Stamina: {{gameStamina}} / {{gameMaxStamina}}</span>
 				{{/if}}
+				<div class="progress blue-grey lighten-5">
+					<div class="determinate blue-grey lighten-2" style="width:{{gameRetryTimeoutPercent}}%"></div>
+				</div>
 			</div>
-				
-			<div class="progress blue-grey lighten-5">
-				<div class="determinate blue-grey lighten-2" style="width:{{gameRetryTimeoutPercent}}%"></div>
-			</div>
-				
-            {{#if paused}}
-                <button class="btn red darken-4 white-text left" id="pause" value="PAUSED">PAUSED</button>
-            {{else}}
-                <button class="btn green darken-4 white-text left" id="pause" value="pause">pause</button>
-            {{/if}}
-			<a href="/inventory" class="btn green darken-4 white-text left">Inventory</a>
 			
-			{{#if retry}}
-				<button class="btn green darken-1 white-text right" id="retry" value="RETRY">Autofight: On</button>
-			{{else}}
-				<button class="btn green darken-4 white-text right" id="retry" value="RETRY">Autofight: Off</button>
-			{{/if}}
+			
+			<div class="row blue-grey darken-4">
+				{{#if gameInCombat}}
+					<div class="col s12 center deep-orange darken-4 red-text text-lighten-3">IN COMBAT</div>
+					<div class="col s12 center deep-orange darken-4 red-text text-lighten-3">Round: {{combatRound}}</div>
+					{{startCombatLoop}}
+				{{else}}
+					<div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
+					{{startRetryLoop}}
+					{{> regiondropdown }}
+					<input class="btn right green darken-4" type="submit" id="startCombat" value="Go Fight!" />
+				{{/if}}
+			</div>
+			
+			{{#with gameSummary}}
+				{{> summary s=this}}
+			{{/with}}
 			
 		
-            {{#if inCombat}}
-                <button class="btn right orange darken-4 white-text" id="run" value="run">Run Away</button>
-                {{startCombatLoop}}
-                <div class="col s12 center deep-orange darken-4 red-text text-lighten-3">IN COMBAT</div>
-                <div class="col s12 center deep-orange darken-4 red-text text-lighten-3">Round: {{combatRound}}</div>
-				{{#with gameSummary}}
-					{{> summary s=this}}
-				{{/with}}
+			<div class="row blue-grey darken-3" id="logs">
+				{{#if showLogs}}
+					<div class="col s2 center blue-grey-text text-darken-3">.</div>
+					<div class="col s2 center">
+						<label for="combatlog" class="orange-text">Combat Log</label>
+					</div>
 
-                <div class="col s6 center">
-                    <label for="combatlog" class="orange-text">Combat Log</label>
-                    <textarea id="combatlog" class="validate left combatLog" rows="10" style="height:10em;resize: vertical;"></textarea>
-                </div>
-                {{fillCombatMessages}}
-				<div class="col s6 center">
-					<label for="itemlog" class="orange-text">Item Log</label>
-					<textarea id="itemlog" class="validate left combatLog" rows="10" style="height:10em;resize: vertical;"></textarea>
-				</div>
-				{{fillItemMessages}}
-			
+					<div class="col s4 center" id="toggleLogs">
+						<a href="#" class="toggleLogs">Toggle Logs</a>
+					</div>
+					<div class="col s2 center">
+						<label for="itemlog" class="orange-text">Item Log</label>
+					</div>
+					<div class="col s2 center blue-grey-text text-darken-3">.</div>
+
+					<div class="col s6 center">
+						<textarea id="combatlog" class="validate left combatLog" rows="10" style="height:10em;resize: vertical;"></textarea>
+					</div>
+					{{fillCombatMessages}}
+
+					<div class="col s6 center">
+						<textarea id="itemlog" class="validate left combatLog" rows="10" style="height:10em;resize: vertical;"></textarea>
+					</div>
+					{{fillItemMessages}}
+				{{else}}
+					<div class="col s12 center" id="toggleLogs">
+						<a href="#" class="toggleLogs">Toggle Logs</a>
+					</div>
+				{{/if}}
+			</div>
+		
+			{{#if gameInCombat}}
                 {{#each combatInfoUnits}}
                     {{> unitcard id=this}}
                 {{/each}}
-            {{else}}
-				{{startRetryLoop}}
-				<a href="/shop" class="btn green darken-4 white-text left" value="shop">Shop</a>
-		
-				<input class="btn right green darken-4" type="submit" id="startCombat" value="Go Fight!" />
-                <div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
-				{{#with gameSummary}}
-					{{> summary s=this}}
-				{{/with}}
-				<div class="card-panel blue-grey darken-3">
-					
-				</div>
-		
-                {{> regiondropdown }}
-
+			{{else}}
                 {{#each gameInfoUnits}}
                     {{> unitcard id=this}}
                 {{/each}}
