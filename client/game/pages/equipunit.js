@@ -16,6 +16,21 @@ var _displayStats = [
 	"sight@","tough@",
 	"str@","dex@","wis@","agi@","vit@","int@"
 ];
+_assign = function (obj, prop, value) {
+	if (typeof prop === "string")
+		prop = prop.split(".");
+
+	if (prop.length > 1) {
+		var e = prop.shift();
+		_assign(obj[e] =
+				Object.prototype.toString.call(obj[e]) === "[object Object]"
+					? obj[e]
+					: {},
+			prop,
+			value);
+	} else
+		obj[prop[0]] = value;
+}
 getAbb = function(stat,value) {
 	var num;
 	if (stat.suffix("%")) {
@@ -33,6 +48,12 @@ getAbb = function(stat,value) {
 	return num;
 }
 Template.equipunit.helpers({
+	checkOrder: function() {
+		Session.set("sortBy","quality");
+		Session.set("sortOrder",-1);
+		Session.set("sortArmor","");
+		Session.set("sortWeapon","");
+	},
 	slotColor: function(slot) {
 		var activeSlot = Session.get("activeSlot");
 		
@@ -72,8 +93,12 @@ Template.equipunit.helpers({
 		
 	},
 	invItemsForSlot: function() {
+		var sort = {};
+		var propName = "sort." + Session.get("sortBy");
+		var value = Session.get("sortOrder");
+		_assign(sort,propName,value);
 		var slot = Session.get("activeSlot");
-		var items = Iteminfo.find().fetch();
+		var items = Iteminfo.find({},sort).fetch();
 		var unit = Unitinfo.find().fetch()[0];
 		var lv = unit.level;
 		
@@ -371,6 +396,12 @@ Template.equipunit.events({
 		});
 		return false;
 	},
+	'click #sortorder': function(event) {
+		Session.set("sortOrder",1);
+	},
+	'click #sortorder2': function(event) {
+		Session.set("sortOrder",-1);
+	}
 });
 
 Template.equipunit.onRendered(function(){
