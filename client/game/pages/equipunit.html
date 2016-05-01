@@ -1,5 +1,7 @@
 <template name="equipunit">
 	<div class="forumbg row">
+		{{> gamecontrols}}
+		
 		{{#if userInCombat}}
 			<span class="amber-text">You may not switch equipment in combat.</span>
 			<a href="/game" class="btn blue-grey darken-4">Okay</a>
@@ -7,7 +9,31 @@
 
 			{{#if unitExists id}}
 				{{#if userOwns id}}
-
+                    <div class="row blue-grey darken-4">
+                        <div class="col s3 center">
+                            <h4>Sort by:</h4>
+                        </div>
+                        <div class="col s3">
+                            <select name="sortby">
+                                <option value="quality">Item Level</option>
+                                <option value="rarity">Rarity</option>
+                                <option value="patk">Attack</option>
+                                <option value="aspd">Atk Speed</option>
+                                <option value="cspd">Cast Speed</option>
+                                <option value="peva">Evasion</option>
+                                <option value="rflex">Reflex</option>
+                                <option value="intut">Intuition</option>
+                                <option value="sight">Sight</option>
+                                <option value="tough">Tough</option>
+                            </select>
+                            <script>$('[name=sortby]').material_select();</script>
+                        </div>
+                        <div class="col s3">
+                            <input type="radio" class="with-gap" name="sortorder" id="sortorder" value="1"><label for="sortorder">Ascending</label>
+                            <input type="radio" class="with-gap" name="sortorder" id="sortorder2" value="-1" checked="checked"><label for="sortorder2">Descending</label>
+                        </div>
+                        <script>$('select[name=sortby]').change(function() { Session.set("sortBy",$('select[name=sortby]').val())});</script>
+                    </div>
 					<div class="row blue-grey darken-2">
 						<div class="col s12 blue-grey darken-4">
 							{{#with unit id}}
@@ -89,25 +115,6 @@
 			</table>
 		</div>
 
-        <div name="tooltip" class="round2 itembg col s5 m4 l3 {{getSelectedBgColor}} left-align" style="display: none;">
-            <p class="tooltipText">{{getSelectedValue "name"}}</p>
-            <p class="tooltipText">{{getSelectedValue "desc"}}</p>
-            <table class="itemtable">
-                <tr class="itemtable"><td class="itemtable"></td><td class="itemtable"></td><td class="itemtable"></td></tr>
-                {{#each getDisplayStats}}
-                    <tr class="itemtable">
-                    {{#if getStatAbb this}}
-                        <td class="itemtable"><span class="statName">{{getStatAbb this}}</span>:</td> <td class="itemtable">{{getStatNumber this}}</td> <td class="itemtable">(<span class="{{upOrDown this}}">{{getIncrease this}}</span>)</td>
-                    {{/if}}
-                    </tr>
-                {{/each}}
-                {{#each lostStats}}
-                    <tr class="itemtable">
-                        <td class="itemtable"><span class="statName">{{getStatName2 key}}</span>:</td> <td class="itemtable">{{getStatAbb2 key}}</td> <td class="itemtable">(<span class="lowerStat">-{{getStat2 key}}</span>)</td>
-                    </tr>
-                {{/each}}
-            </table>
-        </div>
 
 		<div name="Equiptooltip" class="round2 itembg col s5 m4 l3 {{getEquippedBgColor}} left-align" style="display: none;">
 			<p class="tooltipText">{{getEquippedValue "name"}}</p>

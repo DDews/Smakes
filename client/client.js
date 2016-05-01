@@ -19,7 +19,10 @@ Messages.deny({
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Register a single function in Handlebars
-var reg = function(name, func) { Handlebars.registerHelper(name, func); }
+var reg = function(name, func) { 
+	Handlebars.registerHelper(name, func); 
+}
+
 //Register a map of functions in Handlebars
 var helpers = function(fmap) { for (var k in fmap) { reg(k, fmap[k]); } }
 
@@ -28,7 +31,6 @@ var helpers = function(fmap) { for (var k in fmap) { reg(k, fmap[k]); } }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Helpers to be available on every page.
 var globalHelpers = {
-	userInCombat: function() { return Combatinfo.findOne(); },
 	formatMiliTime: function(t) { return formatMiliTime(t); },
 	regions: function() { return areaData.toPairRay();  },
 	vitals: function() { return statCalcData.vitals; },
@@ -69,7 +71,108 @@ var globalHelpers = {
 	},
 };
 helpers(globalHelpers);
+//////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
+//Global helpers for game logic stuff
 
+inCombat = function() {
+	var data = Gameinfo.findOne();
+	return data && data.combat != null;
+}
+
+_pause = false;
+_inCombat = false;
+_retry = true;
+_turnsDone = {};
+
+var globalGameHelpers = {
+	onGamePage: function() { 
+		var route = Router.current().route.getName();
+		//console.log(route);
+		return route == "game";
+	},
+	userInCombat: function() { return Combatinfo.findOne(); },
+	showLogs: function() { return Session.get("showLogs"); },
+	gameInfoExists: function() {
+		var data = Gameinfo.findOne();
+		if (data) { return true; }
+		return false;
+	},
+	gameInfoUnits: function() {
+		var data = Gameinfo.findOne();
+		//console.log("gameInfoUnits: " + data)
+		return data ? data.units : null;
+	},
+	gameSummary: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return null; }
+		return data.summary;
+	},
+	combatInfoUnits: function() {
+		var data = Combatinfo.findOne();
+		//console.log("combatInfoUnits: " + data)
+		return data ? data.combatants : null;
+	},
+	gameInCombat: function() {
+		var data = Gameinfo.findOne();
+		return data && data.combat != null;
+	},
+	combatRound: function() {
+		var data = Combatinfo.findOne();
+		return data && (1+data.combo);
+	},
+	paused: function() { return _pause; },
+	retry: function() { return _retry; },
+	retryAndNotInCombat: function() { return _retry && !_inCombat; },
+	gameFatigue: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return 0; }
+		return data.fatigue;	
+	},
+	gameFatigueColor: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return "purple"; }
+		return data.fatigue ? "red" : "green";
+	},
+	gameStamina: function() { 
+		var data = Gameinfo.findOne();
+		if (!data) { return 0; }
+		return data.stamina || 0;
+	},
+	gameMaxStamina: function() { 
+		var data = Gameinfo.findOne();
+		if (!data) { return 20; }
+		return data.maxStamina || 20;
+	},
+	gameRetryTime: function() {
+		var data = Gameinfo.findOne();
+		var time = 5;
+		if (data) {
+			time = data.retryTime || 5;
+		}
+		return time.toFixed(2);
+	},
+	gameRetryTimeout: function() {
+		var data = Gameinfo.findOne();
+		if (!data) { return 0; }
+		return data.retryTimeout || 0;
+	},
+	gameRetryTimeoutPercent: function() {
+		var data = Gameinfo.findOne();
+		var inKombat = data && data.combat != null;
+		if (inKombat || !_retry) { return 0; }
+		
+		var data = Gameinfo.findOne();
+		if (!data) { return .5; }
+		var retryTime = data.retryTime || 5;
+		var retryTimeout = data.retryTimeout || 2.5;
+		
+		return Math.floor(retryTimeout / retryTime * 100);
+	},
+};
+
+helpers(globalGameHelpers);
 //////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,6 +286,11 @@ var globalUnitHelpers = {
 	unitInCombat: function(id) {
 		var unit = getUnit(id);
 		return unit && unit.combat;
+	},
+	unitInParty: function(id) {
+		var gamedata = Gameinfo.findOne();
+		var inParty = gamedata && gamedata.party.includes(id);
+		return inParty ? "checked" : null;
 	},
 	unitName: function(id) { 
 		var unit = getUnit(id);

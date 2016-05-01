@@ -1,7 +1,10 @@
 <template name="editunit">
-	{{#if unitExists id}}
-		<div class="forumbg row">
-
+	
+	<div class="forumbg row">
+		{{> gamecontrols}}
+		
+		{{#if unitExists id}}
+		
 			<div class="col s12 center">Basic info</div>
 
 			<div class="col s4 m3 l2"> <h5>Name:</h5></div>
@@ -64,8 +67,8 @@
 			<div class="col s12" id="error"></div>
 			<button id="send" class="btn green darken-4 white-text" value="send">Send</button>
 			
-		</div>
-	{{else}}
-		<div class="red-text">You do not own this unit</div>
-	{{/if}}
+		{{else}}
+			<div class="red-text">You do not own this unit</div>
+		{{/if}}
+	</div>
 </template>

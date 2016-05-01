@@ -2,6 +2,16 @@
 	
 	<div class="col s6 m4 l2 hoverable card {{unitColor id}} darken-4" id="{id}">
 		<div class="card-content white-text">
+			
+			{{#if userInCombat}}
+			
+			{{else}}
+			<div class="center">
+				<input type="checkbox" class="partyCheck red" id="{{id}}_inParty" checked="{{unitInParty id}}"/>
+				<label for="{{id}}_inParty" id="{{id}}" class="partyCheck white-text">In Party?</label>
+			</div>
+			{{/if}}
+			
 			<div class="center">
 				<img id="{{id}}img" src="{{unitPose id}}" height="128px" width="128px" class="center combatimg">
 			</div>
@@ -10,10 +20,12 @@
 			<div class="unitHeader tiny">{{unitRace id}} {{unitJob id}}</div>
 			<div class="unitHeader tiny">{{unitLevelHeader id}} ({{unitTeam id}})</div>
 			<div class="row">
-				<div class="ptext green-text text-darken-4">{{vital id 'hp' }}</div>
+				<div class="ptext green-text text-darken-4">{{vital id 'hp'}}</div>
 				<div class="progress pbig green lighten-5">
 					<div class="determinate green lighten-3" id="{{id}}hp" style="width:{{percent id 'hp'}}%"></div>
 				</div>
+				
+				
 				{{#if isPlayer id}}
 					<div class="ptext indigo-text text-darken-4">{{vital id 'mp'}}</div>
 				{{else}}
@@ -54,12 +66,12 @@
 			</div>
 		</div>
 		<div class="card-action">
-			<a href="/game/unit/{{id}}">Info</a>
-			<a href="/game/unit/{{id}}/equip">Equip</a>
 			<div>
 				{{#if unitInCombat id}}
 					Abilities <br /> [Attack]
 				{{else}}
+					<a href="/game/unit/{{id}}">Info</a>
+					<a href="/game/unit/{{id}}/equip">Equip</a>
 				{{/if}}
 			</div>
 		</div>

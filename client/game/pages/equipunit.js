@@ -16,6 +16,21 @@ var _displayStats = [
 	"sight@","tough@",
 	"str@","dex@","wis@","agi@","vit@","int@"
 ];
+_assign = function (obj, prop, value) {
+	if (typeof prop === "string")
+		prop = prop.split(".");
+
+	if (prop.length > 1) {
+		var e = prop.shift();
+		_assign(obj[e] =
+				Object.prototype.toString.call(obj[e]) === "[object Object]"
+					? obj[e]
+					: {},
+			prop,
+			value);
+	} else
+		obj[prop[0]] = value;
+}
 getAbb = function(stat,value) {
 	var num;
 	if (stat.suffix("%")) {
@@ -33,6 +48,12 @@ getAbb = function(stat,value) {
 	return num;
 }
 Template.equipunit.helpers({
+	checkOrder: function() {
+		Session.set("sortBy","quality");
+		Session.set("sortOrder",-1);
+		Session.set("sortArmor","");
+		Session.set("sortWeapon","");
+	},
 	slotColor: function(slot) {
 		var activeSlot = Session.get("activeSlot");
 		
@@ -60,9 +81,24 @@ Template.equipunit.helpers({
 		}
 		return null;
 	},
+	slotFor: function(item) {
+		var slot = item.slot;
+		if (slot == "hand") {
+			return item.twoHands ? "Two Hands" : "One Hand"
+		}
+		if (slot != null) {
+			return slot.capitalize();
+		}
+		return null;
+		
+	},
 	invItemsForSlot: function() {
+		var sort = {};
+		var propName = "sort." + Session.get("sortBy");
+		var value = Session.get("sortOrder");
+		_assign(sort,propName,value);
 		var slot = Session.get("activeSlot");
-		var items = Iteminfo.find().fetch();
+		var items = Iteminfo.find({},sort).fetch();
 		var unit = Unitinfo.find().fetch()[0];
 		var lv = unit.level;
 		
@@ -162,11 +198,12 @@ Template.equipunit.helpers({
 		var currentItem = Session.get("selectedItem");
 		currentItem = Iteminfo.findOne({_id: currentItem});
 		var equip = getUnit().equipment[Session.get("activeSlot")];
-		if (!currentItem) return null;
+		if (!currentItem) { return null; }
 		if (currentItem.hasOwnProperty(stat)) {
-			if (currentItem[stat] < equip[stat]) return "lowerStat";
-			if (currentItem[stat] > equip[stat]) return "higherStat";
-			if (!equip.hasOwnProperty(stat)) return "higherStat";
+			if (currentItem[stat] == equip[stat]) { return "equal" }
+			if (currentItem[stat] < equip[stat]) { return "lowerStat"; }
+			if (currentItem[stat] > equip[stat]) { return "higherStat"; }
+			if (!equip.hasOwnProperty(stat)) { return "higherStat"; }
 		} else { return "lowerStat"; }
 	},
 	getIncrease: function(val,equip) {
@@ -174,12 +211,15 @@ Template.equipunit.helpers({
 		var currentItem = Session.get("selectedItem");
 		currentItem = Iteminfo.findOne({_id: currentItem});
 		var equip = getUnit().equipment[Session.get("activeSlot")];
-		if (!currentItem) return null;
+		if (!currentItem) { return null; }
+		
 		if (currentItem.hasOwnProperty(stat)) {
-			if (currentItem[stat] < equip[stat]) return "-" + getAbb(val,equip[stat] - currentItem[stat]);
-			if (currentItem[stat] > equip[stat]) return "+" + getAbb(val,currentItem[stat] - equip[stat]);
-			if (!equip.hasOwnProperty(stat)) return "+" + getAbb(val,currentItem[stat]);
-		} else { return "-" + getAbb(val,equip[stat]); }
+			if (currentItem[stat] < equip[stat]) { return "-" + getAbb(val,equip[stat] - currentItem[stat]); }
+			if (currentItem[stat] > equip[stat]) { return "+" + getAbb(val,currentItem[stat] - equip[stat]); }
+			if (!equip.hasOwnProperty(stat)) { return "+" + getAbb(val,currentItem[stat]); }
+		} else { 
+			return "-" + getAbb(val,equip[stat]); 
+		}
 	},
 	lostStats: function() {
 		var selectedItem = Session.get("selectedItem");
@@ -192,12 +232,14 @@ Template.equipunit.helpers({
 		var item = Iteminfo.findOne({_id: selectedItem});
 		if (!item) return null;
 		var stat;
+		
 		for (var i = 0, j = _displayStats.length; i < j; i++) {
 			stat = unSuffix(_displayStats[i]);
 			if (!item.hasOwnProperty(stat) && equip.hasOwnProperty(stat) && (stat != "quality")) {
 				output[_displayStats[i]] = item[stat];
 			}
 		}
+		
 		return output.toPairRay();
 	},
 	getStatName2: function(stat) {
@@ -354,6 +396,12 @@ Template.equipunit.events({
 		});
 		return false;
 	},
+	'click #sortorder': function(event) {
+		Session.set("sortOrder",1);
+	},
+	'click #sortorder2': function(event) {
+		Session.set("sortOrder",-1);
+	}
 });
 
 Template.equipunit.onRendered(function(){
