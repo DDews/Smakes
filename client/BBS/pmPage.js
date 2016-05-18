@@ -1,6 +1,12 @@
 /**
  * Created by Dan on 2/28/2016.
  */
+var displayStats = [
+    "quality","patk@","pacc%","pdef%","peva%",
+    "matk@","macc%","mdef%","meva%",
+    "aspd#","cspd#","crit%","resi%",
+    "str@","dex@","wis@","agi@","vit@","int@"
+];
 Template['pmPage'].helpers({
     numChars: function() {
         var username = Meteor.user() && Meteor.user().username;
@@ -138,7 +144,86 @@ Template['pmPage'].helpers({
     },
     urlify: function(message) {
         return urlify(message);
-    }
+    },
+    attachedItems: function(attachments) {
+        if (attachments == null || typeof attachments == "undefined") return null;
+        var list = [];
+        attachments.each(function (item, count) {
+            list.push(Iteminfo.findOne({_id: item}));
+        });
+        return list;
+    },
+    getPrice: function() {
+        var message = Session.get("selectedPost");
+        var item = Session.get("selectedItem");
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        var messages = data && data.messages;
+        var items = messages[message].attachments;
+        var info = items[item].price;
+        return info;
+    },
+    isMine: function() {
+        var message = Session.get("selectedPost");
+        var item = Session.get("selectedItem");
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        var messages = data && data.messages;
+        var items = messages[message].attachments;
+        var info = items[item].from;
+        return info == Meteor.user().username;
+    },
+    selectedItem: function() {
+        var selectedItem = Session.get("selectedItem");
+        if (!selectedItem) return null;
+        return Iteminfo.findOne({_id: selectedItem});
+    },
+    displayStats: function() {
+        return displayStats;
+    },
+    getBgColor: function(value) {
+        var rarity = value;
+        if (rarity < 10) return "r1-10";
+        if (rarity < 20) return "r10-20";
+        if (rarity < 30) return "r20-30";
+        if (rarity < 40) return "r30-40";
+        if (rarity < 50) return "r40-50";
+        if (rarity < 60) return "r50-60";
+        if (rarity < 70) return "r60-70";
+        if (rarity < 80) return "r70-80";
+        if (rarity < 90) return "r80-90";
+        if (rarity < 100) return "r90-100"
+        return "r90-100";
+    },
+    getStatAbb: function(val) {
+        var stat = unSuffix(val);
+        var s = Session.get("selectedItem");
+        var iteminfo = Iteminfo.findOne({_id: s});
+        if (itemDB.hasOwnProperty(s)) iteminfo = itemDB[s];
+        if (iteminfo.hasOwnProperty(stat)) return statName(stat);
+        return null;
+    },
+    getStat: function(val) {
+        var stat = unSuffix(val);
+        var s = Session.get("selectedItem");
+        var iteminfo = Iteminfo.findOne({_id: s});
+        if (itemDB.hasOwnProperty(s)) return itemDB[s][stat];
+        if (iteminfo.hasOwnProperty(stat)) return getDbStat(val,"Iteminfo",s);
+        return null;
+    },
+    notSold: function(item,message) {
+        var data = Messages.findOne({_id: '' + Router.current().params._id});
+        var messages = data && data.messages;
+        var items = messages[message].attachments;
+        if (!items) return false;
+        if (!items[item]) return false;
+        var info = items[item].bought;
+        return !info;
+    },
+    clickedItem: function() {
+        var item = Session.get("clickedItem");
+        if (!item) return null;
+        var iteminfo = Iteminfo.findOne({_id: item[0]});
+        return iteminfo;
+    },
 
 });
 Template.pmPage.events({
@@ -221,5 +306,66 @@ Template.pmPage.events({
             }
         });
         return false;
+    },
+    'mouseenter .item': function (event) {
+        if (event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        var post = id.split(' ')[0];
+        id = id.split(' ')[1];
+        var width = $("[name=tooltip]").width();
+        var height = $("[name=tooltip]").height();
+        Session.set("selectedItem", id);
+        Session.set("selectedPost",post);
+        _event[id] = function (event) {
+            var left;
+            if (event.clientX + document.body.scrollLeft + (width / 2) > $(window).width()) left = $(window).width() - width - 12;
+            else left = event.clientX + document.body.scrollLeft - (width / 2);
+            if (event.clientX + document.body.scrollLeft - (width / 2) < 0) left = 0;
+            var top = event.clientY + 10;
+            /*if (event.clientY + document.body.scrollTop > $(document).height()) {
+             top = event.document.body.scrollTop - height - 10;
+             }*/
+            $("[name=tooltip]").css({
+                position: "fixed",
+                display: "inline",
+                top: top + "px",
+                left: left + "px"
+            });
+        };
+        document.addEventListener('mousemove', _event[id](event), false);
+        return false;
+    },
+    'mouseleave .item': function (event) {
+        if (event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        //console.log(id);
+        var post = id.split(' ')[0];
+        id = id.split(' ')[1];
+        document.removeEventListener('mousemove', _event[id](event), false);
+        $("[name=tooltip]").css({
+            display: "none"
+        });
+        return false;
+    },
+    'click .item': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        //console.log(id);
+        var post = id.split(' ')[0];
+        id = id.split(' ')[1];
+        Session.set("clickedItem",[id,post]);
+        $('#buyError').html('');
+        $('#buymenu').openModal();
+    },
+    'click #buy': function(event) {
+        var clickedItem = Session.get("clickedItem");
+        if (!clickedItem) return false;
+        Meteor.call("buyAttachment",clickedItem[0],clickedItem[1],'' + Router.current().params._id, function(error, result) {
+            if (error) $('#buyError').html(error.reason);
+            else {
+                $('#buyError').html('');
+                $('#buymenu').closeModal();
+            }
+        });
     }
 });

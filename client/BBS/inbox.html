@@ -1,6 +1,7 @@
 <template name="inbox">
     <div class="forumbg row">
         {{#if currentUser}}
+            {{resetAttachments}}
             <div class="round row">
                 <p class="right"><a href="#" class="sendpm">New Message</a></p>
                 <div class="col s12" id="pmerror"></div>
@@ -10,6 +11,14 @@
                     <input type="text" name="subject" placeholder="subject" />
                             <textarea name="message" class="materialize-textarea" length="{{numChars}}"></textarea>
                     <input type="submit" name="submit" class="buttoncolor" value="Send" />
+                    <a href="#" class="addInventory">Attach Inventory</a>
+                    <div class="row">
+                        {{#each item in attachedItems}}
+                            <div class="icon {{getIconBG item.rarity}} valign-wrapper itemclick">
+                                <div class="center valign {{item.icon}} item"></div>
+                            </div>
+                        {{/each}}
+                    </div>
                     <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); } $('[name=message]').characterCounter();</script>
                 </form>
             {{/if}}
@@ -45,5 +54,32 @@
                 </p>
             </div>
         {{/if}}
+    </div>
+    <div id="attachmenu" class="modal bottom-sheet menubg">
+        <div class="modal-content">
+            {{#each item in items}}
+                <div class="icon {{getIconBG item.rarity}} valign-wrapper {{isSelected item._id}} itemclick" id="uniqueItem" value="{{item._id}}">
+                    <div class="center valign {{item.icon}} item" id="{{item._id}} {{item.slot}}"></div>
+                </div>
+            {{/each}}
+            <div class="row right">
+                <a href="#!" id="attach" class="right waves-effect waves-green btn">Attach</a>
+                <div class="col s4" id="buyError"></div>
+                <div class="row">
+                    Price: <div class="priceinput right"><input class="numbers" type="number" value="1" min="0" name="price"></div>
+                </div>
+            </div>
+        </div>
+        {{#with selectedItem}}
+            <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+                <p class="tooltipText">{{name}}</p>
+                <p class="tooltipText">{{type}}</p>
+                {{#each displayStats}}
+                    {{#if getStatAbb this}}
+                        <p class="tooltipText"><span class="statName">{{getStatAbb this}}</span>: {{getStat this}}</p>
+                    {{/if}}
+                {{/each}}
+            </div>
+        {{/with}}
     </div>
 </template>
