@@ -46,6 +46,22 @@
                                                 <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{from}}">{{from}}</a> on {{myDate modified}}</p>
                                             {{/if}}
                                             </span>
+                                            {{#if attachments}}
+                                                <fieldset>
+                                                    <legend>Attachments</legend>
+                                                {{#each item in attachedItems attachments}}
+                                                    {{#if notSold item._id _id}}
+                                                        <div class="icon {{getIconBG item.rarity}} valign-wrapper itemclick">
+                                                            <div class="center valign {{item.icon}} item" id="{{_id}} {{item._id}}"></div>
+                                                        </div>
+                                                    {{else}}
+                                                        <div class="icon valign-wrapper">
+                                                            <div class="center valign sold"></div>
+                                                        </div>
+                                                    {{/if}}
+                                                {{/each}}
+                                                </fieldset>
+                                            {{/if}}
                                         </p>
                                     </div>
                                     <div class="col s3 right">
@@ -92,6 +108,43 @@
             {{else}}
             <div class="container"><div class="forumbg"><div id="round" style="text-align:center">Thread does not exist</div></div></div>
             {{/if}}
+            {{#with selectedItem}}
+                <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+                    <p class="tooltipText">{{name}}</p>
+                    <p class="tooltipText">{{type}}</p>
+                    {{#each displayStats}}
+                        {{#if getStatAbb this}}
+                            <p class="tooltipText"><span class="statName">{{getStatAbb this}}</span>: {{getStat this}}</p>
+                        {{/if}}
+                    {{/each}}
+                    <p class="tooltipText">Price: {{getPrice}}</p>
+                </div>
+            {{/with}}
+            <div id="buymenu" class="modal bottom-sheet menubg">
+                {{#with clickedItem}}
+                    {{#if isMine}}
+                        <div class="modal-content">
+                            <h4>{{name}}</h4>
+                            <p>{{getPrice}} gold</p>
+                            <p>{{desc}}</p>
+                            <div class="row right">
+                                <a href="#!" id="buy" class="right waves-effect waves-green btn">Remove</a>
+                                <div class="col s4" id="buyError"></div>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="modal-content">
+                            <h4>{{name}}</h4>
+                            <p>{{getPrice}} gold</p>
+                            <p>{{desc}}</p>
+                            <div class="row right">
+                                <a href="#!" id="buy" class="right waves-effect waves-green btn">Buy</a>
+                                <div class="col s4" id="buyError"></div>
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/with}}
+            </div>
         {{else}}
             <div class="forumbg">
                 <div id="round">

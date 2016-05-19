@@ -687,8 +687,15 @@ dt {
     width: 50px;
     height: 36px;
 }
+.priceinput {
+    width: 100px;
+    height: 36px;
+}
 .numbers {
     height: 36px;
+}
+.selectedDiv {
+    border: 2px solid white;
 }
 .itemtable {
     padding-bottom: 0px;

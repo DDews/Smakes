@@ -13,7 +13,9 @@ Meteor.publish("gamedata", function() {
 	
 });
 
-
+Meteor.publish("allInventory", function() {
+	return Iteminfo.find({username: "<middleman>"});
+})
 Meteor.publish("inventory", function() {
 	var user = Meteor.users.findOne(this.userId)
 	var username = user && user.username

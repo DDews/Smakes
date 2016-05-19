@@ -382,7 +382,7 @@ Meteor.methods({
         if (!userid) return;
         Userinfo.update(userid,{$set:{posts: posts}});
     },
-    sendPM: function(messageTo, subject, message) {
+    sendPM: function(messageTo, subject, message, attachments) {
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (messageTo == Meteor.user().username) throw new Meteor.Error(422,"Error: cannot send messages to self");
@@ -398,6 +398,26 @@ Meteor.methods({
         var chars = 800 + 10 * karma;
         if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         var messageTo = messageTo.username;
+        if (typeof attachments != "undefined" && attachments != null) {
+            attachments.each(function (item, count) {
+                var info = null;
+                info = Iteminfo.findOne({_id: item});
+                if (info == null) {
+                    throw new Meteor.Error(422,"Attachments corrupted.");
+                }
+                if (info.username != username) {
+                    throw new Meteor.Error(422,"Attachments corrupted: item not currently owned by sender");
+                }
+                if (item.price < 0) {
+                    throw new Meteor.Error(422,"Attachments corrupted: item has negative price");
+                }
+                if (item.bought == true) {
+                    throw new Meteor.Error(422, "Attachments corrupted: item bought already");
+                }
+                info.username = "<middleman>";
+                dbupdate(info);
+            });
+        }
         Messages.insert(
             {
                 to: messageTo,
@@ -415,13 +435,14 @@ Meteor.methods({
                         createdAt: new Date(),
                         modified: new Date(),
                         edited: false,
+                        attachments: attachments,
                         message: message
                     }
                 ]
             }
         );
     },
-    sendPMReply: function(id, subject, message) {
+    sendPMReply: function(id, subject, message, attachments) {
         if (isWhitespace(message)) throw new Meteor.Error(422,"Error: cannot only be whitespace");
         //if (isHTML(subject) || isHTML(message)) throw new Meteor.Error(422,"Error: HTML tags detected.");
         if (!message) throw new Meteor.Error(422,"Error: Your message is emtpy");
@@ -438,12 +459,33 @@ Meteor.methods({
         var karma = userinfo.totalKarma || 0;
         var chars = 800 + 10 * karma;
         if (message.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
+        if (typeof attachments != "undefined" && attachments != null) {
+            attachments.each(function (item, count) {
+                var info = null;
+                info = Iteminfo.findOne({_id: item});
+                if (info == null) {
+                    throw new Meteor.Error(422, "Attachments corrupted.");
+                }
+                if (info.username != username) {
+                    throw new Meteor.Error(422, "Attachments corrupted: item not currently owned by sender");
+                }
+                if (item.price < 0) {
+                    throw new Meteor.Error(422, "Attachments corrupted: item has negative price");
+                }
+                if (item.bought == true) {
+                    throw new Meteor.Error(422, "Attachments corrupted: item bought already");
+                }
+                info.username = "<middleman>";
+                dbupdate(info);
+            });
+        }
         array.push({
             _id: array.length,
             from: Meteor.user().username,
             subject: subject,
             createdAt: new Date(),
             modified: new Date(),
+            attachments: attachments,
             edited: false,
             message: message
         });
@@ -479,12 +521,25 @@ Meteor.methods({
     deleteMessage: function(id) {
         var username = Meteor.user() && Meteor.user().username;
         if (!username) throw new Meteor.Error(422, "Error: you must be logged in");
-        var array = Messages.findOne({_id: id});
-        if (!array) throw new Meteor.Error(422,"Error: message not found");
-        array = array.showTo;
+        var message = Messages.findOne({_id: id});
+        if (!message) throw new Meteor.Error(422,"Error: message not found");
+        var array = message.showTo;
         if (array == [] || !_.contains(array,Meteor.user().username)) throw new Meteor.Error(422,"Error: already deleted.");
         array = _.without(array,Meteor.user().username);
         if (array.length <= 0) {
+            var messages = message.messages;
+            messages.each(function (msg, count) {
+                var attachments = msg.attachments;
+                attachments.each(function (item, count) {
+                    if (!count.bought) {
+                        console.log(count);
+                        console.log("Giving item " + item + " back to " + attachments[item].from);
+                        var iteminfo = Iteminfo.findOne({_id: item});
+                        iteminfo.username = attachments[item].from;
+                        dbupdate(iteminfo);
+                    }
+                });
+            });
             Messages.remove(id);
             return;
         }
@@ -546,6 +601,38 @@ Meteor.methods({
         if (!Threads.findOne({_id: threadId})) return;
         views = Threads.findOne({_id: threadId}).views + 1;
         Threads.update(threadId,{$set: { views: views}});
+    },
+    buyAttachment: function(item, message, thread) {
+        if (!Messages.findOne({_id: thread})) throw new Meteor.Error(422, "Error: thread not found");
+        var username = Meteor.user() && Meteor.user().username;
+        if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
+        var iteminfo = Iteminfo.findOne({_id: item});
+        if (!iteminfo) throw new Meteor.Error(422,"Error: item not found");
+        var info = Messages.findOne({_id: thread});
+        var messages = info.messages;
+        var post = messages[message];
+        var items = post.attachments;
+        if (items[item].bought) throw new Meteor.Error(422,"Error: that item has already been purchased");
+        items[item].bought = true;
+        post.attachments = items;
+        messages[message] = post;
+        info.messages = messages;
+        Messages.update({_id: thread},info);
+        var price = +items[item].price;
+        var from = items[item].from;
+        var userinfo = Userinfo.findOne({username: Meteor.user().username});
+        var wallet = userinfo.wallet;
+        if (wallet.gold < price) throw new Meteor.Error(422,"You can't afford it");
+        wallet.gold = +wallet.gold;
+        wallet.gold = wallet.gold - price;
+        Userinfo.update(userinfo._id,{$set:{wallet: wallet}});
+        userinfo = Userinfo.findOne({username: from});
+        wallet = userinfo.wallet;
+        wallet.gold = +wallet.gold;
+        wallet.gold = wallet.gold + price;
+        Userinfo.update(userinfo._id,{$set:{wallet: wallet}});
+        iteminfo.username = Meteor.user().username;
+        dbupdate(iteminfo);
     },
     editPM: function(id,post_id,msg) {
         if (isWhitespace(msg)) throw new Meteor.Error(422,"Error: cannot be only whitespace");
