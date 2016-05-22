@@ -19,6 +19,7 @@
                     <div class="forumbg row">
                         <div class="col s12">
                             <div class="row">
+                                {{resetAttachments}}
                                 <span class="title"><h2><a class="username" href="/profile/{{target}}">{{target}}</a></h2></span>
                                 {{#if deleted target}}<p class="locked">This thread is locked. {{target}} has deleted it. Click <a href="#" class="deletePM">delete</a> to delete.</p>
                                 {{else}}<p class="right"><a href="#" class="deletePM">Delete</a>   <a href="#" class="replypm" name="reply">Reply</a></p>
@@ -29,6 +30,14 @@
                                         <input type="text" name="subject" placeholder="subject" />
                                         <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
                                         <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                        <a href="#" class="addInventory">Attach Inventory</a>
+                                        <div class="row">
+                                            {{#each item in attachedItems2}}
+                                                <div class="icon {{getIconBG item.rarity}} valign-wrapper itemclick">
+                                                    <div class="center valign {{item.icon}} item"></div>
+                                                </div>
+                                            {{/each}}
+                                        </div>
                                         <script>$('[name=subject]').focus(); $('[name=message]').characterCounter();</script>
                                     </form>
                                 {{/if}}
@@ -82,6 +91,14 @@
                                     <input type="text" name="subject" placeholder="subject" />
                                     <textarea class="materialize-textarea"  name="message" length="{{numChars}}"></textarea>
                                     <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                    <a href="#" class="addInventory">Attach Inventory</a>
+                                    <div class="row">
+                                        {{#each item in attachedItems2}}
+                                            <div class="icon {{getIconBG item.rarity}} valign-wrapper itemclick">
+                                                <div class="center valign {{item.icon}} item"></div>
+                                            </div>
+                                        {{/each}}
+                                    </div>
                                 </form>
                                 <script>$('[name=subject]').focus(); $('[name=message]').characterCounter();</script>
                             {{/if}}
@@ -143,6 +160,33 @@
                             </div>
                         </div>
                     {{/if}}
+                {{/with}}
+            </div>
+            <div id="attachmenu" class="modal bottom-sheet menubg">
+                <div class="modal-content">
+                    {{#each item in items}}
+                        <div class="icon {{getIconBG item.rarity}} valign-wrapper {{isSelected item._id}} itemclick" id="uniqueItem" value="{{item._id}}">
+                            <div class="center valign {{item.icon}} item2" id="{{item._id}} {{item.slot}}"></div>
+                        </div>
+                    {{/each}}
+                    <div class="row right">
+                        <a href="#!" id="attach" class="right waves-effect waves-green btn">Attach</a>
+                        <div class="col s4" id="buyError"></div>
+                        <div class="row">
+                            Price: <div class="priceinput right"><input class="numbers" type="number" value="1" min="0" name="price"></div>
+                        </div>
+                    </div>
+                </div>
+                {{#with selectedItem}}
+                    <div name="tooltip2" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+                        <p class="tooltipText">{{name}}</p>
+                        <p class="tooltipText">{{type}}</p>
+                        {{#each displayStats}}
+                            {{#if getStatAbb this}}
+                                <p class="tooltipText"><span class="statName">{{getStatAbb this}}</span>: {{getStat this}}</p>
+                            {{/if}}
+                        {{/each}}
+                    </div>
                 {{/with}}
             </div>
         {{else}}
