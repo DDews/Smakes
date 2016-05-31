@@ -1,5 +1,6 @@
 <template name="shoutbox">
     <div class="forumbg row">
+        {{#if isShown}}
         <div class="shoutbox">
             {{#each shoutMessage}}
                 <div class="shoutMsg">
@@ -9,11 +10,15 @@
                 {{scrollBottom}}
             {{/each}}
         </div>
+        {{/if}}
         {{#if currentUser}}
             <div id="shouterror" class="col s12"></div>
             <form class="shoutForm">
+                {{#if isShown}}
                 <input type="text" name="shout" placeholder="Type here to send a message" length="{{maxChars}}"/>
-                <input type="submit" class="buttoncolor" name="send" value="Send" />
+
+                {{/if}}
+                <div class="col s6"><a href="#" class="hideShout">{{hideOrShow}}</a></div><div class="col s6">{{#if isShown}}<input type="submit" class="buttoncolor" name="send" value="Send" />{{/if}}</div>
                 <script>$('[name=shout]').characterCounter();</script>
             </form>
         {{/if}}

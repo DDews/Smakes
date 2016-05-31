@@ -1,4 +1,14 @@
 Template['shoutbox'].helpers({
+    isShown: function() {
+        var hidden = Session.get("hideShout");
+        if (hidden) return false;
+        return true;
+    },
+    hideOrShow: function() {
+        var hidden = Session.get("hideShout");
+        if (hidden) return "show";
+        return "hide";
+    },
     shoutMessage: function() {
         return Shoutmessages.find();
     },
@@ -55,5 +65,11 @@ Template.shoutbox.events({
             }
         });
         return false;
+    },
+    'click .hideShout': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        var hidden = Session.get("hideShout");
+        if (hidden) Session.set("hideShout",false);
+        else Session.set("hideShout",true);
     }
 });
