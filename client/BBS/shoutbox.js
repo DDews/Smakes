@@ -71,5 +71,10 @@ Template.shoutbox.events({
         var hidden = Session.get("hideShout");
         if (hidden) Session.set("hideShout",false);
         else Session.set("hideShout",true);
+        setTimeout(function() { $(".shoutbox").each( function()
+        {
+            var scrollHeight = Math.max(this.scrollHeight, this.clientHeight);
+            this.scrollTop = scrollHeight - this.clientHeight;
+        }); }, 200);
     }
 });

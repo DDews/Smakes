@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/shoutbox.html" afterPath="$PROJECT_DIR$/client/BBS/shoutbox.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/shoutbox.js" afterPath="$PROJECT_DIR$/client/BBS/shoutbox.js" />
     </list>
     <ignored path="bbs.iws" />
@@ -37,8 +36,8 @@
       <file leaf-file-name="shoutbox.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+            <state relative-caret-position="304">
+              <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -397,12 +396,12 @@
       <workItem from="1461976568875" duration="2352000" />
       <workItem from="1462063377600" duration="3253000" />
       <workItem from="1463432715796" duration="44405000" />
-      <workItem from="1464714715620" duration="8084000" />
+      <workItem from="1464714715620" duration="8193000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96106000" />
+    <option name="totallyTimeSpent" value="96215000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-28" y="57" width="1260" height="679" extended-state="0" />
@@ -801,8 +800,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="20" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        <state relative-caret-position="304">
+          <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
           <folding />
         </state>
       </provider>
