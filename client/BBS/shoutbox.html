@@ -12,7 +12,7 @@
         {{#if currentUser}}
             <div id="shouterror" class="col s12"></div>
             <form class="shoutForm">
-                <textarea class="materialize-textarea" name="shout" length="{{maxChars}}"></textarea>
+                <input type="text" name="shout" placeholder="Type here to send a message" length="{{maxChars}}"/>
                 <input type="submit" class="buttoncolor" name="send" value="Send" />
                 <script>$('[name=shout]').characterCounter();</script>
             </form>

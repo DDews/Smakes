@@ -8,6 +8,7 @@ Template['shoutbox'].helpers({
             var scrollHeight = Math.max(this.scrollHeight, this.clientHeight);
             this.scrollTop = scrollHeight - this.clientHeight;
         });
+        console.log("see?");
     },
     maxChars: function() {
         var username = Meteor.user() && Meteor.user().username;
