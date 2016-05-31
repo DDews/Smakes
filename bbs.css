@@ -697,6 +697,23 @@ dt {
 .selectedDiv {
     border: 2px solid white;
 }
+.msgdate {
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    font-size: 75%;
+    clear: right;
+}
+.shoutbox {
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+    overflow-y: scroll;
+    top: auto;
+}
+.shoutMsg {
+    border-top: 1px dotted #aeaeae;
+}
 .itemtable {
     padding-bottom: 0px;
     padding-top: 0px;

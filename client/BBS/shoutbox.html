@@ -1,0 +1,21 @@
+<template name="shoutbox">
+    <div class="forumbg row">
+        <div class="shoutbox">
+            {{#each shoutMessage}}
+                <div class="shoutMsg">
+                    <div class="msgdate">{{getDate createdAt}}</div>
+                    <a href="/profile/{{username}}">{{username}}</a>: {{message}}
+                </div>
+                {{scrollBottom}}
+            {{/each}}
+        </div>
+        {{#if currentUser}}
+            <div id="shouterror" class="col s12"></div>
+            <form class="shoutForm">
+                <textarea class="materialize-textarea" name="shout" length="{{maxChars}}"></textarea>
+                <input type="submit" class="buttoncolor" name="send" value="Send" />
+                <script>$('[name=shout]').characterCounter();</script>
+            </form>
+        {{/if}}
+    </div>
+</template>
