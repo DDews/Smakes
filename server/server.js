@@ -212,6 +212,10 @@ Meteor.methods({
         if (isZalgo(msg)) throw new Meteor.Error(422,"Error: Zalgo text detected");
         if (!username) throw new Meteor.Error(422,"Error: you must be logged in");
         if (msg.length <= 0) throw new Meteor.Error(422, "Error: empty message");
+        var userinfo = Userinfo.findOne({username: username});
+        var karma = userinfo.totalKarma || 0;
+        var chars = 100 + 5 * karma;
+        if (msg.length > chars) throw new Meteor.Error(422,"Message is longer than " + chars + " characters.");
         if (Shoutmessages.find().count() > 20) {
             var firstmsg = Shoutmessages.findOne({},{sort: {createdAt: 1 }});
             Shoutmessages.remove(firstmsg._id);
