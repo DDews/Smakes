@@ -3,10 +3,16 @@ Template['shoutbox'].helpers({
         return Shoutmessages.find();
     },
     scrollBottom: function() {
+        var height;
         $(".shoutbox").each( function()
         {
             var scrollHeight = Math.max(this.scrollHeight, this.clientHeight);
-            this.scrollTop = scrollHeight - this.clientHeight;
+            height = scrollHeight - this.clientHeight;
+            if (this.scrollTop == height) setTimeout(function() { $(".shoutbox").each( function()
+            {
+                var scrollHeight = Math.max(this.scrollHeight, this.clientHeight);
+                this.scrollTop = scrollHeight - this.clientHeight;
+            }); }, 100);
         });
         console.log("see?");
     },
