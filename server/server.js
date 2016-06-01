@@ -27,7 +27,7 @@ var isWhitespace = function(string) {
     return !string.replace(/\s/g, '').length
 }
 Meteor.publish("usernames", function() {
-   return Meteor.users.find({},{fields: {'username': 1}})
+   return Meteor.users.find({},{username: 1, status: 1});
 });
 Meteor.publish("userinfo", function() {
    return Userinfo.find();

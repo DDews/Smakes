@@ -2,7 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/bbs.iml" afterPath="$PROJECT_DIR$/.idea/bbs.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/.meteor/packages" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/.meteor/versions" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/pmPage.html" afterPath="$PROJECT_DIR$/client/BBS/pmPage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/pmPage.js" afterPath="$PROJECT_DIR$/client/BBS/pmPage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/post.html" afterPath="$PROJECT_DIR$/client/BBS/post.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/post.js" afterPath="$PROJECT_DIR$/client/BBS/post.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/profile.html" afterPath="$PROJECT_DIR$/client/BBS/profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/profile.js" afterPath="$PROJECT_DIR$/client/BBS/profile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/shoutbox.html" afterPath="$PROJECT_DIR$/client/BBS/shoutbox.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/shoutbox.js" afterPath="$PROJECT_DIR$/client/BBS/shoutbox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/users.html" afterPath="$PROJECT_DIR$/client/BBS/users.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/BBS/users.js" afterPath="$PROJECT_DIR$/client/BBS/users.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/router.js" afterPath="$PROJECT_DIR$/lib/router.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,28 +39,7 @@
     <favorites_list name="bbs" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="shoutbox.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="20" column="200" selection-start-line="20" selection-start-column="200" selection-end-line="20" selection-end-column="200" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shoutbox.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -60,12 +56,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/client/BBS/profile.js" />
-        <option value="$PROJECT_DIR$/client/BBS/thread.html" />
-        <option value="$PROJECT_DIR$/client/BBS/post.html" />
-        <option value="$PROJECT_DIR$/client/BBS/post.js" />
-        <option value="$PROJECT_DIR$/client/game/regiondropdown.html" />
-        <option value="$PROJECT_DIR$/client/game/regiondropdown.js" />
         <option value="$PROJECT_DIR$/client/game/game.js" />
         <option value="$PROJECT_DIR$/client/BBS/controlpanel.html" />
         <option value="$PROJECT_DIR$/client/BBS/controlpanel.js" />
@@ -101,16 +91,22 @@
         <option value="$PROJECT_DIR$/client/game/icons.css" />
         <option value="$PROJECT_DIR$/client/game/pages/shop.js" />
         <option value="$PROJECT_DIR$/client/BBS/inbox.js" />
-        <option value="$PROJECT_DIR$/client/BBS/pmPage.js" />
         <option value="$PROJECT_DIR$/client/BBS/thread.js" />
-        <option value="$PROJECT_DIR$/client/BBS/pmPage.html" />
-        <option value="$PROJECT_DIR$/lib/router.js" />
         <option value="$PROJECT_DIR$/bbs.html" />
         <option value="$PROJECT_DIR$/lib/utilities.js" />
-        <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/server/server.js" />
+        <option value="$PROJECT_DIR$/client/BBS/users.js" />
+        <option value="$PROJECT_DIR$/client/BBS/users.html" />
         <option value="$PROJECT_DIR$/client/BBS/shoutbox.html" />
         <option value="$PROJECT_DIR$/client/BBS/shoutbox.js" />
+        <option value="$PROJECT_DIR$/lib/router.js" />
+        <option value="$PROJECT_DIR$/client/BBS/profile.html" />
+        <option value="$PROJECT_DIR$/client/BBS/profile.js" />
+        <option value="$PROJECT_DIR$/client/BBS/post.html" />
+        <option value="$PROJECT_DIR$/client/BBS/post.js" />
+        <option value="$PROJECT_DIR$/bbs.css" />
+        <option value="$PROJECT_DIR$/client/BBS/pmPage.js" />
+        <option value="$PROJECT_DIR$/client/BBS/pmPage.html" />
       </list>
     </option>
   </component>
@@ -181,6 +177,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="server" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -396,18 +406,18 @@
       <workItem from="1461976568875" duration="2352000" />
       <workItem from="1462063377600" duration="3253000" />
       <workItem from="1463432715796" duration="44405000" />
-      <workItem from="1464714715620" duration="8193000" />
+      <workItem from="1464714715620" duration="11838000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96215000" />
+    <option name="totallyTimeSpent" value="99860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-28" y="57" width="1260" height="679" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24598071" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24598071" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2970123" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -459,13 +469,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/game/unit.html" />
-    <entry file="file://$PROJECT_DIR$/client/game/shop.html" />
-    <entry file="file://$PROJECT_DIR$/client/game/inventory.js" />
-    <entry file="file://$PROJECT_DIR$/client/game/inventory.html" />
-    <entry file="file://$PROJECT_DIR$/client/game/shop.js" />
-    <entry file="file://$PROJECT_DIR$/client/game/tooltipsWithSuggestion.js" />
-    <entry file="file://$PROJECT_DIR$/client/game/tooltipsWithSuggestion.html" />
     <entry file="file://$USER_HOME$/AppData/Local/.meteor/packages/materialize_materialize/0.97.5/web.browser/dist/css/materialize.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
@@ -512,13 +515,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-153">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="60" selection-end-column="142" />
         </state>
       </provider>
     </entry>
@@ -694,22 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/router.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16">
-          <caret line="259" column="42" selection-start-line="259" selection-start-column="42" selection-end-line="259" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/thread.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-799">
-          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bbs.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -758,50 +738,130 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/pmPage.js">
+    <entry file="file://$PROJECT_DIR$/client/BBS/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="245" column="48" selection-start-line="245" selection-start-column="48" selection-end-line="245" selection-end-column="48" />
+        <state relative-caret-position="238">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/pmPage.html">
+    <entry file="file://$PROJECT_DIR$/client/BBS/users.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="90" column="36" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="94" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bbs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="714" column="20" selection-start-line="714" selection-start-column="20" selection-end-line="714" selection-end-column="20" />
+        <state relative-caret-position="204">
+          <caret line="12" column="124" selection-start-line="12" selection-start-column="124" selection-end-line="12" selection-end-column="124" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="217" column="40" selection-start-line="217" selection-start-column="40" selection-end-line="217" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="20" column="200" selection-start-line="20" selection-start-column="200" selection-end-line="20" selection-end-column="200" />
+        <state relative-caret-position="141">
+          <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="77" column="16" selection-start-line="77" selection-start-column="16" selection-end-line="77" selection-end-column="16" />
+        <state relative-caret-position="321">
+          <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="20" column="269" selection-start-line="20" selection-start-column="269" selection-end-line="20" selection-end-column="269" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/router.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="38" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="60" selection-end-column="142" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/thread.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-657">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/thread.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/post.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="236" column="25" selection-start-line="236" selection-start-column="25" selection-end-line="236" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/pmPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="692">
+          <caret line="78" column="114" selection-start-line="78" selection-start-column="114" selection-end-line="78" selection-end-column="114" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bbs.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="462" column="6" selection-start-line="462" selection-start-column="1" selection-end-line="462" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/BBS/pmPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="256" column="25" selection-start-line="256" selection-start-column="25" selection-end-line="256" selection-end-column="25" />
           <folding />
         </state>
       </provider>

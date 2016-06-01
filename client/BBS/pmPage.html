@@ -76,6 +76,7 @@
                                     <div class="col s3 right">
                                         <span class="small">
                                             <a class="username" href="/profile/{{from}}">{{from}}</a>
+                                            <p><span class="right {{getStatus from}}">{{isOnline from}}</span></p>
                                             <br>
                                             {{#if isFrom from}}<a href="#" class="edit" name="{{_id}}">edit</a>{{/if}}
                                         </span>

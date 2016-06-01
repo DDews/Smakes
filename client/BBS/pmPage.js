@@ -246,6 +246,16 @@ Template['pmPage'].helpers({
         if (Session.get("clickedItem") == itemid) return "selectedDiv";
         return null;
     },
+    getStatus: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status && user.status.online) return "onlinestatus";
+        return "offlinestatus";
+    },
+    isOnline: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status && user.status.online) return "online";
+        return "offline";
+    }
 
 });
 Template.pmPage.events({

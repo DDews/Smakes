@@ -10,7 +10,7 @@
         </div>
         <div class="collection">
         {{#each person}}
-            <a href="/profile/{{username}}" class="collection-item">{{username}}<span class="badge">{{getKarma username}} karma</span></a>
+            <a href="/profile/{{username}}" class="collection-item"><span class="{{getStatus username}}">{{username}}</span><span class="badge">{{getKarma username}} karma</span></a>
         {{/each}}
         </div>
     </div>

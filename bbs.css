@@ -627,6 +627,10 @@ dt {
     color: #9e7869;
     font-size: 1rem;
 }
+.status {
+    color: #efeef2;
+    font-size: 1rem;
+}
 .moderator {
     color: #9b9e46;
     font-size: 1rem;
@@ -723,4 +727,10 @@ dt {
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 0px;
+}
+.onlinestatus {
+    color: #5dae1a;
+}
+.offlinestatus {
+    color: #8d0403;
 }

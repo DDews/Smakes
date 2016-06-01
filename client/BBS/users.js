@@ -11,6 +11,11 @@ Template['users'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         if (!userinfo) return 0;
         return userinfo.totalKarma ? userinfo.totalKarma : 0;
+    },
+    getStatus: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status.online) return "onlinestatus";
+        return "offlinestatus";
     }
 });
 Template.users.events({

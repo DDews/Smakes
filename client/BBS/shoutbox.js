@@ -43,6 +43,14 @@ Template['shoutbox'].helpers({
                 d.getMinutes().padLeft(),
                 d.getSeconds().padLeft()].join(':');
         return dformat;
+    },
+    numOnline: function() {
+        var num = 0;
+        var users = Meteor.users.find({},{status: 1}).forEach(function (row) {
+            var online = row.status && row.status.online;
+            if (online) num++;
+        });
+        return num;
     }
 });
 Template.shoutbox.events({

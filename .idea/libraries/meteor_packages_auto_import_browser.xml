@@ -70,10 +70,12 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/helpers.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/http_methods.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/current_options.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/mizzao_timesync/0.3.4/web.browser/timesync-client.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/route_controller_client.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/router_client.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/hooks.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/global_router.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/mizzao_user-status/0.6.6/web.browser/monitor.coffee" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/route.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/compiler.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/url.js" />
@@ -271,10 +273,12 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/helpers.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/http_methods.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/current_options.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/mizzao_timesync/0.3.4/web.browser/timesync-client.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/route_controller_client.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/router_client.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/hooks.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/global_router.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/mizzao_user-status/0.6.6/web.browser/monitor.coffee" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_router/1.0.12/web.browser/lib/route.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/compiler.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/iron_url/1.0.11/web.browser/lib/url.js" />

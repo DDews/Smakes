@@ -57,6 +57,7 @@
                     </div>
                     <div class="col s3 right">
                         <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
+                        <div class="status"><span class="{{getStatus from}}">{{isOnline from}}</span></div>
                         {{#if shouldAdmin from}}
                             <div class="admin">Administrator</div>
                         {{else}}
