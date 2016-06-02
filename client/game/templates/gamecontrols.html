@@ -1,7 +1,8 @@
 <template name="gamecontrols">
 	<div class="row blue-grey darken-4">
 		
-		<ul class="col s12 collapsible blue-grey darken-4" data-collapsible="accordion">
+        <div class="col s12 blue-grey darken-4"><h5>Controls</h5></div>
+		<ul class="col s6 collapsible blue-grey darken-4" data-collapsible="accordion">
 			<li>
 				<div class="collapsible-header blue-grey darken-3 active">Navigation</div>
 				<div class="collapsible-body blue-grey darken-4 row">
@@ -9,22 +10,23 @@
 					<a href="/inventory" class="col s3 btn green darken-4 white-text">Inventory</a>
 
 					{{#if gameInCombat}}
-						{{#if onGamePage}}
-							<button class="col s3 btn orange darken-4 white-text" id="run" value="run">Run Away</button>
-						{{/if}}
+                        
 					{{else}}
 						<a href="/shop" class="col s3 btn green darken-4 white-text left" value="shop">Shop</a>	
-						<a href="/recruit" class="col s3 btn green darken-4 white-text">Recruit</a>
-						<a href="/monsterlab" class="col s3 btn green darken-4 white-text">Monster Lab</a>
+						<a href="/game/recruit" class="col s3 btn green darken-4 white-text">Recruit</a>
+						<a href="/game/monsterlab" class="col s3 btn green darken-4 white-text">Monster Lab</a>
 
 						{{#if onGamePage}}
 						{{/if}}
 					{{/if}}
 				</div>
-			</li>
+            </li>
+		</ul>
+        
+		<ul class="col s6 collapsible blue-grey darken-4" data-collapsible="accordion">
 			{{#if onGamePage}}
 				<li>
-					<div class="collapsible-header blue-grey darken-3">Toggles</div>
+					<div class="collapsible-header blue-grey darken-3 active">Toggles</div>
 					<div class="collapsible-body blue-grey darken-4 row">
 
 						{{#if retry}}

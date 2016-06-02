@@ -151,6 +151,7 @@ itemGenData = {
 			],
 			equip:true,
 			equipSlot:"hand",
+			equipSlotIsPrefix: true,
 			value:6,
 			rarity:3,
 			quality:0,
