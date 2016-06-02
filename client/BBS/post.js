@@ -225,6 +225,16 @@ Template['post'].helpers({
         if (authors.hasOwnProperty(author)) {
             if (_.contains(authors[author],postId)) Meteor.call("viewedFollow",author,postId);
         }
+    },
+    getStatus: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status && user.status.online) return "onlinestatus";
+        else return "offlinestatus";
+    },
+    isOnline: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status && user.status.online) return "online";
+        return "offline";
     }
 
 });

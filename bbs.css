@@ -627,6 +627,10 @@ dt {
     color: #9e7869;
     font-size: 1rem;
 }
+.status {
+    color: #efeef2;
+    font-size: 1rem;
+}
 .moderator {
     color: #9b9e46;
     font-size: 1rem;
@@ -697,6 +701,23 @@ dt {
 .selectedDiv {
     border: 2px solid white;
 }
+.msgdate {
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    font-size: 75%;
+    clear: right;
+}
+.shoutbox {
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+    overflow-y: scroll;
+    top: auto;
+}
+.shoutMsg {
+    border-top: 1px dotted #aeaeae;
+}
 .itemtable {
     padding-bottom: 0px;
     padding-top: 0px;
@@ -706,4 +727,10 @@ dt {
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 0px;
+}
+.onlinestatus {
+    color: #5dae1a;
+}
+.offlinestatus {
+    color: #8d0403;
 }

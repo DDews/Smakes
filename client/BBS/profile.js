@@ -50,8 +50,15 @@ Template['profile'].helpers({
         if (!username) return "Subscribe";
         var userinfo = Userinfo.findOne({username: username});
         var authors = userinfo.authors;
+        if (!authors) return "Subscribe";
         if (authors.has(author)) return "Unsubscribe";
         return "Subscribe";
+    },
+    isOnline: function() {
+        var name = Router.current().params.username;
+        var user = Meteor.users.findOne({username: name});
+        if (user.status && user.status.online) return "Online";
+        return "Offline";
     }
 });
 Template.profile.events({

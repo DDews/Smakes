@@ -199,7 +199,7 @@ Template.equipunit.helpers({
 		currentItem = Iteminfo.findOne({_id: currentItem});
 		var equip = getUnit().equipment[Session.get("activeSlot")];
 		if (!currentItem) { return null; }
-		if (currentItem.hasOwnProperty(stat)) {
+		if (currentItem.hasOwnProperty(stat) && equip.hasOwnProperty(stat)) {
 			if (currentItem[stat] == equip[stat]) { return "equal" }
 			if (currentItem[stat] < equip[stat]) { return "lowerStat"; }
 			if (currentItem[stat] > equip[stat]) { return "higherStat"; }

@@ -3,6 +3,7 @@
         {{#if userExists}}
             <div class="center">
             <h1>{{username}}</h1>
+                <h5>{{isOnline}}</h5>
                 <div class="row center">
                     <div class="col s6"><a href="/pm/{{username}}">Start Private Conversation</a></div>
                     {{#if currentUser}}<div class="col s6"><a href="#" class="{{toggleFollow username}}" id="{{username}}">{{toggleFollow username}} to {{username}}</a></div>{{/if}}

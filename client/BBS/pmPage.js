@@ -159,6 +159,7 @@ Template['pmPage'].helpers({
         var data = Messages.findOne({_id: '' + Router.current().params._id});
         var messages = data && data.messages;
         var items = messages[message].attachments;
+        if (!items[item]) return null;
         var info = items[item].price;
         return info;
     },
@@ -224,6 +225,37 @@ Template['pmPage'].helpers({
         var iteminfo = Iteminfo.findOne({_id: item[0]});
         return iteminfo;
     },
+    attachedItems2: function() {
+        var attach = Session.get("attach");
+        if (typeof attach == "undefined") return null;
+        var list = [];
+        if (!attach) return null;
+        attach.each(function(item,count) {
+            if (Iteminfo.findOne({_id: item}) != null) list.push(Iteminfo.findOne({_id: item}));
+        });
+        if (typeof list[0] == 'undefined') return null;
+        return list;
+    },
+    resetAttachments: function() {
+        Session.set("attach",null);
+    },
+    items: function() {
+        return Iteminfo.find({username: Meteor.user().username}).fetch();
+    },
+    isSelected: function(itemid) {
+        if (Session.get("clickedItem") == itemid) return "selectedDiv";
+        return null;
+    },
+    getStatus: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status && user.status.online) return "onlinestatus";
+        return "offlinestatus";
+    },
+    isOnline: function(username) {
+        var user = Meteor.users.findOne({username: username});
+        if (user.status && user.status.online) return "online";
+        return "offline";
+    }
 
 });
 Template.pmPage.events({
@@ -234,7 +266,8 @@ Template.pmPage.events({
         submit.disabled = true;
         var message = $('[name=message]').val();
         var subject = $('[name=subject]').val();
-        Meteor.call('sendPMReply','' + Router.current().params._id,subject,message,function(error, result) {
+        var attachments = Session.get("attach");
+        Meteor.call('sendPMReply','' + Router.current().params._id,subject,message,attachments,function(error, result) {
 
             if (error) {
                 $("#pmerror").html(error.reason);
@@ -367,5 +400,68 @@ Template.pmPage.events({
                 $('#buymenu').closeModal();
             }
         });
-    }
+    },
+    'mouseenter .item2': function (event) {
+        if (event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        var slot = id.split(' ')[1];
+        id = id.split(' ')[0];
+        var width = $("[name=tooltip]").width();
+        var height = $("[name=tooltip]").height();
+        Session.set("selectedItem", id);
+        _event[id] = function (event) {
+            var left;
+            if (event.clientX + document.body.scrollLeft + (width / 2) > $(window).width()) left = $(window).width() - width - 12;
+            else left = event.clientX + document.body.scrollLeft - (width / 2);
+            if (event.clientX + document.body.scrollLeft - (width / 2) < 0) left = 0;
+            var top = event.clientY + 10;
+            /*if (event.clientY + document.body.scrollTop > $(document).height()) {
+             top = event.document.body.scrollTop - height - 10;
+             }*/
+            $("[name=tooltip2]").css({
+                position: "fixed",
+                display: "inline",
+                top: top + "px",
+                left: left + "px"
+            });
+        };
+        document.addEventListener('mousemove', _event[id](event), false);
+        return false;
+    },
+    'mouseleave .item2': function (event) {
+        if (event.preventDefault) event.preventDefault();
+        var id = event.currentTarget.id;
+        //console.log(id);
+        var slot = id.split(' ')[1];
+        id = id.split(' ')[0];
+        document.removeEventListener('mousemove', _event[id](event), false);
+        $("[name=tooltip2]").css({
+            display: "none"
+        });
+        return false;
+    },
+    'click #attach': function(event) {
+        if (event.preventDefault) event.preventDefault();
+        var attach = Session.get("attach") || {};
+        var clicked = Session.get("clickedItem");
+        attach[clicked] = {
+            from: Meteor.user().username,
+            price: $('[name=price]').val(),
+            bought: false
+        };
+        console.log(attach);
+        Session.set("attach", attach);
+        $('#attachmenu').closeModal();
+    },
+    'click .addInventory': function(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        $('#attachmenu').openModal();
+    },
+    'click .item2': function(event) {
+        var id = event.currentTarget.id;
+        var slot = id.split(' ')[1];
+        id = id.split(' ')[0];
+        Session.set("clickedItem",id);
+        $('[name=price]').val(Iteminfo.findOne({_id: id}).value);
+    },
 });
