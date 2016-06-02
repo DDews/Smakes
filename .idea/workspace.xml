@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/bbs.iml" afterPath="$PROJECT_DIR$/.idea/bbs.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.html" afterPath="$PROJECT_DIR$/bbs.html" />
     </list>
     <ignored path="bbs.iws" />
@@ -27,8 +29,8 @@
       <file leaf-file-name="bbs.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bbs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+            <state relative-caret-position="170">
+              <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -383,12 +385,12 @@
       <workItem from="1461976568875" duration="2352000" />
       <workItem from="1462063377600" duration="3253000" />
       <workItem from="1463432715796" duration="44405000" />
-      <workItem from="1464714715620" duration="16725000" />
+      <workItem from="1464714715620" duration="17387000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104747000" />
+    <option name="totallyTimeSpent" value="105409000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="7" width="1260" height="679" extended-state="0" />
@@ -837,8 +839,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bbs.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+        <state relative-caret-position="170">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding />
         </state>
       </provider>
