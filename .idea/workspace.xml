@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/game/pages/equipunit.js" afterPath="$PROJECT_DIR$/client/game/pages/equipunit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.css" afterPath="$PROJECT_DIR$/bbs.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbs.html" afterPath="$PROJECT_DIR$/bbs.html" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,21 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="equipunit.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/game/pages/equipunit.html">
+      <file leaf-file-name="bbs.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bbs.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="equipunit.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/game/pages/equipunit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="199" column="67" selection-start-line="199" selection-start-column="67" selection-end-line="199" selection-end-column="67" />
+            <state relative-caret-position="187">
+              <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -95,7 +86,6 @@
         <option value="$PROJECT_DIR$/client/game/pages/shop.js" />
         <option value="$PROJECT_DIR$/client/BBS/inbox.js" />
         <option value="$PROJECT_DIR$/client/BBS/thread.js" />
-        <option value="$PROJECT_DIR$/bbs.html" />
         <option value="$PROJECT_DIR$/lib/utilities.js" />
         <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/BBS/users.js" />
@@ -107,10 +97,11 @@
         <option value="$PROJECT_DIR$/client/BBS/profile.js" />
         <option value="$PROJECT_DIR$/client/BBS/post.html" />
         <option value="$PROJECT_DIR$/client/BBS/post.js" />
-        <option value="$PROJECT_DIR$/bbs.css" />
         <option value="$PROJECT_DIR$/client/BBS/pmPage.js" />
         <option value="$PROJECT_DIR$/client/BBS/pmPage.html" />
         <option value="$PROJECT_DIR$/client/game/pages/equipunit.js" />
+        <option value="$PROJECT_DIR$/bbs.css" />
+        <option value="$PROJECT_DIR$/bbs.html" />
       </list>
     </option>
   </component>
@@ -120,8 +111,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-28" />
-    <option name="y" value="57" />
+    <option name="x" value="20" />
+    <option name="y" value="7" />
     <option name="width" value="1260" />
     <option name="height" value="679" />
   </component>
@@ -392,15 +383,15 @@
       <workItem from="1461976568875" duration="2352000" />
       <workItem from="1462063377600" duration="3253000" />
       <workItem from="1463432715796" duration="44405000" />
-      <workItem from="1464714715620" duration="13446000" />
+      <workItem from="1464714715620" duration="16725000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101468000" />
+    <option name="totallyTimeSpent" value="104747000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-28" y="57" width="1260" height="679" extended-state="0" />
+    <frame x="20" y="7" width="1260" height="679" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24598071" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
@@ -660,14 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bbs.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/utilities.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -804,14 +787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bbs.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="462" column="6" selection-start-line="462" selection-start-column="1" selection-end-line="462" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/BBS/pmPage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -836,18 +811,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/game/pages/equipunit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="109" column="28" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/game/pages/equipunit.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
+        <state relative-caret-position="510">
           <caret line="105" column="71" selection-start-line="105" selection-start-column="71" selection-end-line="105" selection-end-column="71" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/game/pages/equipunit.js">
+    <entry file="file://$PROJECT_DIR$/bbs.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="199" column="67" selection-start-line="199" selection-start-column="67" selection-end-line="199" selection-end-column="67" />
+        <state relative-caret-position="-6">
+          <caret line="723" column="21" selection-start-line="723" selection-start-column="21" selection-end-line="723" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bbs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
           <folding />
         </state>
       </provider>

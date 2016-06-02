@@ -717,6 +717,7 @@ dt {
 }
 .shoutMsg {
     border-top: 1px dotted #aeaeae;
+    text-size: 1rem;
 }
 .itemtable {
     padding-bottom: 0px;
