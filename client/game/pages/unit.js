@@ -50,6 +50,7 @@ var unitHelpers = {
 		return getDbStat(stat, "Unitinfo", getID());
 	},
 	setTooltips: function() {
+		console.log("setting " + $('.tooltipped').length + " tooltips");
 		$('.tooltipped').tooltip({delay: 50});
 	},
 	getBgColor: function(value) {

@@ -16,10 +16,8 @@
 					{{/if}}
 				</span>
 				{{#if unitInCombat id}}
-					
 				{{else}}
 					{{#if userOwns id}}
-
 						| <span><a class="small amber-text text-lighten-1" href="/game/unit/{{id}}/edit">Edit</a></span>
 					{{/if}}
 				{{/if}}
@@ -128,7 +126,7 @@
 							</div>
 						{{/each}}
 					</div>
-
+						
 
 					<span class="red-text text-lighten-5">Equipment</span>
 					<div class="row">
@@ -148,6 +146,7 @@
 
 				 </div>
 			</div>
+				
 			{{#each equip in unitEquip}}
 				<div name="{{equip.value.itemId}}" class="itembg statwindow {{getBgColor equip.value.rarity}}" style="display: none;">
 					<p class="tooltipText">{{equip.value.name}}</p>
@@ -162,6 +161,8 @@
 					{{/if}}
 				</div>
 			{{/each}}
+			
+				
 			
 			{{else}}
 				Unit does not exist FUCK.
