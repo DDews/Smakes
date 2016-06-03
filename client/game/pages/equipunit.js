@@ -204,7 +204,10 @@ Template.equipunit.helpers({
 			if (currentItem[stat] < equip[stat]) { return "lowerStat"; }
 			if (currentItem[stat] > equip[stat]) { return "higherStat"; }
 			if (!equip.hasOwnProperty(stat)) { return "higherStat"; }
-		} else { return "lowerStat"; }
+		} else {
+			if (currentItem.hasOwnProperty(stat) && !equip.hasOwnProperty(stat)) return "higherStat";
+			return "lowerStat";
+		}
 	},
 	getIncrease: function(val,equip) {
 		var stat = unSuffix(val);

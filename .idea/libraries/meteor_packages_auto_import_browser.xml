@@ -25,7 +25,6 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.2.8/web.browser/webapp_cordova.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.2.8/web.browser/webapp_client.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.2.8/web.browser/webapp_server.js" />
-        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/npm-bcrypt/0.7.8_2/web.browser/packages/npm-bcrypt.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.11/web.browser/pre.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.11/web.browser/post.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.11/web.browser/fastclick.js" />
@@ -231,7 +230,6 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.2.8/web.browser/webapp_cordova.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.2.8/web.browser/webapp_client.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.2.8/web.browser/webapp_server.js" />
-      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/npm-bcrypt/0.7.8_2/web.browser/packages/npm-bcrypt.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.11/web.browser/pre.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.11/web.browser/post.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fastclick/1.0.11/web.browser/fastclick.js" />
