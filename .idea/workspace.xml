@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe10d893-1b3d-4505-94aa-57c6e9cd233a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/game.js" afterPath="$PROJECT_DIR$/server/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
     </list>
     <ignored path="bbs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/game.js">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="526" column="56" selection-start-line="526" selection-start-column="56" selection-end-line="526" selection-end-column="56" />
+            <state relative-caret-position="260">
+              <caret line="639" column="35" selection-start-line="639" selection-start-column="35" selection-end-line="639" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -86,7 +84,6 @@
         <option value="$PROJECT_DIR$/client/game/pages/shop.js" />
         <option value="$PROJECT_DIR$/client/BBS/inbox.js" />
         <option value="$PROJECT_DIR$/client/BBS/thread.js" />
-        <option value="$PROJECT_DIR$/server/server.js" />
         <option value="$PROJECT_DIR$/client/BBS/users.js" />
         <option value="$PROJECT_DIR$/client/BBS/users.html" />
         <option value="$PROJECT_DIR$/client/BBS/shoutbox.html" />
@@ -103,6 +100,7 @@
         <option value="$PROJECT_DIR$/lib/utilities.js" />
         <option value="$PROJECT_DIR$/client/game/pages/equipunit.js" />
         <option value="$PROJECT_DIR$/server/game.js" />
+        <option value="$PROJECT_DIR$/server/server.js" />
       </list>
     </option>
   </component>
@@ -384,12 +382,12 @@
       <workItem from="1462063377600" duration="3253000" />
       <workItem from="1463432715796" duration="44405000" />
       <workItem from="1464714715620" duration="19080000" />
-      <workItem from="1464977807789" duration="2290000" />
+      <workItem from="1464977807789" duration="3065000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109392000" />
+    <option name="totallyTimeSpent" value="110167000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="7" width="1260" height="679" extended-state="0" />
@@ -538,6 +536,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
           <caret line="133" column="19" selection-start-line="133" selection-start-column="19" selection-end-line="133" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -636,6 +635,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="62" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -653,18 +653,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/BBS/shoutbox.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="321">
           <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -716,6 +709,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="10" column="31" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -723,6 +717,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
           <caret line="236" column="25" selection-start-line="236" selection-start-column="25" selection-end-line="236" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -824,6 +819,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="526" column="56" selection-start-line="526" selection-start-column="56" selection-end-line="526" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="639" column="35" selection-start-line="639" selection-start-column="35" selection-end-line="639" selection-end-column="35" />
           <folding />
         </state>
       </provider>

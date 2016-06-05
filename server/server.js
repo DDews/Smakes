@@ -633,6 +633,7 @@ Meteor.methods({
         var iteminfo = Iteminfo.findOne({_id: item});
         if (!iteminfo) throw new Meteor.Error(422,"Error: item not found");
         var info = Messages.findOne({_id: thread});
+        if (!info) throw new Meteor.Error(422, "Error: Thread not found");
         var messages = info.messages;
         var post = messages[message];
         var items = post.attachments;
