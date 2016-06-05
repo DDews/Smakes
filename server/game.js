@@ -524,7 +524,7 @@ Meteor.methods({
 		var newShopItems = 0;
 		items.each((item)=>{
 			if (!item.locked) {
-				totalSell += item.value * .1;
+				totalSell += Math.floor(item.value * .1);
 				if (newShopItems < 1000) {
 					item.username = "<shop>";
 					dbupdate(item);
