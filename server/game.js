@@ -255,57 +255,69 @@ Meteor.methods({
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		if (Heads[username][0].dy == -1) return;
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].dx = 0;
-		Heads[username][0].dy = 1;
-		smake.dx = 0;
-		smake.dy = 1;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		Heads[username][0].dx = 0;
+  		Heads[username][0].dy = 1;
+  		smake.dx = 0;
+  		smake.dy = 1;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	moveLeft: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		if (Heads[username][0].dx == 1) return;
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].dx = -1;
-		Heads[username][0].dy = 0;
-		smake.dx = -1;
-		smake.dy = 0;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		Heads[username][0].dx = -1;
+  		Heads[username][0].dy = 0;
+  		smake.dx = -1;
+  		smake.dy = 0;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	moveRight: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		if (Heads[username][0].dx == -1) return;
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].dx = 1;
-		Heads[username][0].dy = 0;
-		smake.dx = 1;
-		smake.dy = 0;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		Heads[username][0].dx = 1;
+  		Heads[username][0].dy = 0;
+  		smake.dx = 1;
+  		smake.dy = 0;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	normalSpeed: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].speed = 1;
-		if (smake.speed != 1) smake.speed = 1;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		Heads[username][0].speed = 1;
+  		if (smake.speed != 1) smake.speed = 1;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	slowSpeed: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].speed = 3;
-		if (smake.speed != 3) smake.speed = 3;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		Heads[username][0].speed = 3;
+  		if (smake.speed != 3) smake.speed = 3;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	fastSpeed: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].speed = 0.5;
-		if (smake.speed != 0.5) smake.speed = 0.5;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		Heads[username][0].speed = 0.5;
+  		if (smake.speed != 0.5) smake.speed = 0.5;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	purgeSmakes: () => {
 		delete Pix[username];
