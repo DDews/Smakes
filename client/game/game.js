@@ -55,8 +55,8 @@ var _first = function () {
 			ctx.fill();
 		});
 	}
-	document.addEventListener('keydown', function (e) { if (keys.indexOf(e.code) != -1) { if (e.code == 'AltLeft' || e.code == 'AltRight') e.preventDefault(); _move(e.code); } });
-	document.addEventListener('keyup', function (e) { if (_timeout) clearTimeout(_timeout); _timeout = setTimeout( function() { if (keys.indexOf(e.code) != -1) { if (e.code == 'AltLeft' || e.code == 'AltRight') e.preventDefault(); _stop(e.code); } }, 150) });
+	document.addEventListener('keydown', function (e) { if (e.code == 'AltLeft' || e.code == 'AltRight') e.preventDefault(); _move(e.code); });
+	document.addEventListener('keyup', function (e) { if (_timeout) clearTimeout(_timeout); _timeout = setTimeout( function() { if (e.code == 'AltLeft' || e.code == 'AltRight') e.preventDefault(); _stop(e.code); }, 150) });
 	_started = true;
 };
 var _draw = function () {
