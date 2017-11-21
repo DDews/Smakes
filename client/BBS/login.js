@@ -3,7 +3,7 @@
  */
 Meteor.startup(function() {
     reCAPTCHA.config({
-        publickey: '6LcluzkUAAAAAFJKVPYtuaqZzEVgLQxQ5Zw8yYRS'
+        sitekey: '6LcluzkUAAAAAFJKVPYtuaqZzEVgLQxQ5Zw8yYRS'
     });
 });
 Template.login.events({
@@ -31,10 +31,10 @@ Template.login.events({
                 submit.disabled = false;
                 return false;
             }
-            var captchaData = grecaptcha.getResponse();
+            var captchaData = reCAPTCHA.getResponse("captcha_widget_id");
             Meteor.call('formSubmissionMethod',username, password, captchaData, function(error, result) {
                 // reset the captcha
-                grecaptcha.reset();
+                reCAPTCHA.reset("captcha_widget_id");
 
                 if (error) {
                     if (error.reason == "missing-input-response")
