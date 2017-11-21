@@ -5,8 +5,8 @@ var _started = false;
 var _timeout;
 var _stop = function (key) {
 	_keys.delete(key);
-	if (key == "ShiftLeft" || key == "ShiftRight") Meteor.call("doubleSpeed");
-	else if (key == 'ControlLeft' || key == 'ControlRight') Meteor.call("doubleSpeed");
+	if (key == "ShiftLeft" || key == "ShiftRight") Meteor.call("normalSpeed");
+	else if (key == 'Space') Meteor.call("normalSpeed");
 	console.log(key);
 };
 var _move = function (key) {
@@ -30,10 +30,9 @@ var _move = function (key) {
 			break;
 		case 'ShiftLeft':
 		case 'ShiftRight':
-			Meteor.call("normalSpeed");
+			Meteor.call("fastSpeed");
 			break;
-		case 'ControlLeft':
-		case 'ControlRight':
+		case 'Space':
 			Meteor.call("slowSpeed");
 	}
 };
@@ -56,8 +55,8 @@ var _first = function () {
 			ctx.fill();
 		});
 	}
-	document.addEventListener('keydown', function (e) { _move(e.code); e.preventDefault(); });
-	document.addEventListener('keyup', function (e) { if (_timeout) clearTimeout(_timeout); _timeout = setTimeout( function() { _stop(e.code); e.preventDefault(); }, 150) });
+	document.addEventListener('keydown', function (e) { if (keys.indexOf(e.code) != -1) { if (e.code == 'AltLeft' || e.code == 'AltRight') e.preventDefault(); _move(e.code); } });
+	document.addEventListener('keyup', function (e) { if (_timeout) clearTimeout(_timeout); _timeout = setTimeout( function() { if (keys.indexOf(e.code) != -1) { if (e.code == 'AltLeft' || e.code == 'AltRight') e.preventDefault(); _stop(e.code); } }, 150) });
 	_started = true;
 };
 var _draw = function () {

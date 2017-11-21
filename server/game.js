@@ -150,85 +150,90 @@ Meteor.methods({
 			dx = (SPEED * d.speed) / dx;
 			d.tick++;
 			if (d.tick >= d.speed) {
-				d.size += 1;
 				d.tick = 0;
-				var newx = d.x + Math.round(d.dx * dx);
-				while (newx >= SIZE) newx -= SIZE;
-				while (newx < 0) newx += SIZE;
-				var newy = d.y + Math.round(d.dy * dx);
-				while (newy >= SIZE) newy -= SIZE;
-				while (newy < 0) newy += SIZE;
-				var n = {
-					smake: d._id,
-					username: username,
-					color: d.color,
-					speed: d.speed,
-					bot: d.bot,
-					x: 0,
-					y: 0,
-					dx: +d.dx,
-					dy: +d.dy,
-					createdAt: +new Date()
-				};
-				d.x += d.dx;
-				if (d.x >= SIZE) d.x -= SIZE;
-				else if (d.x < 0) d.x += SIZE;
-				d.y += d.dy;
-				if (d.y >= SIZE) d.y -= SIZE;
-				else if (d.y < 0) d.y += SIZE;
-				var hit = Pix[username][d.x][d.y];
-				if (hit != undefined) {
-          dying = true;
-					for (k = 0; k < Snakes[username][i].length; k++) {
-						var died = Snakes[username][i][k];
-						var j = {
-							username: username,
-							smake: d._id,
-							x: died.x,
-							y: died.y,
-							createdAt: +new Date()
-						};
-						Pix[username][died.x][died.y] = undefined;
-					  DeadPixels.insert(j);
-					}
-          Pixels.remove({username: username, smake: d._id});
-          DeadPixels.insert(n);
-					d.x = Math.floor(Math.random() * SIZE);
-					d.y = Math.floor(Math.random() * SIZE);
-					d.dx = 1;
-					d.dy = 0;
-					d.length = 10;
-					d.size = 1;
-          console.log(i + ": " + d.x + ", " + d.y);
-					Snakes[username][i] = [{x: d.x, y: d.y}];
-				}
-				n.x = d.x;
-				n.y = d.y;
-				Pix[username][d.x][d.y] = i;
-        if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0);
-				Snakes[username][i].push({x: d.x,y: d.y});
-				d.createdAt = +new Date();
-				n.createdAt = d.createdAt;
-				if (d.size > d.length) {
-					var pos = Snakes[username][i][0];
-					pixel = Pixels.findOne({username: username, smake: d._id, x: pos.x, y: pos.y},{sort: {createdAt: 1}});
-					if (pixel) {
-						Pixels.remove(pixel._id);
-						delete pixel._id;
-            delete pixel._collection;
-						DeadPixels.insert(pixel);
-					}
-					Pix[username][pos.x][pos.y] = undefined;
-					if (Snakes[username][i].length > 1) Snakes[username][i].shift();
-					if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
-					d.size--;
-				}
-				Smakes.update(d._id,{$set: d});
-				Heads[username][i] = d;
-				Pixels.insert(n);
-        if (dying) DeadPixels.insert(n);
-			}
-			Heads[username][i] = d;
+        if (d.speed == 0.5) doubleSpeed = 2;
+        else doubleSpeed = 1;
+        for (y = 0; y < doubleSpeed; y++) {
+          d.size += 1;
+  				var newx = d.x + Math.round(d.dx * dx);
+  				while (newx >= SIZE) newx -= SIZE;
+  				while (newx < 0) newx += SIZE;
+  				var newy = d.y + Math.round(d.dy * dx);
+  				while (newy >= SIZE) newy -= SIZE;
+  				while (newy < 0) newy += SIZE;
+  				var n = {
+  					smake: d._id,
+  					username: username,
+  					color: d.color,
+  					speed: d.speed,
+  					bot: d.bot,
+  					x: 0,
+  					y: 0,
+  					dx: +d.dx,
+  					dy: +d.dy,
+  					createdAt: +new Date()
+  				};
+  				d.x += d.dx;
+  				if (d.x >= SIZE) d.x -= SIZE;
+  				else if (d.x < 0) d.x += SIZE;
+  				d.y += d.dy;
+  				if (d.y >= SIZE) d.y -= SIZE;
+  				else if (d.y < 0) d.y += SIZE;
+  				var hit = Pix[username][d.x][d.y];
+  				if (hit != undefined) {
+            dying = true;
+  					for (k = 0; k < Snakes[username][i].length; k++) {
+  						var died = Snakes[username][i][k];
+  						var j = {
+  							username: username,
+  							smake: d._id,
+  							x: died.x,
+  							y: died.y,
+  							createdAt: +new Date()
+  						};
+  						Pix[username][died.x][died.y] = undefined;
+  					  DeadPixels.insert(j);
+  					}
+            Pixels.remove({username: username, smake: d._id});
+            DeadPixels.insert(n);
+  					d.x = Math.floor(Math.random() * SIZE);
+  					d.y = Math.floor(Math.random() * SIZE);
+  					d.dx = 1;
+  					d.dy = 0;
+  					d.length = 10;
+  					d.size = 1;
+            console.log(i + ": " + d.x + ", " + d.y);
+  					Snakes[username][i] = [{x: d.x, y: d.y}];
+  				}
+  				n.x = d.x;
+  				n.y = d.y;
+  				Pix[username][d.x][d.y] = i;
+          if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0);
+  				Snakes[username][i].push({x: d.x,y: d.y});
+  				d.createdAt = +new Date();
+  				n.createdAt = d.createdAt;
+  				if (d.size > d.length) {
+  					var pos = Snakes[username][i][0];
+  					pixel = Pixels.findOne({username: username, smake: d._id, x: pos.x, y: pos.y},{sort: {createdAt: 1}});
+  					if (pixel) {
+  						Pixels.remove(pixel._id);
+  						delete pixel._id;
+              delete pixel._collection;
+  						DeadPixels.insert(pixel);
+  					}
+  					Pix[username][pos.x][pos.y] = undefined;
+            if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
+  					if (Snakes[username][i].length > 1) Snakes[username][i].shift();
+  					if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
+  					d.size--;
+  				}
+  				Smakes.update(d._id,{$set: d});
+  				Heads[username][i] = d;
+  				Pixels.insert(n);
+          if (dying) DeadPixels.insert(n);
+  			}
+  			Heads[username][i] = d;
+      }
 		}
 	},
 	removePixel: (id, time) => {
@@ -278,7 +283,7 @@ Meteor.methods({
 		smake.dy = 0;
 		Smakes.update(smake._id,{$set: smake});
 	},
-	doubleSpeed: () => {
+	normalSpeed: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
@@ -286,7 +291,7 @@ Meteor.methods({
 		if (smake.speed != 1) smake.speed = 1;
 		Smakes.update(smake._id,{$set: smake});
 	},
-	normalSpeed: () => {
+	slowSpeed: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
@@ -294,12 +299,12 @@ Meteor.methods({
 		if (smake.speed != 3) smake.speed = 3;
 		Smakes.update(smake._id,{$set: smake});
 	},
-	slowSpeed: () => {
+	fastSpeed: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		Heads[username][0].speed = 4;
-		if (smake.speed != 4) smake.speed = 4;
+		Heads[username][0].speed = 0.5;
+		if (smake.speed != 0.5) smake.speed = 0.5;
 		Smakes.update(smake._id,{$set: smake});
 	},
 	purgeSmakes: () => {
