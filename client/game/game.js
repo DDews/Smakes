@@ -4,36 +4,40 @@ var _keys = new Set();
 var _started = false;
 var _timeout;
 var _stop = function (key) {
-	_keys.delete(key);
-	if (key == "ShiftLeft" || key == "ShiftRight") Meteor.call("normalSpeed");
-	else if (key == 'Space') Meteor.call("normalSpeed");
-	console.log(key);
+	if (Session.get("inGame")) {
+		_keys.delete(key);
+		if (key == "ShiftLeft" || key == "ShiftRight") Meteor.call("normalSpeed");
+		else if (key == 'Space') Meteor.call("normalSpeed");
+		console.log(key);
+	}
 };
 var _move = function (key) {
-	_keys.add(key);
-	switch (key) {
-		case 'KeyA':
-		case 'ArrowLeft':
-			Meteor.call("moveLeft");
-			break;
-		case 'KeyD':
-		case 'ArrowRight':
-			Meteor.call("moveRight");
-			break;
-		case 'KeyW':
-		case 'ArrowUp':
-			Meteor.call("moveUp");
-			break;
-		case 'KeyS':
-		case 'ArrowDown':
-			Meteor.call("moveDown");
-			break;
-		case 'ShiftLeft':
-		case 'ShiftRight':
-			Meteor.call("fastSpeed");
-			break;
-		case 'Space':
-			Meteor.call("slowSpeed");
+	if (Session.get("inGame")) {
+		_keys.add(key);
+		switch (key) {
+			case 'KeyA':
+			case 'ArrowLeft':
+				Meteor.call("moveLeft");
+				break;
+			case 'KeyD':
+			case 'ArrowRight':
+				Meteor.call("moveRight");
+				break;
+			case 'KeyW':
+			case 'ArrowUp':
+				Meteor.call("moveUp");
+				break;
+			case 'KeyS':
+			case 'ArrowDown':
+				Meteor.call("moveDown");
+				break;
+			case 'ShiftLeft':
+			case 'ShiftRight':
+				Meteor.call("fastSpeed");
+				break;
+			case 'Space':
+				Meteor.call("slowSpeed");
+		}
 	}
 };
 var _first = function () {

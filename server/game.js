@@ -83,6 +83,7 @@ Meteor.methods({
 	stopGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+    Session.set("inGame",false);
 		Smakes.remove({username: username});
 		Pixels.remove({username: username});
 		DeadPixels.remove({username: username});
@@ -97,6 +98,7 @@ Meteor.methods({
 	newGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+    Session.set("inGame",true);
 		Smakes.remove({username: username});
 		Pixels.remove({username: username});
 		DeadPixels.remove({username: username});

@@ -70,7 +70,7 @@ Meteor.startup(function() {
     // Load exec
     exec = Npm.require("child_process").exec;
     reCAPTCHA.config({
-        privatekey: '6LcPHRoTAAAAAMa7ccTuIuaV8jU3XahqTTnwuDrd'
+        privatekey: '6LcluzkUAAAAAMECc9iTkYqTlhM2VukrdTYc4ztj'
     });
     if (!Meteor.users.findOne({username: 'admin'})) {
         Accounts.createUser({
