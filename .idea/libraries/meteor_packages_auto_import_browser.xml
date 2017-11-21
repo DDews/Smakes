@@ -188,7 +188,6 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-dict/1.1.7/web.browser/migration.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ejson/1.0.11/web.browser/stringify.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-var/1.0.9/web.browser/reactive-var.js" />
-        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/altapp_recaptcha/2.0.1/web.browser/client/client.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/ejson/1.0.11/web.browser/ejson.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/reload/1.1.8/web.browser/deprecated.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/reload/1.1.8/web.browser/reload.js" />
@@ -392,8 +391,7 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-dict/1.1.7/web.browser/reactive-dict.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-dict/1.1.7/web.browser/migration.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ejson/1.0.11/web.browser/stringify.js" />
-      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-var/1.0.9/web.browser/reactive-var.js" />
-      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/altapp_recaptcha/2.0.1/web.browser/client/client.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-var/1.0.9/web.browser/reactive-var.js" 
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ejson/1.0.11/web.browser/ejson.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reload/1.1.8/web.browser/deprecated.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reload/1.1.8/web.browser/reload.js" />
