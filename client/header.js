@@ -120,7 +120,7 @@ Template['header'].helpers({
 				if (session[0] == "unit") { return false };
 				if (session[0] == "editunit") { return false };
 			}
-            
+
             return true;
         },
         numNewFollowed: function() {

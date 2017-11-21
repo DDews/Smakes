@@ -1,4 +1,0 @@
-
-Template.unitcard.helpers({
-	
-})

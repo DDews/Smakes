@@ -19,8 +19,8 @@ Messages.deny({
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Register a single function in Handlebars
-var reg = function(name, func) { 
-	Handlebars.registerHelper(name, func); 
+var reg = function(name, func) {
+	Handlebars.registerHelper(name, func);
 }
 
 //Register a map of functions in Handlebars
@@ -87,7 +87,7 @@ _retry = true;
 _turnsDone = {};
 
 var globalGameHelpers = {
-	onGamePage: function() { 
+	onGamePage: function() {
 		var route = Router.current().route.getName();
 		//console.log(route);
 		return route == "game";
@@ -128,19 +128,19 @@ var globalGameHelpers = {
 	gameFatigue: function() {
 		var data = Gameinfo.findOne();
 		if (!data) { return 0; }
-		return data.fatigue;	
+		return data.fatigue;
 	},
 	gameFatigueColor: function() {
 		var data = Gameinfo.findOne();
 		if (!data) { return "purple"; }
 		return data.fatigue ? "red" : "green";
 	},
-	gameStamina: function() { 
+	gameStamina: function() {
 		var data = Gameinfo.findOne();
 		if (!data) { return 0; }
 		return data.stamina || 0;
 	},
-	gameMaxStamina: function() { 
+	gameMaxStamina: function() {
 		var data = Gameinfo.findOne();
 		if (!data) { return 20; }
 		return data.maxStamina || 20;
@@ -162,12 +162,12 @@ var globalGameHelpers = {
 		var data = Gameinfo.findOne();
 		var inKombat = data && data.combat != null;
 		if (inKombat || !_retry) { return 0; }
-		
+
 		var data = Gameinfo.findOne();
 		if (!data) { return .5; }
 		var retryTime = data.retryTime || 5;
 		var retryTimeout = data.retryTimeout || 2.5;
-		
+
 		return Math.floor(retryTimeout / retryTime * 100);
 	},
 };
@@ -262,7 +262,7 @@ unSuffix = function(str) {
 	if (str.suffix("%")
 		|| str.suffix("#")
 		|| str.suffix("@")) {
-		return str.substring(0, str.length-1); 
+		return str.substring(0, str.length-1);
 	}
 	return str;
 }
@@ -277,9 +277,9 @@ var globalUnitHelpers = {
 	unit: function(id) { return Unitinfo.findOne(id); },
 	vitalColor: function(vital) { return vitalColors[vital]; },
 	combat: function(id) { return getUnit(id).combat; },
-	tooltipFor: function(thing) { 
+	tooltipFor: function(thing) {
 		if (isString(thing)) {
-			return tooltips[unSuffix(thing)]; 
+			return tooltips[unSuffix(thing)];
 		}
 		return "THING IS NOT STRING";
 	},
@@ -292,9 +292,9 @@ var globalUnitHelpers = {
 		var inParty = gamedata && gamedata.party.includes(id);
 		return inParty ? "checked" : null;
 	},
-	unitName: function(id) { 
+	unitName: function(id) {
 		var unit = getUnit(id);
-		return unit ? unit.name : ""; 
+		return unit ? unit.name : "";
 	},
 
 };
@@ -330,14 +330,14 @@ helpers(globalItemHelpers);
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //Helpers (to be moved into globalUnitHelpers):
 var unitStat = function(id, stat) { return getUnit(id)[stat]; }
-var ownerName = function(id) { 
+var ownerName = function(id) {
 	var unit = getUnit(id);
-	if (unit.team != 'player') { 
+	if (unit.team != 'player') {
 		return "Nobody.";
 	}
-	return getUnit(id).username; 
+	return getUnit(id).username;
 }
-var isPlayer = function(id) { 
+var isPlayer = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return false; }
 	return unit.team == 'player';
@@ -365,44 +365,44 @@ var unitVital = function(id, vital) {
 	var cap = "m"+vital;
 	return vital + ": " + Math.floor(unit[vital]) + " / " + unit[cap];
 }
-var unitHeader = function(id) { 
+var unitHeader = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return "NO UNIT TO MAKE HEADER"; }
-	
+
 	var str = "lv. " + unit.level + " " + unit.race + " " + unit.job + " (" + unit.team + ")";
 	return str;
 }
 var unitLevelHeader = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return "" }
-	
+
 	return "lv. " + unit.level;
 }
 var unitRace = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return "" }
-	
+
 	return unit.race;
 }
 var unitJob = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return "" }
-	
+
 	return unit.job;
 }
 var unitTeam = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return "" }
-	
+
 	return unit.team;
 }
-var unitColor = function(id) { 
+var unitColor = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return "unknownUnit"; }
-	
+
 	var team = unit.team;
-	if (team == 'player') { 
-		return unit.dead() ? "playerDead" : "playerAlive" 
+	if (team == 'player') {
+		return unit.dead() ? "playerDead" : "playerAlive"
 	}
 	return unit.dead() ? "enemyDead" : "enemyAlive" ;
 }
@@ -410,20 +410,20 @@ var unitColor = function(id) {
 var unitPose = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return ""; }
-	
+
 	if (unit.dead()) { return unit.poses["ded"]; }
 	var cpose = unit.cpose;
 	if (cpose == 'normal' && unit.hp / unit.mhp < .25) {
 		return unit.poses["lowHP"]
 	}
-	
+
 	return unit.poses[cpose];
 }
 
 var unitPoseURL = function(id, pose) {
 	var unit = getUnit(id);
 	if (!unit) { return ""; }
-	
+
 	return unit.poses[pose];
 }
 
@@ -431,7 +431,7 @@ var unitPoseURL = function(id, pose) {
 var unitPoseStyle = function(id) {
 	var unit = getUnit(id);
 	if (!unit) { return ""; }
-	
+
 	if (unit.dead()) { return "blendDarkRed"; }
 	if (unit.hp / unit.mhp < .25) { return "blendRed"}
 	return "";

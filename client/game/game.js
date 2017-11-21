@@ -1,138 +1,114 @@
-
-_pause = false;
-_inCombat = false;
-_retry = false;
-
-
+var SIZE = 50;
+var _moving = 'right';
+var _keys = new Set();
+var _started = false;
+var _timeout;
+var _stop = function (key) {
+	_keys.delete(key);
+	if (key == "ShiftLeft" || key == "ShiftRight") Meteor.call("doubleSpeed");
+	else if (key == 'ControlLeft' || key == 'ControlRight') Meteor.call("doubleSpeed");
+	console.log(key);
+};
+var _move = function (key) {
+	_keys.add(key);
+	switch (key) {
+		case 'KeyA':
+		case 'ArrowLeft':
+			Meteor.call("moveLeft");
+			break;
+		case 'KeyD':
+		case 'ArrowRight':
+			Meteor.call("moveRight");
+			break;
+		case 'KeyW':
+		case 'ArrowUp':
+			Meteor.call("moveUp");
+			break;
+		case 'KeyS':
+		case 'ArrowDown':
+			Meteor.call("moveDown");
+			break;
+		case 'ShiftLeft':
+		case 'ShiftRight':
+			Meteor.call("normalSpeed");
+			break;
+		case 'ControlLeft':
+		case 'ControlRight':
+			Meteor.call("slowSpeed");
+	}
+};
+var _first = function () {
+	var c = document.getElementById("canvas");
+	if (c) {
+		var user = Meteor.user();
+		var username = user && user.username;
+		var ctx = c.getContext("2d");
+		var w = c.width;
+		var h = c.height;
+		var px = Math.floor(w / SIZE);
+		var py = Math.floor(h / SIZE);
+		ctx.clearRect(0, 0, w, h);
+		Pixels.find({username: user.username}).forEach(smake => {
+			ctx.beginPath();
+			ctx.fillStyle = smake.color;
+			ctx.rect(smake.x * px,smake.y * py, px, py);
+			ctx.lineWidth=px;
+			ctx.fill();
+		});
+	}
+	document.addEventListener('keydown', function (e) { _move(e.code); e.preventDefault(); });
+	document.addEventListener('keyup', function (e) { if (_timeout) clearTimeout(_timeout); _timeout = setTimeout( function() { _stop(e.code); e.preventDefault(); }, 150) });
+	_started = true;
+};
+var _draw = function () {
+	if (!_started) return;
+	var c = document.getElementById("canvas");
+	if (c) {
+		var user = Meteor.user();
+		var username = user && user.username;
+		var ctx = c.getContext("2d");
+		var w = c.width;
+		var h = c.height;
+		var px = Math.floor(w / SIZE);
+		var py = Math.floor(h / SIZE);
+		Smakes.find({username: user.username}).forEach(smake => {
+			ctx.beginPath();
+			ctx.fillStyle = smake.color;
+			ctx.lineWidth=px;
+			ctx.rect(smake.x * px,smake.y * py, px, py);
+			ctx.fill();
+			ctx.closePath();
+		});
+		var mostRecent = {};
+		DeadPixels.find({username: user.username}).forEach(smake => {
+			ctx.clearRect(smake.x * px, smake.y * py, px, py);
+			if (mostRecent[smake.smake]) {
+				if (smake.createdAt > mostRecent[smake.smake]) mostRecent[smake.smake] = smake.createdAt;
+			} else {
+				mostRecent[smake.smake] = smake.createdAt;
+			}
+		});
+		for (var smake in mostRecent) {
+			Meteor.call("removePixel",smake, mostRecent[smake]);
+		}
+	}
+};
+Tracker.autorun(function () {
+	var user = Meteor.user();
+	var username = user && user.username;
+	var smakes = Smakes.find({username: username}).fetch();
+	var deadpixels = DeadPixels.find({username: username}).fetch();
+	_draw();
+});
+Template.game.onRendered( function () {
+	_started = false;
+	_first();
+});
+Template.game.onDestroyed( function () {
+	Meteor.call("stopGame");
+});
 Template.game.helpers({
-	startRetryLoop: function() {
-		if (!_retry) {
-			console.log("not retrying combats...");
-			return;
-		}
-		var ticks = 0;
-		var intervalId = setInterval(() => {
-			if (!_retry || _inCombat) { 
-				clearInterval(intervalId); 
-				return; 
-			}
-			ticks += 1;
-			var data = {};
-			Meteor.call("elapseRetryTime", data);
-			if (Router.current().route.getName() != 'game') {
-				clearInterval(intervalId);
-			}
-			
-		}, 200); //interval length
-		
-	},
-	startCombatLoop: function() {
-		if (_inCombat) { 
-			console.log("combatAlreadyRunning")
-			return;
-		}
-		
-		var ticks = 0;
-		
-		var intervalId = setInterval(() => {
-			_inCombat = true;
-			if (!_pause) {
-				ticks += 1;
-				var data = {};
-				
-				var combatinfo = Combatinfo.findOne();
-				if (combatinfo) {
-					combatinfo.hits.each((hit) => {
-						if (!_turnsDone[hit.turn]) {
-							_turnsDone[hit.turn] = ticks;
-							//console.log("handled messages for turn " + ticks)
-							
-							hit.each((_id, data) => {
-								if (_id != "turn") {
-									//console.log(_id);
-									//console.log(data);
-									var elem = $("#"+_id+"img");
-									//console.log(elem)
-									
-									showDamage(elem, data.text, data.color, data.bgimg)
-								}
-							})
-							
-						}
-					})
-					
-					Meteor.call("elapseTime", data);
-				} else {
-					console.log("combat ended");
-					clearInterval(intervalId);
-					_inCombat = false;
-				}
-				
 
-				if (Router.current().route.getName() != 'game') {
-					clearInterval(intervalId);
-					_inCombat = false;
-				}
-				
-			}
-		}, 200); //Interval length
-		
-	},
-	
-	
-	
-	combatMessages: function() {
-		var data = Combatinfo.findOne();
-		if (!data) { return ["no combat data"]; }
-		return data.combatlog || ["no messages"];
-	},
-	fillCombatMessages: function() {
-		var data = Gameinfo.findOne();
-		var msgs = [];
-		if (!data) { msgs = ["no combat data"]; }
-		else { msgs = data.combatlog || ["no messages"]; }
-		var txt = $("#combatlog");
-		
-		if (txt) {
-			var msg = "";
-			var len = msgs.length;
-			var i = 0;
-			msgs.each((m)=>{
-				msg += m + ((i < len-1) ? "\n" : "");
-				i += 1;
-
-			});
-
-			txt.text(msg)
-			if (txt[0]) {
-				txt.scrollTop(txt[0].scrollHeight)
-			}
-		}
-	},
-	fillItemMessages: function() {
-		var data = Gameinfo.findOne();
-		var msgs = [];
-		if (!data) { msgs = ["no item data"]; }
-		else { msgs = data.itemlog || ["no item messages"]; }
-		var txt = $("#itemlog");
-		
-		if (txt) {
-			var msg = "";
-			var len = msgs.length;
-			var i = 0;
-			msgs.each((m)=>{
-				msg += m + ((i < len-1) ? "\n" : "");
-				i += 1;
-
-			});
-
-			txt.text(msg)
-			if (txt[0]) {
-				txt.scrollTop(txt[0].scrollHeight)
-			}
-		}
-	},
-	generateName: japaneseName,
 });
 
 Template.game.events({
@@ -141,104 +117,10 @@ Template.game.events({
 		Meteor.call('testMakeItem');
 		return false;
 	},
-	'click #recruit': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		
-		//Meteor.call("")
-		
-		return false;
-	},
-	"click .toggleLogs": function(event) {
-		if (event.preventDefault) event.preventDefault();
-		var showlogs = Session.get("showLogs");
-		if (!showlogs) { Session.set("showLogs",true); }
-		else { Session.set("showLogs",false); }
-		return false;
-	},
-	'click .partyCheck': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		var data = {};
-		data.id = event.currentTarget.id;
-		Meteor.call("toggleUnitInParty", data)
-		
-		return false;
-	},
-	'click #newGame': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		var data = {}
-		data.name = $("#unitName").val()
-		data.job = $("#unitJob").val()
-		console.log($("#unitName"))
-		console.log(data);
-		
-		Meteor.call('newGame', data)
-		
-		return false
-	},
-	'click #inventory': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		Router.go("inventory")
-		return false;
-	},
-	
-	'click #startCombat': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		var data = {}
-		data.region = $("#region").val();
-		data.first = true;
-		Session.set("lastRegion",data.region);
-		//console.log(data);
-		
-		
-		Meteor.call('startCombat', data)
-		return false;
-	},
-	'click #pause': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		_pause = !_pause;
-		var btn = $("#pause");
-		
-		if (_pause) {
-			btn.removeClass("green").addClass("red").text("PAUSED")
-		} else {
-			btn.addClass("green").removeClass("red").text("pause");
-		}
-		
-		var units = Unitinfo.find().fetch();
-		units.each((u) => {
-			console.log(u);	
-		})
-	},
-	
-	'click #retry': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		_retry = !_retry;
-		var btn = $("#retry");
-		
-		if (_retry) {
-			btn.removeClass("darken-4").addClass("darken-1").text("Autofight: On")
-		} else {
-			btn.addClass("darken-4").removeClass("darken-1").text("Autofight: Off");
-		}
-	},
-		
-		
-	'click #run': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
-		Meteor.call('runAway');
-	},
-	'click #shop': function(event) {
-		if (event && event.preventDefault) event.preventDefault();
-		
+	'keydown input': function(event) {
+		console.log(event);
 	}
-		
-		
-	
+
+
+
 });

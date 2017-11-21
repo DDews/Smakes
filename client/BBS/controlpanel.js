@@ -34,13 +34,13 @@ Template.controlpanel.events({
 		Meteor.call("purgeGame");
 		return false;
 	},
-	'click #purgeCombat' : function() {
+	'click #purgeSmakes' : function() {
 		if (event.preventDefault) event.preventDefault();
-		Meteor.call("purgeCombat");
+		Meteor.call("purgeSmakes");
 		return false;
 	},
-	
-	
+
+
     'click .buttoncolor': function(event){
         if (event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];

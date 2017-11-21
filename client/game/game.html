@@ -3,117 +3,12 @@
     <div class="forumbg row">
         {{#if currentUser}}
 
-        {{#if gameInfoExists }}
-			{{> gamecontrols}}
-			
-			<div class="row {{gameFatigueColor}} darken-4">
-				<span class="center col s12">Autos</span>
-				<span class="right col s3">Autofight Timer: {{gameRetryTime}}s</span>
-				{{#if gameFatigue}}
-					<span class="right col s3 red-text text-lighten-3">Fatigue: {{gameFatigue}}</span>
-				{{else}}
-					<span class="right col s3 amber-text">Stamina: {{gameStamina}} / {{gameMaxStamina}}</span>
-				{{/if}}
-				<div class="progress blue-grey lighten-5">
-					<div class="determinate blue-grey lighten-2" style="width:{{gameRetryTimeoutPercent}}%"></div>
-				</div>
-			</div>
-			
-			
-			<div class="row blue-grey darken-4">
-				{{#if gameInCombat}}
-					<div class="col s12 center deep-orange darken-4 red-text text-lighten-3">IN COMBAT</div>
-					<div class="col s12 center deep-orange darken-4 red-text text-lighten-3">Round: {{combatRound}}</div>
-                    <button class="btn right orange darken-4 white-text" id="run" value="run">Run Away</button>
-					{{startCombatLoop}}
-				{{else}}
-					<div class="col s12 center green darken-4 green-text text-lighten-3">In Town</div>
-					{{startRetryLoop}}
-					{{> regiondropdown }}
-					<input class="btn right green darken-4" type="submit" id="startCombat" value="Go Fight!" />
-				{{/if}}
-			</div>
-			
-			{{#with gameSummary}}
-				{{> summary s=this}}
-			{{/with}}
-			
-		
-			<div class="row blue-grey darken-3" id="logs">
-				{{#if showLogs}}
-					<div class="col s2 center blue-grey-text text-darken-3">.</div>
-					<div class="col s2 center">
-						<label for="combatlog" class="orange-text">Combat Log</label>
-					</div>
-
-					<div class="col s4 center" id="toggleLogs">
-						<a href="#" class="toggleLogs">Toggle Logs</a>
-					</div>
-					<div class="col s2 center">
-						<label for="itemlog" class="orange-text">Item Log</label>
-					</div>
-					<div class="col s2 center blue-grey-text text-darken-3">.</div>
-
-					<div class="col s6 center">
-						<textarea id="combatlog" class="validate left combatLog" rows="10" style="height:10em;resize: vertical;"></textarea>
-					</div>
-					{{fillCombatMessages}}
-
-					<div class="col s6 center">
-						<textarea id="itemlog" class="validate left combatLog" rows="10" style="height:10em;resize: vertical;"></textarea>
-					</div>
-					{{fillItemMessages}}
-				{{else}}
-					<div class="col s12 center" id="toggleLogs">
-						<a href="#" class="toggleLogs">Toggle Logs</a>
-					</div>
-				{{/if}}
-			</div>
-		
-			{{#if gameInCombat}}
-                {{#each combatInfoUnits}}
-                    {{> unitcard id=this}}
-                {{/each}}
-			{{else}}
-                {{#each gameInfoUnits}}
-                    {{> unitcard id=this}}
-                {{/each}}
-            {{/if}}
-            <div class="row">
-            </div>
-        {{else}}
-        <div class="card blue-grey darken-4">
-            <div class="card-content white-text">
-                <span class="card-title">Start New Game</span>
-
-                <p>Welcome to Ryuusei RPG! This game plays itself, mostly. You start off with a party size of 1, and can recruit more members as you go. Make your first unit, and start afking today!</p>
-                <p class="small red-text text-darken-2">Note: This game plays itself, but only while you keep the page open. You can open another tab to browse the forum. If you are already playing the game, and try to play it again, you will get rejected.</p>
-                <br />
-                <div class="row">
-                    <div class="col s4 m3 l2"> <h5>Name: </h5> </div>
-                    <div class="col s8 m9 l10">
-                        <input type="text" id="unitName" name="unitName" placeholder="Enter Name Here" value="{{generateName}}" />
-                    </div>
-
-                    <div class="col s4 m3 l2"> <h5>Job: </h5> </div>
-                    <div class="col s8 m9 l10">
-                        <input type="text" id="unitJob" name="unitJob" placeholder="Enter Job Here" value="Mercenary"/>
-                    </div>
-                    <br>
-                    <div>
-                    <input class="button green darken-4 white-text" type="submit" id="newGame" value="SOLD!"/>
-                    </div>
-                    <div id="pmerror" class="col s12"></div>
-                </div>
-
-            </div>
-        </div>
-        {{/if}}
+        <canvas id="canvas" style="border: 1px solid white; margin: auto; display: block; width: 25vw; height:25vw"></canvas>
 
         {{else}}
         	<div class="title center">You must be logged in.</div>
         {{/if}}
 
     </div>
-	
+
 </template>
