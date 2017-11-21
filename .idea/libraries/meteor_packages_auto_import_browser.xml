@@ -392,7 +392,6 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-dict/1.1.7/web.browser/migration.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ejson/1.0.11/web.browser/stringify.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reactive-var/1.0.9/web.browser/reactive-var.js" />
-
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/ejson/1.0.11/web.browser/ejson.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reload/1.1.8/web.browser/deprecated.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/reload/1.1.8/web.browser/reload.js" />

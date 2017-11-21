@@ -1,12 +1,7 @@
 /**
  * Created by Dan on 2/26/2016.
  */
-Meteor.startup(function() {
-    reCAPTCHA.config({
-        sitekey: '6LcluzkUAAAAAFJKVPYtuaqZzEVgLQxQ5Zw8yYRS'
-    });
-});
-Template.login.events({
+ Template.login.events({
     'submit form': function(event) {
         if (event && event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];

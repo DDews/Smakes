@@ -1,7 +1,11 @@
 /**
  * Created by Dan on 2/27/2016.
  */
-
+ Meteor.startup(function() {
+     reCAPTCHA.config({
+         sitekey: '6LcluzkUAAAAAFJKVPYtuaqZzEVgLQxQ5Zw8yYRS'
+     });
+ });
 Meteor.users.deny({
     update: function() { return false },
     remove: function() { return false },
