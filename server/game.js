@@ -24,10 +24,30 @@ Meteor.methods({
 	stopGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
-    for (var k = 0; k < Snakes[usenrame].length; k++) {
-      var p = Snakes[username][k];
-      Pix[p.x][p.y] = 0;
+    var PixelsRaw = Pixels.rawCollection().initializeUnorderedBulkOp();
+    PixelsRaw.executeAsync = Meteor.wrapAsync(PixelsRaw.execute);
+
+    var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
+    DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
+
+    for (k = 0; k < Snakes[username].length; k++) {
+      var died = Snakes[username][k];
+      var j = {
+        username: username,
+        smake: d._id,
+        x: died.x,
+        y: died.y,
+        createdAt: +new Date()
+      };
+      Pix[died.x][died.y] = 0;
+      DeadPixelsRaw.insert(j);
+      updateDead = true;
     }
+    PixelsRaw.find({username: username}).remove();
+    
+    PixelsRaw.executeAsync();
+    DeadPixelsRaw.executeAsync();
+
     delete Heads[username];
     Smakes.remove({username: username});
     players = Smakes.find().fetch().length;
