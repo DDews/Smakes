@@ -142,6 +142,12 @@ Meteor.methods({
 		intervals.push(game);
 	},
 	tick: (username) => {
+    var PixelsRaw = Pixels.rawCollection().initializeUnorderedBulkOp();
+    PixelsRaw.executeAsync = Meteor.wrapAsync(PixelsRaw.execute);
+
+    var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
+    DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
+
 		for (i = 0; i < Heads[username].length; i++) {
       var dying = false;
 			var d = Heads[username][i];
@@ -192,10 +198,10 @@ Meteor.methods({
   							createdAt: +new Date()
   						};
   						Pix[username][died.x][died.y] = undefined;
-  					  DeadPixels.insert(j);
+  					  DeadPixelsRaw.insert(j);
   					}
-            Pixels.remove({username: username, smake: d._id});
-            DeadPixels.insert(n);
+            PixelsRaw.find({username: username, smake: d._id}).removeOne();
+            DeadPixelsRaw.insert(n);
   					d.x = Math.floor(Math.random() * SIZE);
   					d.y = Math.floor(Math.random() * SIZE);
   					d.dx = 1;
@@ -208,7 +214,7 @@ Meteor.methods({
   				n.x = d.x;
   				n.y = d.y;
   				Pix[username][d.x][d.y] = i;
-          if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0);
+          if (!Snakes[username][i]) Snakes[username][i] = new Array(0);
   				Snakes[username][i].push({x: d.x,y: d.y});
   				d.createdAt = +new Date();
   				n.createdAt = d.createdAt;
@@ -216,10 +222,10 @@ Meteor.methods({
   					var pos = Snakes[username][i][0];
   					pixel = Pixels.findOne({username: username, smake: d._id, x: pos.x, y: pos.y},{sort: {createdAt: 1}});
   					if (pixel) {
-  						Pixels.remove(pixel._id);
+  						PixelsRaw.find({_id: pixel._id}).removeOne();
   						delete pixel._id;
               delete pixel._collection;
-  						DeadPixels.insert(pixel);
+  						DeadPixelsRaw.insert(pixel);
   					}
   					Pix[username][pos.x][pos.y] = undefined;
             if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
@@ -227,14 +233,16 @@ Meteor.methods({
   					if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
   					d.size--;
   				}
-  				Smakes.update(d._id,{$set: d});
+  				Smakes.update(d._id, {$set: d});
   				Heads[username][i] = d;
-  				Pixels.insert(n);
-          if (dying) DeadPixels.insert(n);
+  				PixelsRaw.insert(n);
+          if (dying) DeadPixelsRaw.insert(n);
   			}
   			Heads[username][i] = d;
       }
 		}
+    PixelsRaw.executeAsync();
+    DeadPixelsRaw.executeAsync();
 	},
 	removePixel: (id, time) => {
 		DeadPixels.remove({smake: id, createdAt: {$lte: time}});
