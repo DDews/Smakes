@@ -116,6 +116,7 @@ var drawApple = function () {
 		ctx.rect(Math.floor(apple.x * px),Math.floor(apple.y * py), Math.ceil(px), Math.ceil(py));
 		ctx.lineWidth=px;
 		ctx.fill();
+		ctx.closePath();
 	}
 }
 var _first = function () {
@@ -140,6 +141,7 @@ var _first = function () {
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			ctx.lineWidth=px;
 			ctx.fill();
+			ctx.closePath();
 		});
 		drawApple();
 	}
