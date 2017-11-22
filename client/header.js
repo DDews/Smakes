@@ -161,10 +161,10 @@ Template['header'].helpers({
         ifNew: function(threadId) {
             var posts = Posts.find({threadId: threadId}).count();
             var userinfo = Userinfo.findOne({username: Meteor.user().username});
-            if (!userinfo) return null;
+            if (!userinfo) return "old";
             var tracked = userinfo.track;
-            if (posts > tracked[threadId]) return "new ";
-            return null;
+            if (posts > tracked[threadId]) return "new";
+            return "old";
         },
         newPosts: function(threadId) {
             var posts = Posts.find({threadId: threadId}).count();
@@ -202,19 +202,19 @@ Template['header'].helpers({
         },
         ifNewAuthor: function(author) {
             var username = Meteor.user() && Meteor.user().username;
-            if (!username) return null;
+            if (!username) return "old";
             var userinfo = Userinfo.findOne({username: username});
             var authors = userinfo.authors || {};
-            if (!authors.has(author)) return null;
-            if (authors[author].length > 0) return "new ";
-            else return null;
+            if (!authors.has(author)) return "old";
+            if (authors[author].length > 0) return "new";
+            else return "old";
         },
         ifNewMessages: function() {
             var newmessages = Meteor.user() && Messages.find({
                 unread: Meteor.user().username
             }).count();
-            if (newmessages > 0) return "new ";
-            return null;
+            if (newmessages > 0) return "new";
+            return "old";
         },
         newAuthorPosts: function(author) {
             var username = Meteor.user() && Meteor.user().username;

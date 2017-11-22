@@ -3,7 +3,7 @@
             {{#if exists _id}}
                 {{#if correctPage}}
                     <div class="row">
-                        <div class="right col s4 pageListing">
+                        <div class="right col-sm-4 pageListing">
                             <img src="/pages.gif" width="10" height="10">
                             {{#if needFirst}}<a class="pages" href="/inbox/{{threadID}}/1">1</a>{{/if}}
                             {{#if needFirstElipsis}}...{{/if}}
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="forumbg row">
-                        <div class="col s12">
+                        <div class="col-sm-12">
                             <div class="row">
                                 {{resetAttachments}}
                                 <span class="title"><h2><a class="username" href="/profile/{{target}}">{{target}}</a></h2></span>
@@ -25,11 +25,11 @@
                                 {{else}}<p class="right"><a href="#" class="deletePM">Delete</a>   <a href="#" class="replypm" name="reply">Reply</a></p>
                                 {{/if}}
                                 {{#if showpmreply 'top'}}
-                                    <div id="pmerror" class="col s12"></div>
+                                    <div id="pmerror" class="col-sm-12"></div>
                                     <form class="pmForm">
-                                        <input type="text" name="subject" placeholder="subject" />
+                                        <input type="text" class="form-control" name="subject" placeholder="subject" />
                                         <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
-                                        <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                        <input type="submit" class="btn btn-primary" name="submit" value="Send" />
                                         <a href="#" class="addInventory">Attach Inventory</a>
                                         <div class="row">
                                             {{#each item in attachedItems2}}
@@ -38,13 +38,13 @@
                                                 </div>
                                             {{/each}}
                                         </div>
-                                        <script>$('[name=subject]').focus(); $('[name=message]').characterCounter();</script>
+                                        <script>$('[name=subject]').focus();</script>
                                     </form>
                                 {{/if}}
                             </div>
                             {{#each post}}
                                 <div class="row {{postColor _id}}">
-                                    <div class="col s9">
+                                    <div class="col-sm-9">
                                         <p>
                                             <p class="subjectText">{{getSubject subject}}</p>
                                             <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
@@ -73,7 +73,7 @@
                                             {{/if}}
                                         </p>
                                     </div>
-                                    <div class="col s3 right">
+                                    <div class="col-sm-3 right">
                                         <span class="small">
                                             <a class="username" href="/profile/{{from}}">{{from}}</a>
                                             <p><span class="right {{getStatus from}}">{{isOnline from}}</span></p>
@@ -87,11 +87,11 @@
                         {{#if deleted target}}
                         <div class="row"><p class="right"><a href="#" class="deletePM">delete</a></p></div>{{else}}<div class="row"><p class="right"><a href="#" class="deletePM">Delete</a>  <a href="#reply" class="bottomReply">Reply</a></p>
                             {{#if showpmreply 'bottom'}}
-                                <div id="pmerror" class="col s12"></div>
+                                <div id="pmerror" class="col-sm-12"></div>
                                 <form class="pmForm">
-                                    <input type="text" name="subject" placeholder="subject" />
+                                    <input type="text" class="form-control" name="subject" placeholder="subject" />
                                     <textarea class="materialize-textarea"  name="message" length="{{numChars}}"></textarea>
-                                    <input type="submit" class="buttoncolor" name="submit" value="Send" />
+                                    <input type="submit" class="btn btn-primary" name="submit" value="Send" />
                                     <a href="#" class="addInventory">Attach Inventory</a>
                                     <div class="row">
                                         {{#each item in attachedItems2}}
@@ -101,13 +101,13 @@
                                         {{/each}}
                                     </div>
                                 </form>
-                                <script>$('[name=subject]').focus(); $('[name=message]').characterCounter();</script>
+                                <script>$('[name=subject]').focus();</script>
                             {{/if}}
                             </div>
                         {{/if}}
                     </div>
                     <div class="row">
-                        <div class="right col s4 pageListing">
+                        <div class="right col-sm-4 pageListing">
                             <img src="/pages.gif" width="10" height="10">
                             {{#if needFirst}}<a class="pages" href="/inbox/{{threadID}}/1">1</a>{{/if}}
                             {{#if needFirstElipsis}}...{{/if}}
@@ -127,7 +127,7 @@
             <div class="container"><div class="forumbg"><div id="round" style="text-align:center">Thread does not exist</div></div></div>
             {{/if}}
             {{#with selectedItem}}
-                <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+                <div name="tooltip" class="round2 itembg col-sm-3 {{getBgColor rarity}}" style="display: none;">
                     <p class="tooltipText">{{name}}</p>
                     <p class="tooltipText">{{type}}</p>
                     {{#each displayStats}}
@@ -147,7 +147,7 @@
                             <p>{{desc}}</p>
                             <div class="row right">
                                 <a href="#!" id="buy" class="right waves-effect waves-green btn">Remove</a>
-                                <div class="col s4" id="buyError"></div>
+                                <div class="col-sm-4" id="buyError"></div>
                             </div>
                         </div>
                     {{else}}
@@ -157,7 +157,7 @@
                             <p>{{desc}}</p>
                             <div class="row right">
                                 <a href="#!" id="buy" class="right waves-effect waves-green btn">Buy</a>
-                                <div class="col s4" id="buyError"></div>
+                                <div class="col-sm-4" id="buyError"></div>
                             </div>
                         </div>
                     {{/if}}
@@ -172,14 +172,14 @@
                     {{/each}}
                     <div class="row right">
                         <a href="#!" id="attach" class="right waves-effect waves-green btn">Attach</a>
-                        <div class="col s4" id="buyError"></div>
+                        <div class="col-sm-4" id="buyError"></div>
                         <div class="row">
                             Price: <div class="priceinput right"><input class="numbers" type="number" value="1" min="0" name="price"></div>
                         </div>
                     </div>
                 </div>
                 {{#with selectedItem}}
-                    <div name="tooltip2" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+                    <div name="tooltip2" class="round2 itembg col-sm-3 {{getBgColor rarity}}" style="display: none;">
                         <p class="tooltipText">{{name}}</p>
                         <p class="tooltipText">{{type}}</p>
                         {{#each displayStats}}

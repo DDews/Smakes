@@ -1,7 +1,7 @@
 <template name="post">
     <div class="row short">
         {{#if correctPage}}
-            <div class="right col s4 pageListing">
+            <div class="right col-sm-4 pageListing">
                 <img src="/pages.gif" width="10" height="10">
                 {{#if needFirst}}<a class="pages" href="/posts/{{threadId}}/1">1</a>{{/if}}
                 {{#if needFirstElipsis}}...{{/if}}
@@ -22,12 +22,12 @@
                     <div class="round row">
                         <p class="right"><a href="#" class="track" id="{{threadId}}">{{follow}} Thread</a> <a href="#" class="replytop">Reply</a></p>
                         {{#if showpmreply 'top'}}
-                            <div class="col s12" id="error"></div>
+                            <div class="col-sm-12" id="error"></div>
                             <form class="pmForm">
-                                <input type="text" name="subject" placeholder="subject" />
-                                <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
-                                <input type="submit" class="buttoncolor" name="submit" value="Send" />
-                                <script>if (_quote) $('[name=message]').val(_quote); _quote = ''; $('[name=message]').characterCounter();</script>
+                                <input type="text" class="form-control" name="subject" placeholder="subject" />
+                                <textarea class="form-control" name="message" length="{{numChars}}" rows="3"></textarea>
+                                <input type="submit" class="btn btn-primary" name="submit" value="Send" />
+                                <script>if (_quote) $('[name=message]').val(_quote); _quote = '';</script>
                             </form>
                             <script>$('[name=subject]').focus();</script>
                         {{/if}}
@@ -41,7 +41,7 @@
             {{#each message}}
                 {{countFollowed from _id}}
                 <div class="row {{toggle}}">
-                    <div class="col s9">
+                    <div class="col-sm-9">
                         <p>
                         <div class="subjectText">{{subject}} <ul class="post-buttons right"><li><a href="#" class="quote" id="{{_id}}"><img src="/quote.png"></a></li></ul></div>
                         <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
@@ -55,7 +55,7 @@
                         </span>
                         </p>
                     </div>
-                    <div class="col s3 right">
+                    <div class="col-sm-3 right">
                         <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
                         <div class="status"><span class="{{getStatus from}}">{{isOnline from}}</span></div>
                         {{#if shouldAdmin from}}
@@ -82,12 +82,12 @@
                     <div class="round row">
                         <p class="right"><a href="#" class="track" id="{{threadId}}">{{follow}} Thread</a> <a href="#" class="replybottom">Reply</a></p>
                         {{#if showpmreply 'bottom'}}
-                            <div class="col s12" id="error"></div>
+                            <div class="col-sm-12" id="error"></div>
                             <form class="pmForm">
-                                <input type="text" name="subject" placeholder="subject" />
-                                <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
-                                <input type="submit" class="buttoncolor" name="submit" value="Send" />
-                                <script>if (_quote) $('[name=message]').val(_quote); _quote = ''; $('[name=message]').characterCounter();</script>
+                                <input type="text" class="form-control" name="subject" placeholder="subject" />
+                                <textarea class="form-control" name="message" length="{{numChars}}" rows="3"></textarea>
+                                <input type="submit" class="btn btn-primary" name="submit" value="Send" />
+                                <script>if (_quote) $('[name=message]').val(_quote); _quote = '';</script>
                             </form>
                             <script>$('[name=subject]').focus();</script>
                         {{/if}}
@@ -108,7 +108,7 @@
     </div>
     <div class="row short">
         {{#if correctPage}}
-            <div class="right col s4 pageListing">
+            <div class="right col-sm-4 pageListing">
                 <img src="/pages.gif" width="10" height="10">
                 {{#if needFirst}}<a class="pages" href="/posts/{{threadId}}/1">1</a>{{/if}}
                 {{#if needFirstElipsis}}...{{/if}}

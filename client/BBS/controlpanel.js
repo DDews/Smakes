@@ -41,7 +41,7 @@ Template.controlpanel.events({
 	},
 
 
-    'click .buttoncolor': function(event){
+    'click .btn btn-primary': function(event){
         if (event.preventDefault) event.preventDefault();
         var submit = $('[name=submit]')[0];
         submit.disabled = true;

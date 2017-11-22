@@ -13,8 +13,8 @@
                 </div>
             {{/if}}
             <div class="row">
-                <div class="col s6 center"><a href="/cp">Control Panel</a></div>
-                <div class="col s6 center"><a href="/subscriptions">Subscriptions</a></div>
+                <div class="col-sm-6 center"><a href="/cp">Control Panel</a></div>
+                <div class="col-sm-6 center"><a href="/subscriptions">Subscriptions</a></div>
             </div>
 
 			<div class="row center">
@@ -24,39 +24,38 @@
 				<a href="#" class="btn amber darken-4 white-text" id="purgeSmakes">Purge Smakes</a>
 			</div>
             <div class="row">
-                <div class="col s5">
+                <div class="col-sm-5">
                     Signature:
                 </div>
-                <div class="col s7">
-                    <textarea class="materialize-textarea" name="signature" length="{{numChars}}">{{getSignature}}</textarea>
-                    <script>$('[name=signature]').characterCounter();</script>
+                <div class="col-sm-7">
+                    <textarea class="form-control" name="signature" length="{{numChars}}" rows="3">{{getSignature}}</textarea>
                 </div>
             </div>
             <div class="row">
-                <div class="col s5">
+                <div class="col-sm-5">
                     New Password:
                 </div>
-                <div class="col s7">
-                    <input type="password" name="newpassword" placeholder="new password" />
+                <div class="col-sm-7">
+                    <input type="password" class="form-control" name="newpassword" placeholder="new password" />
                 </div>
             </div>
             <div class="row">
-                <div class="col s5">
+                <div class="col-sm-5">
                     Confirm Password:
                 </div>
-                <div class="col s7">
-                    <input type="password" name="newpassword2" placeholder="confirm password" />
+                <div class="col-sm-7">
+                    <input type="password" class="form-control" name="newpassword2" placeholder="confirm password" />
                 </div>
             </div>
             <div class="row">
-                <div class="col s5">
+                <div class="col-sm-5">
                     Current Password:
                 </div>
-                <div class="col s7">
-                    <input type="password" name="password" placeholder="current password" />
+                <div class="col-sm-7">
+                    <input type="password" class="form-control" name="password" placeholder="current password" />
                 </div>
             </div>
-            <p class="right"><div id="error"></div><input type="submit" name="submit" class="buttoncolor" value="Update" /></p>
+            <p class="right"><div id="error"></div><input type="submit" name="submit" class="btn btn-primary" value="Update" /></p>
 
         {{else}}
             <div class="round row s12">

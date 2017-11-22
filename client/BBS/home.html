@@ -2,34 +2,34 @@
     <div class="forumbg row">
         {{#if isAdmin}}<div class="round row">
             <p class="right"><a href="#" class="newTopic">New Topic</a></p>
-            <div class="col s12" id="error"></div>
+            <div class="col-sm-12" id="error"></div>
             {{#if showpm}}
                 <form class="loginForm">
-                    <input type="text" name="topic" placeholder="topic name" />
-                    <input type="text" name="subject" placeholder="subject" />
-                    <input type="submit" name="submit" class="buttoncolor" value="Create" />
+                    <input type="text" class="form-control" name="topic" placeholder="topic name" />
+                    <input type="text" class="form-control" name="subject" placeholder="subject" />
+                    <input type="submit" name="submit" class="btn btn-primary" value="Create" />
                 </form>
                 <script>$('[name=topic]').focus();</script>
             {{/if}}
         </div>
         {{/if}}
         <div class="row">
-            <div class="col s4 list-inner">Topic</div>
-            <div class="col s2 hide-on-med-and-down views">Threads</div>
-            <div class="col s2 hide-on-med-and-down views">Posts</div>
-            <div class="col s4 list-inner hide-on-med-and-down">Last Post</div>
+            <div class="col-sm-4 list-inner">Topic</div>
+            <div class="col-sm-2 list-inner center">Threads</div>
+            <div class="col-sm-2 list-inner center">Posts</div>
+            <div class="col-sm-4 list-inner">Last Post</div>
         </div>
             {{#each record}}
             <div class="row">
-                <div class="col s4">
-                    <div class="row"><p class="homesubject"><a href="/topic/{{_id}}">{{topic}}</a></p>
+                <div class="col-sm-4">
+                    <div class="row special"><p class="homesubject"><a href="/topic/{{_id}}">{{topic}}</a></p>
                         <p class="homesmallsubject">{{subject}}</p>
-                        {{#if isAdmin}}<p class="small"><a href="/editTopic/{{_id}}">edit</a> <a href="#" id="{{_id}}" class="delete">delete</a></p>{{/if}}
+                        {{#if isAdmin}}<p class="homesmallsubject"><a href="/editTopic/{{_id}}">edit</a> <a href="#" id="{{_id}}" class="delete">delete</a></p>{{/if}}
                     </div>
                 </div>
-                <div class="col s2 center">{{threadNumber _id}}</div>
-                <div class="col s2 center">{{numPosts _id}}</div>
-                <div class="col s4">
+                <div class="col-sm-2 center">{{threadNumber _id}}</div>
+                <div class="col-sm-2 center">{{numPosts _id}}</div>
+                <div class="col-sm-4">
                     <div class="row">
                         <p class="subject"><a href="/posts/{{lastThreadId _id}}/{{lastThreadPageNumber _id}}">{{lastThread _id}}</a></p>
                         <p class="homesmallsubject">{{#if threadsExist _id}}by {{/if}}<a class="username" href="/profile/{{lastThreadUsername _id}}">{{lastThreadUsername _id}}</a> {{lastThreadDate _id}}</p>

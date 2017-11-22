@@ -11,15 +11,14 @@
             {{/each}}
         </div>
         {{/if}}
-            <div id="shouterror" class="col s12"></div>
+            <div id="shouterror" class="col-sm-12"></div>
             <form class="shoutForm">
                 {{#if isShown}}
                     {{#if currentUser}}
-                        <input type="text" name="shout" placeholder="Type here to send a message" length="{{maxChars}}"/>
+                        <input type="text" class="form-control" name="shout" placeholder="Type here to send a message" length="{{maxChars}}"/>
                     {{/if}}
                 {{/if}}
-                <div class="col s6"><a href="#" class="hideShout">{{hideOrShow}}</a>  <a href="/users">{{numOnline}} online</a></div><div class="col s6">{{#if currentUser}}{{#if isShown}}<input type="submit" class="buttoncolor" name="send" value="Send" />{{/if}}{{/if}}</div>
-                <script>$('[name=shout]').characterCounter();</script>
+                <div class="col-sm-6"><a href="#" class="hideShout">{{hideOrShow}}</a>  <a href="/users">{{numOnline}} online</a></div><div class="col-sm-6">{{#if currentUser}}{{#if isShown}}<input type="submit" class="btn btn-primary" name="send" value="Send" />{{/if}}{{/if}}</div>
             </form>
     </div>
 </template>

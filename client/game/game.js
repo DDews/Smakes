@@ -4,7 +4,7 @@ var _keys = new Set();
 var _started = false;
 var _timeout;
 var _stop = function (key) {
-	if (Session.get("inGame")) {
+	if (_started) {
 		_keys.delete(key);
 		if (key == "ShiftLeft" || key == "ShiftRight") Meteor.call("normalSpeed");
 		else if (key == 'Space') Meteor.call("normalSpeed");
@@ -12,7 +12,7 @@ var _stop = function (key) {
 	}
 };
 var _move = function (key) {
-	if (Session.get("inGame")) {
+	if (_started) {
 		_keys.add(key);
 		switch (key) {
 			case 'KeyA':

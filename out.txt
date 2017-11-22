@@ -1,0 +1,39 @@
+[[[[[ C:\Users\danie\GitHub\bbs ]]]]]
+
+=> Started proxy.
+=> Started MongoDB.
+=> Meteor 1.6 is available. Update this project with 'meteor update'.
+=> Started your app.
+
+=> App running at: http://localhost:3000/
+   Type Control-C twice to stop.
+
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)=> Client modified -- refreshing (x5)=> Client modified -- refreshing (x6)=> Client modified -- refreshing (x7)=> Client modified -- refreshing (x8)=> Client modified -- refreshing (x9)=> Client modified -- refreshing (x10)=> Client modified -- refreshing (x11)=> Client modified -- refreshing (x12)=> Client modified -- refreshing (x13)=> Client modified -- refreshing (x14)=> Client modified -- refreshing (x15)=> Client modified -- refreshing (x16)=> Client modified -- refreshing (x17)=> Client modified -- refreshing (x18)=> Client modified -- refreshing (x19)=> Client modified -- refreshing (x20)=> Client modified -- refreshing (x21)=> Client modified -- refreshing (x22)=> Client modified -- refreshing (x23)=> Client modified -- refreshing (x24)=> Client modified -- refreshing (x25)=> Client modified -- refreshing (x26)=> Client modified -- refreshing (x27)=> Client modified -- refreshing (x28)=> Client modified -- refreshing (x29)=> Client modified -- refreshing (x30)=> Client modified -- refreshing (x31)=> Client modified -- refreshing (x32)=> Client modified -- refreshing (x33)=> Client modified -- refreshing (x34)=> Client modified -- refreshing (x35)=> Client modified -- refreshing (x36)=> Client modified -- refreshing (x37)=> Client modified -- refreshing (x38)=> Client modified -- refreshing (x39)=> Client modified -- refreshing (x40)=> Client modified -- refreshing (x41)=> Client modified -- refreshing (x42)=> Client modified -- refreshing (x43)=> Client modified -- refreshing (x44)=> Client modified -- refreshing (x45)=> Client modified -- refreshing (x46)=> Client modified -- refreshing (x47)=> Client modified -- refreshing (x48)=> Client modified -- refreshing (x49)=> Client modified -- refreshing (x50)=> Client modified -- refreshing (x51)=> Client modified -- refreshing (x52)=> Client modified -- refreshing (x53)=> Client modified -- refreshing (x54)=> Client modified -- refreshing (x55)=> Client modified -- refreshing (x56)=> Client modified -- refreshing (x57)=> Client modified -- refreshing (x58)=> Client modified -- refreshing (x59)=> Client modified -- refreshing (x60)=> Client modified -- refreshing (x61)
+[34mI20171121-20:20:55.076(-7)? [39m1: 48, 27
+[34mI20171121-20:20:58.380(-7)? [39m1: 40, 36
+[34mI20171121-20:21:01.336(-7)? [39m1: 15, 37
+[34mI20171121-20:21:01.536(-7)? [39m1: 41, 44
+[34mI20171121-20:21:04.192(-7)? [39m1: 22, 46
+[34mI20171121-20:21:09.206(-7)? [39m1: 49, 0
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)=> Client modified -- refreshing (x5)=> Client modified -- refreshing (x6)=> Client modified -- refreshing (x7)=> Client modified -- refreshing (x8)=> Client modified -- refreshing (x9)=> Client modified -- refreshing (x10)=> Client modified -- refreshing (x11)=> Client modified -- refreshing (x12)=> Client modified -- refreshing (x13)=> Client modified -- refreshing (x14)=> Client modified -- refreshing (x15)=> Client modified -- refreshing (x16)
+[34mI20171121-20:30:00.905(-7)? [39mitems for admin : 0
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)=> Client modified -- refreshing (x5)=> Client modified -- refreshing (x6)=> Client modified -- refreshing (x7)=> Client modified -- refreshing (x8)=> Client modified -- refreshing (x9)=> Client modified -- refreshing (x10)=> Client modified -- refreshing (x11)=> Client modified -- refreshing (x12)=> Client modified -- refreshing (x13)=> Client modified -- refreshing (x14)=> Client modified -- refreshing (x15)=> Client modified -- refreshing (x16)=> Client modified -- refreshing (x17)=> Client modified -- refreshing (x18)=> Client modified -- refreshing (x19)=> Client modified -- refreshing (x20)=> Client modified -- refreshing (x21)=> Client modified -- refreshing (x22)=> Client modified -- refreshing (x23)=> Client modified -- refreshing (x24)=> Client modified -- refreshing (x25)=> Client modified -- refreshing (x26)=> Client modified -- refreshing (x27)=> Client modified -- refreshing (x28)=> Client modified -- refreshing (x29)=> Client modified -- refreshing (x30)=> Client modified -- refreshing (x31)=> Client modified -- refreshing (x32)=> Client modified -- refreshing (x33)=> Client modified -- refreshing (x34)=> Client modified -- refreshing (x35)=> Client modified -- refreshing (x36)
+[34mI20171121-21:02:18.139(-7)? [39m1: 47, 20
+[34mI20171121-21:02:20.991(-7)? [39m1: 24, 16
+[34mI20171121-21:02:25.372(-7)? [39m1: 43, 42
+[34mI20171121-21:02:28.533(-7)? [39m1: 9, 23
+[34mI20171121-21:02:32.474(-7)? [39m1: 33, 4
+[34mI20171121-21:02:37.828(-7)? [39m1: 45, 10
+[34mI20171121-21:02:40.130(-7)? [39m1: 27, 13
+[34mI20171121-21:02:43.192(-7)? [39m1: 24, 26
+[34mI20171121-21:02:47.692(-7)? [39m1: 40, 13
+[34mI20171121-21:02:50.307(-7)? [39m1: 38, 15
+[34mI20171121-21:02:55.350(-7)? [39m1: 6, 20
+[34mI20171121-21:03:02.662(-7)? [39m1: 36, 42
+[34mI20171121-21:03:12.072(-7)? [39m1: 45, 46
+[34mI20171121-21:03:17.098(-7)? [39m1: 49, 17
+[34mI20171121-21:03:22.023(-7)? [39m1: 27, 3
+[34mI20171121-21:03:26.497(-7)? [39m1: 15, 29
+[34mI20171121-21:03:31.875(-7)? [39m1: 15, 49
+[34mI20171121-21:03:34.497(-7)? [39m0: 30, 43
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)=> Client modified -- refreshing (x5)=> Client modified -- refreshing (x6)=> Client modified -- refreshing (x7)=> Client modified -- refreshing (x8)=> Client modified -- refreshing (x9)=> Client modified -- refreshing (x10)=> Client modified -- refreshing (x11)=> Client modified -- refreshing (x12)=> Client modified -- refreshing (x13)=> Client modified -- refreshing (x14)

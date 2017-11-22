@@ -1,4 +1,23 @@
 /* CSS declarations go here */
+.newbadge {
+  background-color: #cc0000;
+}
+.oldbadge {
+  background-color: #999900;
+}
+.badge {
+    background-color: #999900;
+}
+.badge-default {
+  background-color: #337ab7;
+}
+.walletText {
+  color: #000000;
+}
+.breadcrumb {
+  background-color: transparent;
+  margin: 20px;
+}
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: #727270;
 }
@@ -29,7 +48,7 @@
 }
 .panicbtn:hover {
     background-color: #f44336;
-}	
+}
 
 .equipment {
     background-color: #37474f;
@@ -51,12 +70,23 @@
 textarea {
     border-color: #bababa;
 }
+.forum {
+  background-color: #abcbcd;
+  width: 80vm;
+  border-radius:15px;
+  border: 2px solid #FFF;
+  box-shadow: 0 0 5px 2px #9D9A93, inset 0 3px 18px rgba(100,100,100,0.25);
+}
+.rows {
+  background-color: #abcbcd;
+}
 body {
     color: white;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    font-size: 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    background-color: #49595a;
 }
 
 .items {
@@ -95,7 +125,7 @@ body {
 	background: url('/itemlock.png');
 	position:relative;
 	top: -32px;
-	
+
 }
 
 .headbg		{ width:32px; height:32px; background: url('/headbg.png'); }
@@ -126,7 +156,7 @@ body {
 }
 .title, .logout, .center {
     text-align: center;
-    color: #f9f9f9;
+    color: #D8D8FF;
 }
 pre {
     white-space: pre-wrap;       /* CSS 3 */
@@ -134,12 +164,15 @@ pre {
     white-space: -pre-wrap;      /* Opera 4-6 */
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;
+    background-color: transparent;
+    border: none;
+    color: #f9f9f9;
 }
 .numposts {
     text-align: right;
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .messages, .right {
     color: #f9f9f9;
@@ -165,14 +198,14 @@ pre {
 	background-color: #331155;
 }
 .combatLog {
-	font-size: .7rem;
+	font-size: 1rem;
 }
 
 .unitHeader {
-	font-size: .7rem;
+	font-size: 1rem;
 }
 .unitCardName {
-	font-size: 1rem !important;
+	font-size: 1.5rem !important;
 }
 .tiny {
 	font-size: .7rem;
@@ -181,7 +214,7 @@ pre {
 	font-size: .6rem;
 }
 .pbig{
-	height: .8rem;
+	height: 1rem;
 	margin-bottom: 0px;
 	margin-top: 0px;
 }
@@ -213,7 +246,7 @@ pre {
 
 
 .btn {
-	text-transform: none !important; 
+	text-transform: none !important;
 }
 
 .blendRed {
@@ -234,11 +267,14 @@ pre {
 .pageListing {
     color: black;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 a {
-    color: #efeef2;
-    text-decoration: underline;
+    color: #D8D8FF;
+    text-decoration: none;
+}
+btn-lg {
+  text-decoration: none;
 }
 a:hover {
     color: #48c0c5;
@@ -300,12 +336,8 @@ a:hover {
     width:100%;
     height:8rem;
 }
-
-body {
-    background-color: #666b4e;
-}
 .stattext {
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .g-recaptcha div { margin-left: auto; margin-right: auto;}
 .roundbg {
@@ -321,7 +353,7 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-bottom: .4rem;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -337,7 +369,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .forumbg {
     color: white;
@@ -349,7 +381,7 @@ body {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     border-top-width: 0px;
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-bottom: .4rem;
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -365,7 +397,7 @@ body {
     word-wrap: break-word;
     list-style-type: none;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .postOne {
     background-color: #292929;
@@ -379,7 +411,7 @@ body {
     border-top-width: 0px;
     display: block;
     font-family: Verdana, Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;
@@ -393,11 +425,14 @@ body {
     word-wrap: break-word;
     list-style-type: none;
 }
+.special {
+  margin-left: 5%;
+}
 .list-inner {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    text-align: left;
+    text-align: center;
     text-transform: uppercase;
 }
 .views {
@@ -441,16 +476,16 @@ dt {
     vertical-align: baseline;
     list-style-type: none;
     list-style-position: outside;
-    line-height: 1rem;
+    line-height: 1.5rem;
     float: left;
     color: white;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .post {
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 .locked {
@@ -462,23 +497,23 @@ dt {
 }
 .small {
     text-align: left;
-    line-height: 1rem;
+    line-height: 1.5rem;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
     margin-right: 0px;
-    margin-left: 0px;
+    margin-left: 8px;
 }
 .nowrap {
 	word-wrap: normal;
 }
 .smallcenter {
     text-align: center;
-    line-height: 1rem;
+    line-height: 1.5rem;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -487,9 +522,9 @@ dt {
 }
 .smallsubject {
     text-align: left;
-    line-height: 1rem;
+    line-height: 1.5rem;
     color: #c0c0be;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -497,9 +532,9 @@ dt {
     margin-left: 0px;
 }
 .info {
-    line-height: 1rem;
+    line-height: 1.5rem;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -512,7 +547,7 @@ dt {
 .signature {
     border-top: 1px solid #787972;
     clear: left;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .maximage {
     max-width: 40rem;
@@ -535,9 +570,9 @@ dt {
     border-left: 0.5rem solid #efeef2;
 }
 .likes {
-    line-height: 1rem;
+    line-height: 1.5rem;
     color: white;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -546,22 +581,22 @@ dt {
 }
 .editedSmall {
     color: #a0837b;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 .subject {
-    line-height: 1rem;
+    line-height: 1.5rem;
     margin-top: .4rem;
     margin-bottom: .2rem;
     margin-right: 0px;
     margin-left: 0px;
 }
 .homesubject {
-    line-height: 1rem;
+    line-height: 1.5rem;
     margin-top: .4rem;
     margin-bottom: .2rem;
     margin-right: 0px;
-    margin-left: 8px;
+    margin-left: 0px;
 }
 .smallemail {
     width: 20em;
@@ -574,9 +609,9 @@ dt {
 }
 .homesmallsubject {
     text-align: left;
-    line-height: .8rem;
+    line-height: 1.5rem;
     color: #b3b3b1;
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -619,25 +654,25 @@ dt {
     width: 500px;
 }
 
-.buttoncolor {
+.btn btn-primary {
     color: black;
     float: right;
 }
 .admin {
     color: #9e7869;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .status {
     color: #efeef2;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .moderator {
     color: #9b9e46;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 .itembg {
     color: white;
-    font-size: .8rem;
+    font-size: 1rem;
 }
 .r1-10 		{ background-color: #2e2e2e; }
 .r10-20 	{ background-color: #6b6b6b; }
@@ -661,12 +696,12 @@ dt {
     margin-bottom: .2rem;
 }
 .chiptext {
-    font-size: 1.1rem;
+    font-size: 1.1.5rem;
 }
 .tooltipText {
-    line-height: .8rem;
-    margin-top: 0.1rem;
-    margin-bottom: 0.1rem;
+    line-height: 1rem;
+    margin-top: 0.1.5rem;
+    margin-bottom: 0.1.5rem;
 }
 .higherStat {
     color: #7dc74d;
@@ -717,7 +752,7 @@ dt {
 }
 .shoutMsg {
     border-top: 1px dotted #aeaeae;
-    text-size: 1rem;
+    text-size: 1.5rem;
 }
 .itemtable {
     padding-bottom: 0px;

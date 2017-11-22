@@ -1,6 +1,6 @@
 <template name="thread">
     <div class="row short">
-        <div class="right col s4 pageListing">
+        <div class="right col-sm-4 pageListing">
             <img src="/pages.gif" width="10" height="10">
             {{#if needFirst}}<a class="pages" href="/topic/{{topicID}}/1">1</a>{{/if}}
             {{#if needFirstElipsis}}...{{/if}}
@@ -17,36 +17,35 @@
         {{#if currentUser}}
             <div class="round row">
                 <p class="right"><a href="#" class="newThread">New Thread</a></p>
-                <div class="col s12" id="error"></div>
+                <div class="col-sm-12" id="error"></div>
                 {{#if showpm}}
                     <form class="loginForm">
-                        <input type="text" name="subject" placeholder="subject"/>
-                        <textarea class="materialize-textarea" name="message" length="{{numChars}}"></textarea>
-                        <script>$('[name=message]').characterCounter();</script>
-                        <input type="submit" name="submit" class="buttoncolor" value="Submit" />
+                        <input type="text" class="form-control" name="subject" placeholder="subject"/>
+                        <textarea class="form-control" name="message" length="{{numChars}}" rows="3"></textarea>
+                        <input type="submit" name="submit" class="btn btn-primary" value="Submit" />
                         {{#if hasPriveledges}}<input type="checkbox" id="sticky" name="sticky"/><label for="sticky">Sticky</label>{{/if}}
                     </form>
                     <script>$('[name=subject]').focus();</script>
                 {{/if}}
             </div>
         {{/if}}
-        <div class="row short">
-            <div class="col s4 list-inner">Thread</div>
-            <div class="col s2 views">Replies</div>
-            <div class="col s2 views">Views</div>
-            <div class="col s4 list-inner">Last Post</div>
+        <div class="row-fluid short">
+            <div class="col-sm-4 list-inner">Thread</div>
+            <div class="col-sm-2 list-inner center">Replies</div>
+            <div class="col-sm-2 list-inner center">Views</div>
+            <div class="col-sm-4 list-inner">Last Post</div>
         </div>
         {{#each thread}}
-        <div class="row short round {{toggle}}">
-                <div class="col s4">
+        <div class="row-fluid short round {{toggle}}">
+                <div class="col-sm-4">
                     <div class="row short"><p class="subject">{{#if locked}}<img src="/locked.png" height="10" width="10" title="This thread is locked. {{locked}} locked it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if isSticky _id}}<img src="/sticky.png" height="10" width="10" title="This thread is stickied.">{{/if}}<a href="/posts/{{_id}}">{{subject}}</a></p>
                     <p class="homesmallsubject"><img src="/locked.png" height="10" width="10" class="nolock">by: <a class="username" href="/profile/{{from}}">{{from}}</a> » {{myDate createdAt}}</p>
-                    {{#if hasPriveledges}}<p class="small"><img src="/locked.png" height="10" width="10" class="nolock"><a href="#" id="{{_id}}" class="lock">lock</a> <a href="#" id="{{_id}}" class="makeSticky">sticky</a>{{#if isAdmin}} <a href="#" id="{{_id}}" class="delete">delete</a>{{/if}}</p>{{/if}}
+                    {{#if hasPriveledges}}<p class="homesmallsubject"><img src="/locked.png" height="10" width="10" class="nolock"><a href="#" id="{{_id}}" class="lock">lock</a> <a href="#" id="{{_id}}" class="makeSticky">sticky</a>{{#if isAdmin}} <a href="#" id="{{_id}}" class="delete">delete</a>{{/if}}</p>{{/if}}
                     </div>
                 </div>
-                <div class="col s2 center"><p class="middle">{{numReplies _id}}</p></div>
-                <div class="col s2 center"><p class="middle">{{views}}</p></div>
-                <div class="col s4">
+                <div class="col-sm-2 center"><p class="middle">{{numReplies _id}}</p></div>
+                <div class="col-sm-2 center"><p class="middle">{{views}}</p></div>
+                <div class="col-sm-4">
                     <div class="row short"><p class="homesmallsubject"><a href="/posts/{{_id}}/{{lastPost _id}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <a class="username" href="/profile/{{isFrom _id}}">{{isFrom _id}}</a></p><p class="homesmallsubject">{{lastDate _id}}</p>
                     </div>
                 </div>
@@ -59,7 +58,7 @@
         {{/if}}
     </div>
     <div class="row short">
-        <div class="right col s4 pageListing">
+        <div class="right col-sm-4 pageListing">
             <img src="/pages.gif" width="10" height="10">
             {{#if needFirst}}<a class="pages" href="/topic/{{topicID}}/1">1</a>{{/if}}
             {{#if needFirstElipsis}}...{{/if}}

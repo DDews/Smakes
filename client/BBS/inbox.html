@@ -4,13 +4,13 @@
             {{resetAttachments}}
             <div class="round row">
                 <p class="right"><a href="#" class="sendpm">New Message</a></p>
-                <div class="col s12" id="pmerror"></div>
+                <div class="col-sm-12" id="pmerror"></div>
             {{#if showpm}}
                 <form class="pmForm">
                     <input type="text" class="form-control typeahead" data-source="usernames" autocomplete="off" spellcheck="off" name="to" placeholder="username to send to" />
-                    <input type="text" name="subject" placeholder="subject" />
+                    <input type="text" class="form-control" name="subject" placeholder="subject" />
                             <textarea name="message" class="materialize-textarea" length="{{numChars}}"></textarea>
-                    <input type="submit" name="submit" class="buttoncolor" value="Send" />
+                    <input type="submit" name="submit" class="btn btn-primary" value="Send" />
                     <a href="#" class="addInventory">Attach Inventory</a>
                     <div class="row">
                         {{#each item in attachedItems}}
@@ -19,27 +19,27 @@
                             </div>
                         {{/each}}
                     </div>
-                    <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); } $('[name=message]').characterCounter();</script>
+                    <script>if (Router.current().params.username) { $('[name=to]').val(Router.current().params.username); $('[name=subject]').focus(); } else { Meteor.typeahead.inject(); $('[name=to]').focus(); } </script>
                 </form>
             {{/if}}
             </div>
         <div class="row">
-                <div class="col s2 list-inner">User</div>
-                <div class="col s3 list-inner">Thread</div>
-                <div class="col s2 views">Replies</div>
-                <div class="col s4 list-inner">Last Post</div>
-                <div class="col s1"></div>
+                <div class="col-sm-2 list-inner">User</div>
+                <div class="col-sm-3 list-inner">Thread</div>
+                <div class="col-sm-2 views">Replies</div>
+                <div class="col-sm-4 list-inner">Last Post</div>
+                <div class="col-sm-1"></div>
         </div>
                 {{#each message}}
                 <div class="row">
-                    <div class="col s2">{{isTo from to}}</div>
-                    <div class="col s3">{{#if locked showTo}}<img src="/locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="/inbox/{{_id}}">{{subject}}</a></div>
-                    <div class="col s2 center">{{numPosts messages}}</div>
-                    <div class="col s4">
+                    <div class="col-sm-2">{{isTo from to}}</div>
+                    <div class="col-sm-3">{{#if locked showTo}}<img src="/locked.png" height="10" width="10" title="This thread is locked. {{isTo from to}} deleted it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if marked unread}}*{{/if}}<a href="/inbox/{{_id}}">{{subject}}</a></div>
+                    <div class="col-sm-2 center">{{numPosts messages}}</div>
+                    <div class="col-sm-4">
                         <div class="row"><p class="small"><a href="/inbox/{{_id}}/{{lastPost messages}}"><img title="Jump to last page" src="/lastpost.gif"></a>by: <b>{{isFrom messages}}</b></p>
                         <p class="small">{{lastDate messages}}</p></div>
                     </div>
-                    <div class="col s1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
+                    <div class="col-sm-1 center"><a href="#" class="deletePM" id="{{_id}}">delete</a></div>
                 </div>
                 {{/each}}
             {{#if zeroPosts messages}}
@@ -64,14 +64,14 @@
             {{/each}}
             <div class="row right">
                 <a href="#!" id="attach" class="right waves-effect waves-green btn">Attach</a>
-                <div class="col s4" id="buyError"></div>
+                <div class="col-sm-4" id="buyError"></div>
                 <div class="row">
                     Price: <div class="priceinput right"><input class="numbers" type="number" value="1" min="0" name="price"></div>
                 </div>
             </div>
         </div>
         {{#with selectedItem}}
-            <div name="tooltip" class="round2 itembg col s3 {{getBgColor rarity}}" style="display: none;">
+            <div name="tooltip" class="round2 itembg col-sm-3 {{getBgColor rarity}}" style="display: none;">
                 <p class="tooltipText">{{name}}</p>
                 <p class="tooltipText">{{type}}</p>
                 {{#each displayStats}}
