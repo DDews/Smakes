@@ -112,11 +112,10 @@ var drawApple = function () {
 	apple = Apple.findOne({});
 	if (apple) {
 		ctx.beginPath();
-		ctx.fillStyle = "#FFFFFF";
 		ctx.rect(Math.floor(apple.x * px),Math.floor(apple.y * py), Math.ceil(px), Math.ceil(py));
 		ctx.lineWidth=px;
+		ctx.fillStyle = "#FFFFFF";
 		ctx.fill();
-		ctx.closePath();
 	}
 }
 var _first = function () {
@@ -135,13 +134,12 @@ var _first = function () {
 		var px = w / SIZE;
 		var py = h / SIZE;
 		ctx.clearRect(0, 0, w, h);
-		Pixels.find().forEach(smake => {
+		Pixels.find({}).forEach(smake => {
 			ctx.beginPath();
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			ctx.lineWidth=px;
 			ctx.fillStyle = smake.color;
 			ctx.fill();
-			ctx.closePath();
 		});
 		drawApple();
 	}
@@ -164,7 +162,6 @@ var _draw = function () {
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			ctx.fillStyle = smake.color;
 			ctx.fill();
-			ctx.closePath();
 		});
 		var smakes = {};
 		var mostRecent = 0;
@@ -179,6 +176,7 @@ var _draw = function () {
 			Meteor.call("removePixel",smake, mostRecent);
 		}
 		drawApple();
+		ctx.closePath();
 	}
 };
 Tracker.autorun(function () {
