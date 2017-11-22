@@ -134,10 +134,10 @@ var _first = function () {
 		var px = w / SIZE;
 		var py = h / SIZE;
 		ctx.clearRect(0, 0, w, h);
+		ctx.lineWidth=px;
 		Pixels.find({}).forEach(smake => {
 			ctx.beginPath();
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
-			ctx.lineWidth=px;
 			ctx.fillStyle = smake.color;
 			ctx.fill();
 		_started = true;
@@ -159,9 +159,9 @@ var _draw = function () {
 		var h = c.height;
 		var px = w / SIZE;
 		var py = h / SIZE;
+		ctx.lineWidth=px;
 		Smakes.find().forEach(smake => {
 			ctx.beginPath();
-			ctx.lineWidth=px;
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			ctx.fillStyle = smake.color;
 			ctx.fill();
@@ -179,7 +179,6 @@ var _draw = function () {
 			Meteor.call("removePixel",smake, mostRecent);
 		}
 		drawApple();
-		ctx.closePath();
 	}
 };
 Tracker.autorun(function () {
