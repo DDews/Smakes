@@ -58,6 +58,7 @@ Meteor.methods({
     removeFromGame(username);
 
     if (players <= 1) {
+      delete Heads['bot'];
       Smakes.remove({});
       Pixels.remove({});
       DeadPixels.remove({});
