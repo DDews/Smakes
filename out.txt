@@ -141,4 +141,4 @@
 [34mI20171122-14:25:49.110(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
 [34mI20171122-14:25:49.110(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
 => Server modified -- restarting...                                   => Meteor server restarted
-=> Client modified -- refreshing=> Client modified -- refreshing (x2)
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)
