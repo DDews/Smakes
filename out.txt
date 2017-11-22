@@ -8,19 +8,137 @@
 => App running at: http://localhost:3000/
    Type Control-C twice to stop.
 
-[34mI20171122-09:56:44.377(-7)? [39mException while invoking method 'newGame' ReferenceError: intervals is not defined
-[34mI20171122-09:56:44.378(-7)? [39m    at [object Object].newGame (server/game.js:101:19)
-[34mI20171122-09:56:44.378(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
-[34mI20171122-09:56:44.378(-7)? [39m    at packages/ddp-server/livedata_server.js:711:19
-[34mI20171122-09:56:44.379(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
-[34mI20171122-09:56:44.379(-7)? [39m    at packages/ddp-server/livedata_server.js:709:40
-[34mI20171122-09:56:44.379(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
-[34mI20171122-09:56:44.379(-7)? [39m    at packages/ddp-server/livedata_server.js:707:46
-[34mI20171122-09:56:44.379(-7)? [39m    at tryCallTwo (C:\Users\danie\AppData\Local\.meteor\packages\promise\0.6.7\npm\node_modules\meteor-promise\node_modules\promise\lib\core.js:45:5)
-[34mI20171122-09:56:44.379(-7)? [39m    at doResolve (C:\Users\danie\AppData\Local\.meteor\packages\promise\0.6.7\npm\node_modules\meteor-promise\node_modules\promise\lib\core.js:200:13)
-[34mI20171122-09:56:44.379(-7)? [39m    at new Promise (C:\Users\danie\AppData\Local\.meteor\packages\promise\0.6.7\npm\node_modules\meteor-promise\node_modules\promise\lib\core.js:66:3)
+=> Client modified -- refreshing
+[34mI20171122-14:06:45.175(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:06:45.175(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:06:45.176(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:06:45.176(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:06:45.176(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:06:45.176(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:06:45.176(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:06:45.177(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:06:45.177(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:06:45.177(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:06:45.178(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:06:45.336(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:06:45.337(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:06:45.337(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:06:45.337(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:06:45.337(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:06:45.338(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:06:45.338(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:06:45.338(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:06:45.338(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:06:45.338(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:06:45.338(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:06:45.339(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:06:45.339(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:06:45.339(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:06:45.339(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:06:45.339(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:06:45.339(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:06:45.340(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:06:45.340(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:06:45.340(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:06:45.341(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:06:45.341(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:06:45.409(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:06:45.409(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:06:45.409(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:06:45.409(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:06:45.410(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:06:45.410(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:06:45.410(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:06:45.410(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:06:45.410(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:06:45.410(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:06:45.411(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:06:45.518(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:06:45.518(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:06:45.518(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:06:45.518(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:06:45.518(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:06:45.519(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:06:45.519(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:06:45.519(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:06:45.519(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:06:45.519(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:06:45.519(-7)? [39m    at server/game.js:72:14
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)=> Client modified -- refreshing (x5)=> Client modified -- refreshing (x6)=> Client modified -- refreshing (x7)
+[34mI20171122-14:13:54.239(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:13:54.239(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:13:54.240(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:13:54.240(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:13:54.240(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:13:54.240(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:13:54.240(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:13:54.240(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:13:54.240(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:13:54.240(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:13:54.240(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:13:54.347(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:13:54.347(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:13:54.347(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:13:54.347(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:13:54.348(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:13:54.349(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:13:54.349(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:13:54.349(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:13:54.349(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:13:54.349(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:13:54.350(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:13:54.454(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:13:54.455(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:13:54.455(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:13:54.455(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:13:54.455(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:13:54.455(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:13:54.455(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:13:54.456(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:13:54.456(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:13:54.456(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:13:54.456(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:13:54.569(-7)? [39mException in setInterval callback: MongoError: Invalid Operation, No operations in bulk
+[34mI20171122-14:13:54.569(-7)? [39m    at Object.toError (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\utils.js:114:11)
+[34mI20171122-14:13:54.569(-7)? [39m    at [object Object].execute (C:\Users\danie\AppData\Local\.meteor\packages\npm-mongo\1.4.43\npm\node_modules\mongodb\lib\mongodb\collection\batch\unordered.js:353:16)
+[34mI20171122-14:13:54.569(-7)? [39m    at [object Object].executeAsync (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:13:54.569(-7)? [39m    at [object Object].tick (server/game.js:171:15)
+[34mI20171122-14:13:54.569(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:13:54.569(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:13:54.570(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:13:54.570(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:13:54.570(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:13:54.570(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:13:54.674(-7)? [39mException in setInterval callback: TypeError: Cannot read property '0' of undefined
+[34mI20171122-14:13:54.674(-7)? [39m    at [object Object].tick (server/game.js:112:17)
+[34mI20171122-14:13:54.674(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:13:54.674(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:13:54.675(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:13:54.675(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:13:54.675(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+[34mI20171122-14:13:54.676(-7)? [39m    at server/game.js:72:14
+[34mI20171122-14:13:54.676(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:13:54.676(-7)? [39m    at packages/meteor/timers.js:6:1
+[34mI20171122-14:13:54.676(-7)? [39m    at runWithEnvironment (packages/meteor/dynamics_nodejs.js:110:1)
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)
 => Server modified -- restarting...                                   => Meteor server restarted
-[34mI20171122-09:57:19.112(-7)? [39m1: 44, 12
-[34mI20171122-09:57:21.737(-7)? [39m1: 23, 8
+=> Client modified -- refreshing
 => Server modified -- restarting...                                   => Meteor server restarted
-=> Server modified -- restarting...
+=> Server modified -- restarting...                                   => Meteor server restarted
+=> Server modified -- restarting...                                   => Meteor server restarted
+=> Server modified -- restarting...                                   => Meteor server restarted
+=> Server modified -- restarting...                                   => Meteor server restarted
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)
+[34mI20171122-14:25:49.107(-7)? [39mException in setInterval callback: Error: Invalid modifier. Modifier must be an object.
+[34mI20171122-14:25:49.107(-7)? [39m    at MongoConnection._update (packages/mongo/mongo_driver.js:481:11)
+[34mI20171122-14:25:49.108(-7)? [39m    at MongoConnection.<anonymous> (packages/meteor/helpers.js:118:1)
+[34mI20171122-14:25:49.108(-7)? [39m    at MongoConnection.(anonymous function) [as update] (packages/mongo/mongo_driver.js:736:49)
+[34mI20171122-14:25:49.108(-7)? [39m    at [object Object].update (packages/mongo/collection.js:568:29)
+[34mI20171122-14:25:49.109(-7)? [39m    at [object Object].tick (server/game.js:145:19)
+[34mI20171122-14:25:49.109(-7)? [39m    at maybeAuditArgumentChecks (packages/ddp-server/livedata_server.js:1704:12)
+[34mI20171122-14:25:49.110(-7)? [39m    at packages/ddp-server/livedata_server.js:1617:18
+[34mI20171122-14:25:49.110(-7)? [39m    at [object Object]._.extend.withValue (packages/meteor/dynamics_nodejs.js:56:1)
+[34mI20171122-14:25:49.110(-7)? [39m    at Server.apply (packages/ddp-server/livedata_server.js:1616:45)
+[34mI20171122-14:25:49.110(-7)? [39m    at Server.call (packages/ddp-server/livedata_server.js:1559:17)
+=> Server modified -- restarting...                                   => Meteor server restarted
+=> Client modified -- refreshing

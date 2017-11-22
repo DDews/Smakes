@@ -3,8 +3,9 @@
     <div class="forumbg row">
         {{#if currentUser}}
 
-        <canvas id="canvas" style="border: 1px solid white; margin: auto; display: block; width: 25vw; height:25vw"></canvas>
-
+        <div id="game" class="row game">
+          <canvas id="canvas" style="width: 500px; height: 500px"></canvas>
+        </div>
         {{else}}
         	<div class="title center">You must be logged in.</div>
         {{/if}}
