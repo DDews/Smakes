@@ -120,6 +120,9 @@ var drawApple = function () {
 	}
 }
 var _first = function () {
+	var user = Meteor.user();
+	var username = user && user.username;
+	if (!username) return;
 	_keys = keyboard.start();
 	_playing = true;
 	requestAnimationFrame(mainLoop);
@@ -127,8 +130,6 @@ var _first = function () {
 	if (c) {
 		c.width = window.innerWidth;
 		c.height = window.innerHeight;
-		var user = Meteor.user();
-		var username = user && user.username;
 		var ctx = c.getContext("2d");
 		var w = c.width;
 		var h = c.height;
@@ -196,6 +197,7 @@ Template.game.onRendered( function () {
 	_first();
 });
 Template.game.onDestroyed( function () {
+	_stop();
 	Meteor.call("stopGame");
 });
 Template.game.helpers({

@@ -159,3 +159,4 @@
 => Modified -- restarting.
 => Meteor server restarted
 => Server modified -- restarting...                                   => Meteor server restarted
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)
