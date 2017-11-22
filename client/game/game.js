@@ -140,13 +140,16 @@ var _first = function () {
 			ctx.lineWidth=px;
 			ctx.fillStyle = smake.color;
 			ctx.fill();
+		_started = true;
 		});
 		drawApple();
 	}
-	_started = true;
 };
 var _draw = function () {
-	if (!_started) return;
+	if (!_started) {
+		_first();
+		return;
+	}
 	var c = document.getElementById("canvas");
 	if (c) {
 		var user = Meteor.user();
