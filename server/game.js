@@ -24,6 +24,10 @@ Meteor.methods({
 	stopGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+    for (var k = 0; k < Snakes[usenrame].length; k++) {
+      var p = Snakes[username][k];
+      Pix[p.x][p.y] = 0;
+    }
     delete Heads[username];
     Smakes.remove({username: username});
     players = Smakes.find().fetch().length;
