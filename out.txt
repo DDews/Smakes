@@ -22,4 +22,5 @@
 => Server modified -- restarting...                                   => Meteor server restarted
 [34mI20171122-09:57:19.112(-7)? [39m1: 44, 12
 [34mI20171122-09:57:21.737(-7)? [39m1: 23, 8
+=> Server modified -- restarting...                                   => Meteor server restarted
 => Server modified -- restarting...
