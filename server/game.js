@@ -205,7 +205,6 @@ Meteor.methods({
     				n.x = d.x;
     				n.y = d.y;
     				Pix[username][d.x][d.y] = i;
-            if (!Snakes[username][i]) Snakes[username][i] = new Array(0);
     				Snakes[username][i].push({x: d.x,y: d.y});
     				d.createdAt = +new Date();
     				n.createdAt = d.createdAt;
@@ -220,9 +219,9 @@ Meteor.methods({
                 updateDead = true;
     					}
     					Pix[username][pos.x][pos.y] = undefined;
-              if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
+              if (typeof Snakes[username][i] == undefined) Snakes[username][i] = new Array(0);
     					if (Snakes[username][i].length > 1) Snakes[username][i].shift();
-    					if (Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
+    					if (typeof Snakes[username][i] == undefined) Snakes[username][i] = new Array(0).push({x: d.x, y: d.y});
     					d.size--;
     				}
     				Smakes.update(d._id, {$set: d});

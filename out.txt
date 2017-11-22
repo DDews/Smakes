@@ -20,3 +20,6 @@
 [34mI20171122-09:56:44.379(-7)? [39m    at doResolve (C:\Users\danie\AppData\Local\.meteor\packages\promise\0.6.7\npm\node_modules\meteor-promise\node_modules\promise\lib\core.js:200:13)
 [34mI20171122-09:56:44.379(-7)? [39m    at new Promise (C:\Users\danie\AppData\Local\.meteor\packages\promise\0.6.7\npm\node_modules\meteor-promise\node_modules\promise\lib\core.js:66:3)
 => Server modified -- restarting...                                   => Meteor server restarted
+[34mI20171122-09:57:19.112(-7)? [39m1: 44, 12
+[34mI20171122-09:57:21.737(-7)? [39m1: 23, 8
+=> Server modified -- restarting...
