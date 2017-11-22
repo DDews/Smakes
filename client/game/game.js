@@ -116,6 +116,7 @@ var drawApple = function () {
 		ctx.lineWidth=px;
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fill();
+		ctx.closePath();
 	}
 }
 var _first = function () {
@@ -140,6 +141,7 @@ var _first = function () {
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			ctx.fillStyle = smake.color;
 			ctx.fill();
+			ctx.closePath();
 		_started = true;
 		});
 		drawApple();
@@ -165,6 +167,7 @@ var _draw = function () {
 			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			ctx.fillStyle = smake.color;
 			ctx.fill();
+			ctx.closePath();
 		});
 		var smakes = {};
 		var mostRecent = 0;
