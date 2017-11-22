@@ -24,6 +24,8 @@ Meteor.methods({
 	stopGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
+
+    var d = Smakes.findOne({username: username});
     var PixelsRaw = Pixels.rawCollection().initializeUnorderedBulkOp();
     PixelsRaw.executeAsync = Meteor.wrapAsync(PixelsRaw.execute);
 
