@@ -18,6 +18,36 @@ function makeArray(w, h, val) {
     }
     return arr;
 }
+function removeFromGame(username) {
+  var d = Smakes.findOne({username: username});
+  var PixelsRaw = Pixels.rawCollection().initializeUnorderedBulkOp();
+  PixelsRaw.executeAsync = Meteor.wrapAsync(PixelsRaw.execute);
+
+  var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
+  DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
+
+  for (k = 0; k < Snakes[username].length; k++) {
+    var died = Snakes[username][k];
+    var j = {
+      username: username,
+      smake: d._id,
+      x: died.x,
+      y: died.y,
+      createdAt: +new Date()
+    };
+    Pix[died.x][died.y] = 0;
+    DeadPixelsRaw.insert(j);
+    updateDead = true;
+  }
+  PixelsRaw.find({username: username}).remove();
+  PixelsRaw.executeAsync();
+  DeadPixelsRaw.executeAsync();
+
+  delete Heads[username];
+  delete Snakes[username];
+  Smakes.remove({username: username});
+  players = Smakes.find().fetch().length;
+}
 Meteor.methods({
 
 	//Removes the current user's game data.
@@ -25,34 +55,8 @@ Meteor.methods({
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
 
-    var d = Smakes.findOne({username: username});
-    var PixelsRaw = Pixels.rawCollection().initializeUnorderedBulkOp();
-    PixelsRaw.executeAsync = Meteor.wrapAsync(PixelsRaw.execute);
+    removeFromGame(username);
 
-    var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
-    DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
-
-    for (k = 0; k < Snakes[username].length; k++) {
-      var died = Snakes[username][k];
-      var j = {
-        username: username,
-        smake: d._id,
-        x: died.x,
-        y: died.y,
-        createdAt: +new Date()
-      };
-      Pix[died.x][died.y] = 0;
-      DeadPixelsRaw.insert(j);
-      updateDead = true;
-    }
-    PixelsRaw.find({username: username}).remove();
-    PixelsRaw.executeAsync();
-    DeadPixelsRaw.executeAsync();
-
-    delete Heads[username];
-    delete Snakes[username];
-    Smakes.remove({username: username});
-    players = Smakes.find().fetch().length;
     if (players <= 1) {
       Smakes.remove({});
       Pixels.remove({});
@@ -114,6 +118,10 @@ Meteor.methods({
     DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
 		for (var username in Heads) {
       var d = Heads[username];
+      if (username != 'bot' && !Meteor.users.findOne({username: username}).status.online) {
+        removeFromGame(username);
+        continue;
+      }
       var dying = false;
 			d.tick++;
 			if (d.tick >= d.speed) {
