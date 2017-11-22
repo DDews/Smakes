@@ -73,15 +73,17 @@ const keyboard = (() => {
          k32 : "Space",
     };
     function keyEvents (e) {
-        var code = e.code;
-        if (! code) { // if no support for code
-            code = keyCodeMap["k" + e.keyCode];
-        }
-        if (keys[code] !== undefined) {
-            keys[code] = e.type === "keydown";
-            e.preventDefault();
-        }
-        keys.anyKey = true;
+				if (_started) {
+	        var code = e.code;
+	        if (! code) { // if no support for code
+	            code = keyCodeMap["k" + e.keyCode];
+	        }
+	        if (keys[code] !== undefined) {
+	            keys[code] = e.type === "keydown";
+	            e.preventDefault();
+	        }
+	        keys.anyKey = true;
+				}
     }
     const API = {
         start () {
