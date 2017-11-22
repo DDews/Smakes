@@ -150,3 +150,10 @@
 => Server modified -- restarting...                                   => Meteor server restarted
 => Server modified -- restarting...                                   => Meteor server restarted
 => Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)
+=> Errors prevented startup:
+   
+   While processing files with ecmascript (for target web.browser):
+   client/game/game.js:171:32: Unexpected token (171:32)
+   
+=> Your application has errors. Waiting for file change.
+=> Modified -- restarting.
