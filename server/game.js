@@ -246,9 +246,11 @@ Meteor.methods({
 		Heads[username][0].dx = 0;
 		Heads[username][0].dy = -1;
 		smake = Smakes.findOne({username: username, bot: {$ne: true}});
-		smake.dx = 0;
-		smake.dy = -1;
-		Smakes.update(smake._id,{$set: smake});
+    if (smake) {
+  		smake.dx = 0;
+  		smake.dy = -1;
+  		Smakes.update(smake._id,{$set: smake});
+    }
 	},
 	moveDown: () => {
 		var username = Meteor.user() && Meteor.user().username;
