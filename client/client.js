@@ -5,6 +5,7 @@
      reCAPTCHA.config({
          sitekey: '6LcluzkUAAAAAFJKVPYtuaqZzEVgLQxQ5Zw8yYRS'
      });
+     $.getScript('https://www.google.com/recaptcha/api.js');
  });
 Meteor.users.deny({
     update: function() { return false },

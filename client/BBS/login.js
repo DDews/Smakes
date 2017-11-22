@@ -26,10 +26,10 @@
                 submit.disabled = false;
                 return false;
             }
-            var captchaData = reCAPTCHA.getResponse("captcha_widget_id");
+            var captchaData = true; /*reCAPTCHA.getResponse("captcha_widget_id");*/
             Meteor.call('formSubmissionMethod',username, password, captchaData, function(error, result) {
                 // reset the captcha
-                reCAPTCHA.reset("captcha_widget_id");
+                //reCAPTCHA.reset("captcha_widget_id");
 
                 if (error) {
                     if (error.reason == "missing-input-response")

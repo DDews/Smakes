@@ -200,7 +200,7 @@ Meteor.methods({
     },
     formSubmissionMethod: function(username, password, captchaData) {
         if (username.length > 20) throw new Meteor.Error(422,"Username is longer than 20 characters");
-        var verifyCaptchaResponse = reCAPTCHA.verifyCaptcha(this.connection.clientAddress, captchaData);
+        var verifyCaptchaResponse = {success: true};/*reCAPTCHA.verifyCaptcha(this.connection.clientAddress, captchaData);*/
 
         if (!verifyCaptchaResponse.success) {
             throw new Meteor.Error(422,verifyCaptchaResponse[Object.keys(verifyCaptchaResponse)[1]]);

@@ -5,7 +5,8 @@
         <input type="text" class="form-control" name="username" placeholder="username" />
         <input type="password" class="form-control" name="password" placeholder="password" />
         {{#if form}}
-                <input type="password" class="form-control" name="password2" placeholder="retype password" />{{> reCAPTCHA widget_id="captcha_widget_id"}}
+                <input type="password" class="form-control" name="password2" placeholder="retype password" />
+                  {{> reCAPTCHA widget_id="captcha_widget_id"}}
                 <input type="submit" class="btn btn-primary" name="submit" value="register" />
         {{else}}
                 <input type="submit" class="btn btn-primary" name="submit" value="login" />
