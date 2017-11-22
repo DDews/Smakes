@@ -5,7 +5,7 @@ var Heads = {};
 var Tails = {};
 var Pix = {};
 var Snakes = {};
-var colors = ["#00FF00","#0000FF","FFFF00","00FFFF","#FFA500"];
+var colors = ["#00FF00","#0000FF","#FFFF00","#00FFFF","#FFA500"];
 var players = 0;
 var apple = {x: 0, y: 0};
 function makeArray(w, h, val) {

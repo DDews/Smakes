@@ -157,3 +157,5 @@
    
 => Your application has errors. Waiting for file change.
 => Modified -- restarting.
+=> Meteor server restarted
+=> Server modified -- restarting...
