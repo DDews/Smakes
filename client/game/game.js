@@ -168,7 +168,6 @@ var _draw = function () {
 			ctx.fillStyle = smake.color;
 			ctx.closePath();
 			ctx.fill();
-			console.log(smake.username + ": " + smake.color);
 		});
 		var smakes = {};
 		var mostRecent = 0;
