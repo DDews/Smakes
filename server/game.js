@@ -44,11 +44,11 @@ Meteor.methods({
       updateDead = true;
     }
     PixelsRaw.find({username: username}).remove();
-    
     PixelsRaw.executeAsync();
     DeadPixelsRaw.executeAsync();
 
     delete Heads[username];
+    delete Snakes[username];
     Smakes.remove({username: username});
     players = Smakes.find().fetch().length;
     if (players <= 1) {
