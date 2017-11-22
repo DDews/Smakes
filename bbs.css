@@ -1,4 +1,7 @@
 /* CSS declarations go here */
+.dropdown-menu {
+  width: 100%;
+}
 .newbadge {
   background-color: #cc0000;
 }
