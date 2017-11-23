@@ -73,7 +73,7 @@ const keyboard = (() => {
          k32 : "Space",
     };
     function keyEvents (e) {
-				if (_started) {
+				if (_started && document.activeElement.name != "shout") {
 	        var code = e.code;
 	        if (! code) { // if no support for code
 	            code = keyCodeMap["k" + e.keyCode];
