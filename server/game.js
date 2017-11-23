@@ -184,11 +184,11 @@ Meteor.methods({
   					d.length = 10;
   					d.size = 1;
   					Snakes[username] = [{x: d.x, y: d.y}];
-  				} else if (d.x >= a.x && d.y >= a.y && d.x <= a.x + 1 && d.y <= a.y + 1) {
+  				} else if (d.x >= a.x - 1 && d.y >= a.y - 1 && d.x <= a.x + 1 && d.y <= a.y + 1) {
             apple.x = Math.round(Math.random() * SIZE);
             apple.y = Math.round(Math.random() * SIZE);
             Apple.update(apple._id, {$set: apple});
-            d.length += 10;
+            d.length = Math.round(d.length * 1.5);
           }
   				n.x = d.x;
   				n.y = d.y;

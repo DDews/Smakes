@@ -1,4 +1,4 @@
-var SIZE = 100.0;
+var SIZE = 100;
 var _moving = 'right';
 var _keys = new Set();
 var _started = false;
@@ -112,12 +112,12 @@ var drawApple = function () {
 	var h = c.height;
 	var px = w / SIZE;
 	var py = h / SIZE;
-	ctx.clearRect(Math.floor(_oldApple.x * px),Math.floor(_oldApple.y * py), Math.ceil(px) * 2, Math.ceil(py) * 2);
+	ctx.clearRect(Math.floor(_oldApple.x * px - px * 0.5),Math.floor(_oldApple.y * py - py * 0.5), Math.ceil(px) * 2, Math.ceil(py) * 2);
 	apple = Apple.findOne({});
 	if (apple) {
 		_oldApple = apple;
 		ctx.beginPath();
-		ctx.rect(Math.floor(apple.x * px),Math.floor(apple.y * py), Math.ceil(px) * 2, Math.ceil(py) * 2);
+		ctx.rect(Math.floor(apple.x * px - px * 0.5),Math.floor(apple.y * py - py * 0.5), Math.ceil(px) * 2, Math.ceil(py) * 2);
 		ctx.lineWidth=px;
 		ctx.fillStyle = "#FFFFFF";
 		ctx.closePath();
@@ -138,8 +138,8 @@ var _first = function () {
 		var ctx = c.getContext("2d");
 		var w = c.width;
 		var h = c.height;
-		var px = w / SIZE;
-		var py = h / SIZE;
+		var px = Math.round(w / SIZE);
+		var py = Math.round(h / SIZE);
 		ctx.clearRect(0, 0, w, h);
 		ctx.lineWidth=px;
 		Pixels.find({}).forEach(smake => {
@@ -166,23 +166,67 @@ var _draw = function () {
 		var ctx = c.getContext("2d");
 		var w = c.width;
 		var h = c.height;
-		var px = w / SIZE;
-		var py = h / SIZE;
-		ctx.lineWidth=px;
-		ctx.lineCap = "square";
+		var px = Math.round(w / SIZE - 1);
+		var py = Math.round(h / SIZE);
+		ctx.lineWidth = 10;
+		ctx.lineCap = "round";
+		ctx.lineJoin = "round";
 		Smakes.find().forEach(smake => {
 			if (smake.username in _smakes && (_smakes[smake.username].x == smake.x || _smakes[smake.username].y == smake.y)) {
 				var s = _smakes[smake.username];
+				var a = smake;
 				if (Math.abs(smake.x - s.x) < 10 && Math.abs(smake.y - s.y) < 10) {
-					ctx.lineWidth = px * 0.7;
+					var dx = 0;
+					var dy = 0;
+
+					if (s.x - smake.x < 0) dx = 1;
+					else if (s.x - smake.x > 0) dx = -1;
+					if (s.y - smake.y < 0) dy = 1;
+					else if (s.y - smake.y > 0) dy = -1;
+					if (dx == 0 && dy == 0) {
+						ctx.beginPath();
+						ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
+						ctx.fillStyle = smake.color;
+						ctx.closePath();
+						ctx.fill();
+					}
+					else {
+						while (Math.floor(s.x) != Math.floor(smake.x) || Math.floor(s.y) != Math.floor(smake.y)) {
+							s.x += dx;
+							s.y += dy;
+							ctx.beginPath();
+							ctx.rect(Math.floor(s.x * px),Math.floor(s.y * py), Math.ceil(px), Math.ceil(py));
+							ctx.fillStyle = smake.color;
+							ctx.closePath();
+							ctx.fill();
+						}
+					}
+					/*
+				//	ctx.beginPath();
+				//	ctx.rect(Math.floor(s.x * px),Math.floor(s.y * py), Math.abs(smake.x - s.x) * px, Math.abs(smake.y - s.y) * py);
+				//	ctx.fillStyle = smake.color;
+				//	ctx.closePath();
+				//	ctx.fill();
+					var ax = Math.floor(s.x * px + px * 0.5);
+					var ay = Math.floor(s.y * py + py * 0.5);
+					var bx = Math.floor(a.x * px + px * 0.5);
+					var by = Math.floor(a.y * py + py * 0.5);
+					ax -= ax % 5;
+					bx += bx % 5;
+					ay += ay % 5;
+					by += by % 5;
 					ctx.beginPath();
-					ctx.moveTo(Math.ceil(s.x * px) + 0.5 * px,Math.ceil(s.y * py) + 0.5 * py);
-					ctx.lineTo(Math.ceil(smake.x * px) + 0.5 * px,Math.ceil(smake.y * py) + 0.5 * py);
+					ctx.moveTo(ax,ay);
+					//ctx.lineTo(Math.floor(a.x * px) + Math.floor(px),Math.floor(a.y * py));
+					ctx.lineTo(bx,by);
+					//ctx.lineTo(Math.floor(s.x * px), Math.floor(a.y * py) + Math.floor(py));
+					//ctx.lineTo(Math.floor(s.x * px),Math.floor(s.y * py));
 					ctx.strokeStyle = smake.color;
 					ctx.closePath();
 					ctx.stroke();
+					*/
 				}
-				ctx.lineWidth = px;
+				// ctx.lineWidth = 10;
 			}
 			else {
 				ctx.beginPath();
@@ -192,11 +236,12 @@ var _draw = function () {
 				ctx.fill();
 			}
 			_smakes[smake.username] = {x: smake.x, y: smake.y};
+
 		});
 		var smakes = {};
 		var mostRecent = 0;
 		DeadPixels.find().forEach(smake => {
-			ctx.clearRect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px) * 1.5, Math.ceil(py) * 1.5);
+			ctx.clearRect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
 			if (!(smake.username in smakes)) {
 				smakes[smake.username] = smake.createdAt;
 			}
