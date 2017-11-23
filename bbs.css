@@ -2,6 +2,16 @@
 textarea {
   color: black;
 }
+.col-icon {
+  width: 10px;
+  height: 100%;
+  position: relative;
+  float: left;
+}
+.listing {
+  margin: 0;
+  padding: 0;
+}
 .game {
   /* This centers our sketch horizontally. */
   justify-content: center;
