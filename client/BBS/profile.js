@@ -30,6 +30,12 @@ Template['profile'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         return userinfo && userinfo.admin;
     },
+    notAdmin: function() {
+      var username = Router.current().params.username;
+      var userinfo = Userinfo.findOne({username: username});
+      if (userinfo) return !userinfo.admin;
+      return false;
+    },
     isMod: function() {
         var username = Router.current().params.username;
         return Topics.find({moderators: username}).count() > 0;
@@ -73,5 +79,19 @@ Template.profile.events({
         var author = event.currentTarget.id;
         Meteor.call("removeAuthor", author);
         return false;
+    },
+    'click .promote': function(event) {
+      if (event.preventDefault) event.preventDefault();
+      var user = Meteor.user();
+      var username = user & user.username;
+      if (!username) return;
+      Meteor.call("makeAdmin",Router.current().params.username);
+    },
+    'click .demote': function(event) {
+      if (event.preventDefault) event.preventDefault();
+      var user = Meteor.user();
+      var username = user & user.username;
+      if (!username) return;
+      Meteor.call("removeAdmin",Router.current().params.username);
     }
 });

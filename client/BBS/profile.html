@@ -5,8 +5,16 @@
             <h1>{{username}}</h1>
                 <h5>{{isOnline}}</h5>
                 <div class="row center">
-                    <div class="col-sm-6"><a href="/pm/{{username}}">Start Private Conversation</a></div>
-                    {{#if currentUser}}<div class="col-sm-6"><a href="#" class="{{toggleFollow username}}" id="{{username}}">{{toggleFollow username}} to {{username}}</a></div>{{/if}}
+                    <div class="col-sm-4"><a href="/pm/{{username}}">Start Private Conversation</a></div>
+                      {{#if administrator}}
+
+                        {{#if notAdmin}}
+                          <div class="col-sm-4"><a href="#" class="promote">Promote to Admin</a></div>
+                        {{else}}
+                          <div class="col-sm-4"><a href="#" class="demote">Demote from Admin</a></div>
+                        {{/if}}
+                      {{/if}}
+                      {{#if currentUser}}<div class="col-sm-4"><a href="#" class="{{toggleFollow username}}" id="{{username}}">{{toggleFollow username}} to {{username}}</a></div>{{/if}}
                 </div>
             </div>
             <div class="section">

@@ -1,4 +1,7 @@
 /* CSS declarations go here */
+textarea {
+  color: black;
+}
 .game {
   /* This centers our sketch horizontally. */
   justify-content: center;
