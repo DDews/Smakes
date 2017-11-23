@@ -79,7 +79,7 @@ Meteor.methods({
 	newGame: () => {
 		var username = Meteor.user() && Meteor.user().username;
 		if (!username) { throw new Meteor.Error(422, "Error: You must be logged in"); }
-    if (players >= 5) { throw new Meteor.Error(422, "Error: too many players playing!"); }
+    if (players >= 3) { throw new Meteor.Error(422, "Error: too many players playing!"); }
 		Smakes.remove({username: username});
 		Pixels.remove({username: username});
 		DeadPixels.remove({username: username});
