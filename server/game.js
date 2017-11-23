@@ -223,7 +223,7 @@ Meteor.methods({
       }
       Heads[username] = d;
 		}
-    PixelsRaw.executeAsync();
+    if (Object.keys(Heads).length > 0) PixelsRaw.executeAsync();
     if (updateDead) DeadPixelsRaw.executeAsync();
     diff = +new Date();
 	},
