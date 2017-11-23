@@ -84,16 +84,16 @@ Template.profile.events({
     'click .promote': function(event) {
       if (event.preventDefault) event.preventDefault();
       var user = Meteor.user();
-      var username = user & user.username;
+      var username = user && user.username;
       if (!username) return;
-      Meteor.call("makeAdmin",Router.current().params.username, function(succ, err) {
-        console.log(succ,err);
+      Meteor.call("makeAdmin",Router.current().params.username, function(error, result) {
+        if (error) console.error(error);
       });
     },
     'click .demote': function(event) {
       if (event.preventDefault) event.preventDefault();
       var user = Meteor.user();
-      var username = user & user.username;
+      var username = user && user.username;
       if (!username) return;
       Meteor.call("removeAdmin",Router.current().params.username);
     }
