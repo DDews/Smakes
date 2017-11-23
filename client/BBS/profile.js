@@ -86,7 +86,9 @@ Template.profile.events({
       var user = Meteor.user();
       var username = user & user.username;
       if (!username) return;
-      Meteor.call("makeAdmin",Router.current().params.username);
+      Meteor.call("makeAdmin",Router.current().params.username, function(succ, err) {
+        console.log(succ,err);
+      });
     },
     'click .demote': function(event) {
       if (event.preventDefault) event.preventDefault();
