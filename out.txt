@@ -19,4 +19,5 @@
    Type Control-C twice to stop.
 
 => Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)
-=> Server modified -- restarting...
+=> Server modified -- restarting...                                   => Meteor server restarted
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)
