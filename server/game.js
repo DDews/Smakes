@@ -120,6 +120,7 @@ Meteor.methods({
 	},
 	tick: () => {
     var updateDead = false;
+    var pixelUpdate = false;
     var PixelsRaw = Pixels.rawCollection().initializeUnorderedBulkOp();
     PixelsRaw.executeAsync = Meteor.wrapAsync(PixelsRaw.execute);
 
@@ -176,6 +177,7 @@ Meteor.methods({
               updateDead = true;
   					}
             PixelsRaw.find({username: username}).remove();
+            pixelUpdate = true;
             DeadPixelsRaw.insert(n);
   					d.x = Math.floor(Math.random() * SIZE);
   					d.y = Math.floor(Math.random() * SIZE);
@@ -200,6 +202,7 @@ Meteor.methods({
   				if (d.size > d.length) {
   					var pos = Snakes[username][0];
 						PixelsRaw.find({username: username},{sort: {createdAt: 1}}).removeOne();
+            pixelUpdate = true;
 						DeadPixelsRaw.insert({
               username: username,
               x: pos.x,
@@ -215,6 +218,7 @@ Meteor.methods({
   				}
   				Smakes.update(d._id, {$set: d});
   				PixelsRaw.insert(n);
+          pixelUpdate = true;
           if (dying) {
             DeadPixelsRaw.insert(n);
             updateDead = true;
@@ -223,7 +227,7 @@ Meteor.methods({
       }
       Heads[username] = d;
 		}
-    if (Object.keys(Heads).length > 0) PixelsRaw.executeAsync();
+    if (pixelUpdate) PixelsRaw.executeAsync();
     if (updateDead) DeadPixelsRaw.executeAsync();
     diff = +new Date();
 	},
