@@ -18,4 +18,4 @@
 => App running at: http://localhost:3000/
    Type Control-C twice to stop.
 
-=> Client modified -- refreshing
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)

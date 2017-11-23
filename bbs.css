@@ -343,7 +343,7 @@ a:hover {
     text-decoration: none;
 }
 .editedusername {
-    color: #a0837b;
+    color: #7b90a0;
     font-weight: bold;
     text-decoration: none;
 }
@@ -615,7 +615,7 @@ dt {
     margin-left: 0px;
 }
 .editedSmall {
-    color: #a0837b;
+    color: #7b90a0;
     font-size: 1.5rem;
     font-family: Arial, Helvetica, sans-serif;
 }
