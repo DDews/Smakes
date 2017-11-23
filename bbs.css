@@ -183,6 +183,8 @@ pre {
     background-color: transparent;
     border: none;
     color: #f9f9f9;
+    font-size: 1.5rem;
+    font-family: Albertus, Nitti, monospace;
 }
 .numposts {
     text-align: right;
