@@ -24,3 +24,4 @@
 => Server modified -- restarting...                                   => Meteor server restarted
 => Client modified -- refreshing=> Client modified -- refreshing (x2)
 => Server modified -- restarting...                                   => Meteor server restarted
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)
