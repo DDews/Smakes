@@ -29,14 +29,14 @@
                 {{/if}}
             </div>
         {{/if}}
-        <div class="row-fluid short">
+        <div class="row short">
             <div class="col-sm-4 list-inner">Thread</div>
             <div class="col-sm-2 list-inner center">Replies</div>
             <div class="col-sm-2 list-inner center">Views</div>
             <div class="col-sm-4 list-inner">Last Post</div>
         </div>
         {{#each thread}}
-        <div class="row-fluid short round {{toggle}}">
+        <div class="row short round {{toggle}}">
                 <div class="col-sm-4">
                     <div class="row short"><p class="subject">{{#if locked}}<img src="/locked.png" height="10" width="10" title="This thread is locked. {{locked}} locked it.">{{else}}<img src="locked.png" height="10" width="10" class="nolock">{{/if}}{{#if isSticky _id}}<img src="/sticky.png" height="10" width="10" title="This thread is stickied.">{{/if}}<a href="/posts/{{_id}}">{{subject}}</a></p>
                     <p class="homesmallsubject"><img src="/locked.png" height="10" width="10" class="nolock">by: <a class="username" href="/profile/{{from}}">{{from}}</a> » {{myDate createdAt}}</p>
