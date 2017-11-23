@@ -104,6 +104,7 @@ const keyboard = (() => {
     }
     return API;
 })();
+var _oldApple = {x: 50, y: 50};
 var drawApple = function () {
 	var c = document.getElementById("canvas");
 	var ctx = c.getContext("2d");
@@ -111,10 +112,12 @@ var drawApple = function () {
 	var h = c.height;
 	var px = w / SIZE;
 	var py = h / SIZE;
+	ctx.clearRect(Math.floor(_oldApple.x * px),Math.floor(_oldApple.y * py), Math.ceil(px) * 2, Math.ceil(py) * 2);
 	apple = Apple.findOne({});
 	if (apple) {
+		_oldApple = apple;
 		ctx.beginPath();
-		ctx.rect(Math.floor(apple.x * px),Math.floor(apple.y * py), Math.ceil(px), Math.ceil(py));
+		ctx.rect(Math.floor(apple.x * px),Math.floor(apple.y * py), Math.ceil(px) * 2, Math.ceil(py) * 2);
 		ctx.lineWidth=px;
 		ctx.fillStyle = "#FFFFFF";
 		ctx.closePath();
@@ -150,6 +153,7 @@ var _first = function () {
 		drawApple();
 	}
 };
+var _smakes = {};
 var _draw = function () {
 	if (!_started) {
 		_first();
@@ -165,17 +169,34 @@ var _draw = function () {
 		var px = w / SIZE;
 		var py = h / SIZE;
 		ctx.lineWidth=px;
+		ctx.lineCap = "square";
 		Smakes.find().forEach(smake => {
-			ctx.beginPath();
-			ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
-			ctx.fillStyle = smake.color;
-			ctx.closePath();
-			ctx.fill();
+			if (smake.username in _smakes && (_smakes[smake.username].x == smake.x || _smakes[smake.username].y == smake.y)) {
+				var s = _smakes[smake.username];
+				if (Math.abs(smake.x - s.x) < 10 && Math.abs(smake.y - s.y) < 10) {
+					ctx.lineWidth = px * 0.7;
+					ctx.beginPath();
+					ctx.moveTo(Math.ceil(s.x * px) + 0.5 * px,Math.ceil(s.y * py) + 0.5 * py);
+					ctx.lineTo(Math.ceil(smake.x * px) + 0.5 * px,Math.ceil(smake.y * py) + 0.5 * py);
+					ctx.strokeStyle = smake.color;
+					ctx.closePath();
+					ctx.stroke();
+				}
+				ctx.lineWidth = px;
+			}
+			else {
+				ctx.beginPath();
+				ctx.rect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
+				ctx.fillStyle = smake.color;
+				ctx.closePath();
+				ctx.fill();
+			}
+			_smakes[smake.username] = {x: smake.x, y: smake.y};
 		});
 		var smakes = {};
 		var mostRecent = 0;
 		DeadPixels.find().forEach(smake => {
-			ctx.clearRect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px), Math.ceil(py));
+			ctx.clearRect(Math.floor(smake.x * px),Math.floor(smake.y * py), Math.ceil(px) * 1.5, Math.ceil(py) * 1.5);
 			if (!(smake.username in smakes)) {
 				smakes[smake.username] = smake.createdAt;
 			}

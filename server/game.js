@@ -4,10 +4,13 @@ var SPEED = 100; // speed in ms
 var Heads = {};
 var Tails = {};
 var Pix = {};
+var playing = false;
 var Snakes = {};
 var colors = ["#00FF00","#0000FF","#FFFF00","#00FFFF","#FFA500"];
 var players = 0;
 var apple = {x: 0, y: 0};
+var diff = 0;
+var interval;
 function makeArray(w, h, val) {
     var arr = [];
     for(i = 0; i < h; i++) {
@@ -26,6 +29,7 @@ function removeFromGame(username) {
   var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
   DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
 
+  if (!(username in Snakes)) return;
   for (k = 0; k < Snakes[username].length; k++) {
     var died = Snakes[username][k];
     var j = {
@@ -58,11 +62,13 @@ Meteor.methods({
     removeFromGame(username);
 
     if (players <= 1) {
+      Meteor.clearInterval(interval);
+      interval = undefined;
+      playing = false;
       delete Heads['bot'];
       Smakes.remove({});
       Pixels.remove({});
       DeadPixels.remove({});
-      Meteor.clearInterval(interval);
     }
     else {
   		Smakes.remove({username: username});
@@ -102,11 +108,13 @@ Meteor.methods({
       Snakes[username] = [{x: smake.x, y: smake.y}];
       Pix[smake.x][smake.y] = username;
     }
-    if (players == 0) {
+    if (!playing && players == 0) {
       if (typeof interval != undefined) Meteor.clearTimeout(interval);
-  		interval = Meteor.setInterval(() => {
-  				Meteor.call("tick");
-  			},SPEED);
+      playing = true;
+      diff = +new Date() - SPEED;
+      interval = Meteor.setInterval(function() {
+        Meteor.call("tick");
+      }, SPEED * 0.45);
     }
     players = Object.keys(Heads).length;
 	},
@@ -117,6 +125,8 @@ Meteor.methods({
 
     var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
     DeadPixelsRaw.executeAsync = Meteor.wrapAsync(DeadPixelsRaw.execute);
+    var t = (+new Date()) - diff;
+    t /= SPEED;
 		for (var username in Heads) {
       var d = Heads[username];
       if (username != 'bot' && !Meteor.users.findOne({username: username}).status.online) {
@@ -124,12 +134,11 @@ Meteor.methods({
         continue;
       }
       var dying = false;
-			d.tick++;
+			d.tick += t;
 			if (d.tick >= d.speed) {
-        var doubleSpeed = 1;
+        var doubleSpeed = t;
 				d.tick = 0;
-        if (d.speed == 0.5) doubleSpeed = 2;
-        else doubleSpeed = 1;
+        if (d.speed == 0.5) doubleSpeed *= 4;
         for (y = 0; y < doubleSpeed; y++) {
           d.size += 1;
   				var n = {
@@ -150,6 +159,7 @@ Meteor.methods({
   				if (d.y >= SIZE) d.y -= SIZE;
   				else if (d.y < 0) d.y += SIZE;
   				var hit = Pix[d.x][d.y];
+          var a = Apple.findOne({});
   				if (typeof hit == "string") {
             dying = true;
   					for (k = 0; k < Snakes[username].length; k++) {
@@ -174,7 +184,7 @@ Meteor.methods({
   					d.length = 10;
   					d.size = 1;
   					Snakes[username] = [{x: d.x, y: d.y}];
-  				} else if (Apple.find({x: d.x, y: d.y}).fetch().length > 0) {
+  				} else if (d.x >= a.x && d.y >= a.y && d.x <= a.x + 1 && d.y <= a.y + 1) {
             apple.x = Math.round(Math.random() * SIZE);
             apple.y = Math.round(Math.random() * SIZE);
             Apple.update(apple._id, {$set: apple});
@@ -215,6 +225,7 @@ Meteor.methods({
 		}
     PixelsRaw.executeAsync();
     if (updateDead) DeadPixelsRaw.executeAsync();
+    diff = +new Date();
 	},
 	removePixel: (id, time) => {
     var DeadPixelsRaw = DeadPixels.rawCollection().initializeUnorderedBulkOp();
@@ -273,6 +284,7 @@ Meteor.methods({
     Heads[username].speed = 0.5;
 	},
 	purgeSmakes: () => {
+    playing = false;
 		Pix = [];
 		Heads = {};
 		Snakes = {};
