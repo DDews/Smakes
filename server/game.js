@@ -95,7 +95,7 @@ Meteor.methods({
       apple = Apple.findOne({});
       Smakes.insert({username: 'bot', color: "#FF0000", speed: 1, tick: 0, length: 10, dead: false, bot: true, x: SIZE - 1, y: SIZE - 1, dx: -1, dy: 0, size: 1, createdAt: +new Date()});
       var opponent = Smakes.findOne({username:'bot'});
-      Pixels.insert({username: 'bot', smake: opponent._id, color: "#FF0000", speed: 1, tick: 0, length: 10, dead: false, bot: true, x: SIZE - 1, y: SIZE - 1, dx: -1, dy: 0, size: 1, createdAt: +new Date()});
+      Pixels.insert({username: 'bot', smake: opponent._id, color: "#FF0000", speed: 1, tick: 0, length: 10, dead: false, bot: true, x: SIZE - 10, y: SIZE - 10, dx: -1, dy: 0, size: 1, createdAt: +new Date()});
       Pix = makeArray(100,100,undefined);
   		Pix[smake.x][smake.y] = username;
   		Pix[opponent.x][opponent.y] = username;
