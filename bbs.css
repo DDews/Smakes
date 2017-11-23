@@ -2,6 +2,10 @@
 textarea {
   color: black;
 }
+.smalltext {
+  size: 2rem;
+  font-size: 1rem;
+}
 .col-icon {
   width: 10px;
   height: 100%;

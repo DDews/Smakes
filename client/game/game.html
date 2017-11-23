@@ -4,7 +4,32 @@
         {{#if currentUser}}
 
         <div id="game" class="row game">
-          <canvas id="canvas" style="width: 500px; height: 500px; border: 1px solid white"></canvas>
+          <div class="col-sm-3">
+            <div class="row center smalltext">
+              Controls:
+            </div>
+            <div class="row">
+
+              <div class="row">
+                <div class="col-sm-8 smalltext right">WASD/Arrows:</div>
+                <div class="col-sm-4 smalltext left">Change direction</div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 smalltext right">Shift:</div>
+                <div class="col-sm-4 smalltext left">Fast</div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8 smalltext right">Spacebar:</div>
+                <div class="col-sm-4 smalltext left">Slow</div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <canvas id="canvas" style="width: 500px; height: 500px; border: 1px solid white" width="1920" height="987"></canvas>
+          </div>
+          <div class="col-sm-3">
+          </div>
         </div>
         {{else}}
         	<div class="title center">You must be logged in.</div>
