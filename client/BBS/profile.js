@@ -30,10 +30,11 @@ Template['profile'].helpers({
         var userinfo = Userinfo.findOne({username: username});
         return userinfo && userinfo.admin;
     },
-    notAdmin: function() {
-      var username = Router.current().params.username;
+    administrator: function() {
+      var user = Meteor.user();
+      var username = user && user.username;
       var userinfo = Userinfo.findOne({username: username});
-      if (userinfo) return !userinfo.admin;
+      if (userinfo) return userinfo.admin;
       return false;
     },
     isMod: function() {
