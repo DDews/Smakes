@@ -46,14 +46,11 @@
                         <div class="subjectText">{{subject}} <ul class="post-buttons right"><li><a href="#" class="quote" id="{{_id}}"><img src="/quote.png"></a></li></ul></div>
                         <span class="small">From: <a class="username" href="/profile/{{from}}">{{from}}</a> {{myDate createdAt}}</span>
                         </p>
-                    <p>
-                    <span class="message">{{#if isEditable _id}}<textarea class="messagebox" rows="4" cols="50" name="editMessage" id="{{_id}}">{{post}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<div class="message">{{{urlify post}}}</div>{{/if}}
+                    {{#if isEditable _id}}<textarea class="messagebox" rows="4" cols="50" name="editMessage" id="{{_id}}">{{post}}</textarea><input type="submit" class="submitEdit" name="submitEdit" id="{{_id}}" value="edit" /><p><div id="editError"></div></p>{{else}}<div class="message">{{{urlify post}}}</div>{{/if}}
                         {{#if signatureExists from}}<div class="signature">{{{signature from}}}</div>{{/if}}
                         {{#if editedBy}}
                             <p class="editedSmall">edited by <a class="editedusername" href="/profile/{{editedBy}}">{{editedBy}}</a> on {{myDate modified}}</p>
                         {{/if}}
-                        </span>
-                        </p>
                     </div>
                     <div class="col-sm-3 right">
                         <div class="subject"><a class="username" href="/profile/{{from}}">{{from}}</a></div>
