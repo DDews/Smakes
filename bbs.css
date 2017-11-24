@@ -476,6 +476,7 @@ a:hover {
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
+    white-space: pre;
 }
 .views {
     color: white;
