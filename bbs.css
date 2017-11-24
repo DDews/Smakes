@@ -1,4 +1,7 @@
 /* CSS declarations go here */
+.row {
+  margin: 0.8rem;
+}
 textarea {
   color: black;
 }
@@ -792,6 +795,7 @@ dt {
 .shoutMsg {
     border-top: 1px dotted #aeaeae;
     text-size: 1.5rem;
+    margin: 0.5rem;
 }
 .itemtable {
     padding-bottom: 0px;

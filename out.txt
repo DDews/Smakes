@@ -24,4 +24,4 @@
 => Server modified -- restarting...                                   => Meteor server restarted
 => Client modified -- refreshing=> Client modified -- refreshing (x2)
 => Server modified -- restarting...                                   => Meteor server restarted
-=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)
+=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)Terminate batch job (Y/N)? 
