@@ -257,7 +257,6 @@ Tracker.autorun(function () {
 	var user = Meteor.user();
 	var username = user && user.username;
 	var smakes = Smakes.find({username: username}).fetch();
-	var deadpixels = DeadPixels.find({username: username}).fetch();
 	_draw();
 });
 Template.game.onRendered( function () {
