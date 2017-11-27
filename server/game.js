@@ -1,4 +1,4 @@
-var interval;
+/*var interval;
 var SIZE = 100;
 var SPEED = 100; // speed in ms
 var Heads = {};
@@ -297,4 +297,4 @@ Meteor.methods({
 		Smakes.remove({});
 		DeadPixels.remove({});
 	}
-});
+});*/
